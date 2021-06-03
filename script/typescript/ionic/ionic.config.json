@@ -1,0 +1,7 @@
+{
+  "name": "SkyEmperor",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}

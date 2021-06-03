@@ -1,0 +1,28 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      Tab Two
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-button (click)="sysc()">DefaultP</ion-button>
+<ion-button (click)="sysct()">DefaultG</ion-button>
+<ion-button (click)="sayMarco()">Defaults</ion-button>
+
+<ion-list>
+  <ion-item *ngFor="let person of persons">
+    <ion-label>name:{{person.name}} id:{{person.id}}</ion-label>
+  </ion-item>
+</ion-list>
+
+<div id="messages">
+    <button class="btn btn-primary" (click)="onSendMessage()">Send Message</button>
+    <h2>Received messages</h2>
+    <ol>
+        <!-- we will use Angular binding to populate list of messages -->
+        <li class="message" *ngFor="let message of receivedMessages"></li>
+    </ol>
+</div>
+
+<ion-content></ion-content>
