@@ -1,0 +1,15 @@
+//application.properties
+
+#基础配置
+spring.artemis.mode=native
+spring.artemis.host=192.168.1.210
+spring.artemis.port=9876
+spring.artemis.user=admin
+spring.artemis.password=secret
+
+#配置CachingConnectionFactory
+spring.jms.cache.session-cache-size=5
+
+#使用原生池
+spring.artemis.pool.enabled=true
+spring.artemis.pool.max-connections=50

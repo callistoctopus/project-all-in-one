@@ -1,0 +1,35 @@
+/*
+ * @Author: keiki
+ * @Date: 2020-11-02 07:42:56
+ * @LastEditTime: 2021-01-04 20:35:03
+ * @LastEditors: keiki
+ * @Description: 
+ */
+package com.example.batchprocessing.processor;
+
+import com.example.batchprocessing.model.Person;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import org.springframework.batch.item.ItemProcessor;
+import org.springframework.stereotype.Component;
+
+@Component
+public class PersonItemProcessor implements ItemProcessor<Person, Person> {
+
+	private static final Logger log = LoggerFactory.getLogger(PersonItemProcessor.class);
+
+	@Override
+	public Person process(final Person person) throws Exception {
+		final String firstName = person.getFirstName().toUpperCase();
+		final String lastName = person.getLastName().toUpperCase();
+
+		final Person transformedPerson = new Person(firstName, lastName);
+
+		log.info(" [[[THREAD]]] :" + Thread.currentThread().getId() + "Converting (" + person + ") into (" + transformedPerson + ")");
+
+		return transformedPerson;
+	}
+
+}

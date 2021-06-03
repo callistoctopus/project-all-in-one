@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans 	xmlns="http://www.springframework.org/schema/beans" 
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns:context="http://www.springframework.org/schema/context" 
+		xmlns:jdbc="http://www.springframework.org/schema/jdbc"  
+		xmlns:jee="http://www.springframework.org/schema/jee" 
+		xmlns:tx="http://www.springframework.org/schema/tx"
+    	xmlns:util="http://www.springframework.org/schema/util" 
+    	xmlns:task="http://www.springframework.org/schema/task" 
+    	xmlns:aop="http://www.springframework.org/schema/aop" 
+    	xmlns:p="http://www.springframework.org/schema/p"
+    	xmlns:websocket="http://www.springframework.org/schema/websocket"
+    	xsi:schemaLocation="
+    	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+    	http://www.springframework.org/schema/websocket http://www.springframework.org/schema/websocket/spring-websocket.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+		http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-4.0.xsd
+		http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-4.0.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.0.xsd
+		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-4.0.xsd"
+
+	default-lazy-init="true">
+
+    <!-- bean definitions here -->
+<!--     <context:component-scan base-package="ai.brain.uif.contacts" /> -->
+
+    <!-- 此行语句使得resource autowired 等四个注解可以使用 -->
+    <context:annotation-config /> 
+    
+    <!-- 使用Annotation自动注册Bean,只扫描@Controller -->
+	<context:component-scan base-package="cn.think.sky">
+		<context:exclude-filter type="annotation" 
+	        expression="org.springframework.stereotype.Controller"/>
+	</context:component-scan>
+    
+    
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+    p:driverClassName="org.postgresql.Driver"
+    p:url="jdbc:postgresql://localhost:5432/skyemperor"
+    p:username="fe_user"
+    p:password="fe_password"
+    p:initialSize="5"
+    p:maxActive="10" />
+    
+    <!-- 
+    	配置消息源（国际化对应）
+    	对应文件/WEB-INF/messages.properties
+    	使用【jsp】:<s:message code="welcome" />
+     -->
+    <bean id="messageSource"
+        class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+        <property name="basenames">
+            <list>
+                <value>/WEB-INF/messages</value>
+            </list>
+        </property>
+    </bean>
+    
+</beans>
+

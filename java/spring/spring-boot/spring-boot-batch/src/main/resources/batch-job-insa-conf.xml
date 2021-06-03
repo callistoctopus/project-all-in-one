@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.springframework.org/schema/aop https://www.springframework.org/schema/aop/spring-aop.xsd
+		http://www.springframework.org/schema/batch https://www.springframework.org/schema/batch/spring-batch.xsd
+		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- 
+		job的组成
+			id：job名称
+			job-repository：默认是'jobRepository'
+			step：一组步骤，也可以为并行处理<split>，条件控制<decision>，处理流<flow>
+
+		job属性：
+			restartable：job存在实例后就不可再启动了，再启动时将抛出异常JobRestartException 
+			abstract：是否为父job
+			parent：指定父job
+			validator ：job参数检查器，默认为DefaultJobParametersValidator
+			listeners：job监听器，监听job启动和结束后的状态，监听器实现JobExecutionListener接口即可
+			常用监听器还有StepExecutionListener，ChunkListener，ItemReadListener，ItemProcessListener，ItemWriteListener，SkipListener
+	-->
+	<job id="insa" parent="baseJob" restartable="true"
+		xmlns="http://www.springframework.org/schema/batch">
+
+		<!--
+			step是job中独立，有序的组成部分
+
+			id：必须项
+			parent：指定父step，继承父step的属性，并可覆盖父step的属性
+			next：当前Step执行成功后的下一个要执行Step，如果当前Step失败将导致当前Job失败。
+			transition：依据条件选择下一个要执行的Step，该属性不可与next同时存在。
+		-->
+		<step id="StepA" parent="baseStep" next="StepB">
+
+			<!--
+				面向chunk的step
+				start-limit：定义该step可以被执行的次数，默认值是Integer.MAX_VALIUE
+				allow-start-if-complete：true 该Step执行成功后允许再次执行，默认false，即执行成功后不再执行
+				transaction-manager：在处理过程中开始并提交事务
+				no-rollback-exception-classes：指定当抛出该异常时不需要回滚的异常（从ItemReader中抛出的异常不会导致回滚）
+			-->
+			<tasklet task-executor="taskExecutor" throttle-limit="20" start-limit="9999999" allow-start-if-complete="true" transaction-manager="transactionManager">
+
+				<!-- 
+					chunk是面向chunk的处理的step
+					reader：ItemReader提供item进行处理 
+					writer：处理由ItemReader提供的item 
+					processor：可选择，否则将由ItemReader直接将item给ItemWriter 
+					commit-interval：定义在提交事务前所处理的item个数 
+					skip-limit：忽略抛出的指定的异常的个数。当抛出的异常超出该个数时，将导致当前step失败。
+					skippable-exception-classes：指定可忽略的异常类型 
+					retry-limit：抛出指定异常时的重试次数
+					retryable-exception-classes：指定可重试的异常类型 
+					is-reader-transactional-queue：是否不需要缓存ItemReader的item，true：不要，false：要（is-reader-transactional-queue="false"）
+					streams：将流注册到step中
+				-->
+				<chunk processor="personItemProcessor" commit-interval="2" skip-limit="10" retry-limit="3">
+					<skippable-exception-classes>
+						<include class="java.lang.Exception"/>
+						<exclude class="java.io.FileNotFoundException"/>
+					</skippable-exception-classes>
+
+					<retryable-exception-classes>
+						<include class="org.springframework.dao.DeadlockLoserDataAccessException"/>
+					</retryable-exception-classes>
+
+				</chunk>
+
+				<no-rollback-exception-classes>
+					<include class="org.springframework.batch.item.validator.ValidationException"/>
+				</no-rollback-exception-classes>
+
+				<!--
+					事务属性
+					isolation： 隔离级别
+					propagation：传播级别
+					timeout：超时时间
+				-->
+				<transaction-attributes isolation="DEFAULT" propagation="REQUIRED" timeout="30"/>
+
+				<!--
+					merge：true 表明该属性不会覆盖父step的同属性，而是与父Step的该属性合并
+				-->
+				<listeners merge="true">
+					<!-- <listener ref="myStepListener"/> -->
+				</listeners>
+
+			</tasklet>
+
+
+		</step>
+
+		<step id="StepB" allow-start-if-complete="true">
+
+			<!--
+				面向tasklet的step
+				ref：定义tasklet对象的实例，该对象继承自Tasklet 接口，实现execute方法即可。
+			-->
+			<tasklet ref="taskletB"/>
+
+			<!--
+				
+				on：匹配由Step返回的ExitStatus，*匹配零个或多个字符，？仅匹配一个字符
+				注：BatchStatus 是JobExecution 及StepExecution 的枚举类型的属性。包括COMPLETED，STARTING，STARTED，STOPPING，STOPPED，FAILED，ABANDONED，UNKNOWN
+					COMPLETED 表示成功执行，FAILED 表示执行失败。
+					ExitStatus表示Step执行完之后的状态，默认情况下与BatchStatus相同。可以自定义ExitStatus类型。
+				to：指定当前条件下的下一个Step id
+			-->			
+			<next on="CUSTOM_CODE" to="StepC"/>
+			<next on="*" to="StepC"/>
+
+			<!--
+				transition属性
+				根据条件终止当前Job，没有指定 'exit-code' 的情况下，默认返回COMPLETED状态
+				on：匹配由Step返回的ExitStatus，*匹配零个或多个字符，？仅匹配一个字符
+			-->	
+			<end on="ALL DONE"/>
+
+			<!--
+				transition属性
+				根据条件终止当前Job，没有指定 'exit-code' 的情况下，默认返回FAILED状态
+				on：匹配由Step返回的ExitStatus，*匹配零个或多个字符，？仅匹配一个字符
+			-->	
+			<fail on="FAILED" exit-code="EARLY TERMINATION"/>
+
+			<!--
+				transition属性
+				根据条件暂停当前Job
+				on：匹配由Step返回的ExitStatus，*匹配零个或多个字符，？仅匹配一个字符
+				restart：制动重启当前Job时要执行的StepC
+			-->	
+			<stop on="HALF DONE" restart="StepC"/>
+		</step>
+
+		<step id="StepC" allow-start-if-complete="true">
+			<tasklet ref="taskletC"/>
+			<next on="*" to="decision"/>
+			<fail on="FAILED" exit-code="EARLY TERMINATION"/>
+		</step>
+
+		<!--
+			判断器
+			当不能仅从ExitStatus判断下一个要执行的Step时，可通过decision进行判断
+			id：decision名称
+			decider：实现了JobExecutionDecider 接口的实例。
+		-->	
+		<decision id="decision" decider="deciderA">
+			<next on="FAILED" to="StepD" />
+			<next on="COMPLETED" to="StepE" />
+		</decision>
+
+		<step id="StepD" allow-start-if-complete="true">
+			<tasklet ref="taskletD"/>
+			<next on="*" to="FlowA"/>
+		</step>
+
+		<step id="StepE" allow-start-if-complete="true">
+			<tasklet ref="taskletE"/>
+			<next on="*" to="SplitA"/>
+		</step>
+
+		<!--
+			处理流
+			可将一组Step定义成一个处理流，以便重用。可以将处理流定义在Job外，以便多个Job重用。
+			将Step定义成一组流的方法还可以使用JobStep，即将多个Step定义成一个Job，然后共其他Job使用。
+		-->	
+		<flow id="FlowA" parent="parentFlow">
+			<next on="*" to="SplitA"/>
+		</flow>
+
+		<!--
+			并行流
+			flow：并行流的定义
+			可以包含transition 属性
+		-->	
+		<split id="SplitA" task-executor="taskExecutor" next="StepX">
+			<flow>
+				<step id="StepH" parent="StepL" next="StepI"/>
+				<step id="StepI" parent="StepL"/>
+			</flow>
+			<flow>
+				<step id="StepJ" parent="StepL"/>
+			</flow>
+		</split>
+
+		<step id="StepX" allow-start-if-complete="true">
+			<tasklet ref="taskletE"/>
+			<end on="*"/>
+		</step>
+
+		<!--
+			merge：true 表明该属性不会覆盖父Job的同属性，而是与父Job的该属性合并
+		-->
+		<listeners merge="true">
+			<listener ref="myJobListener"/>
+		</listeners>
+
+	</job>
+
+</beans>

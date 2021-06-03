@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" 
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.springframework.org/schema/aop https://www.springframework.org/schema/aop/spring-aop.xsd
+		http://www.springframework.org/schema/batch https://www.springframework.org/schema/batch/spring-batch.xsd
+		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <job id="baseJob" job-repository="baseJobRepository" abstract="true"
+        xmlns="http://www.springframework.org/schema/batch">
+        <listeners>
+            <!-- <listener ref="baseJobListener"/> -->
+        </listeners>
+    </job>
+
+    <!--
+        abstract：父step，不可被实例化
+    -->
+    <step id="baseStep" abstract="true" xmlns="http://www.springframework.org/schema/batch">
+        <tasklet allow-start-if-complete="true" transaction-manager="transactionManager">
+            <chunk reader="myFlatFileItemReader" writer="myJdbcBatchItemWriter" commit-interval="10"/>
+            <listeners>
+                <listener ref="baseItemWriteListener"/>
+                <!-- <listener ref="baseItemProcessListener"/>
+                <listener ref="baseItemReadListener"/>
+                <listener ref="baseChunkListener"/>
+                <listener ref="baseStepExecutionListener"/> -->
+            </listeners>
+        </tasklet>
+    </step>
+
+    <step id="StepL" xmlns="http://www.springframework.org/schema/batch">
+        <tasklet allow-start-if-complete="true" ref="taskletL"/>
+    </step>
+
+    <flow id="parentFlow" xmlns="http://www.springframework.org/schema/batch">
+		<step id="StepF" parent="StepX" next="stepG"/>
+		<step id="stepG" parent="StepX"/>
+    </flow>
+
+    <!--
+        JobRepository用于持久化Spring Batch中的对象，如JobExecution和StepExecution，以便JobLauncher, Job, Step等使用
+
+        id：必须配置项
+        max-varchar-length：列的最大长度，默认2500
+        transaction-manager：Spring Batch元数据的事务控制器。默认为transactionManager
+        isolation-level-for-create：隔离级别，默认SERIALIZABLE
+        table-prefix：用于配置表前缀，默认BATCH_
+
+        另：
+        在不需要持久化Spring Batch中的元数据时，可以使用基于内存的Map，如下所示：
+        <bean id="jobRepository"
+            class="org.springframework.batch.core.repository.support.MapJobRepositoryFactoryBean">
+            <property name="transactionManager" ref="transactionManager"/>
+        </bean>
+
+        非标准数据库类型
+        <bean id="jobRepository" class="org...JobRepositoryFactoryBean">
+            <property name="databaseType" value="db2"/>
+            <property name="dataSource" ref="dataSource"/>
+        </bean>
+        
+    -->
+    <job-repository id="baseJobRepository" 
+        data-source="batchRuntimeInfoDataSource" 
+        transaction-manager="transactionManager" 
+        isolation-level-for-create="SERIALIZABLE" 
+        table-prefix="BATCH_" 
+        max-varchar-length="1000"
+        xmlns="http://www.springframework.org/schema/batch"/>
+
+</beans>
