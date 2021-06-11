@@ -6,6 +6,7 @@ import java.net.UnknownHostException;
 import java.util.HashMap;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -14,6 +15,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping(value="/bingo")
 public class TestController {
+
+    @Value("${appname}")
+    private String appname;
+
+    @Value("${apptype}")
+    private String apptype;
 
     @RequestMapping(value="", method=RequestMethod.GET)
     public String getMetaInfo() {
@@ -28,6 +35,8 @@ public class TestController {
 		}
 
         infoMap.put("server ip", ipaddr);
+        infoMap.put("app name", appname);
+        infoMap.put("app type", apptype);
 
         return infoMap.toString();
     }
