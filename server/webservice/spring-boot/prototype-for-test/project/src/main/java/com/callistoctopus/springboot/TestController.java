@@ -1,7 +1,6 @@
 package com.callistoctopus.springboot;
 
 import java.net.Inet4Address;
-import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.HashMap;
 import java.util.List;
@@ -16,10 +15,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(value="/bingo")
 public class TestController {
 
-    @Value("${appname}")
+    @Value("${appname:AppName(default)}")
     private String appname;
 
-    @Value("${apptype}")
+    @Value("${apptype:AppType(default)}")
     private String apptype;
 
     @RequestMapping(value="", method=RequestMethod.GET)
