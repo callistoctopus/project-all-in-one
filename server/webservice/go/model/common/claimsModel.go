@@ -4,11 +4,11 @@
  */
 package claimsModel
 
-// import (
-// 	"github.com/dgrijalva/jwt-go"
-// )
+import (
+	"github.com/dgrijalva/jwt-go"
+)
 
 type JwtClaimsModel struct {
 	Appid string
-	// jwt.StandardClaims
+	jwt.StandardClaims
 }
