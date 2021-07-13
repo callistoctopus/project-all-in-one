@@ -5,8 +5,8 @@
 package service
 
 import (
-	"demoService/model/requestModel"
-	"demoService/repository"
+	"goweb/model/requestModel"
+	"goweb/repository"
 	"errors"
 )
 
@@ -17,12 +17,12 @@ func Login(req requestModel.LoginRequestModel) (bool, string, error) {
 	if ret {
 		if user.Password == req.Password {
 			if user.Appid == req.Appid {
-				token, err = generateToken(user)
+				// token, err = generateToken(user)
 			} else if req.Appid != "" {
 				user.Appid = req.Appid
 				ret, err = userRepository.UpdateAppidByUsername(user.Username, user.Appid)
 				if ret && err == nil {
-					token, err = generateToken(user)
+					// token, err = generateToken(user)
 				}
 			} else {
 				err = errors.New("无效设备")

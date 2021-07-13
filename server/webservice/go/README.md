@@ -100,3 +100,8 @@ jwt："github.com/dgrijalva/jwt-go"<br>
 Gin框架中文文档 https://www.jianshu.com/p/98965b3ff638/<br>
 Go语言入门教程  http://c.biancheng.net/golang/<br>
 gin基于JWT实现token令牌功能 https://www.jianshu.com/p/1f9915818992<br>
+
+# 运行环境构建
+go mod init geweb
+go mod tidy
+go build

@@ -5,7 +5,7 @@
 package service
 
 import (
-	"demoService/repository"
+	"goweb/repository"
 )
 
 func GetUsers() (bool, []string, error) {

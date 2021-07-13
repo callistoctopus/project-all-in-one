@@ -5,8 +5,8 @@
 package userRepository
 
 import (
-	"demoService/model"
-	"demoService/util"
+	"goweb/model"
+	"goweb/util"
 	"encoding/json"
 	"errors"
 	"log"

@@ -5,10 +5,10 @@
 package apis
 
 import (
-	"demoService/model/common"
-	"demoService/model/requestModel"
-	"demoService/model/responseModel"
-	"demoService/services"
+	// "goweb/model/common"
+	"goweb/model/requestModel"
+	"goweb/model/responseModel"
+	"goweb/services"
 	"errors"
 	"log"
 	"net/http"
@@ -86,15 +86,15 @@ func GetUsers(c *gin.Context) {
 
 	if c.BindJSON(&mGetUsersReq) == nil {
 
-		var isValid bool = false
-		var claims *claimsModel.JwtClaimsModel
-		isValid, claims, err = service.VerifyToken(mGetUsersReq.Token)
-		if isValid {
-			ret, err = service.VerifyAppid(claims.StandardClaims.Issuer, claims.Appid)
-			if ret {
+		// var isValid bool = false
+		// var claims *claimsModel.JwtClaimsModel
+		// isValid, claims, err = service.VerifyToken(mGetUsersReq.Token)
+		// if isValid {
+			// ret, err = service.VerifyAppid(claims.StandardClaims.Issuer, claims.Appid)
+			// if ret {
 				ret, mGetUsersRes, err = service.GetUsers()
-			}
-		}
+			// }
+		// }
 	} else {
 		err = errors.New("参数错误")
 	}

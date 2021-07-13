@@ -5,11 +5,11 @@
 package service
 
 import (
-	"demoService/model"
-	"demoService/model/requestModel"
-	"demoService/model/responseModel"
-	"demoService/repository"
-	"demoService/util"
+	"goweb/model"
+	"goweb/model/requestModel"
+	"goweb/model/responseModel"
+	"goweb/repository"
+	"goweb/util"
 	"errors"
 	"unicode/utf8"
 )

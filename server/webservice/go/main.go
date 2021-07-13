@@ -5,7 +5,7 @@
 package main
 
 import (
-	"demoService/apis"
+	"goweb/apis"
 
 	"github.com/gin-gonic/gin"
 	"go.etcd.io/bbolt"
