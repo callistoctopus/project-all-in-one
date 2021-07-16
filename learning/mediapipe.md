@@ -113,6 +113,7 @@ bazel run --define MEDIAPIPE_DISABLE_GPU=1 \
 1. Install Docker
    
 2. Build a docker image
+yum -y install git
 git clone https://github.com/google/mediapipe.git
 cd mediapipe
 docker build --tag=mediapipe .
