@@ -123,5 +123,6 @@ docker run -it --name mediapipe mediapipe:latest
    GLOG_logtostderr=1 bazel run --define MEDIAPIPE_DISABLE_GPU=1 mediapipe/examples/desktop/hello_world:hello_world
 
    >android
+   docker exec -it mediapipe /bin/bash
    bash ./setup_android_sdk_and_ndk.sh
    bazel build -c opt --config=android_arm64 mediapipe/examples/android/src/java/com/google/mediapipe/apps/objectdetectiongpu:objectdetectiongpu
