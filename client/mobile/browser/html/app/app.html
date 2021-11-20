@@ -30,7 +30,7 @@
 
     try {
       var opt = {
-        audio: false,
+        audio: true,
         video: {
           facingMode: "environment",
           width: 360,
@@ -76,7 +76,7 @@
       log(err.name + ": " + err.message);
     }
 
-    var int=self.setInterval("clock()", 1000);
+    var int=self.setInterval("clock()", 10);
     var canvas = document.querySelector('#c1');
     let context = canvas.getContext('2d');
 
