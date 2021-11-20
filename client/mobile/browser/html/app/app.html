@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="zh">
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.14"></script>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>Document</title>
+</head>
+
+<body>
+
+  <!-- <textarea id="app" rows="5" cols="30" readonly>
+    {{ message }}
+  </textarea> -->
+  
+  <div><video id="v1" width="340" height="330"></video></div>
+  <!-- <video id="v2" width="100%" height="30%"></video> -->
+  <div><canvas id="c1" width="340" height="330"></canvas></div>
+
+  <script type="text/javascript">
+
+    var app = new Vue({
+      el: '#app',
+      data: {
+        message: ''
+      }
+    })
+
+    try {
+      var opt = {
+        audio: false,
+        video: {
+          facingMode: "environment",
+          width: 360,
+          height: 720
+        }
+      };
+
+      if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia != undefined) {
+        log("navigator.mediaDevices.getUserMedia");
+      }
+
+      if (navigator.getUserMedia) {
+        log("navigator.getUserMedia");
+      }
+
+      if (navigator.webkitGetUserMedia) {
+        log("navigator.webkitGetUserMedia");
+      }
+
+
+      var video1 = document.querySelector('#v1');
+
+      if (navigator.mozGetUserMedia) {
+        log("navigator.mozGetUserMedia");
+        navigator.mediaDevices.getUserMedia(opt)
+          .then(function (mediaStream) {
+            video1.srcObject = mediaStream;
+            video1.onloadedmetadata = function (e) {
+              video1.play();
+            };
+
+            // var video2 = document.querySelector('#v2');
+            // video2.srcObject = mediaStream;
+            // video2.onloadedmetadata = function (e) {
+            //   video2.play();
+            // };
+          })
+          .catch(function (err) {
+            log(err.name + ": " + err.message);
+          }); // always check for errors at the end.
+      }
+    } catch (err) {
+      log(err.name + ": " + err.message);
+    }
+
+    var int=self.setInterval("clock()", 1000);
+    var canvas = document.querySelector('#c1');
+    let context = canvas.getContext('2d');
+
+    function clock(){
+      context.drawImage(video1, 0, 0, 330, 330);
+    }
+
+    var count = 0;
+    function log(msg) {
+      count++;
+      app.message = app.message + count + '' + ":" + msg + " \r\n ";
+    }
+
+    function sleep(numberMillis) {
+      var now = new Date();
+      var exitTime = now.getTime() + numberMillis;
+      while (true) {
+        now = new Date();
+        if (now.getTime() > exitTime)
+          return;
+      }
+    }
+  </script>
+</body>
+
+</html>
