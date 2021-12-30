@@ -1,6 +1,6 @@
 <mxfile host="65bd71144e">
     <diagram id="YTUYhWcBJtkQbph42lfV" name="login">
-        <mxGraphModel dx="1502" dy="863" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+        <mxGraphModel dx="1228" dy="863" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -36,7 +36,7 @@
         </mxGraphModel>
     </diagram>
     <diagram id="6zdwth1MCDCU54DRQet1" name="pm-projects">
-        <mxGraphModel dx="1502" dy="863" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+        <mxGraphModel dx="1228" dy="863" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
             <root>
                 <mxCell id="9ARHHFNPeTF1wXbL7fjG-0"/>
                 <mxCell id="9ARHHFNPeTF1wXbL7fjG-1" parent="9ARHHFNPeTF1wXbL7fjG-0"/>
@@ -77,11 +77,41 @@
                         <mxGeometry x="1100" y="5" width="40" height="20" as="geometry"/>
                     </mxCell>
                 </UserObject>
+                <UserObject label="创建项目" link="data:page/id,rDext7rmrLTblYDuwJ68" id="6xjODXcL8hWc7I_NWcEJ-0">
+                    <mxCell style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="9ARHHFNPeTF1wXbL7fjG-1">
+                        <mxGeometry x="10" y="5" width="70" height="20" as="geometry"/>
+                    </mxCell>
+                </UserObject>
+                <mxCell id="zw86AELYjsM3aCb29WeC-0" value="删除项目" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="9ARHHFNPeTF1wXbL7fjG-1">
+                    <mxGeometry x="80" y="5" width="70" height="20" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+    <diagram name="pm-project-edit" id="rDext7rmrLTblYDuwJ68">
+        <mxGraphModel dx="1228" dy="863" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+            <root>
+                <mxCell id="1f_rh4b-7PqP2Q896tqK-0"/>
+                <mxCell id="1f_rh4b-7PqP2Q896tqK-1" parent="1f_rh4b-7PqP2Q896tqK-0"/>
+                <mxCell id="1f_rh4b-7PqP2Q896tqK-2" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1f_rh4b-7PqP2Q896tqK-1">
+                    <mxGeometry width="1150" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="1f_rh4b-7PqP2Q896tqK-4" value="创建/编辑" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1f_rh4b-7PqP2Q896tqK-1">
+                    <mxGeometry x="530" y="5" width="150" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="1f_rh4b-7PqP2Q896tqK-5" value="用户名" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1f_rh4b-7PqP2Q896tqK-1">
+                    <mxGeometry x="1030" y="5" width="40" height="20" as="geometry"/>
+                </mxCell>
+                <UserObject label="返回" link="data:page/id,6zdwth1MCDCU54DRQet1" id="1f_rh4b-7PqP2Q896tqK-12">
+                    <mxCell style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1f_rh4b-7PqP2Q896tqK-1">
+                        <mxGeometry x="1100" y="5" width="40" height="20" as="geometry"/>
+                    </mxCell>
+                </UserObject>
             </root>
         </mxGraphModel>
     </diagram>
     <diagram id="hIt5eR0NHSgrEP4bjatY" name="pm-project-detail">
-        <mxGraphModel dx="1502" dy="863" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+        <mxGraphModel dx="1228" dy="863" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
             <root>
                 <mxCell id="lEOkNR6rFQoBbIpDs8Dj-0"/>
                 <mxCell id="lEOkNR6rFQoBbIpDs8Dj-1" parent="lEOkNR6rFQoBbIpDs8Dj-0"/>
@@ -116,7 +146,7 @@
                         <mxGeometry y="120" width="110" height="30" as="geometry"/>
                     </mxCell>
                 </UserObject>
-                <UserObject label="成本" link="data:page/id,4Wt4PZLznqAMzSJT7sem" id="ZVh_KMmbEQ2IV04V2A9B-3">
+                <UserObject label="成本/收益" link="data:page/id,4Wt4PZLznqAMzSJT7sem" id="ZVh_KMmbEQ2IV04V2A9B-3">
                     <mxCell style="rounded=1;whiteSpace=wrap;html=1;" parent="lEOkNR6rFQoBbIpDs8Dj-1" vertex="1">
                         <mxGeometry y="150" width="110" height="30" as="geometry"/>
                     </mxCell>
@@ -146,7 +176,7 @@
                         <mxGeometry y="300" width="110" height="30" as="geometry"/>
                     </mxCell>
                 </UserObject>
-                <UserObject label="通知" link="data:page/id,_0m9TOMzuaLjCgs1e7Ry" id="ZVh_KMmbEQ2IV04V2A9B-10">
+                <UserObject label="通知/公告" link="data:page/id,_0m9TOMzuaLjCgs1e7Ry" id="ZVh_KMmbEQ2IV04V2A9B-10">
                     <mxCell style="rounded=1;whiteSpace=wrap;html=1;" parent="lEOkNR6rFQoBbIpDs8Dj-1" vertex="1">
                         <mxGeometry y="210" width="110" height="30" as="geometry"/>
                     </mxCell>
@@ -173,7 +203,7 @@
         </mxGraphModel>
     </diagram>
     <diagram name="pm-project-progress" id="zrmcVN_gsQbji1DdVkLv">
-        <mxGraphModel dx="1502" dy="863" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+        <mxGraphModel dx="1228" dy="863" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
             <root>
                 <mxCell id="3LQ6XYUn-p4MZFs8UeIG-0"/>
                 <mxCell id="3LQ6XYUn-p4MZFs8UeIG-1" parent="3LQ6XYUn-p4MZFs8UeIG-0"/>
@@ -829,7 +859,7 @@
         </mxGraphModel>
     </diagram>
     <diagram name="pm-project-create-notify" id="_0m9TOMzuaLjCgs1e7Ry">
-        <mxGraphModel dx="1502" dy="863" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+        <mxGraphModel dx="1228" dy="863" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
             <root>
                 <mxCell id="gmNVYlc6DwmPd5qBrYbv-0"/>
                 <mxCell id="gmNVYlc6DwmPd5qBrYbv-1" parent="gmNVYlc6DwmPd5qBrYbv-0"/>
