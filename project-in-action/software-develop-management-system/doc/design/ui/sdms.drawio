@@ -2057,35 +2057,35 @@
                 <mxCell id="LdNZPHkSnLDrzyNugGZi-2" value="截止日期：今天" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="99BMnRSnj80s1O_aNtFK-1" vertex="1">
                     <mxGeometry x="170" y="70" width="100" height="20" as="geometry"/>
                 </mxCell>
-                <mxCell id="LdNZPHkSnLDrzyNugGZi-4" value="状态：阻塞" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="99BMnRSnj80s1O_aNtFK-1" vertex="1">
+                <mxCell id="LdNZPHkSnLDrzyNugGZi-4" value="状态：延期" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="99BMnRSnj80s1O_aNtFK-1" vertex="1">
                     <mxGeometry x="170" y="50" width="100" height="20" as="geometry"/>
                 </mxCell>
                 <mxCell id="LdNZPHkSnLDrzyNugGZi-5" value="作业标题" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;whiteSpace=wrap;rounded=0;" parent="99BMnRSnj80s1O_aNtFK-1" vertex="1">
                     <mxGeometry y="50" width="160" height="40" as="geometry"/>
                 </mxCell>
                 <mxCell id="LdNZPHkSnLDrzyNugGZi-6" value="" style="rounded=1;whiteSpace=wrap;html=1;" parent="99BMnRSnj80s1O_aNtFK-1" vertex="1">
-                    <mxGeometry y="90" width="270" height="40" as="geometry"/>
+                    <mxGeometry y="320" width="270" height="40" as="geometry"/>
                 </mxCell>
                 <mxCell id="LdNZPHkSnLDrzyNugGZi-7" value="截止日期：今天" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="99BMnRSnj80s1O_aNtFK-1" vertex="1">
-                    <mxGeometry x="170" y="110" width="100" height="20" as="geometry"/>
+                    <mxGeometry x="170" y="340" width="100" height="20" as="geometry"/>
                 </mxCell>
                 <mxCell id="LdNZPHkSnLDrzyNugGZi-8" value="状态：阻塞" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="99BMnRSnj80s1O_aNtFK-1" vertex="1">
-                    <mxGeometry x="170" y="90" width="100" height="20" as="geometry"/>
+                    <mxGeometry x="170" y="320" width="100" height="20" as="geometry"/>
                 </mxCell>
                 <mxCell id="LdNZPHkSnLDrzyNugGZi-9" value="作业标题" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;whiteSpace=wrap;rounded=0;" parent="99BMnRSnj80s1O_aNtFK-1" vertex="1">
-                    <mxGeometry y="90" width="160" height="40" as="geometry"/>
+                    <mxGeometry y="320" width="160" height="40" as="geometry"/>
                 </mxCell>
                 <mxCell id="LdNZPHkSnLDrzyNugGZi-10" value="" style="rounded=1;whiteSpace=wrap;html=1;" parent="99BMnRSnj80s1O_aNtFK-1" vertex="1">
-                    <mxGeometry y="130" width="270" height="40" as="geometry"/>
+                    <mxGeometry y="360" width="270" height="40" as="geometry"/>
                 </mxCell>
                 <mxCell id="LdNZPHkSnLDrzyNugGZi-11" value="截止日期：今天" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="99BMnRSnj80s1O_aNtFK-1" vertex="1">
-                    <mxGeometry x="170" y="150" width="100" height="20" as="geometry"/>
+                    <mxGeometry x="170" y="380" width="100" height="20" as="geometry"/>
                 </mxCell>
                 <mxCell id="LdNZPHkSnLDrzyNugGZi-12" value="状态：阻塞" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="99BMnRSnj80s1O_aNtFK-1" vertex="1">
-                    <mxGeometry x="170" y="130" width="100" height="20" as="geometry"/>
+                    <mxGeometry x="170" y="360" width="100" height="20" as="geometry"/>
                 </mxCell>
                 <mxCell id="LdNZPHkSnLDrzyNugGZi-13" value="作业标题" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;whiteSpace=wrap;rounded=0;" parent="99BMnRSnj80s1O_aNtFK-1" vertex="1">
-                    <mxGeometry y="130" width="160" height="40" as="geometry"/>
+                    <mxGeometry y="360" width="160" height="40" as="geometry"/>
                 </mxCell>
                 <mxCell id="LdNZPHkSnLDrzyNugGZi-14" value="" style="rounded=1;whiteSpace=wrap;html=1;" parent="99BMnRSnj80s1O_aNtFK-1" vertex="1">
                     <mxGeometry y="220" width="270" height="40" as="geometry"/>
@@ -2129,8 +2129,8 @@
                 <mxCell id="QsKn6ZMqAp6MiPgCWRz8-4" value="驳回" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="99BMnRSnj80s1O_aNtFK-1" vertex="1">
                     <mxGeometry x="510" y="35" width="40" height="20" as="geometry"/>
                 </mxCell>
-                <mxCell id="QsKn6ZMqAp6MiPgCWRz8-6" value="调剂" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="99BMnRSnj80s1O_aNtFK-1" vertex="1">
-                    <mxGeometry x="555" y="35" width="30" height="20" as="geometry"/>
+                <mxCell id="QsKn6ZMqAp6MiPgCWRz8-6" value="申请调剂" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="99BMnRSnj80s1O_aNtFK-1" vertex="1">
+                    <mxGeometry x="559.25" y="35" width="50.5" height="20" as="geometry"/>
                 </mxCell>
                 <mxCell id="QsKn6ZMqAp6MiPgCWRz8-7" value="上一流程" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="99BMnRSnj80s1O_aNtFK-1" vertex="1">
                     <mxGeometry x="280" y="35" width="90" height="20" as="geometry"/>
@@ -2157,10 +2157,10 @@
                     <mxGeometry x="10" y="740" width="90" height="20" as="geometry"/>
                 </mxCell>
                 <mxCell id="Bcy0zuTkAwqm5y2v7-W2-0" value="终止" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="99BMnRSnj80s1O_aNtFK-1" vertex="1">
-                    <mxGeometry x="620" y="35" width="40" height="20" as="geometry"/>
+                    <mxGeometry x="660" y="35" width="40" height="20" as="geometry"/>
                 </mxCell>
                 <mxCell id="Bcy0zuTkAwqm5y2v7-W2-1" value="中止" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="99BMnRSnj80s1O_aNtFK-1" vertex="1">
-                    <mxGeometry x="660" y="35" width="40" height="20" as="geometry"/>
+                    <mxGeometry x="700" y="35" width="40" height="20" as="geometry"/>
                 </mxCell>
                 <mxCell id="Bcy0zuTkAwqm5y2v7-W2-2" value="" style="rounded=1;whiteSpace=wrap;html=1;align=left;" parent="99BMnRSnj80s1O_aNtFK-1" vertex="1">
                     <mxGeometry x="270" y="70" width="880" height="210" as="geometry"/>
@@ -2169,7 +2169,7 @@
                     <mxGeometry x="270" y="290" width="880" height="130" as="geometry"/>
                 </mxCell>
                 <mxCell id="tpZSj-NgAc6xXx-WzoWw-0" value="进度" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="99BMnRSnj80s1O_aNtFK-1" vertex="1">
-                    <mxGeometry x="725" y="35" width="40" height="20" as="geometry"/>
+                    <mxGeometry x="790" y="35" width="40" height="20" as="geometry"/>
                 </mxCell>
                 <mxCell id="tpZSj-NgAc6xXx-WzoWw-2" value="任务信息" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="99BMnRSnj80s1O_aNtFK-1" vertex="1">
                     <mxGeometry x="280" y="80" width="60" height="20" as="geometry"/>
@@ -2232,6 +2232,51 @@
                 </mxCell>
                 <mxCell id="0GGF8m8irKUT6molqSbB-2" value="通知" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=12;" parent="99BMnRSnj80s1O_aNtFK-1" vertex="1">
                     <mxGeometry x="90" y="610" width="90" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="7iSwF-U8lNSrvayxg38g-8" value="" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="99BMnRSnj80s1O_aNtFK-1">
+                    <mxGeometry y="120" width="270" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="7iSwF-U8lNSrvayxg38g-9" value="截止日期：12/20" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="99BMnRSnj80s1O_aNtFK-1">
+                    <mxGeometry x="170" y="140" width="100" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="7iSwF-U8lNSrvayxg38g-10" value="状态：待完成" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="99BMnRSnj80s1O_aNtFK-1">
+                    <mxGeometry x="170" y="120" width="100" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="7iSwF-U8lNSrvayxg38g-11" value="作业标题" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;whiteSpace=wrap;rounded=0;" vertex="1" parent="99BMnRSnj80s1O_aNtFK-1">
+                    <mxGeometry y="120" width="160" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="7iSwF-U8lNSrvayxg38g-12" value="" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="99BMnRSnj80s1O_aNtFK-1">
+                    <mxGeometry y="160" width="270" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="7iSwF-U8lNSrvayxg38g-13" value="截止日期：12/8" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="99BMnRSnj80s1O_aNtFK-1">
+                    <mxGeometry x="170" y="180" width="100" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="7iSwF-U8lNSrvayxg38g-14" value="状态：待完成" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="99BMnRSnj80s1O_aNtFK-1">
+                    <mxGeometry x="170" y="160" width="100" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="7iSwF-U8lNSrvayxg38g-15" value="作业标题" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;whiteSpace=wrap;rounded=0;" vertex="1" parent="99BMnRSnj80s1O_aNtFK-1">
+                    <mxGeometry y="160" width="160" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="7iSwF-U8lNSrvayxg38g-16" value="任务类型：计划任务" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="99BMnRSnj80s1O_aNtFK-1">
+                    <mxGeometry y="70" width="120" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="7iSwF-U8lNSrvayxg38g-17" value="任务类型：临时任务" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="99BMnRSnj80s1O_aNtFK-1">
+                    <mxGeometry y="140" width="120" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="7iSwF-U8lNSrvayxg38g-18" value="任务类型：计划任务" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="99BMnRSnj80s1O_aNtFK-1">
+                    <mxGeometry y="180" width="120" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="7iSwF-U8lNSrvayxg38g-19" value="任务类型：计划任务" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="99BMnRSnj80s1O_aNtFK-1">
+                    <mxGeometry y="240" width="120" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="7iSwF-U8lNSrvayxg38g-20" value="任务类型：计划任务" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="99BMnRSnj80s1O_aNtFK-1">
+                    <mxGeometry y="280" width="120" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="7iSwF-U8lNSrvayxg38g-21" value="任务类型：计划任务" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="99BMnRSnj80s1O_aNtFK-1">
+                    <mxGeometry y="340" width="120" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="7iSwF-U8lNSrvayxg38g-22" value="任务类型：计划任务" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="99BMnRSnj80s1O_aNtFK-1">
+                    <mxGeometry y="380" width="120" height="20" as="geometry"/>
                 </mxCell>
             </root>
         </mxGraphModel>
