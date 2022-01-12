@@ -48,7 +48,7 @@
                 </mxCell>
                 <UserObject label="" link="data:page/id,hIt5eR0NHSgrEP4bjatY" id="4XbCyd7gQ7cuH0UCO89K-1">
                     <mxCell style="rounded=0;whiteSpace=wrap;html=1;" parent="9ARHHFNPeTF1wXbL7fjG-1" vertex="1">
-                        <mxGeometry x="10" y="40" width="170" height="90" as="geometry"/>
+                        <mxGeometry x="10" y="40" width="280" height="90" as="geometry"/>
                     </mxCell>
                 </UserObject>
                 <mxCell id="qRdH0rDy7Zs5ooK24fi5-0" value="项目一览" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="9ARHHFNPeTF1wXbL7fjG-1" vertex="1">
@@ -58,10 +58,10 @@
                     <mxGeometry x="1100" y="5" width="40" height="20" as="geometry"/>
                 </mxCell>
                 <mxCell id="qRdH0rDy7Zs5ooK24fi5-1" value="项目名称" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=1;fontSize=14;" parent="9ARHHFNPeTF1wXbL7fjG-1" vertex="1">
-                    <mxGeometry x="14" y="49" width="120" height="20" as="geometry"/>
+                    <mxGeometry x="14" y="46" width="120" height="20" as="geometry"/>
                 </mxCell>
                 <mxCell id="qRdH0rDy7Zs5ooK24fi5-2" value="XXX公司" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="9ARHHFNPeTF1wXbL7fjG-1" vertex="1">
-                    <mxGeometry x="53" y="69" width="60" height="20" as="geometry"/>
+                    <mxGeometry x="80" y="69" width="60" height="20" as="geometry"/>
                 </mxCell>
                 <mxCell id="qRdH0rDy7Zs5ooK24fi5-3" value="负责人" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="9ARHHFNPeTF1wXbL7fjG-1" vertex="1">
                     <mxGeometry x="13" y="89" width="40" height="20" as="geometry"/>
@@ -148,6 +148,9 @@
                 </mxCell>
                 <mxCell id="-sbL0qER2rZ_Jjeawtyn-1" value="项目管理者" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1f_rh4b-7PqP2Q896tqK-1" vertex="1">
                     <mxGeometry x="140" y="110" width="70" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="bC1PV81fMDNM_jQUgNkB-0" value="上级项目" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1f_rh4b-7PqP2Q896tqK-1">
+                    <mxGeometry x="550" y="45" width="70" height="20" as="geometry"/>
                 </mxCell>
             </root>
         </mxGraphModel>
