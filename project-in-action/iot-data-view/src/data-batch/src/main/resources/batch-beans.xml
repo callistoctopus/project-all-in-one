@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:p="http://www.springframework.org/schema/p"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.springframework.org/schema/aop https://www.springframework.org/schema/aop/spring-aop.xsd
+		http://www.springframework.org/schema/batch https://www.springframework.org/schema/batch/spring-batch.xsd
+		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+    <!--
+        JobRepository用数据源
+    -->
+    <bean id="batchRuntimeInfoDataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close" primary="true">
+        <property name="url" value="jdbc:mysql://10.225.143.149:3306/batch_info" />
+        <property name="username" value="root" />
+        <property name="password" value="root" />
+    </bean>
+
+    <!--
+        业务用数据源
+    -->
+    <bean id="businessDataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+        <property name="url" value="jdbc:mysql://10.225.143.149:3306/iot_data_store" />
+        <property name="username" value="root" />
+        <property name="password" value="root" />
+    </bean>
+
+    <!--
+        JobLauncher
+        可添加一下属性用于异步执行job
+        <property name="taskExecutor">
+            <bean class="org.springframework.core.task.SimpleAsyncTaskExecutor" />
+        </property>
+    -->
+    <!-- <bean id="jobLauncher"
+        class="org.springframework.batch.core.launch.support.SimpleJobLauncher">
+        <property name="jobRepository" ref="jobRepository" />
+    </bean> -->
+
+    <!--
+        JobExplorer
+        用于查询已存在的executions
+    -->
+    <!-- <bean id="jobExplorer" class="org.spr...JobExplorerFactoryBean"
+      p:dataSource-ref="batchRuntimeInfoDataSource" /> -->
+
+    <bean id="taskExecutor" 
+                class="org.springframework.core.task.SimpleAsyncTaskExecutor"/>
+
+	<bean id="directory"
+				class="org.springframework.core.io.FileSystemResource">
+		<constructor-arg value="target" />
+	</bean>
+
+</beans>
