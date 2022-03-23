@@ -7,6 +7,7 @@ docker run -itd \
     node:lts-alpine
 
 npm install -g @angular/cli
+npm install angular-in-memory-web-api --save
 ng serve --port 4200 --host 0.0.0.0
 
 
