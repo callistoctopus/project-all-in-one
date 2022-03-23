@@ -1,5 +1,5 @@
 docker run -itd \
-    -v /var/work/projects/project-in-action/iot-data-view/src/web-view/aglweb:/var/work \
+    -v /var/work/projects/project-in-action/iot-data-view/src/web-view/aglweb:/var/work/aglweb \
     -v /var/work/volumes/config/node/npmrc:/usr/local/etc/npmrc \
     -p 8081:4200 \
     --name web-view-ng \
