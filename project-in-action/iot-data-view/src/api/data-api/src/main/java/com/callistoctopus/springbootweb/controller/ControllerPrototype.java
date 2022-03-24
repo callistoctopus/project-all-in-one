@@ -9,7 +9,11 @@ import java.util.List;
 import java.util.Stack;
 import java.util.UUID;
 
+import com.callistoctopus.springbootweb.dao.HeroDao;
+import com.callistoctopus.springbootweb.model.po.Hero;
+
 import org.apache.commons.codec.binary.Base64;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,11 +24,14 @@ import io.swagger.annotations.Api;
 
 @Api(value = "desc of class")
 @RestController
-@RequestMapping(value="/king")
+@RequestMapping(value="/api")
 public class ControllerPrototype {
 
     // private List<Pic> picList = new ArrayList<Pic>();
     Stack<Pic> picList = new Stack<Pic>();
+
+    @Autowired
+    HeroDao heroDao;
 
     synchronized void push(Pic pic){
         picList.push(pic);
@@ -32,6 +39,14 @@ public class ControllerPrototype {
 
     synchronized Pic pop(){
         return picList.pop();
+    }
+
+    @RequestMapping(value="/heroes", method=RequestMethod.GET)
+    List<Hero> getCustomers() throws Exception {
+        List<Hero> list = new ArrayList<>();
+        Iterable<Hero> geted = heroDao.findAll();
+        geted.forEach(single -> {list.add(single);});
+        return list;
     }
 
     @RequestMapping(value="/upload", method=RequestMethod.POST)
