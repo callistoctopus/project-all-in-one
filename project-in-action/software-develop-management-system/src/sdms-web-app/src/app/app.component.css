@@ -1,0 +1,10 @@
+mat-toolbar {
+    background-color:#268AFF;
+    display: flex
+}
+
+span {
+  flex: 2;
+}
+
+
