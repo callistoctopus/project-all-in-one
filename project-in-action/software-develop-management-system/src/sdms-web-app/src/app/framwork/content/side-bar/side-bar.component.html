@@ -1,13 +1,7 @@
 <div class="side">
-  <!-- <button mat-button> -->
-  <a (click)="toggle()"
-    ><mat-icon aria-hidden="false" aria-label="Example home icon"
-      >menu</mat-icon
-    ></a
-  >
-  <!-- </button> -->
-  <a href="#home">Home</a>
-  <a href="#news">News</a>
-  <a href="#contact">Contact</a>
-  <a href="#about">About</a>
+
+  <a *ngFor="let item of functions; index as i" (click)="toggle()">
+    <mat-icon>{{item}}</mat-icon>
+  </a>
+
 </div>

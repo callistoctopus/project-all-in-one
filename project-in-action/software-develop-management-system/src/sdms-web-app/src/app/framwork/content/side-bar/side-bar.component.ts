@@ -8,6 +8,8 @@ import { ViewConfigularService } from 'src/app/framwork/service/view-configular/
 })
 export class SideBarComponent implements OnInit {
 
+  functions = ['home','home','home'];
+
   constructor(private view:ViewConfigularService) { }
 
   ngOnInit(): void {
