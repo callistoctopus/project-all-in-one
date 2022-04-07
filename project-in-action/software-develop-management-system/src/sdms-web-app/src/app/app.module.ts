@@ -7,17 +7,33 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatIconModule} from '@angular/material/icon';
+import { HeadBarComponent } from './framwork/head-bar/head-bar.component';
+import { SideBarComponent } from './framwork/content/side-bar/side-bar.component';
+import { FootBarComponent } from './framwork/foot-bar/foot-bar.component';
+import {MatSidenavModule} from '@angular/material/sidenav';
+import { ContentComponent } from './framwork/content/content.component';
+import { SideContentComponent } from './framwork/content/side-content/side-content.component';
+import { FunctionContentComponent } from './function-content/function-content.component';
+import { SideContentNavComponent } from './framwork/content/side-content-nav/side-content-nav.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    HeadBarComponent,
+    SideBarComponent,
+    FootBarComponent,
+    ContentComponent,
+    SideContentComponent,
+    FunctionContentComponent,
+    SideContentNavComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     MatToolbarModule,
-    MatIconModule
+    MatIconModule,
+    MatSidenavModule
   ],
   providers: [],
   bootstrap: [AppComponent]
