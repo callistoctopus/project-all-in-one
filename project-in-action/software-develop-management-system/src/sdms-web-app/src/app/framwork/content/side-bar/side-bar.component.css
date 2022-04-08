@@ -1,9 +1,8 @@
 .side {
-  float: left;
+  /* float: left; */
   height: 100%;
-  overflow: hidden;
-  background-color: #333;
-  width: 45px;
+  width: 5%;
+  background-color: rgb(44, 44, 44);
 }
 
 .side .side-icon {

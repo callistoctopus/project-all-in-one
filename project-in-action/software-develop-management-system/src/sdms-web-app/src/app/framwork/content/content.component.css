@@ -1,7 +1,14 @@
 .content {
-  float: left;
+  /* float: left; */
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-self: center;
+  /* margin-bottom: 25px;
+  padding-bottom: 25px; */
   width: 100%;
-  height: 100%;
-  padding-top: 30px;
-  padding-bottom: 25px;
+  top: 2%;
+  /* bottom: 25px; */
+  position:fixed;
+  background-color: rgb(51, 51, 51);
 }

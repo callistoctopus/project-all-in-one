@@ -1,7 +1,7 @@
 .side-content {
-  float: left;
+  /* float: left; */
   height: 100%;
-  background-color: #330;
+  background-color: rgb(48, 48, 48);
 }
 
 .side-content a {

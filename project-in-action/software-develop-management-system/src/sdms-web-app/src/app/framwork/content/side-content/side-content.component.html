@@ -1,6 +1,6 @@
 <div class="side-content" [@openClose]="view.showFiller ? 'open':'closed'">
   <nav *ngIf="view.showFiller">
-    <a *ngFor="let item of view.subfuncs.get(view.current_function)" routerLink="/{{item}}">
+    <a *ngFor="let item of view.subfuncs" routerLink="/{{item}}">
       <mat-icon>login</mat-icon>
     </a>
   </nav>

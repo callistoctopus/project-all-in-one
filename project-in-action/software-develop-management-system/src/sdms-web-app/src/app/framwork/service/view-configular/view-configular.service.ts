@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 
 @Injectable({
@@ -13,12 +14,29 @@ export class ViewConfigularService {
   functions: string[] = [];
   current_function = '';
 
-  subfuncs = new Map();
-  funcs: string[] = [];
-  current_func = '';
+  functionMap = new Map();
 
-  // subfuncs = ['function1', 'function2'];
+  subfuncMap = new Map();
 
-  constructor() {
+  subfuncs: string[] = [];
+  current_subfunc = '';
+
+  constructor(private router: Router) {
+  }
+
+  sideOnClick(func:string){
+    if (this.current_function == func) {
+      this.showFiller =
+        !this.showFiller && this.subfuncs != null && this.subfuncs.length > 0;
+    } else {
+      this.current_function = func;
+      this.subfuncs = this.subfuncMap.get(this.current_function);
+      this.showFiller =
+        this.subfuncs != null && this.subfuncs.length > 0;
+    }
+
+    if (this.subfuncs == null || this.subfuncs.length <= 0) {
+      this.router.navigateByUrl(this.functionMap.get(func));
+    }
   }
 }

@@ -15,10 +15,10 @@ import {
     trigger('openClose', [
       // ...
       state('open', style({
-        width: '170px'
+        width: '10em'
       })),
       state('closed', style({
-        width: '0'
+        width: '0em'
       })),
       transition('open => closed', [
         animate('0.2s')

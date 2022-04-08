@@ -7,20 +7,16 @@ import { ViewConfigularService } from 'src/app/framwork/service/view-configular/
   styleUrls: ['./side-bar.component.css'],
 })
 export class SideBarComponent implements OnInit {
-  constructor(public view: ViewConfigularService) {}
+  count = 0;
+  constructor(
+    public view: ViewConfigularService
+  ) {}
 
   ngOnInit(): void {
     this.view.log = 'side-bar init';
   }
 
-  toggle(item: string) {
-    if (this.view.current_function == item) {
-      this.view.showFiller = !this.view.showFiller && this.view.funcs.length > 0;
-    } else {
-      this.view.showFiller = false;
-      this.view.current_function = item;
-      this.view.funcs = this.view.subfuncs.get(this.view.current_function)
-      this.view.showFiller = this.view.funcs.length > 0;
-    }
+  toggle(func: string) {
+    this.view.sideOnClick(func);
   }
 }
