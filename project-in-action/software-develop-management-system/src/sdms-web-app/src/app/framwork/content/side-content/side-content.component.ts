@@ -34,9 +34,12 @@ import {
 
 export class SideContentComponent implements OnInit {
 
+  // subfuncs : string[] = [];
+
   constructor(public view: ViewConfigularService) { }
 
   ngOnInit(): void {
+    // this.subfuncs = this.view.getSubFunctions();
   }
 
 }

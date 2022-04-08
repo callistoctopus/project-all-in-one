@@ -13,3 +13,10 @@
   padding: 0px 0px 0px 10px;
   text-decoration: none;
 }
+
+.status-bar span {
+  float: left;
+  color: #f2f2f2;
+  padding: 0px 0px 0px 10px;
+  text-decoration: none;
+}

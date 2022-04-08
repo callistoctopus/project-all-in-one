@@ -7,7 +7,12 @@ import { ViewConfigularService } from 'src/app/framwork/service/view-configular/
   styleUrls: ['./function-content.component.css'],
 })
 export class FunctionContentComponent implements OnInit {
-  constructor(public view: ViewConfigularService) {}
+  constructor(public view: ViewConfigularService) {
+    
+    this.view.log = 'function init';
+  }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    // this.view.functions.push('home');
+  }
 }

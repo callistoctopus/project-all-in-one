@@ -13,8 +13,9 @@ import { FootBarComponent } from './framwork/foot-bar/foot-bar.component';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import { ContentComponent } from './framwork/content/content.component';
 import { SideContentComponent } from './framwork/content/side-content/side-content.component';
-import { FunctionContentComponent } from './function-content/function-content.component';
+import { FunctionContentComponent } from './function/function-content/function-content.component';
 import { SideContentNavComponent } from './framwork/content/side-content-nav/side-content-nav.component';
+import { Function2Component } from './function/function2/function2.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { SideContentNavComponent } from './framwork/content/side-content-nav/sid
     ContentComponent,
     SideContentComponent,
     FunctionContentComponent,
-    SideContentNavComponent
+    SideContentNavComponent,
+    Function2Component
   ],
   imports: [
     BrowserModule,
