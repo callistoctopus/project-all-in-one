@@ -1,7 +1,10 @@
 .side-content {
   /* float: left; */
   height: 100%;
-  background-color: rgb(48, 48, 48);
+  top: 30px;
+  left: 45px;
+  position: fixed;
+  background-color: rgb(40, 40, 40);
 }
 
 .side-content a {

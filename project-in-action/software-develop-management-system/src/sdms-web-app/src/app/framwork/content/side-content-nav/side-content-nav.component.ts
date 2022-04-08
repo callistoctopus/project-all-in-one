@@ -11,25 +11,23 @@ import {
 
 @Component({
   selector: 'app-side-content-nav',
-  // animations: [
-  //   trigger('openClose', [
-  //     // ...
-  //     state('open', style({
-  //       width: '170px',
-  //       height:'100%'
-  //     })),
-  //     state('closed', style({
-  //       width: '170px',
-  //       height:'100%'
-  //     })),
-  //     transition('open => closed', [
-  //       animate('0.2s')
-  //     ]),
-  //     transition('closed => open', [
-  //       animate('0.2s')
-  //     ]),
-  //   ]),
-  // ],
+  animations: [
+    trigger('openClose', [
+      // ...
+      state('open', style({
+        left:'215px'
+      })),
+      state('closed', style({
+        left:'45px'
+      })),
+      transition('open => closed', [
+        animate('0.2s')
+      ]),
+      transition('closed => open', [
+        animate('0.2s')
+      ]),
+    ]),
+  ],
   templateUrl: './side-content-nav.component.html',
   styleUrls: ['./side-content-nav.component.css']
 })

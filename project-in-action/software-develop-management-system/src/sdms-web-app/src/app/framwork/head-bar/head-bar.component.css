@@ -1,6 +1,8 @@
 .menu-bar {
   height: 30px;
   width: 100%;
+  position: fixed;
+  background-color:  rgb(48, 48, 48);
 }
 
 .menu-bar div {
