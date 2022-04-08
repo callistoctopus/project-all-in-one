@@ -1,6 +1,6 @@
 .status-bar {
   float: left;
-  height: 2%;
+  height: 25px;
   bottom: 0px;
   position: fixed;
 }

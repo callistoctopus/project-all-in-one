@@ -2,13 +2,8 @@
   /* float: left; */
   display: flex;
   flex-direction: row;
-  flex-wrap: nowrap;
-  align-self: center;
-  /* margin-bottom: 25px;
-  padding-bottom: 25px; */
   width: 100%;
-  top: 2%;
-  /* bottom: 25px; */
+  top: 30px;
+  bottom: 25px;
   position:fixed;
-  background-color: rgb(51, 51, 51);
 }
