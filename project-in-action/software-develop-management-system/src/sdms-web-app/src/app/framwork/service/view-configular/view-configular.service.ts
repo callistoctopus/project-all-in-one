@@ -7,9 +7,9 @@ import { Observable, of } from 'rxjs';
 })
 export class ViewConfigularService {
 
-  log = '';
-
   public showFiller: boolean = false;
+
+  clickCount = 0;
 
   functions: string[] = [];
   current_function = '';
@@ -20,6 +20,8 @@ export class ViewConfigularService {
 
   subfuncs: string[] = [];
   current_subfunc = '';
+
+  statusMap = new Map();
 
   constructor(private router: Router) {
   }

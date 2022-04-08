@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { FunctionContentComponent } from './function-content.component';
+import { DefaultComponent } from './default.component';
 
-describe('FunctionContentComponent', () => {
-  let component: FunctionContentComponent;
-  let fixture: ComponentFixture<FunctionContentComponent>;
+describe('DefaultComponent', () => {
+  let component: DefaultComponent;
+  let fixture: ComponentFixture<DefaultComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ FunctionContentComponent ]
+      declarations: [ DefaultComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(FunctionContentComponent);
+    fixture = TestBed.createComponent(DefaultComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
