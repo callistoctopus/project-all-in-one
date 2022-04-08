@@ -1,7 +1,7 @@
 <div class="side">
 
-  <a *ngFor="let item of functions; index as i" (click)="toggle()">
+  <div class="side-icon" *ngFor="let item of functions; index as i" (click)="toggle()">
     <mat-icon>{{item}}</mat-icon>
-  </a>
+  </div>
 
 </div>
