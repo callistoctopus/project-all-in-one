@@ -62,7 +62,7 @@
     <ng-template let-rowItem="rowItem" let-rowIndex="rowIndex">
       <tr dTableRow>
         <!-- <td dTableCell>{{ rowIndex + 1 }}</td> -->
-        <td dTableCell *ngFor="let colOption of dataTableOptions.columns">
+        <td dTableCell [editable]="true" *ngFor="let colOption of dataTableOptions.columns">
           {{ rowItem[colOption.field] }}
         </td>
       </tr>
