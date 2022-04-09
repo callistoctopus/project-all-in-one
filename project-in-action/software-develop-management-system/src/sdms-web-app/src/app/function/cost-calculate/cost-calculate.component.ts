@@ -9,7 +9,12 @@ import { FunctionCodeDef } from './model/FunctionCodeDef';
   styleUrls: ['./cost-calculate.component.css'],
 })
 export class CostCalculateComponent implements OnInit {
-  functions: Function[] = [];
+  functions: Function[] = [
+    { id: 1, name: 'A', view: 1, table: 2, logic: 3, weight: 4 },
+    { id: 2, name: 'AB', view: 1, table: 2, logic: 3, weight: 4 },
+    { id: 3, name: 'c', view: 1, table: 2, logic: 3, weight: 4 },
+    { id: 4, name: 'd', view: 1, table: 2, logic: 3, weight: 4 },
+  ];
 
   funcCode: FunctionCodeDef = { view: 0, table: 0, logic: 0, weight: 0 };
 

@@ -6,9 +6,9 @@
                 <button mat-button (click)="add()">功能追加</button>
             </mat-card-actions>
             <mat-card-subtitle>{{cost}}</mat-card-subtitle>
-            <div *ngFor="let item of functions">
-                <app-function [item]='item' (valuechanged)="onChanged($event)"></app-function>
-            </div>
+            <!-- <div *ngFor="let item of functions"> -->
+                <app-function [item]='functions' (valuechanged)="onChanged($event)"></app-function>
+            <!-- </div> -->
 
         </mat-card>
     <!-- </div> -->

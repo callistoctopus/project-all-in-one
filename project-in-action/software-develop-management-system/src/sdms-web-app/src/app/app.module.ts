@@ -9,7 +9,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
-import { MatTableHarness } from '@angular/material/table/testing';
+import { MatTableModule } from '@angular/material/table';
 import { HeadBarComponent } from './framwork/head-bar/head-bar.component';
 import { SideBarComponent } from './framwork/content/side-bar/side-bar.component';
 import { FootBarComponent } from './framwork/foot-bar/foot-bar.component';
@@ -47,7 +47,7 @@ import { QualityIndexComponent } from './function/cost-calculate/component/quali
     MatIconModule,
     MatSidenavModule,
     MatCardModule,
-    MatTableHarness,
+    MatTableModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

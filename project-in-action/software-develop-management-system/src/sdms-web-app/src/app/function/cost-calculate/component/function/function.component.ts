@@ -9,39 +9,40 @@ import { Function } from '../../model/Function';
 })
 export class FunctionComponent implements OnInit {
 
-  get name(){return this.item.name}
-  set name(nn:string){
-    this.item.name = nn;
-    this.valuechanged.emit();
-  }
+  displayedColumns: string[] = ['name', 'view', 'table', 'logic', 'weight'];
+  // dataSource = ELEMENT_DATA;
 
-  get view(){return this.item.view}
-  set view(nn:number){
-    this.item.view = nn;
-    this.valuechanged.emit();
-  }
+  // get name(){return this.item.name}
+  // set name(nn:string){
+  //   this.item.name = nn;
+  //   this.valuechanged.emit();
+  // }
 
-  get table(){return this.item.table}
-  set table(nn:number){
-    this.item.table = nn;
-    this.valuechanged.emit();
-  }
+  // get view(){return this.item.view}
+  // set view(nn:number){
+  //   this.item.view = nn;
+  //   this.valuechanged.emit();
+  // }
 
-  get logic(){return this.item.logic}
-  set logic(nn:number){
-    this.item.logic = nn;
-    this.valuechanged.emit();
-  }
+  // get table(){return this.item.table}
+  // set table(nn:number){
+  //   this.item.table = nn;
+  //   this.valuechanged.emit();
+  // }
 
-  get weight(){return this.item.weight}
-  set weight(nn:number){
-    this.item.weight = nn;
-    this.valuechanged.emit();
-  }
+  // get logic(){return this.item.logic}
+  // set logic(nn:number){
+  //   this.item.logic = nn;
+  //   this.valuechanged.emit();
+  // }
 
-  @Input() item!: Function;
+  // get weight(){return this.item.weight}
+  // set weight(nn:number){
+  //   this.item.weight = nn;
+  //   this.valuechanged.emit();
+  // }
 
-  @Input() dataSource?:Function[];
+  @Input() item!: Function[];
 
   @Output() valuechanged = new EventEmitter<any>();
 
