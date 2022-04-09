@@ -10,17 +10,20 @@ body {
   background-color: rgb(40, 40, 40);
 }
 
-.card {
+/* .card {
   width: 500px;
   margin: 4px 0px 0px 4px;
   background-color: dimgray;
   opacity: 0.8;
-}
+} */
 
 .card {
   width: auto;
   float: left;
   color: rgb(255, 255, 255);
+  margin: 4px 2px 0px 4px;
+  background-color: dimgray;
+  opacity: 0.8;
 }
 
 .card mat-card-title {

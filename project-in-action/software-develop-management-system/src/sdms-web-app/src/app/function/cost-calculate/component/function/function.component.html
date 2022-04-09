@@ -50,3 +50,22 @@
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>
+
+<d-data-table [dataSource]="item" [scrollable]="true" [type]="'striped'" [tableWidthConfig]="tableWidthConfig">
+  <thead dTableHead>
+    <tr dTableRow>
+      <!-- <th dHeadCell>#</th> -->
+      <th dHeadCell *ngFor="let colOption of dataTableOptions.columns">{{ colOption.header }}</th>
+    </tr>
+  </thead>
+  <tbody dTableBody>
+    <ng-template let-rowItem="rowItem" let-rowIndex="rowIndex">
+      <tr dTableRow>
+        <!-- <td dTableCell>{{ rowIndex + 1 }}</td> -->
+        <td dTableCell *ngFor="let colOption of dataTableOptions.columns">
+          {{ rowItem[colOption.field] }}
+        </td>
+      </tr>
+    </ng-template>
+  </tbody>
+</d-data-table>

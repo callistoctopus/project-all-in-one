@@ -19,6 +19,19 @@ ng serve --port 4200 --host 0.0.0.0
 
 ng add @angular/material
 
+npm i ng-devui
+import { DevUIModule } from 'ng-devui';
+DevUIModule
+
+angular.json
+
+{
+  "styles": [
+    ...
+    "node_modules/ng-devui/devui.min.css"
+  ]
+}
+
 
 echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
 

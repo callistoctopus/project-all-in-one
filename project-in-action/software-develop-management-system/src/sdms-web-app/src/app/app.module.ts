@@ -22,6 +22,8 @@ import { DefaultComponent } from './function/default/default.component';
 import { FunctionComponent } from './function/cost-calculate/component/function/function.component';
 import { FunctionCodeDefComponent } from './function/cost-calculate/component/function-code-def/function-code-def.component';
 import { QualityIndexComponent } from './function/cost-calculate/component/quality-index/quality-index.component';
+import { DevUIModule } from 'ng-devui';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -48,6 +50,8 @@ import { QualityIndexComponent } from './function/cost-calculate/component/quali
     MatSidenavModule,
     MatCardModule,
     MatTableModule,
+    DevUIModule,
+    CommonModule
   ],
   providers: [],
   bootstrap: [AppComponent],
