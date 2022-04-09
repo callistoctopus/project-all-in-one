@@ -63,7 +63,7 @@
       <tr dTableRow>
         <!-- <td dTableCell>{{ rowIndex + 1 }}</td> -->
         <td dTableCell [editable]="true" *ngFor="let colOption of dataTableOptions.columns">
-          {{ rowItem[colOption.field] }}
+          <input [(ngModel)]="rowItem[colOption.field]" >
         </td>
       </tr>
     </ng-template>
