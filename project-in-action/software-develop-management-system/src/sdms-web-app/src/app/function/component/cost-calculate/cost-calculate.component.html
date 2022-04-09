@@ -1,6 +1,24 @@
-<button (click)="add()">add</button>
-<div *ngFor="let item of functions">
-    <app-function [item]='item' 
-    (valuechanged)="onChanged($event)"></app-function>
+<div class="content">
+    <mat-card class="card">
+        <mat-card-title>软件功能作业量</mat-card-title>
+        <mat-card-subtitle>{{cost}}</mat-card-subtitle>
+        <div *ngFor="let item of functions">
+            <app-function [item]='item' (valuechanged)="onChanged($event)"></app-function>
+        </div>
+        <mat-card-actions>
+            <button mat-button (click)="add()">ADD</button>
+        </mat-card-actions>
+    </mat-card>
 </div>
-<label>{{cost}}</label>
+<div class="content">
+    <mat-card class="card">
+        <mat-card-title>软件功能作业量</mat-card-title>
+        <mat-card-subtitle>{{cost}}</mat-card-subtitle>
+        <div *ngFor="let item of functions">
+            <app-function [item]='item' (valuechanged)="onChanged($event)"></app-function>
+        </div>
+        <mat-card-actions>
+            <button mat-button (click)="add()">ADD</button>
+        </mat-card-actions>
+    </mat-card>
+</div>
