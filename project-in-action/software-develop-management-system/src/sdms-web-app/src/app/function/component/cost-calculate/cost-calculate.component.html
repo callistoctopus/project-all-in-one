@@ -1,6 +1,6 @@
 <button (click)="add()">add</button>
 <div *ngFor="let item of functions">
-    <app-function [item] = 'item'></app-function>
+    <app-function [item]='item' 
+    (valuechanged)="onChanged($event)"></app-function>
 </div>
-
-
+<label>{{cost}}</label>

@@ -1,14 +1,13 @@
 <div *ngIf="item">
 
     <div>
-        <label >{{item.name | uppercase}} : </label>
-        <label for="hero-name">Hero name: </label>
-        <input id="hero-name" [(ngModel)]="item.name" placeholder="name">
-        <input [(ngModel)]="item.view" >
-        <input [(ngModel)]="item.table" >
-        <input [(ngModel)]="item.logic" >
-        <input (ngModel)="item.weight" value="{{+item.view++item.table}}">
-        <label >{{+item.view+1}}</label>
+        <label >{{name | uppercase}} : </label>
+        <input [(ngModel)]="name">
+        <input [(ngModel)]="view">
+        <input [(ngModel)]="table">
+        <input [(ngModel)]="logic">
+        <input [(ngModel)]="weight">
+        {{+item.view++item.table++item.logic++item.weight}}
     </div>
 
 </div>

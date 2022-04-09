@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, SimpleChanges } from '@angular/core';
+import { ViewConfigularService } from 'src/app/framwork/service/view-configular/view-configular.service';
 import { Function } from '../../modal/Function';
 
 @Component({
@@ -7,19 +8,22 @@ import { Function } from '../../modal/Function';
   styleUrls: ['./cost-calculate.component.css'],
 })
 export class CostCalculateComponent implements OnInit {
-  functions: Function[] = [
-    { id: 1, name: 'A', view: 0, table: 0, logic: 0, weight: 1 },
-    { id: 2, name: 'b', view: 0, table: 0, logic: 0, weight: 1 },
-    { id: 3, name: 'C', view: 0, table: 0, logic: 0, weight: 1 },
-    { id: 4, name: 'd', view: 0, table: 0, logic: 0, weight: 1 },
-  ];
+  functions: Function[] = [];
 
-  // item : Function = { id: 1, name: '', view: 0, table: 0, logic: 0, weight: 1 };
+  cost : number = 0;
 
-  constructor() {}
+  constructor(private view : ViewConfigularService) {}
 
   ngOnInit(): void {}
+
   add(){
     this.functions.push(new Function());
+  }
+
+  onChanged(result:boolean) {
+    this.cost = 0;
+    for(const item of this.functions){
+      this.cost = this.cost + +item.view  + +item.table  + +item.logic  + +item.weight;
+    }
   }
 }
