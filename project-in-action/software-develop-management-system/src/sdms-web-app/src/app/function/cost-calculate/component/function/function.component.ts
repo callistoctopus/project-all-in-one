@@ -41,6 +41,8 @@ export class FunctionComponent implements OnInit {
 
   @Input() item!: Function;
 
+  @Input() dataSource?:Function[];
+
   @Output() valuechanged = new EventEmitter<any>();
 
   count = 0;

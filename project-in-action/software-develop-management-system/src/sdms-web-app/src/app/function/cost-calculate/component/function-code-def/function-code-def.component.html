@@ -1,10 +1,17 @@
 <div *ngIf="funcCode">
 
     <div class="list">
-        <input [(ngModel)]="view">
-        <input [(ngModel)]="table">
-        <input [(ngModel)]="logic">
-        <input [(ngModel)]="weight">
+        <div>
+            <span>ks/view</span>
+            <input [(ngModel)]="view">
+        </div>
+        <div>
+            <span>ks/table</span>
+            <input [(ngModel)]="table">
+        </div>
+        <div>
+            <span>ks/logic</span>
+            <input [(ngModel)]="logic">
+        </div>
     </div>
-
 </div>
