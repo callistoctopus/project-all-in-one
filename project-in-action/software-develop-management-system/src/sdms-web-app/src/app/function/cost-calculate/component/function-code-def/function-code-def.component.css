@@ -1,0 +1,9 @@
+input {
+    margin: 5px;
+    width: 40px;
+}
+
+.list{
+    display: flex;
+    flex-direction: column;
+}

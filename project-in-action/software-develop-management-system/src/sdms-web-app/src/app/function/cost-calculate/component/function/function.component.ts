@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { ViewConfigularService } from 'src/app/framwork/service/view-configular/view-configular.service';
-import { Function } from 'src/app/function/modal/Function';
+import { Function } from '../../model/Function';
 
 @Component({
   selector: 'app-function',

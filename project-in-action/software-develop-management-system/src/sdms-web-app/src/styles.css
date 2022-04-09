@@ -12,40 +12,42 @@ body {
 
 .card {
   width: 500px;
-  margin:15px;
+  margin: 4px 0px 0px 4px;
   background-color: dimgray;
-  opacity:0.8;
+  opacity: 0.8;
 }
 
-.card *{
+.card {
+  width: auto;
+  float: left;
   color: rgb(255, 255, 255);
 }
 
-.card mat-card-title{
+.card mat-card-title {
   font-family: "Microsoft Yahei", SimHei, sans-serif;
   font-weight: 500;
   overflow: hidden;
   font-size: 20px;
 }
 
-.card mat-card-subtitle{
+.card mat-card-subtitle {
   font-family: "Microsoft Yahei", SimHei, sans-serif;
   font-weight: 500;
   overflow: hidden;
   font-size: 17px;
 }
 
-.card button{
+.card button {
+  margin-left: 6px;
   font-family: "Microsoft Yahei", SimHei, sans-serif;
   overflow: hidden;
   height: 30px;
-  border-radius:4px;
+  border-radius: 4px;
   font-size: 17px;
   color: rgb(0, 0, 0);
-  opacity:1.0;
-  box-shadow:none;
+  opacity: 1;
+  box-shadow: none;
   border: 1px;
   border-color: white;
   background-color: rgb(255, 255, 255);
 }
-

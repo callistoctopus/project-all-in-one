@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { CostCalculateComponent } from './function/component/cost-calculate/cost-calculate.component';
-import { DefaultComponent } from './function/component/default/default.component';
+import { CostCalculateComponent } from './function/cost-calculate/cost-calculate.component';
+import { DefaultComponent } from './function/default/default.component';
 
 const routes: Routes = [
   { path: 'cost_cal', component: CostCalculateComponent },
