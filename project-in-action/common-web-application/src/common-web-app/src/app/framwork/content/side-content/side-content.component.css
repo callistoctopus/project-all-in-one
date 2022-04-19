@@ -1,0 +1,17 @@
+.side-content {
+  /* float: left; */
+  height: 100%;
+  top: 30px;
+  left: 45px;
+  position: fixed;
+  background-color: rgb(40, 40, 40);
+}
+
+.side-content a {
+  display: block;
+  overflow: hidden;
+  color: #f2f2f2;
+  text-align: left;
+  padding: 10px 0px 0px 2px;
+  text-decoration: none;
+}

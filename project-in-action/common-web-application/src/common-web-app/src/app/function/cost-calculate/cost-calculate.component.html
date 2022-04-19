@@ -1,0 +1,23 @@
+<!-- <div class="content">
+    <div class="content"> -->
+        <mat-card class="card">
+            <mat-card-title>子作业区分</mat-card-title>
+            <mat-card-actions>
+                <button mat-button (click)="add()">功能追加</button>
+            </mat-card-actions>
+            <mat-card-subtitle>{{cost}}</mat-card-subtitle>
+            <!-- <div *ngFor="let item of functions"> -->
+                <app-function [item]='functions' (valuechanged)="onChanged($event)"></app-function>
+            <!-- </div> -->
+
+        </mat-card>
+    <!-- </div> -->
+
+    <!-- <div class="content"> -->
+        <mat-card class="card">
+            <mat-card-title>子作业代码量定义</mat-card-title>
+            <app-function-code-def [funcCode]='funcCode' (valuechanged)="onChanged($event)"></app-function-code-def>
+        </mat-card>
+    <!-- </div>
+
+</div> -->

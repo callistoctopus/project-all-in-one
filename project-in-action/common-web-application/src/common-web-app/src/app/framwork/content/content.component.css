@@ -1,0 +1,9 @@
+.content {
+  /* float: left; */
+  /* display: flex; */
+  /* flex-direction: row; */
+  width: 100%;
+  top: 30px;
+  bottom: 25px;
+  position:fixed;
+}

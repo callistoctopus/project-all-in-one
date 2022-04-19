@@ -1,0 +1,5 @@
+<div class="status-bar">
+  <div class="status-item" *ngFor="let item of view.statusMap.keys()">
+    <span>{{ item }}</span>&nbsp;:&nbsp;<span>{{view.statusMap.get(item)}}</span>
+  </div>
+</div>

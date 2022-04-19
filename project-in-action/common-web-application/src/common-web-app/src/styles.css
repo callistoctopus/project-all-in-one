@@ -1,0 +1,56 @@
+/* You can add global styles to this file, and also import other style files */
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  background-color: rgb(40, 40, 40);
+}
+
+/* .card {
+  width: 500px;
+  margin: 4px 0px 0px 4px;
+  background-color: dimgray;
+  opacity: 0.8;
+} */
+
+.card {
+  width: auto;
+  float: left;
+  color: rgb(255, 255, 255);
+  margin: 4px 2px 0px 4px;
+  background-color: dimgray;
+  /* opacity: 0.8; */
+}
+
+.card mat-card-title {
+  font-family: "Microsoft Yahei", SimHei, sans-serif;
+  font-weight: 500;
+  overflow: hidden;
+  font-size: 20px;
+}
+
+.card mat-card-subtitle {
+  font-family: "Microsoft Yahei", SimHei, sans-serif;
+  font-weight: 500;
+  overflow: hidden;
+  font-size: 17px;
+}
+
+.card button {
+  margin-left: 6px;
+  font-family: "Microsoft Yahei", SimHei, sans-serif;
+  overflow: hidden;
+  height: 30px;
+  border-radius: 4px;
+  font-size: 17px;
+  color: rgb(0, 0, 0);
+  opacity: 1;
+  box-shadow: none;
+  border: 1px;
+  border-color: white;
+  background-color: rgb(255, 255, 255);
+}
