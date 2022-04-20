@@ -13,7 +13,6 @@ export class SideBarComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.view.statusMap.set('日志','side-bar init');
   }
 
   toggle(func: string) {

@@ -13,12 +13,12 @@ export class AppComponent {
     this.view.meuns = [{id : 0, icon : 'dashboard', content : '', route : '', child : [1,2], level:0}
                         ,{id : 1, icon : 'image', content : '图像处理', route : 'pic', child : [], level:1}
                         ,{id : 2, icon : 'book', content : 'epub阅读器', route : 'epub', child : [], level:1}
-                        ,{id : 3, icon : 'calculate', content : '', route : 'cost_cal', child : [], level:0}];
+                        ,{id : 3, icon : 'calculate', content : '开发成本计算', route : 'cost_cal', child : [], level:0}];
 
     this.view.init();
   }
 
   onClick(){
-    this.view.statusMap.set('点击计数', this.view.clickCount++);
+    this.view.statusMap.set('mouse', this.view.clickCount++);
   }
 }
