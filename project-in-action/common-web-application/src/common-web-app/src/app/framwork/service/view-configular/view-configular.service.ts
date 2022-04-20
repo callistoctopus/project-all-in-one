@@ -69,4 +69,16 @@ export class ViewConfigularService {
     }
     
   }
+
+  to(route:string){
+    if (route != '') {
+      this.router.navigateByUrl(route);
+    }
+
+    if(this.showFiller){
+      this.navWidth.width = (window.innerWidth - 45 - 170) + 'px';
+    } else {
+      this.navWidth.width = (window.innerWidth - 45) + 'px';
+    }
+  }
 }
