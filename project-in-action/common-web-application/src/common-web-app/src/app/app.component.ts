@@ -19,6 +19,6 @@ export class AppComponent {
   }
 
   onClick(){
-    this.view.statusMap.set('mouse', this.view.clickCount++);
+    // this.view.statusMap.set('mouse', this.view.clickCount++);
   }
 }
