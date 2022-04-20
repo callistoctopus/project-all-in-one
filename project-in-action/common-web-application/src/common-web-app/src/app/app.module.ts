@@ -25,6 +25,7 @@ import { QualityIndexComponent } from './function/cost-calculate/component/quali
 import { DevUIModule } from 'ng-devui';
 import { CommonModule } from '@angular/common';
 import { PicComponent } from './function/pic/pic.component';
+import { EpubComponent } from './function/epub/epub.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { PicComponent } from './function/pic/pic.component';
     FunctionCodeDefComponent,
     QualityIndexComponent,
     PicComponent,
+    EpubComponent,
   ],
   imports: [
     FormsModule,
