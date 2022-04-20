@@ -24,6 +24,7 @@ import { FunctionCodeDefComponent } from './function/cost-calculate/component/fu
 import { QualityIndexComponent } from './function/cost-calculate/component/quality-index/quality-index.component';
 import { DevUIModule } from 'ng-devui';
 import { CommonModule } from '@angular/common';
+import { PicComponent } from './function/pic/pic.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { CommonModule } from '@angular/common';
     FunctionComponent,
     FunctionCodeDefComponent,
     QualityIndexComponent,
+    PicComponent,
   ],
   imports: [
     FormsModule,
