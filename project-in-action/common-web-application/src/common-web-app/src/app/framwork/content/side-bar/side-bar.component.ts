@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ViewConfigularService } from 'src/app/framwork/service/view-configular/view-configular.service';
+import { MenuFunction } from '../../model/function';
 
 @Component({
   selector: 'app-side-bar',
@@ -16,7 +17,7 @@ export class SideBarComponent implements OnInit {
     this.view.statusMap.set('日志','side-bar init');
   }
 
-  toggle(func: string) {
+  toggle(func: MenuFunction) {
     this.view.sideOnClick(func);
   }
 }

@@ -8,6 +8,7 @@ import {
   transition,
   // ...
 } from '@angular/animations';
+import { MenuFunction } from '../../model/function';
 
 @Component({
   selector: 'app-side-content',
@@ -33,13 +34,12 @@ import {
 })
 
 export class SideContentComponent implements OnInit {
-
-  // subfuncs : string[] = [];
-
   constructor(public view: ViewConfigularService) { }
 
   ngOnInit(): void {
-    // this.subfuncs = this.view.getSubFunctions();
   }
 
+  toggle(func: MenuFunction) {
+    this.view.sideOnClick(func);
+  }
 }

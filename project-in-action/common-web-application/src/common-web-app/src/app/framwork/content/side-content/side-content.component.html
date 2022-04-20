@@ -1,7 +1,8 @@
 <div class="side-content" [@openClose]="view.showFiller ? 'open':'closed'">
   <nav *ngIf="view.showFiller">
-    <a *ngFor="let item of view.subfuncs" routerLink="/{{item}}">
-      <mat-icon>{{item}}</mat-icon>
+    <a *ngFor="let item of view.subfuncs" (click)="toggle(item)">
+      <mat-icon *ngIf="item">{{item.icon}}</mat-icon>
+      <span>{{item.content}}</span>
     </a>
   </nav>
 </div>

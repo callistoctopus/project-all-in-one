@@ -1,7 +1,7 @@
 <div class="side">
 
-  <div class="side-icon" *ngFor="let func of view.functions" (click)="toggle(func)">
-    <mat-icon>{{func}}</mat-icon>
+  <div class="side-icon" *ngFor="let func of view.mainfuncs" (click)="toggle(func)">
+    <mat-icon>{{func.icon}}</mat-icon>
   </div>
 
 </div>
