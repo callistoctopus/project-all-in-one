@@ -27,8 +27,6 @@ export class ViewConfigularService {
 
   statusMap = new Map();
 
-  navWidth = {'width':'100%'}
-
   constructor(private router: Router) {}
 
   init() {
@@ -61,24 +59,12 @@ export class ViewConfigularService {
     if (func.child == null || func.child.length <= 0 || func.route != '') {
       this.router.navigateByUrl(func.route);
     }
-
-    if(this.showFiller){
-      this.navWidth.width = (window.innerWidth - 45 - 170) + 'px';
-    } else {
-      this.navWidth.width = (window.innerWidth - 45) + 'px';
-    }
     
   }
 
   to(route:string){
     if (route != '') {
       this.router.navigateByUrl(route);
-    }
-
-    if(this.showFiller){
-      this.navWidth.width = (window.innerWidth - 45 - 170) + 'px';
-    } else {
-      this.navWidth.width = (window.innerWidth - 45) + 'px';
     }
   }
 }
