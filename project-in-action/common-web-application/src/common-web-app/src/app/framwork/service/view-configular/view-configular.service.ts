@@ -58,6 +58,7 @@ export class ViewConfigularService {
 
     if (func.child == null || func.child.length <= 0 || func.route != '') {
       this.router.navigateByUrl(func.route);
+      this.statusMap.set('',func.content);
     }
     
   }
