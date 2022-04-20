@@ -1,1 +1,9 @@
-<p>pic works!</p>
+<div style="width: 50%">
+    <d-single-upload [fileOptions]="fileOptions" [uploadOptions]="uploadOptions" [filePath]="'name'"
+        [autoUpload]="false" (fileSelect)="fileSelected($event)">
+    </d-single-upload>
+</div>
+
+<div>
+    <img *ngFor="let item of images" [attr.src]="item" style="max-width: 800px" />
+</div>

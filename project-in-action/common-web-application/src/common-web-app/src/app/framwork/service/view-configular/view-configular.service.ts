@@ -25,9 +25,6 @@ export class ViewConfigularService {
   // 次级菜单icon
   subfuncs: MenuFunction[] = [];
 
-  // 当前选择的次级菜单
-  // current_subfunc = '';
-
   statusMap = new Map();
 
   constructor(private router: Router) {}
