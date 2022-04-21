@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AuthComponent } from './function/auth/auth.component';
 import { CostCalculateComponent } from './function/cost-calculate/cost-calculate.component';
 import { DefaultComponent } from './function/default/default.component';
 import { EpubComponent } from './function/epub/epub.component';
@@ -10,6 +11,7 @@ const routes: Routes = [
   { path: 'default', component: DefaultComponent },
   { path: 'pic', component: PicComponent },
   { path: 'epub', component: EpubComponent },
+  { path: 'auth', component: AuthComponent },
   { path: '', redirectTo: '/default', pathMatch: 'full' },
 ];
 

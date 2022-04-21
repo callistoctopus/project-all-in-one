@@ -26,6 +26,7 @@ import { DevUIModule } from 'ng-devui';
 import { CommonModule } from '@angular/common';
 import { PicComponent } from './function/pic/pic.component';
 import { EpubComponent } from './function/epub/epub.component';
+import { AuthComponent } from './function/auth/auth.component';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { EpubComponent } from './function/epub/epub.component';
     QualityIndexComponent,
     PicComponent,
     EpubComponent,
+    AuthComponent,
   ],
   imports: [
     FormsModule,
