@@ -10,6 +10,8 @@ import { Statu } from '../../model/statu';
 export class ViewConfigularService {
   public showFiller: boolean = false;
 
+  b = 'b1';
+
   clickCount = 0;
 
   meuns: MenuFunction[] = [];

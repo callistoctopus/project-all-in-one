@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ViewConfigularService } from '../service/view-configular/view-configular.service';
 
 @Component({
   selector: 'app-head-bar',
@@ -9,7 +10,7 @@ export class HeadBarComponent implements OnInit {
 
   title = 'sdms-web-app';
   
-  constructor() { }
+  constructor(public view:ViewConfigularService) { }
 
   ngOnInit(): void {
   }

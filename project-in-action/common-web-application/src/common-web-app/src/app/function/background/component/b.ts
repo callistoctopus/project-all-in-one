@@ -11,20 +11,29 @@ window.onresize = function (e) {
 export class B {
     static canvas;
     context;
+    id:string = '';
   
-    constructor() {
-    this.init();
+    constructor(id) {
+      this.id = id;
     }
 
     init(): void {
-      this.initCanvas();
+      this.init2();
     }
+
+    destroy(){
+      
+    }
+
+    init2(){}
   
     initCanvas() {
       B.canvas = document.getElementById('canvas');
       B.canvas.width = window.innerWidth;
       B.canvas.height = window.innerHeight;
       this.context = B.canvas.getContext('2d');
+      this.context.height=this.context.height;
+      this.context.clearRect(0,0,this.context.width,this.context.height);
     }
 
 }

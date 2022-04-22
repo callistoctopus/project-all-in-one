@@ -1,4 +1,3 @@
-import { HostListener } from '@angular/core';
 import Proton from 'proton-engine';
 import RAFManager from 'raf-manager';
 import Stats from 'stats.js';
@@ -9,18 +8,25 @@ window.onresize = function (e) {
   B1.canvas.height = window.innerHeight;
 };
 
-export class B1 extends B {
+export class B1 extends B{
   stats;
   proton;
   renderer;
-  static emitter = [];
+  emitter = [];
 
   constructor() {
-    super();
+    super('b1');
+  }
+
+  override init2() {
     this.initCanvas();
     this.createProton();
     this.render();
   }
+
+  // override destroy(): void {
+  //   B.canvas = null;
+  // }
 
   initStats() {
     this.stats = new Stats();
@@ -35,37 +41,36 @@ export class B1 extends B {
     this.proton = new Proton();
 
     for (let i = 0; i < 16; i++) {
-      B1.emitter[i] = new Proton.Emitter();
+      this.emitter[i] = new Proton.Emitter();
 
-      B1.emitter[i].rate = new Proton.Rate(
-        new Proton.Span(2, 30),
-        new Proton.Span(0.4, 0.2)
+      this.emitter[i].rate = new Proton.Rate(
+        new Proton.Span(1, 3),
+        new Proton.Span(0.4, 0.3)
       );
 
-      B1.emitter[i].addInitialize(new Proton.Mass(5));
-      B1.emitter[i].addInitialize(new Proton.Radius(1, 1));
-      B1.emitter[i].addInitialize(new Proton.Life(2, 10));
-      B1.emitter[i].addInitialize(
+      this.emitter[i].addInitialize(new Proton.Mass(5));
+      this.emitter[i].addInitialize(new Proton.Radius(1, 2));
+      this.emitter[i].addInitialize(new Proton.Life(2, 10));
+      this.emitter[i].addInitialize(
         new Proton.Velocity(
-          new Proton.Span(1, 2),
+          new Proton.Span(0.5, 1),
           new Proton.Span(20, 20),
           'polar'
         )
       );
-      B1.emitter[i].addBehaviour(new Proton.RandomDrift(30, 30, 0.05));
-      B1.emitter[i].addBehaviour(
+      this.emitter[i].addBehaviour(new Proton.RandomDrift(3, 20, 0.05));
+      this.emitter[i].addBehaviour(
         new Proton.Color('ff0000', 'random', Infinity, Proton.easeOutQuart)
       );
-      B1.emitter[i].addBehaviour(new Proton.Scale(1, 1));
-      B1.emitter[i].p.x = B1.canvas.width / 16 * (i + 1);
-      B1.emitter[i].p.y = B1.canvas.height;
-      B1.emitter[i].emit();
+      this.emitter[i].addBehaviour(new Proton.Scale(1, 12));
+      this.emitter[i].p.x = B1.canvas.width / 16 * (i + 1);
+      this.emitter[i].p.y = B1.canvas.height;
+      this.emitter[i].emit();
 
-      this.proton.addEmitter(B1.emitter[i]);
+      this.proton.addEmitter(this.emitter[i]);
     }
 
-
-    this.renderer = new Proton.CanvasRenderer(B1.canvas);
+    this.renderer = new Proton.CanvasRenderer(B.canvas);
     this.renderer.onProtonUpdate = () => {
       this.context.fillStyle = 'rgba(0, 0, 0, 0.1)';
       this.context.fillRect(0, 0, B1.canvas.width, B1.canvas.height);
@@ -76,9 +81,10 @@ export class B1 extends B {
   render() {
     RAFManager.add(() => {
       for (let i = 0; i < 16; i++) {
-        B1.emitter[i].rotation = i % 2 == 0 ? 110 : -70 ;
+        this.emitter[i].rotation = i % 2 == 0 ? 110 : -70;
       }
       this.proton.update();
     });
   }
+
 }
