@@ -1,3 +1,3 @@
-<div class="app-content" [@openClose]="view.showFiller ? 'open':'closed'">
+<div class="app-content" [@openClose]="{value:view.showFiller ? 'open':'closed', params:{divWidthOpened: divWidthOpened,divWidthClosed: divWidthClosed}}">
     <router-outlet></router-outlet>
 </div>

@@ -8,6 +8,8 @@
   right: 0px;
   position: fixed;
   background-color: rgb(30, 30, 30);
+  overflow-Y: scroll;
+  overflow-x: hidden;
 }
 
 
