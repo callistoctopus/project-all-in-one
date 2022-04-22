@@ -1,25 +1,10 @@
 <div class="status-bar">
-  <div class="status-item" *ngFor="let item of view.statusMap.keys()">
-    <mat-icon
-      style="
-        color: #757474;
-        font-size: 12px;
-        padding-right: 0px;
-        margin-right: 0px;
-        margin-top: 4px;
-        width: 12px;
-        float: left;
-      "
-      >{{ item }}</mat-icon
-    ><span
-      style="
-        color: #ffffff;
-        font-size: 12px;
-        padding-left: 6px;
-        margin-left: 0px;
-        float: left;
-      "
-      >{{ view.statusMap.get(item) }}</span
-    >
+  <div class="status-item-left" *ngFor="let item of view.status.keys()">
+    <mat-icon *ngIf="view.status.get(item)?.level == 1" class="foot-icon">{{ view.status.get(item)?.icon }}</mat-icon
+    ><span *ngIf="view.status.get(item)?.level == 1" class="foot-span">{{ view.status.get(item)?.content }}</span>
+  </div>
+  <div class="status-item-right" *ngFor="let item of view.status.keys()">
+    <mat-icon *ngIf="view.status.get(item)?.level == 0" class="foot-icon">{{ view.status.get(item)?.icon }}</mat-icon
+    ><span *ngIf="view.status.get(item)?.level == 0" class="foot-span">{{ view.status.get(item)?.content }}</span>
   </div>
 </div>

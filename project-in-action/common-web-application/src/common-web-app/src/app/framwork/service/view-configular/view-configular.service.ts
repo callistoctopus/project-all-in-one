@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { MenuFunction } from '../../model/function';
+import { Statu } from '../../model/statu';
 
 @Injectable({
   providedIn: 'root',
@@ -13,41 +14,28 @@ export class ViewConfigularService {
 
   meuns: MenuFunction[] = [];
 
-  menusMap: Map<number, MenuFunction> = new Map<number, MenuFunction>();
-
-  // 主菜单icon
-  // functions: string[] = [];
-  mainfuncs: MenuFunction[] = [];
-
   // 当前选择的主icon
-  current_function = -1;
+  current_function: MenuFunction = new MenuFunction();
 
   // 次级菜单icon
   subfuncs: MenuFunction[] = [];
 
-  statusMap = new Map();
+  status: Map<string, Statu> = new Map();
 
   constructor(private router: Router) {}
 
-  init() {
-    this.meuns.forEach((value) => {
-      this.menusMap.set(value.id, value);
-      if (value.level == 0) {
-        this.mainfuncs.push(value);
-      }
-    });
-  }
-
   sideOnClick(func: MenuFunction) {
-    if ((func.level == 0)) {
-      if (this.current_function == func.id) {
+    if (func.level == 1) {
+      if (this.current_function.id == func.id) {
         this.showFiller =
           !this.showFiller && func.child != null && func.child.length > 0;
       } else {
-        this.current_function = func.id;
+        this.current_function = func;
         this.subfuncs = [];
         func.child.forEach((value: number) => {
-          const subFunc = this.menusMap.get(value);
+          let subFunc = this.meuns.find((funct, index) => {
+            return funct.id == value;
+          });
           if (subFunc) {
             this.subfuncs.push(subFunc);
           }
@@ -58,14 +46,22 @@ export class ViewConfigularService {
 
     if (func.child == null || func.child.length <= 0 || func.route != '') {
       this.router.navigateByUrl(func.route);
-      this.statusMap.set('radio_button_checked',func.content);
+      this.showCurrentFunc(func);
     }
-    
   }
 
-  to(route:string){
+  to(route: string) {
     if (route != '') {
       this.router.navigateByUrl(route);
     }
+  }
+
+  private showCurrentFunc(func:MenuFunction) {
+    this.status.set('current_func', {
+      id: -1,
+      icon: 'radio_button_checked',
+      content: func.content,
+      level: 1,
+    });
   }
 }

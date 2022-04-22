@@ -1,7 +1,11 @@
 <div class="side">
 
-  <div class="side-icon" *ngFor="let func of view.mainfuncs" (click)="toggle(func)">
-    <mat-icon>{{func.icon}}</mat-icon>
+  <div class="side-icon-top" *ngFor="let func of view.meuns" (click)="toggle(func)">
+    <mat-icon *ngIf="func.level == 1">{{func.icon}}</mat-icon>
+  </div>
+
+  <div class="side-icon-bottom" *ngFor="let func of view.meuns" (click)="toggle(func)">
+    <mat-icon *ngIf="func.level == 0">{{func.icon}}</mat-icon>
   </div>
 
 </div>
