@@ -21,7 +21,11 @@
     "@angular/platform-browser-dynamic": "~13.3.0",
     "@angular/router": "~13.3.0",
     "ng-devui": "^13.0.1",
+    "proton-engine": "^5.3.7",
+    "raf-manager": "^0.3.0",
+    "react": "^18.0.0",
     "rxjs": "~7.5.0",
+    "stats.js": "^0.17.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"
   },

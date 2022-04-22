@@ -13,6 +13,7 @@ const routes: Routes = [
   { path: 'epub', component: EpubComponent },
   { path: 'auth', component: AuthComponent },
   { path: '', redirectTo: '/default', pathMatch: 'full' },
+  { path: '*', redirectTo: '/default', pathMatch: 'full' },
 ];
 
 @NgModule({

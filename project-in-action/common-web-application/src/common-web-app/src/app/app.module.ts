@@ -27,6 +27,8 @@ import { CommonModule } from '@angular/common';
 import { PicComponent } from './function/pic/pic.component';
 import { EpubComponent } from './function/epub/epub.component';
 import { AuthComponent } from './function/auth/auth.component';
+import { MatMenuModule } from '@angular/material/menu';
+import { BackgroundComponent } from './function/background/background.component';
 
 @NgModule({
   declarations: [
@@ -45,6 +47,7 @@ import { AuthComponent } from './function/auth/auth.component';
     PicComponent,
     EpubComponent,
     AuthComponent,
+    BackgroundComponent,
   ],
   imports: [
     FormsModule,
@@ -56,8 +59,9 @@ import { AuthComponent } from './function/auth/auth.component';
     MatSidenavModule,
     MatCardModule,
     MatTableModule,
+    MatMenuModule,
     DevUIModule,
-    CommonModule
+    CommonModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

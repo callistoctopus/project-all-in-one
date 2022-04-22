@@ -14,4 +14,8 @@ export class HeadBarComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  onToggle(event: any) {
+    console.log(event);
+  }
+
 }

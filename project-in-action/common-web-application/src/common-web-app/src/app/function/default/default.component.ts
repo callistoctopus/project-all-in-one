@@ -4,11 +4,10 @@ import { ViewConfigularService } from 'src/app/framwork/service/view-configular/
 @Component({
   selector: 'app-default',
   templateUrl: './default.component.html',
-  styleUrls: ['./default.component.css']
+  styleUrls: ['./default.component.css'],
 })
 export class DefaultComponent implements OnInit {
-
-  constructor(public view: ViewConfigularService) { }
+  constructor(public view: ViewConfigularService) {}
 
   ngOnInit(): void {
   }

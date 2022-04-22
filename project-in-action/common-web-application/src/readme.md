@@ -35,6 +35,11 @@ angular.json
 
 echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
 
+
+npm install proton-engine --save
+npm install raf-manager --save
+npm install stats.js --save
+
 # 生成控件
 ng generate component heroes
 
