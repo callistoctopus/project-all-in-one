@@ -41,9 +41,9 @@ export class B1 extends B{
         new Proton.Span(0.9, 0.8)
       );
   
-      B1.emitter.addInitialize(new Proton.Mass(2));
-      B1.emitter.addInitialize(new Proton.Radius(11, 12));
-      B1.emitter.addInitialize(new Proton.Life(2, 3));
+      B1.emitter.addInitialize(new Proton.Mass(5));
+      B1.emitter.addInitialize(new Proton.Radius(1, 1));
+      B1.emitter.addInitialize(new Proton.Life(1, 10));
       B1.emitter.addInitialize(
         new Proton.Velocity(
           new Proton.Span(1, 2),
@@ -57,7 +57,7 @@ export class B1 extends B{
       );
       B1.emitter.addBehaviour(new Proton.Scale(1, 0.7));
       B1.emitter.p.x = B1.canvas.width / 2;
-      B1.emitter.p.y = B1.canvas.height / 2;
+      B1.emitter.p.y = B1.canvas.height;
       B1.emitter.emit();
   
       this.proton.addEmitter(B1.emitter);
