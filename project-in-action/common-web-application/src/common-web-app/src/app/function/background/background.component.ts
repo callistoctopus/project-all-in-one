@@ -2,7 +2,7 @@ import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { ViewConfigularService } from 'src/app/framwork/service/view-configular/view-configular.service';
 import { B } from './component/b';
 import {B1} from './component/b1';
-import { B2 } from './component/b2';
+import { B3 } from './component/b3';
 
 @Component({
   selector: 'app-background',
@@ -16,13 +16,13 @@ export class BackgroundComponent implements OnInit , OnDestroy{
 
   bo = '';
 
-  static backgrounds: B[] = [];
+  static backgrounds = [];
 
   static i = 0;
 
   constructor(private view:ViewConfigularService) {
     BackgroundComponent.backgrounds.push(new B1());
-    BackgroundComponent.backgrounds.push(new B2());
+    BackgroundComponent.backgrounds.push(new B3());
   }
 
   ngOnDestroy(): void {
@@ -35,11 +35,9 @@ export class BackgroundComponent implements OnInit , OnDestroy{
   }
 
   ngOnChanges(){
-    BackgroundComponent.backgrounds = [];
-    BackgroundComponent.backgrounds.push(new B1());
-    BackgroundComponent.backgrounds.push(new B2());
     // BackgroundComponent.backgrounds.find((value) => { return value.id == this.bo }).destroy();
     BackgroundComponent.backgrounds.find((value) => { return value.id == this.b }).init();
+    // new B3().init
     this.bo = this.b;
   }
 }
