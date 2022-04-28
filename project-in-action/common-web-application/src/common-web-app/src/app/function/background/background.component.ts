@@ -2,6 +2,7 @@ import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { ViewConfigularService } from 'src/app/framwork/service/view-configular/view-configular.service';
 import { B } from './component/b';
 import {B1} from './component/b1';
+import { B2 } from './component/b2';
 import { B3 } from './component/b3';
 
 @Component({
@@ -22,6 +23,7 @@ export class BackgroundComponent implements OnInit , OnDestroy{
 
   constructor(private view:ViewConfigularService) {
     BackgroundComponent.backgrounds.push(new B1());
+    BackgroundComponent.backgrounds.push(new B2());
     BackgroundComponent.backgrounds.push(new B3());
   }
 

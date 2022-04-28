@@ -10,7 +10,7 @@ import { Statu } from '../../model/statu';
 export class ViewConfigularService {
   public showFiller: boolean = false;
 
-  b = 'b3';
+  b = 'b2';
 
   clickCount = 0;
 

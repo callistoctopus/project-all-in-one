@@ -26,6 +26,9 @@
     "react": "^18.0.0",
     "rxjs": "~7.5.0",
     "stats.js": "^0.17.0",
+    "three": "^0.139.2",
+    "three.modifiers": "^2.5.7",
+    "three.proton.js": "^0.2.3",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"
   },

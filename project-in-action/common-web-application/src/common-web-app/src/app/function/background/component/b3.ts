@@ -25,8 +25,8 @@ export class B3 extends B {
 
     let emitter = new Proton.Emitter();
     emitter.rate = new Proton.Rate(
-      new Proton.Span(80),
-      new Proton.Span(0.05, 0.2)
+      Proton.getSpan(150),
+      Proton.getSpan(0.05, 0.2)
     );
     emitter.addInitialize(new Proton.Mass(50));
     emitter.addInitialize(new Proton.Radius(1, 4));
