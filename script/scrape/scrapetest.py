@@ -15,21 +15,30 @@ def getTitle(url):
         return None 
     
     try:
-        bs = BeautifulSoup(html.read(), 'html.parser') 
+        data = html.read()
+        bs = BeautifulSoup(data, 'html.parser') 
         title = bs.body.h1 
     except AttributeError as e:
         return None
         
     return title 
 
-title = getTitle('http://www.pythonscraping.com/pages/page1.html')
+#http://www.pythonscraping.com/pages/page1.html
+title = getTitle('https://www.baidu.com')
 if title == None:
     print('Title could not be found') 
 else:
     print(title)
 
-html = urlopen('http://www.pythonscraping.com/pages/warandpeace.html') 
+#http://www.pythonscraping.com/pages/warandpeace.html
+html = urlopen('https://www.baidu.com') 
 bs = BeautifulSoup(html.read(), 'html.parser')
 nameList = bs.findAll('span', {'class':'green'}) 
 for name in nameList:     
     print(name.get_text())
+    
+html = urlopen('https://baike.baidu.com/item/Python/407313?fr=aladdin') 
+bs = BeautifulSoup(html, 'html.parser') 
+for link in bs.find_all('a'):     
+    if 'href' in link.attrs:         
+        print(link.attrs['href'])
