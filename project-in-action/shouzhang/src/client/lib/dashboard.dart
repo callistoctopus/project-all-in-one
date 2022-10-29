@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-29 01:37:32
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-10-29 02:35:29
+ * @LastEditTime: 2022-10-29 18:26:53
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -41,25 +41,21 @@ class HomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<HomePage> {
-  var _wordPair = WordPair.random();
-  int _counter = 0;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      /*appBar: AppBar(
-        title: Text(widget.title),
-      ),*/
+
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              '$_wordPair',
+              '日报',
               style: Theme.of(context).textTheme.headlineMedium,
             ),
             Text(
-              '$_counter',
+              '周报',
               style: Theme.of(context).textTheme.headlineMedium,
             ),
           ],
