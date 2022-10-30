@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-29 01:37:32
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-10-29 18:26:53
+ * @LastEditTime: 2022-10-30 02:19:53
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -51,11 +51,19 @@ class _MyHomePageState extends State<HomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
+              '消费预测，建议，警告',
+              style: Theme.of(context).textTheme.headlineMedium,
+            ),
+            Text(
               '日报',
               style: Theme.of(context).textTheme.headlineMedium,
             ),
             Text(
               '周报',
+              style: Theme.of(context).textTheme.headlineMedium,
+            ),
+            Text(
+              '月报',
               style: Theme.of(context).textTheme.headlineMedium,
             ),
           ],
