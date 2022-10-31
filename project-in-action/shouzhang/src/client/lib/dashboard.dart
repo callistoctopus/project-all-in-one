@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-29 01:37:32
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-10-31 09:00:53
+ * @LastEditTime: 2022-10-31 15:35:23
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -18,29 +18,25 @@ class DashboardPage extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: HomePage(),
-      floatingActionButton: 
+    Map<IconData, Function> para = {
+      Icons.cancel: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const AddPage()));
+      },
+      Icons.arrow_back_ios: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const AddPage()));
+      },
+      Icons.add: () {
+        showBottomSheet(context: context, builder: (context) => const SizedBox(height: 380, child: AddPage(),));
+      }
+    };
 
-      FlowMenu(),
-
-      // FloatingActionButton(
-      //   onPressed: () {
-      //     showBottomSheet(
-      //         shape: const OutlineInputBorder(),
-      //         context: context,
-      //         builder: (BuildContext context) => Container(
-      //               height: 380, //这里调整高度即可，建议按照屏幕高度比例来计算
-      //               decoration: const BoxDecoration(
-      //                 borderRadius: BorderRadius.only(
-      //                     topLeft: Radius.circular(60),
-      //                     topRight: Radius.circular(60)),
-      //               ),
-      //               child: const AddPage(),
-      //             ));
-      //   },
-      //   child: const Icon(Icons.add),
-      // ),
+    return Scaffold(
+      body: const HomePage(),
+      floatingActionButton: FlowMenu(menuMap: para),
     );
   }
 }

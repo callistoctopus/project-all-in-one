@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import 'icon_toggle_button.dart';
-
 class FlowMenu extends StatefulWidget {
-  const FlowMenu({super.key});
+  const FlowMenu({super.key, required this.menuMap});
+
+  final Map<IconData, Function> menuMap;
 
   @override
   State<FlowMenu> createState() => _FlowMenuState();
@@ -13,13 +13,13 @@ class _FlowMenuState extends State<FlowMenu>
     with SingleTickerProviderStateMixin {
   late AnimationController menuAnimation;
   IconData lastTapped = Icons.notifications;
-  final List<IconData> menuItems = <IconData>[
-    Icons.save,
-    Icons.delete,
-    Icons.cancel,
-    // Icons.settings,
-    // Icons.menu,
-  ];
+  // final List<IconData> menuItems = <IconData>[
+  //   Icons.save,
+  //   Icons.delete,
+  //   Icons.cancel,
+  //   // Icons.settings,
+  //   // Icons.menu,
+  // ];
 
   void _updateMenu(IconData icon) {
     if (icon != Icons.menu) {
@@ -36,27 +36,31 @@ class _FlowMenuState extends State<FlowMenu>
     );
   }
 
-  Widget flowMenuItem(IconData icon) {
-
+  Widget flowMenuItem(IconData icon, Function? func) {
     return Stack(children: <Widget>[
       Positioned.fill(
         child: Container(
-          margin:const EdgeInsets.all(5), // Modify this till it fills the color properly
+          margin: const EdgeInsets.all(
+              5), // Modify this till it fills the color properly
           color: Colors.white, // Color
         ),
       ),
-      IconButton(
-        icon: Icon(
-          icon,
-          size: 50,
-        ),
-        onPressed: () {
-          _updateMenu(icon);
-          menuAnimation.status == AnimationStatus.completed
-              ? menuAnimation.reverse()
-              : menuAnimation.forward();
-        },
-      )
+      GestureDetector(
+          onLongPress: () {
+            _updateMenu(icon);
+            menuAnimation.status == AnimationStatus.completed
+                ? menuAnimation.reverse()
+                : menuAnimation.forward();
+          },
+          child: IconButton(
+            icon: Icon(
+              icon,
+              size: 50,
+            ),
+            onPressed: () {
+              func!();
+            },
+          ))
     ]);
   }
 
@@ -64,8 +68,9 @@ class _FlowMenuState extends State<FlowMenu>
   Widget build(BuildContext context) {
     return Flow(
       delegate: FlowMenuDelegate(menuAnimation: menuAnimation),
-      children:
-          menuItems.map<Widget>((IconData icon) => flowMenuItem(icon)).toList(),
+      children: widget.menuMap.keys
+          .map<Widget>((icon) => flowMenuItem(icon, widget.menuMap[icon]))
+          .toList(),
     );
   }
 }
@@ -110,7 +115,7 @@ class FlowApp extends StatelessWidget {
         appBar: AppBar(
           title: const Text('Flow Example'),
         ),
-        body: const FlowMenu(),
+        // body: const FlowMenu(),
       ),
     );
   }
