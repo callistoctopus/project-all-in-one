@@ -67,7 +67,8 @@ class _FlowMenuState extends State<FlowMenu>
   @override
   Widget build(BuildContext context) {
     return Flow(
-      delegate: FlowMenuDelegate(menuAnimation: menuAnimation),
+      delegate:
+          FlowMenuDelegate(menuAnimation: menuAnimation, pcontext: context),
       children: widget.menuMap.keys
           .map<Widget>((icon) => flowMenuItem(icon, widget.menuMap[icon]))
           .toList(),
@@ -76,10 +77,11 @@ class _FlowMenuState extends State<FlowMenu>
 }
 
 class FlowMenuDelegate extends FlowDelegate {
-  FlowMenuDelegate({required this.menuAnimation})
+  FlowMenuDelegate({required this.menuAnimation, required this.pcontext})
       : super(repaint: menuAnimation);
 
   final Animation<double> menuAnimation;
+  final BuildContext pcontext;
 
   @override
   bool shouldRepaint(FlowMenuDelegate oldDelegate) {
@@ -90,12 +92,15 @@ class FlowMenuDelegate extends FlowDelegate {
   void paintChildren(FlowPaintingContext context) {
     double dx = 0.0;
     for (int i = 0; i < context.childCount; ++i) {
-      dx = context.getChildSize(i)!.width * i;
+      var cw = context.getChildSize(i)!.width;
+      dx = cw * i;
+      var x = pcontext.size!.width - context.getChildSize(i)!.width;
+      var y = pcontext.size!.height - context.getChildSize(i)!.width;
       context.paintChild(
         i,
         transform: Matrix4.translationValues(
-          270 - dx * menuAnimation.value,
-          580,
+          x - dx * menuAnimation.value,
+          y,
           0,
         ),
       );

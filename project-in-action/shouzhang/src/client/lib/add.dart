@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-26 15:06:57
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-10-31 15:28:27
+ * @LastEditTime: 2022-10-31 15:53:43
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -19,33 +19,18 @@ class AddPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Map<IconData, Function> para = {
-      Icons.save: (){},
-      Icons.arrow_back_ios: () {
-        showBottomSheet(context: context, builder: (context) => const SizedBox(height: 380, child: AddPage(),));
-      },
+      // Icons.arrow_back_ios: (){},
       Icons.cancel: () {
-        showBottomSheet(context: context, builder: (context) => const SizedBox(height: 380, child: AddPage(),));
+        Navigator.pop(context);
+      },
+      Icons.save: () {
+        Navigator.pop(context);
       }
-      // () {Navigator.push(
-      //     context,
-      //     MaterialPageRoute(builder: (context) => const AddPage()),
-      //   );
-      // }
     };
 
     return Scaffold(
       body: const Shouzhizhuijia(),
       floatingActionButton: FlowMenu(menuMap: para),
-      // GestureDetector(
-      //     onDoubleTap: () {
-      //       Navigator.pop(context);
-      //     },
-      //     child: FloatingActionButton(
-      //       onPressed: () {
-      //         // Navigator.pop(context);
-      //       },
-      //       child: const Icon(Icons.arrow_back),
-      //     )),
     );
   }
   // #enddocregion build
