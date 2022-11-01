@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-29 01:37:32
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-01 06:27:26
+ * @LastEditTime: 2022-11-01 08:16:47
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -13,36 +13,17 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'component/flow.dart';
+import 'component/icon_flow_buttons.dart';
 import 'package:http/http.dart' as http;
 
-class DetailListPage extends StatelessWidget {
-  const DetailListPage({super.key});
-
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) {
-    Map<IconData, Function> para = {
-      Icons.arrow_back_ios: () {
-        Navigator.pop(context);
-      },
-    };
-
-    return Scaffold(
-      body: const DetailList(),
-      floatingActionButton: FlowMenu(menuMap: para),
-    );
-  }
-}
-
-class DetailList extends StatefulWidget {
-  const DetailList({super.key});
+class CashFlowPage extends StatefulWidget {
+  const CashFlowPage({super.key});
 
   @override
-  State<DetailList> createState() => _DetailPageState();
+  State<CashFlowPage> createState() => _CashFlowPageState();
 }
 
-class _DetailPageState extends State<DetailList> {
+class _CashFlowPageState extends State<CashFlowPage> {
   late Future<List<_Detail>> futureAlbum;
 
   Future<List<_Detail>> fetchAlbum() async {
@@ -70,33 +51,42 @@ class _DetailPageState extends State<DetailList> {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<List<_Detail>>(
-      future: futureAlbum,
-      builder: (context, snapshot) {
-        if (snapshot.hasData) {
-          // return Text(snapshot.data!.id);
-          return ListView.builder(
-              itemCount: snapshot.data!.length,
-              itemBuilder: (context, i) {
-                return Row(
-                  children: [
-                    Text(snapshot.data![i].id),
-                    Text(snapshot.data![i].user),
-                    Text(snapshot.data![i].time),
-                    Text(snapshot.data![i].reason),
-                    Text(snapshot.data![i].type.toString()),
-                    Text(snapshot.data![i].amount.toString()),
-                    Text(snapshot.data![i].note),
-                  ],
-                );
-              });
-        } else if (snapshot.hasError) {
-          return Text('${snapshot.error}');
-        }
-
-        // By default, show a loading spinner.
-        return const CircularProgressIndicator();
+    Map<IconData, Function> para = {
+      Icons.arrow_back_ios: () {
+        Navigator.pop(context);
       },
+    };
+
+    return Scaffold(
+      body: FutureBuilder<List<_Detail>>(
+        future: futureAlbum,
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            // return Text(snapshot.data!.id);
+            return ListView.builder(
+                itemCount: snapshot.data!.length,
+                itemBuilder: (context, i) {
+                  return Row(
+                    children: [
+                      Text(snapshot.data![i].id),
+                      Text(snapshot.data![i].user),
+                      Text(snapshot.data![i].time),
+                      Text(snapshot.data![i].reason),
+                      Text(snapshot.data![i].type.toString()),
+                      Text(snapshot.data![i].amount.toString()),
+                      Text(snapshot.data![i].note),
+                    ],
+                  );
+                });
+          } else if (snapshot.hasError) {
+            return Text('${snapshot.error}');
+          }
+
+          // By default, show a loading spinner.
+          return const CircularProgressIndicator();
+        },
+      ),
+      floatingActionButton: FlowMenu(menuMap: para),
     );
   }
 }

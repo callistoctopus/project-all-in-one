@@ -2,58 +2,45 @@
  * @Author: gui-qi
  * @Date: 2022-10-29 01:37:32
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-01 05:32:49
+ * @LastEditTime: 2022-11-01 08:22:36
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
  */
-
-//flutter pub add fl_chart
 import 'package:flutter/material.dart';
 
-import 'add.dart';
-import 'component/flow.dart';
-import 'detail.dart';
+import 'add_cash_flow_page.dart';
+import 'component/icon_flow_buttons.dart';
+import 'cash_flow_page.dart';
 
-class DashboardPage extends StatelessWidget {
-  const DashboardPage({super.key});
+class AnaysisPage extends StatefulWidget {
+  const AnaysisPage({super.key});
 
-  // This widget is the root of your application.
+  @override
+  State<AnaysisPage> createState() => _AnaysisPageState();
+}
+
+class _AnaysisPageState extends State<AnaysisPage> {
   @override
   Widget build(BuildContext context) {
     Map<IconData, Function> para = {
       Icons.list: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => const DetailListPage()));
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => const CashFlowPage()));
       },
       Icons.arrow_back_ios: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => const AddPage()));
+        // Navigator.pop(context);
       },
       Icons.add: () {
-        showBottomSheet(context: context, builder: (context) => const SizedBox(height: 380, child: AddPage(),));
+        showBottomSheet(
+            context: context,
+            builder: (context) => const SizedBox(
+                  height: 380,
+                  child: AddCashFlowPage(),
+                ));
       }
     };
 
-    return Scaffold(
-      body: const HomePage(),
-      floatingActionButton: FlowMenu(menuMap: para),
-    );
-  }
-}
-
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
-
-  @override
-  State<HomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<HomePage> {
-  @override
-  Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
         child: Column(
@@ -63,7 +50,6 @@ class _MyHomePageState extends State<HomePage> {
               '消费预测，建议，警告',
               style: Theme.of(context).textTheme.headlineMedium,
             ),
-
             Text(
               '预算',
               style: Theme.of(context).textTheme.headlineMedium,
@@ -82,7 +68,10 @@ class _MyHomePageState extends State<HomePage> {
             ),
           ],
         ),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      ),
+      floatingActionButton: FlowMenu(
+          menuMap:
+              para), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }

@@ -1,52 +1,96 @@
 import 'package:flutter/material.dart';
 
-class IconToggleButtons extends StatefulWidget {
-  const IconToggleButtons(
-      {required this.icon, required this.label, required this.onPressed, super.key});
+class IconToggleButtons2 extends StatefulWidget {
+  IconToggleButtons2(
+      {required this.icon,
+      required this.label,
+      required this.onSelect,
+      this.isSingle = false,
+      super.key});
 
-  final IconData icon;
-  final String label;
-  final void Function() onPressed;
+  final bool isSingle;
+  final List<IconData> icon;
+  final List<String> label;
+  Function(List<int>) onSelect;
 
   @override
-  State<IconToggleButtons> createState() => _IconToggleButtonsState();
+  State<IconToggleButtons2> createState() => _IconToggleButtonsState2();
 }
 
-class _IconToggleButtonsState extends State<IconToggleButtons> {
+class _IconToggleButtonsState2 extends State<IconToggleButtons2> {
+  List<int> currentIndex = [];
+
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: <Widget>[
-            IconToggleButton(
-                isEnabled: true,
-                getDefaultStyle: enabledFilledButtonStyle,
-                icon: widget.icon),
-            Text(widget.label),
-          ]),
-    );
+    onEvent(int i, bool isSelected) {
+      if (widget.isSingle) {
+        currentIndex.clear();
+      }
+
+      if (isSelected) {
+        currentIndex.add(i);
+      } else {
+        currentIndex.remove(i);
+      }
+
+      widget.onSelect(currentIndex);
+
+      if (widget.isSingle) {
+        setState(() {});
+      }
+    }
+
+    return Container(
+        margin: const EdgeInsets.symmetric(vertical: 5.0, horizontal: 5),
+        height: 80,
+        child: ListView.builder(
+            scrollDirection: Axis.horizontal,
+            itemCount: widget.icon.length,
+            itemBuilder: (context, i) {
+              return Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: <Widget>[
+                        IconToggleButton(
+                          isEnabled: true,
+                          getDefaultStyle: enabledFilledButtonStyle,
+                          icon: widget.icon[i],
+                          index: i,
+                          callback: onEvent,
+                          selected: currentIndex.contains(i),
+                        ),
+                        Text(widget.label[i]),
+                      ]));
+            }));
   }
 }
 
 class IconToggleButton extends StatefulWidget {
-  const IconToggleButton(
+  IconToggleButton(
       {required this.isEnabled,
       this.getDefaultStyle,
       required this.icon,
+      required this.index,
+      // this.selectedIndex = 0,
+      required this.callback,
+      this.selected = false,
       super.key});
 
   final bool isEnabled;
   final ButtonStyle? Function(bool, ColorScheme)? getDefaultStyle;
   final IconData icon;
+  final int index;
+  // final int selectedIndex;
+  final Function(int i, bool isSelected) callback;
+  bool selected;
 
   @override
   State<IconToggleButton> createState() => _IconToggleButtonState();
 }
 
 class _IconToggleButtonState extends State<IconToggleButton> {
-  bool selected = false;
+  // bool selected = false;
 
   @override
   Widget build(BuildContext context) {
@@ -54,19 +98,20 @@ class _IconToggleButtonState extends State<IconToggleButton> {
     final VoidCallback? onPressed = widget.isEnabled
         ? () {
             setState(() {
-              selected = !selected;
+              widget.selected = !widget.selected;
+              widget.callback(widget.index, widget.selected);
             });
           }
         : null;
     ButtonStyle? style;
     if (widget.getDefaultStyle != null) {
-      style = widget.getDefaultStyle!(selected, colors);
+      style = widget.getDefaultStyle!(widget.selected, colors);
     }
 
     IconData icon = widget.icon;
 
     return IconButton(
-      isSelected: selected,
+      isSelected: widget.selected,
       icon: Icon(icon),
       selectedIcon: Icon(icon),
       onPressed: onPressed,
@@ -181,7 +226,11 @@ class IconButtonToggleApp extends StatelessWidget {
       ),
       title: 'Icon Button Types',
       home: Scaffold(
-        body: IconToggleButtons(icon: Icons.save, label: 'abc',onPressed: (){},),
+        body: IconToggleButtons2(
+          icon: [Icons.save],
+          label: ['abc'],
+          onSelect: (n) {},
+        ),
       ),
     );
   }

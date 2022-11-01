@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-29 03:31:37
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-10-29 03:37:13
+ * @LastEditTime: 2022-11-01 08:08:50
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -27,3 +27,4 @@ samples, guidance on mobile development, and a full API reference.
 
 fultter create client
 flutter pub add english_words
+flutter pub add fl_chart

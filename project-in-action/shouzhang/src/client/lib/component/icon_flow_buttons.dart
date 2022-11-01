@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'icon_toggle_buttons.dart';
+
 class FlowMenu extends StatefulWidget {
   const FlowMenu({super.key, required this.menuMap});
 
@@ -55,11 +57,12 @@ class _FlowMenuState extends State<FlowMenu>
           child: IconButton(
             icon: Icon(
               icon,
-              size: 50,
+              size: 40,
             ),
             onPressed: () {
               func!();
             },
+            style: enabledFilledButtonStyle(false, Theme.of(context).colorScheme),
           ))
     ]);
   }
@@ -92,7 +95,7 @@ class FlowMenuDelegate extends FlowDelegate {
   void paintChildren(FlowPaintingContext context) {
     double dx = 0.0;
     for (int i = 0; i < context.childCount; ++i) {
-      var cw = context.getChildSize(i)!.width;
+      var cw = context.getChildSize(i)!.width +10;
       dx = cw * i;
       var x = pcontext.size!.width - context.getChildSize(i)!.width;
       var y = pcontext.size!.height - context.getChildSize(i)!.width;
