@@ -46,7 +46,7 @@ class _FlowMenuState extends State<FlowMenu>
         ),
       ),
       GestureDetector(
-          onLongPress: () {
+          onDoubleTap: () {
             _updateMenu(icon);
             menuAnimation.status == AnimationStatus.completed
                 ? menuAnimation.reverse()

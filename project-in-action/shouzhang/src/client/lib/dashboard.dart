@@ -2,15 +2,18 @@
  * @Author: gui-qi
  * @Date: 2022-10-29 01:37:32
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-10-31 15:35:23
+ * @LastEditTime: 2022-11-01 05:32:49
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
  */
+
+//flutter pub add fl_chart
 import 'package:flutter/material.dart';
 
 import 'add.dart';
 import 'component/flow.dart';
+import 'detail.dart';
 
 class DashboardPage extends StatelessWidget {
   const DashboardPage({super.key});
@@ -19,10 +22,10 @@ class DashboardPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Map<IconData, Function> para = {
-      Icons.cancel: () {
+      Icons.list: () {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => const AddPage()));
+          MaterialPageRoute(builder: (context) => const DetailListPage()));
       },
       Icons.arrow_back_ios: () {
         Navigator.push(
@@ -58,6 +61,11 @@ class _MyHomePageState extends State<HomePage> {
           children: <Widget>[
             Text(
               '消费预测，建议，警告',
+              style: Theme.of(context).textTheme.headlineMedium,
+            ),
+
+            Text(
+              '预算',
               style: Theme.of(context).textTheme.headlineMedium,
             ),
             Text(
