@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-29 01:37:32
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-01 08:22:36
+ * @LastEditTime: 2022-11-01 12:38:09
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -10,6 +10,7 @@
 import 'package:flutter/material.dart';
 
 import 'add_cash_flow_page.dart';
+import 'budget_setting_page.dart';
 import 'component/icon_flow_buttons.dart';
 import 'cash_flow_page.dart';
 
@@ -28,8 +29,9 @@ class _AnaysisPageState extends State<AnaysisPage> {
         Navigator.push(context,
             MaterialPageRoute(builder: (context) => const CashFlowPage()));
       },
-      Icons.arrow_back_ios: () {
-        // Navigator.pop(context);
+      Icons.calculate: () {
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => const BudgetSettingPage()));
       },
       Icons.add: () {
         showBottomSheet(
