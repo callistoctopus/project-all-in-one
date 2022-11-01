@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-29 01:37:32
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-01 15:45:07
+ * @LastEditTime: 2022-11-01 16:00:03
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -52,7 +52,10 @@ class _BudgetSettingPageState extends State<BudgetSettingPage> {
   @override
   Widget build(BuildContext context) {
     Map<IconData, Function> para = {
-      Icons.arrow_back_ios: () {
+      Icons.cancel: () {
+        Navigator.pop(context);
+      },
+      Icons.save: () {
         Navigator.pop(context);
       },
     };
