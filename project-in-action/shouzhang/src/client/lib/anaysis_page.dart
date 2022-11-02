@@ -2,16 +2,17 @@
  * @Author: gui-qi
  * @Date: 2022-10-29 01:37:32
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-01 12:38:09
+ * @LastEditTime: 2022-11-02 16:25:01
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
  */
+import 'package:client/component/custom_float_button.dart';
+import 'package:client/develop/Develop.dart';
 import 'package:flutter/material.dart';
 
 import 'add_cash_flow_page.dart';
 import 'budget_setting_page.dart';
-import 'component/icon_flow_buttons.dart';
 import 'cash_flow_page.dart';
 
 class AnaysisPage extends StatefulWidget {
@@ -25,6 +26,10 @@ class _AnaysisPageState extends State<AnaysisPage> {
   @override
   Widget build(BuildContext context) {
     Map<IconData, Function> para = {
+      Icons.developer_mode: () {
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => const DevelopmentPage()));
+      },
       Icons.list: () {
         Navigator.push(context,
             MaterialPageRoute(builder: (context) => const CashFlowPage()));
@@ -40,11 +45,12 @@ class _AnaysisPageState extends State<AnaysisPage> {
                   height: 380,
                   child: AddCashFlowPage(),
                 ));
-      }
+      },
     };
 
-    return Scaffold(
-      body: Center(
+    return PageWithFloatButton(
+      funcIcon: para,
+      child: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
@@ -70,10 +76,7 @@ class _AnaysisPageState extends State<AnaysisPage> {
             ),
           ],
         ),
-      ),
-      floatingActionButton: FlowMenu(
-          menuMap:
-              para), // This trailing comma makes auto-formatting nicer for build methods.
+      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }

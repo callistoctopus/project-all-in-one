@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-26 08:18:13
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-01 08:11:29
+ * @LastEditTime: 2022-11-02 16:05:17
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -19,7 +19,6 @@ void main() {
       useMaterial3: true,
       visualDensity: VisualDensity.standard,
     ),
-    // title: 'Navigation Basics',
-    home: const Scaffold(body:AnaysisPage()),
+    home: const Scaffold(body: AnaysisPage()),
   ));
 }

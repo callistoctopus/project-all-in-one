@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-29 01:37:32
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-01 08:16:47
+ * @LastEditTime: 2022-11-02 16:25:08
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -12,8 +12,8 @@
 //flutter pub add http
 import 'dart:convert';
 
+import 'package:client/component/custom_float_button.dart';
 import 'package:flutter/material.dart';
-import 'component/icon_flow_buttons.dart';
 import 'package:http/http.dart' as http;
 
 class CashFlowPage extends StatefulWidget {
@@ -25,6 +25,8 @@ class CashFlowPage extends StatefulWidget {
 
 class _CashFlowPageState extends State<CashFlowPage> {
   late Future<List<_Detail>> futureAlbum;
+
+  final ScrollController _firstController = ScrollController();
 
   Future<List<_Detail>> fetchAlbum() async {
     final response = await http
@@ -51,14 +53,9 @@ class _CashFlowPageState extends State<CashFlowPage> {
 
   @override
   Widget build(BuildContext context) {
-    Map<IconData, Function> para = {
-      Icons.arrow_back_ios: () {
-        Navigator.pop(context);
-      },
-    };
 
-    return Scaffold(
-      body: FutureBuilder<List<_Detail>>(
+    return PageWithFloatButton(
+      child: FutureBuilder<List<_Detail>>(
         future: futureAlbum,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
@@ -86,7 +83,6 @@ class _CashFlowPageState extends State<CashFlowPage> {
           return const CircularProgressIndicator();
         },
       ),
-      floatingActionButton: FlowMenu(menuMap: para),
     );
   }
 }
@@ -109,18 +105,6 @@ class _Detail {
     required this.amount,
     required this.note,
   });
-
-  // fromJson(Map<String, dynamic> json) {
-  //   return List<_Detail>(
-  //     id: json['data'][0]["id"],
-  //     user: json['data'][0]['user'],
-  //     time: json['data'][0]['time'],
-  //     reason: json['data'][0]['reason'],
-  //     type: json['data'][0]['type'],
-  //     amount: json['data'][0]['amount'],
-  //     note: json['data'][0]['note'],
-  //   );
-  // }
 }
 
 class _Parser {
