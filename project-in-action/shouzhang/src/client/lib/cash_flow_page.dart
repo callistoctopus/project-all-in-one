@@ -2,14 +2,11 @@
  * @Author: gui-qi
  * @Date: 2022-10-29 01:37:32
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-03 07:00:45
+ * @LastEditTime: 2022-11-03 08:51:58
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
  */
-
-//flutter pub add fl_chart
-//flutter pub add http
 import 'dart:convert';
 
 import 'package:client/component/custom_float_button.dart';
@@ -24,16 +21,16 @@ class CashFlowPage extends StatefulWidget {
 }
 
 class _CashFlowPageState extends State<CashFlowPage> {
-  late Future<List<_Detail>> futureAlbum;
+  late Future<List<Detail>> futureAlbum;
 
   final ScrollController _firstController = ScrollController();
 
-  Future<List<_Detail>> fetchAlbum() async {
+  Future<List<Detail>> fetchAlbum() async {
     final response = await http
         .post(Uri.parse('http://139.224.11.164:8080/api/query/detail'));
 
     if (response.statusCode == 200) {
-      return _Parser.fromJson(jsonDecode(response.body));
+      return _Parser.fromJson(jsonDecode(utf8.decode(response.bodyBytes)));
     } else {
       ScaffoldMessenger.of(context)
           .showSnackBar(SnackBar(content: Text('Failed to load album')));
@@ -52,26 +49,41 @@ class _CashFlowPageState extends State<CashFlowPage> {
   @override
   Widget build(BuildContext context) {
     return PageWithFloatButton(
-      child: FutureBuilder<List<_Detail>>(
+      child: FutureBuilder<List<Detail>>(
         future: futureAlbum,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             // return Text(snapshot.data!.id);
-            return ListView.builder(
-                itemCount: snapshot.data!.length,
+            return Scaffold(body: ListView.builder(
+                itemCount: snapshot.data!.length*2,
                 itemBuilder: (context, i) {
-                  return Card(
-                      child: Wrap(
+                  if(i%2 == 0){
+                    return const Divider();
+                  }
+
+                  var pre = "-";
+                  TextStyle ts =
+                      const TextStyle(color: Color.fromARGB(10, 122, 167, 116));
+                  if (snapshot.data![i~/2].type == 1) {
+                    pre = '+';
+                    ts = const TextStyle(color: Color.fromARGB(0, 241, 3, 3));
+                  }
+
+                  String amount = pre + snapshot.data![i~/2].amount.toString();
+
+                  return 
+                      Wrap(
+                    alignment: WrapAlignment.center,
+                    crossAxisAlignment: WrapCrossAlignment.center,
+                    spacing: 10,
                     children: [
-                      Text(snapshot.data![i].user),
-                      Text(snapshot.data![i].time),
-                      Text(snapshot.data![i].reason),
-                      Text(snapshot.data![i].type.toString()),
-                      Text(snapshot.data![i].amount.toString()),
-                      Text(snapshot.data![i].note),
+                      Text(snapshot.data![i~/2].time.substring(0, 10)),
+                      Text(snapshot.data![i~/2].reason),
+                      Text(snapshot.data![i~/2].note),
+                      Text(amount),
                     ],
-                  ));
-                });
+                  );
+                }));
           } else if (snapshot.hasError) {
             return Text('${snapshot.error}');
           }
@@ -84,7 +96,7 @@ class _CashFlowPageState extends State<CashFlowPage> {
   }
 }
 
-class _Detail {
+class Detail {
   final String id;
   final String user;
   final String time;
@@ -93,7 +105,7 @@ class _Detail {
   final double amount;
   final String note;
 
-  const _Detail({
+  const Detail({
     required this.id,
     required this.user,
     required this.time,
@@ -105,10 +117,10 @@ class _Detail {
 }
 
 class _Parser {
-  static List<_Detail> fromJson(Map<String, dynamic> json) {
-    List<_Detail> ret = [];
+  static List<Detail> fromJson(Map<String, dynamic> json) {
+    List<Detail> ret = [];
     json['data'].forEach((value) {
-      ret.add(_Detail(
+      ret.add(Detail(
         id: value["id"],
         user: value['user'],
         time: value['time'],

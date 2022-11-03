@@ -5,7 +5,9 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.jdbc.Null;
@@ -42,6 +44,27 @@ public class AccountDetailController {
         return ApiResponseData.from(true, "success", data);
     }
 
+    @RequestMapping(value = "/add/detail", method = RequestMethod.POST)
+    ApiResponseData addDetail(@RequestBody DayToDayAccount entity) {
+        List<DayToDayAccount> data = new ArrayList<>();
+
+        entity.setId(UUID.randomUUID().toString());
+        entity.setTime(new Date());
+        
+        SqlSession session = SessionFactory.getSession();
+        if(session != null){
+            DetailMapper mapper = session.getMapper(DetailMapper.class);
+            mapper.insert(entity);
+        } else {
+            return ApiResponseData.from(false, "数据库连接异常");
+        }
+
+        session.commit();
+        session.close();
+        
+        return ApiResponseData.from(true, "success", data);
+    }
+
     @RequestMapping(value = "/query/budget", method = RequestMethod.POST)
     ApiResponseData budget() throws Exception {
         List<Budget> data = new ArrayList<>();
@@ -59,11 +82,6 @@ public class AccountDetailController {
 
     @RequestMapping(value = "/delete/detail", method = RequestMethod.POST)
     ApiResponseData delete(@RequestBody RequestMapping rMapping) throws Exception {
-        return ApiResponseData.from(true, "success", null);
-    }
-
-    @RequestMapping(value = "/add/detail", method = RequestMethod.POST)
-    ApiResponseData add(@RequestBody RequestMapping rMapping) throws Exception {
         return ApiResponseData.from(true, "success", null);
     }
 

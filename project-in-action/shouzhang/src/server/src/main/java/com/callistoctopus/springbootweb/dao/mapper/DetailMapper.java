@@ -6,4 +6,6 @@ import com.callistoctopus.springbootweb.dao.model.DayToDayAccount;
 
 public interface DetailMapper {
     List<DayToDayAccount> selectAll();
+
+    void insert(DayToDayAccount dayToDayAccount);
 }

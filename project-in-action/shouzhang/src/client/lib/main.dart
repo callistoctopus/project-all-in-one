@@ -2,13 +2,11 @@
  * @Author: gui-qi
  * @Date: 2022-10-26 08:18:13
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-03 00:52:54
+ * @LastEditTime: 2022-11-03 07:12:51
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
  */
-
-// flutter pub add english_words
 import 'package:flutter/material.dart';
 import 'anaysis_page.dart';
 
