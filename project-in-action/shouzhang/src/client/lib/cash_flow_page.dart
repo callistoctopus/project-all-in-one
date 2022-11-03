@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-29 01:37:32
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-02 16:25:08
+ * @LastEditTime: 2022-11-03 00:54:16
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -33,12 +33,8 @@ class _CashFlowPageState extends State<CashFlowPage> {
         .post(Uri.parse('http://139.224.11.164:8080/api/query/detail'));
 
     if (response.statusCode == 200) {
-      // If the server did return a 200 OK response,
-      // then parse the JSON.
       return _Parser.fromJson(jsonDecode(response.body));
     } else {
-      // If the server did not return a 200 OK response,
-      // then throw an exception.
       throw Exception('Failed to load album');
     }
   }

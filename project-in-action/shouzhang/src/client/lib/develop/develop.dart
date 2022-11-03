@@ -8,12 +8,12 @@
  * Copyright (c) 2022, All Rights Reserved. 
  */
 import 'package:client/component/custom_float_button.dart';
-import 'package:client/develop/AbsorbPointerPage.dart';
-import 'package:client/develop/DismissiblePage.dart';
-import 'package:client/develop/Warp.dart';
+import 'package:client/develop/absorb_pointer_page.dart';
+import 'package:client/develop/dismissible_page.dart';
+import 'package:client/develop/warp_page.dart';
 import 'package:flutter/material.dart';
 
-import 'InkWell.dart';
+import 'ink_well_page.dart';
 
 class DevelopmentPage extends StatefulWidget {
   const DevelopmentPage({super.key});

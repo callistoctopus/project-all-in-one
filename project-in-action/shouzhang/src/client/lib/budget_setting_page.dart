@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-29 01:37:32
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-02 16:11:48
+ * @LastEditTime: 2022-11-03 02:34:18
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -66,221 +66,68 @@ class _BudgetSettingPageState extends State<BudgetSettingPage> {
           body: Column(children: [
             Container(
               padding: const EdgeInsets.only(left: 0, top: 3),
-              child: const Text(style: TextStyle(fontSize: 18), "月度预算"),
+              child: const Text(style: TextStyle(fontSize: 18), "月度支出预算"),
             ),
-            Container(
-              // margin: const EdgeInsets.symmetric(vertical: 20.0),
-              height: 70.0,
-              padding: const EdgeInsets.only(
-                  left: 16, top: 15, right: 16, bottom: 0),
-              child: ListView(
-                // This next line does the trick.
-                scrollDirection: Axis.horizontal,
-                children: <Widget>[
-                  const Padding(
-                      padding: EdgeInsets.only(left: 3, top: 15, right: 5),
-                      child: Text(
-                          style: TextStyle(fontSize: 18),
-                          textAlign: TextAlign.center,
-                          "交通")),
-                  SizedBox(
-                    width: 160.0,
-                    child: TextField(
-                      textAlign: TextAlign.justify,
-                      textAlignVertical: TextAlignVertical.center,
-                      cursorHeight: 25,
-                      // scrollPadding: EdgeInsets.all(2.0),
-                      decoration: const InputDecoration(
-                        prefixText: "￥",
-                        border: OutlineInputBorder(),
-                        hintText: '金额',
-                      ),
-                      onChanged: (String text) {
-                        // money = text;
-                      },
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Container(
-              // margin: const EdgeInsets.symmetric(vertical: 20.0),
-              height: 70.0,
-              padding: const EdgeInsets.only(
-                  left: 16, top: 15, right: 16, bottom: 0),
-              child: ListView(
-                // This next line does the trick.
-                scrollDirection: Axis.horizontal,
-                children: <Widget>[
-                  const Padding(
-                      padding: EdgeInsets.only(left: 3, top: 15, right: 5),
-                      child: Text(
-                          style: TextStyle(fontSize: 18),
-                          textAlign: TextAlign.center,
-                          "买菜")),
-                  SizedBox(
-                    width: 160.0,
-                    child: TextField(
-                      textAlign: TextAlign.justify,
-                      textAlignVertical: TextAlignVertical.center,
-                      cursorHeight: 25,
-                      // scrollPadding: EdgeInsets.all(2.0),
-                      decoration: const InputDecoration(
-                        prefixText: "￥",
-                        border: OutlineInputBorder(),
-                        hintText: '金额',
-                      ),
-                      onChanged: (String text) {
-                        // money = text;
-                      },
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Container(
-              // margin: const EdgeInsets.symmetric(vertical: 20.0),
-              height: 70.0,
-              padding: const EdgeInsets.only(
-                  left: 16, top: 15, right: 16, bottom: 0),
-              child: ListView(
-                // This next line does the trick.
-                scrollDirection: Axis.horizontal,
-                children: <Widget>[
-                  const Padding(
-                      padding: EdgeInsets.only(left: 3, top: 15, right: 5),
-                      child: Text(
-                          style: TextStyle(fontSize: 18),
-                          textAlign: TextAlign.center,
-                          "水果")),
-                  SizedBox(
-                    width: 160.0,
-                    child: TextField(
-                      textAlign: TextAlign.justify,
-                      textAlignVertical: TextAlignVertical.center,
-                      cursorHeight: 25,
-                      // scrollPadding: EdgeInsets.all(2.0),
-                      decoration: const InputDecoration(
-                        prefixText: "￥",
-                        border: OutlineInputBorder(),
-                        hintText: '金额',
-                      ),
-                      onChanged: (String text) {
-                        // money = text;
-                      },
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Container(
-              // margin: const EdgeInsets.symmetric(vertical: 20.0),
-              height: 70.0,
-              padding: const EdgeInsets.only(
-                  left: 16, top: 15, right: 16, bottom: 0),
-              child: ListView(
-                // This next line does the trick.
-                scrollDirection: Axis.horizontal,
-                children: <Widget>[
-                  const Padding(
-                      padding: EdgeInsets.only(left: 3, top: 15, right: 5),
-                      child: Text(
-                          style: TextStyle(fontSize: 18),
-                          textAlign: TextAlign.center,
-                          "房租")),
-                  SizedBox(
-                    width: 160.0,
-                    child: TextField(
-                      textAlign: TextAlign.justify,
-                      textAlignVertical: TextAlignVertical.center,
-                      cursorHeight: 25,
-                      // scrollPadding: EdgeInsets.all(2.0),
-                      decoration: const InputDecoration(
-                        prefixText: "￥",
-                        border: OutlineInputBorder(),
-                        hintText: '金额',
-                      ),
-                      onChanged: (String text) {
-                        // money = text;
-                      },
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Container(
-              // margin: const EdgeInsets.symmetric(vertical: 20.0),
-              height: 70.0,
-              padding: const EdgeInsets.only(
-                  left: 16, top: 15, right: 16, bottom: 0),
-              child: ListView(
-                // This next line does the trick.
-                scrollDirection: Axis.horizontal,
-                children: <Widget>[
-                  const Padding(
-                      padding: EdgeInsets.only(left: 3, top: 15, right: 5),
-                      child: Text(
-                          style: TextStyle(fontSize: 18),
-                          textAlign: TextAlign.center,
-                          "房贷")),
-                  SizedBox(
-                    width: 160.0,
-                    child: TextField(
-                      textAlign: TextAlign.justify,
-                      textAlignVertical: TextAlignVertical.center,
-                      cursorHeight: 25,
-                      // scrollPadding: EdgeInsets.all(2.0),
-                      decoration: const InputDecoration(
-                        prefixText: "￥",
-                        border: OutlineInputBorder(),
-                        hintText: '金额',
-                      ),
-                      onChanged: (String text) {
-                        // money = text;
-                      },
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Container(
-              // margin: const EdgeInsets.symmetric(vertical: 20.0),
-              height: 70.0,
-              padding: const EdgeInsets.only(
-                  left: 16, top: 15, right: 16, bottom: 0),
-              child: ListView(
-                // This next line does the trick.
-                scrollDirection: Axis.horizontal,
-                children: <Widget>[
-                  const Padding(
-                      padding: EdgeInsets.only(left: 3, top: 15, right: 5),
-                      child: Text(
-                          style: TextStyle(fontSize: 18),
-                          textAlign: TextAlign.center,
-                          "生活")),
-                  SizedBox(
-                    width: 160.0,
-                    child: TextField(
-                      textAlign: TextAlign.justify,
-                      textAlignVertical: TextAlignVertical.center,
-                      cursorHeight: 25,
-                      // scrollPadding: EdgeInsets.all(2.0),
-                      decoration: const InputDecoration(
-                        prefixText: "￥",
-                        border: OutlineInputBorder(),
-                        hintText: '金额',
-                      ),
-                      onChanged: (String text) {
-                        // money = text;
-                      },
-                    ),
-                  ),
-                ],
-              ),
-            ),
+            const InputWithTest(text: "交通",),
+            const InputWithTest(text: "买菜",),
+            const InputWithTest(text: "水果",),
+            const InputWithTest(text: "房租",),
+            const InputWithTest(text: "房贷",),
+            const InputWithTest(text: "生活",),
           ]),
         ));
   }
+}
+
+class InputWithTest extends StatefulWidget {
+  const InputWithTest({super.key, required this.text});
+
+  final String text;
+  
+  @override
+  State<InputWithTest> createState() => _InputWithTestState();
+}
+
+class _InputWithTestState extends State<InputWithTest>{
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      // margin: const EdgeInsets.symmetric(vertical: 20.0),
+      height: 70.0,
+      padding: const EdgeInsets.only(left: 16, top: 15, right: 16, bottom: 0),
+      child: 
+      ListView(
+        // This next line does the trick.
+        scrollDirection: Axis.horizontal,
+        children: <Widget>[
+          Padding(
+              padding: EdgeInsets.only(left: 3, top: 15, right: 5),
+              child: Text(
+                  style: TextStyle(fontSize: 18),
+                  textAlign: TextAlign.center,
+                  widget.text)),
+          SizedBox(
+            width: 160.0,
+            child: TextField(
+              textAlign: TextAlign.justify,
+              textAlignVertical: TextAlignVertical.center,
+              cursorHeight: 25,
+              // scrollPadding: EdgeInsets.all(2.0),
+              decoration: const InputDecoration(
+                prefixText: "￥",
+                border: OutlineInputBorder(),
+                hintText: '金额',
+              ),
+              onChanged: (String text) {
+                // money = text;
+              },
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
 }
 
 class _Detail {
