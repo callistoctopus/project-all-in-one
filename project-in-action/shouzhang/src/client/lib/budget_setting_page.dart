@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-29 01:37:32
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-03 02:34:18
+ * @LastEditTime: 2022-11-03 06:53:22
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -24,20 +24,18 @@ class BudgetSettingPage extends StatefulWidget {
 }
 
 class _BudgetSettingPageState extends State<BudgetSettingPage> {
-  late Future<List<_Detail>> futureAlbum;
+  late Future<List<_Budget>> futureAlbum;
 
-  Future<List<_Detail>> fetchAlbum() async {
+  Future<List<_Budget>> fetchAlbum() async {
     final response = await http
-        .post(Uri.parse('http://139.224.11.164:8080/api/query/detail'));
+        .post(Uri.parse('http://139.224.11.164:8080/api/query/budget'));
 
     if (response.statusCode == 200) {
-      // If the server did return a 200 OK response,
-      // then parse the JSON.
-      return _Parser.fromJson(jsonDecode(response.body));
+      return _Parser.fromJson(jsonDecode(utf8.decode(response.bodyBytes)));
     } else {
-      // If the server did not return a 200 OK response,
-      // then throw an exception.
-      throw Exception('Failed to load album');
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text('Failed to load album')));
+      return [];
     }
   }
 
@@ -60,89 +58,114 @@ class _BudgetSettingPageState extends State<BudgetSettingPage> {
       },
     };
 
+    // List<_Budget> t = const [
+    //   _Budget(
+    //       id: "", user: "", year:'', reason: "交通", type: 0, amount: 200, note: "note"),
+    //   _Budget(
+    //       id: "", user: "", year:'', reason: "买菜", type: 0, amount: 200, note: "note"),
+    //   _Budget(
+    //       id: "", user: "", year:'', reason: "水果", type: 0, amount: 200, note: "note"),
+    //   _Budget(
+    //       id: "", user: "", year:'', reason: "房租", type: 0, amount: 200, note: "note"),
+    //   _Budget(
+    //       id: "", user: "", year:'', reason: "房贷", type: 0, amount: 200, note: "note"),
+    //   _Budget(
+    //       id: "", user: "", year:'', reason: "生活", type: 0, amount: 200, note: "note"),
+    // ];
+
     return PageWithFloatButton(
         funcIcon: para,
         child: Scaffold(
-          body: Column(children: [
-            Container(
-              padding: const EdgeInsets.only(left: 0, top: 3),
-              child: const Text(style: TextStyle(fontSize: 18), "月度支出预算"),
-            ),
-            const InputWithTest(text: "交通",),
-            const InputWithTest(text: "买菜",),
-            const InputWithTest(text: "水果",),
-            const InputWithTest(text: "房租",),
-            const InputWithTest(text: "房贷",),
-            const InputWithTest(text: "生活",),
-          ]),
+          body: FutureBuilder<List<_Budget>>(
+            future: futureAlbum,
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                // return Text(snapshot.data!.id);
+                return ListView.builder(
+                    itemCount: snapshot.data!.length,
+                    itemBuilder: (context, i) {
+                      return InputWithTest(
+                        text: snapshot.data![i].reason,
+                        oldBudget: snapshot.data![i].amount.toString(),
+                      );
+                    });
+              } else if (snapshot.hasError) {
+                return Text('${snapshot.error}');
+              }
+
+              // By default, show a loading spinner.
+              return const CircularProgressIndicator();
+            },
+          ),
+          // ListView.builder(
+          //   itemCount: futureAlbum.length,
+          //   itemBuilder: (BuildContext context, int index) {
+          //     return InputWithTest(
+          //       text: futureAlbum[index].reason,
+          //       oldBudget: futureAlbum[index].amount.toString(),
+          //     );
+          //   },
+          // )),
         ));
   }
 }
 
 class InputWithTest extends StatefulWidget {
-  const InputWithTest({super.key, required this.text});
+  const InputWithTest({super.key, required this.text, required this.oldBudget});
 
   final String text;
-  
+  final String oldBudget;
+
   @override
   State<InputWithTest> createState() => _InputWithTestState();
 }
 
-class _InputWithTestState extends State<InputWithTest>{
+class _InputWithTestState extends State<InputWithTest> {
+  var money = "";
   @override
   Widget build(BuildContext context) {
-    return Container(
-      // margin: const EdgeInsets.symmetric(vertical: 20.0),
-      height: 70.0,
-      padding: const EdgeInsets.only(left: 16, top: 15, right: 16, bottom: 0),
-      child: 
-      ListView(
-        // This next line does the trick.
-        scrollDirection: Axis.horizontal,
-        children: <Widget>[
-          Padding(
-              padding: EdgeInsets.only(left: 3, top: 15, right: 5),
-              child: Text(
-                  style: TextStyle(fontSize: 18),
-                  textAlign: TextAlign.center,
-                  widget.text)),
-          SizedBox(
-            width: 160.0,
-            child: TextField(
-              textAlign: TextAlign.justify,
-              textAlignVertical: TextAlignVertical.center,
-              cursorHeight: 25,
-              // scrollPadding: EdgeInsets.all(2.0),
-              decoration: const InputDecoration(
-                prefixText: "￥",
-                border: OutlineInputBorder(),
-                hintText: '金额',
-              ),
-              onChanged: (String text) {
-                // money = text;
-              },
+    return Row(
+      children: <Widget>[
+        SizedBox(
+            width: 100,
+            child: Text(
+                style: const TextStyle(fontSize: 16),
+                textAlign: TextAlign.center,
+                widget.text)),
+        SizedBox(
+          width: 140.0,
+          child: TextField(
+            textAlign: TextAlign.justify,
+            textAlignVertical: TextAlignVertical.center,
+            cursorHeight: 25,
+            decoration: InputDecoration(
+              prefixText: "￥",
+              border: const UnderlineInputBorder(),
+              hintText: widget.oldBudget,
             ),
+            onChanged: (String text) {
+              money = text;
+            },
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
-
 }
 
-class _Detail {
+class _Budget {
   final String id;
   final String user;
-  final String time;
+  final String year;
   final String reason;
   final int type;
   final double amount;
   final String note;
 
-  const _Detail({
+  const _Budget({
     required this.id,
     required this.user,
-    required this.time,
+    required this.year,
     required this.reason,
     required this.type,
     required this.amount,
@@ -151,17 +174,17 @@ class _Detail {
 }
 
 class _Parser {
-  static List<_Detail> fromJson(Map<String, dynamic> json) {
-    List<_Detail> ret = [];
+  static List<_Budget> fromJson(Map<String, dynamic> json) {
+    List<_Budget> ret = [];
     json['data'].forEach((value) {
-      ret.add(_Detail(
+      ret.add(_Budget(
         id: value["id"],
         user: value['user'],
-        time: value['time'],
-        reason: value['reason'],
+        year: value['year'],
+        reason: value['item'],
         type: value['type'],
-        amount: value['amount'],
-        note: value['note'],
+        amount: value['budget'],
+        note: value['note']?? "",
       ));
     });
     return ret;

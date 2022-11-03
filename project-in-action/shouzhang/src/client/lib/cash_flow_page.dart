@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-29 01:37:32
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-03 00:54:16
+ * @LastEditTime: 2022-11-03 07:00:45
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -35,7 +35,9 @@ class _CashFlowPageState extends State<CashFlowPage> {
     if (response.statusCode == 200) {
       return _Parser.fromJson(jsonDecode(response.body));
     } else {
-      throw Exception('Failed to load album');
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text('Failed to load album')));
+      return [];
     }
   }
 
@@ -49,7 +51,6 @@ class _CashFlowPageState extends State<CashFlowPage> {
 
   @override
   Widget build(BuildContext context) {
-
     return PageWithFloatButton(
       child: FutureBuilder<List<_Detail>>(
         future: futureAlbum,
@@ -59,9 +60,9 @@ class _CashFlowPageState extends State<CashFlowPage> {
             return ListView.builder(
                 itemCount: snapshot.data!.length,
                 itemBuilder: (context, i) {
-                  return Row(
+                  return Card(
+                      child: Wrap(
                     children: [
-                      Text(snapshot.data![i].id),
                       Text(snapshot.data![i].user),
                       Text(snapshot.data![i].time),
                       Text(snapshot.data![i].reason),
@@ -69,7 +70,7 @@ class _CashFlowPageState extends State<CashFlowPage> {
                       Text(snapshot.data![i].amount.toString()),
                       Text(snapshot.data![i].note),
                     ],
-                  );
+                  ));
                 });
           } else if (snapshot.hasError) {
             return Text('${snapshot.error}');
@@ -114,7 +115,7 @@ class _Parser {
         reason: value['reason'],
         type: value['type'],
         amount: value['amount'],
-        note: value['note'],
+        note: value['note'] ?? "",
       ));
     });
     return ret;

@@ -2,17 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-11-02 15:26:48
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-02 16:25:19
- * @Description: 
- * 
- * Copyright (c) 2022, All Rights Reserved. 
- */
-
-/*
- * @Author: gui-qi
- * @Date: 2022-11-02 15:13:26
- * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-02 15:13:29
+ * @LastEditTime: 2022-11-03 03:09:06
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -21,8 +11,7 @@ import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
 class PageWithFloatButton extends StatelessWidget {
-  PageWithFloatButton(
-      {required this.child, this.funcIcon, super.key});
+  PageWithFloatButton({required this.child, this.funcIcon, super.key});
   Map<IconData, Function>? funcIcon;
   final Widget child;
 
@@ -45,7 +34,7 @@ class PageWithFloatButton extends StatelessWidget {
 }
 
 class _FlowMenu extends StatefulWidget {
-  const _FlowMenu({super.key, required this.menuMap});
+  const _FlowMenu({required this.menuMap, super.key});
 
   final Map<IconData, Function> menuMap;
 
@@ -56,12 +45,9 @@ class _FlowMenu extends StatefulWidget {
 class _FlowMenuState extends State<_FlowMenu>
     with SingleTickerProviderStateMixin {
   late AnimationController menuAnimation;
-  IconData lastTapped = Icons.notifications;
 
   void _updateMenu(IconData icon) {
-    if (icon != Icons.menu) {
-      setState(() => lastTapped = icon);
-    }
+    setState(() {});
   }
 
   @override
@@ -77,8 +63,7 @@ class _FlowMenuState extends State<_FlowMenu>
     return Stack(children: <Widget>[
       Positioned.fill(
         child: Container(
-          margin: const EdgeInsets.all(
-              5), // Modify this till it fills the color properly
+          margin: const EdgeInsets.all(5),
           color: Colors.white, // Color
         ),
       ),
@@ -97,7 +82,8 @@ class _FlowMenuState extends State<_FlowMenu>
             onPressed: () {
               func!();
             },
-            style: _enabledFilledButtonStyle(false, Theme.of(context).colorScheme),
+            style:
+                _enabledFilledButtonStyle(false, Theme.of(context).colorScheme),
           ))
     ]);
   }
@@ -130,10 +116,10 @@ class _FlowMenuDelegate extends FlowDelegate {
   void paintChildren(FlowPaintingContext context) {
     double dx = 0.0;
     for (int i = 0; i < context.childCount; ++i) {
-      var cw = context.getChildSize(i)!.width +10;
+      var cw = context.getChildSize(i)!.width + 10;
       dx = cw * i;
-      var x = pcontext.size!.width - context.getChildSize(i)!.width -15;
-      var y = pcontext.size!.height - context.getChildSize(i)!.width -15;
+      var x = pcontext.size!.width - context.getChildSize(i)!.width - 15;
+      var y = pcontext.size!.height - context.getChildSize(i)!.width - 15;
       context.paintChild(
         i,
         transform: Matrix4.translationValues(

@@ -1,16 +1,16 @@
-package com.callistoctopus.springbootweb.model;
+package com.callistoctopus.springbootweb.dao.model;
 
 import java.util.Date;
 
 public class DayToDayAccount {
 
-    String id = "dummy";
-    String user = "dummy";
-    Date time = new Date();
-    String reason = "交通";
-    int type = 0;
-    double amount = 12.9;
-    String note = "note";
+    String id;
+    String user;
+    Date time;
+    String reason;
+    int type;
+    double amount;
+    String note;
 
     public String getId() {
         return id;

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.callistoctopus.springbootweb.mapper.DetailMapper">
-  <select id="selectDetail" resultType="com.callistoctopus.springbootweb.model.DayToDayAccount">
+<mapper namespace="com.callistoctopus.springbootweb.dao.mapper.DetailMapper">
+  <select id="selectAll" resultType="com.callistoctopus.springbootweb.dao.model.DayToDayAccount">
     select * from day_to_day_account
   </select>
 </mapper>
