@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.UUID;
 
 import org.apache.ibatis.session.SqlSession;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -83,14 +84,14 @@ public class AccountDetailController {
         return ApiResponseData.from(true, "success", null);
     }
 
-    @RequestMapping(value = "/query/financial", method = RequestMethod.POST)
-    ApiResponseData queryFinancial() throws Exception {
+    @RequestMapping(value = "/query/financial/{type}", method = RequestMethod.POST)
+    ApiResponseData queryFinancial(@PathVariable int type) throws Exception {
         List<FinancialReason> data = new ArrayList<>();
         
         SqlSession session = SessionFactory.getSession();
         if(session != null){
             FinancialReasonMapper mapper = session.getMapper(FinancialReasonMapper.class);
-            data = mapper.selectAll();
+            data = mapper.selectAll(type);
         } else {
             return ApiResponseData.from(false, "数据库连接异常");
         }

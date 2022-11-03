@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-29 01:37:32
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-03 08:51:58
+ * @LastEditTime: 2022-11-03 14:27:59
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -54,36 +54,38 @@ class _CashFlowPageState extends State<CashFlowPage> {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             // return Text(snapshot.data!.id);
-            return Scaffold(body: ListView.builder(
-                itemCount: snapshot.data!.length*2,
-                itemBuilder: (context, i) {
-                  if(i%2 == 0){
-                    return const Divider();
-                  }
+            return Scaffold(
+                body: ListView.builder(
+                    itemCount: snapshot.data!.length * 2,
+                    itemBuilder: (context, i) {
+                      if (i % 2 == 0) {
+                        return const Divider();
+                      }
 
-                  var pre = "-";
-                  TextStyle ts =
-                      const TextStyle(color: Color.fromARGB(10, 122, 167, 116));
-                  if (snapshot.data![i~/2].type == 1) {
-                    pre = '+';
-                    ts = const TextStyle(color: Color.fromARGB(0, 241, 3, 3));
-                  }
+                      var pre = "-";
+                      TextStyle ts = const TextStyle(
+                          color: Color.fromARGB(10, 122, 167, 116));
+                      if (snapshot.data![i ~/ 2].type == 1) {
+                        pre = '+';
+                        ts = const TextStyle(
+                            color: Color.fromARGB(0, 241, 3, 3));
+                      }
 
-                  String amount = pre + snapshot.data![i~/2].amount.toString();
+                      String amount =
+                          pre + snapshot.data![i ~/ 2].amount.toString();
 
-                  return 
-                      Wrap(
-                    alignment: WrapAlignment.center,
-                    crossAxisAlignment: WrapCrossAlignment.center,
-                    spacing: 10,
-                    children: [
-                      Text(snapshot.data![i~/2].time.substring(0, 10)),
-                      Text(snapshot.data![i~/2].reason),
-                      Text(snapshot.data![i~/2].note),
-                      Text(amount),
-                    ],
-                  );
-                }));
+                      return Wrap(
+                        alignment: WrapAlignment.center,
+                        crossAxisAlignment: WrapCrossAlignment.center,
+                        spacing: 10,
+                        children: [
+                          Text(snapshot.data![i ~/ 2].time.substring(0, 10)),
+                          Text(snapshot.data![i ~/ 2].reason),
+                          Text(snapshot.data![i ~/ 2].note),
+                          Text(amount),
+                        ],
+                      );
+                    }));
           } else if (snapshot.hasError) {
             return Text('${snapshot.error}');
           }

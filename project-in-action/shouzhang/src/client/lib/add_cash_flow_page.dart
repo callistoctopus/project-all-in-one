@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-26 15:06:57
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-03 10:27:51
+ * @LastEditTime: 2022-11-03 14:27:39
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -22,22 +22,51 @@ class AddCashFlowPage extends StatefulWidget {
 }
 
 class _AddCashFlowPageState extends State<AddCashFlowPage> {
+  late Future<List<FinancialReason>> rl1;
+  late Future<List<FinancialReason>> rl2;
+
   var user = "";
   var time = DateTime(2022);
   var reason = "";
   var type = "支出";
   var amount = "";
   var note = '';
+  int _value = 0;
 
-  var rl1 = {
-    '衣服': Icons.shopping_basket,
-    '餐饮': Icons.restaurant,
-    '买菜': Icons.shopping_bag,
-    '房租': Icons.attach_money,
-    '水电': Icons.water_drop,
-  };
+  Future<List<FinancialReason>> fetchFinancialOut() async {
+    final response = await http
+        .post(Uri.parse('http://139.224.11.164:8080/api/query/financial/0'));
 
-  var rl2 = {'工资': Icons.attach_money, '外快': Icons.work, '人情': Icons.people};
+    if (response.statusCode == 200) {
+      return _Parser.fromJson(jsonDecode(utf8.decode(response.bodyBytes)));
+    } else {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text('Failed to load album')));
+      return [];
+    }
+  }
+
+  Future<List<FinancialReason>> fetchFinancialIn() async {
+    final response = await http
+        .post(Uri.parse('http://139.224.11.164:8080/api/query/financial/1'));
+
+    if (response.statusCode == 200) {
+      return _Parser.fromJson(jsonDecode(utf8.decode(response.bodyBytes)));
+    } else {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text('Failed to load album')));
+      return [];
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    try {
+      rl1 = fetchFinancialOut();
+      rl2 = fetchFinancialIn();
+    } on Exception {}
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -72,25 +101,67 @@ class _AddCashFlowPageState extends State<AddCashFlowPage> {
     };
 
     Widget reason() {
-      Widget reason1 = Padding(
-          padding: const EdgeInsets.only(left: 3, top: 0),
-          child: IconToggleButtons(
-            labelIcon: rl1,
-            onSelect: (lables) {
-              this.reason = lables[0];
-            },
-            isSingle: true, defaultSelected: rl1.keys.elementAt(0),
-          ));
+      FutureBuilder<List<FinancialReason>> reason1 =
+          FutureBuilder<List<FinancialReason>>(
+              future: rl1,
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  return Wrap(
+                    children: List<Widget>.generate(
+                      snapshot.data!.length,
+                      (int index) {
+                        return ChoiceChip(
+                          avatar: CircleAvatar(
+                              backgroundColor: Colors.blue.shade900,
+                              child: Text(snapshot.data![index].reason)),
+                          label: Text(snapshot.data![index].reason),
+                          selected: _value == index,
+                          onSelected: (bool selected) {
+                            setState(() {
+                              _value = (selected ? index : null)!;
+                            });
+                          },
+                        );
+                      },
+                    ).toList(),
+                  );
+                } else if (snapshot.hasError) {
+                  return Text('${snapshot.error}');
+                }
 
-      Widget reason2 = Padding(
-          padding: const EdgeInsets.only(left: 3, top: 0),
-          child: IconToggleButtons(
-            labelIcon: rl2,
-            onSelect: (lables) {
-              this.reason = lables[0];
-            },
-            isSingle: true, defaultSelected: rl2.keys.elementAt(0),
-          ));
+                return const CircularProgressIndicator();
+              });
+
+      FutureBuilder<List<FinancialReason>> reason2 =
+          FutureBuilder<List<FinancialReason>>(
+              future: rl2,
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  return Wrap(
+                    children: List<Widget>.generate(
+                      snapshot.data!.length,
+                      (int index) {
+                        return ChoiceChip(
+                          avatar: CircleAvatar(
+                              backgroundColor: Colors.blue.shade900,
+                              child: Text(snapshot.data![index].reason)),
+                          label: Text(snapshot.data![index].reason),
+                          selected: _value == index,
+                          onSelected: (bool selected) {
+                            setState(() {
+                              _value = (selected ? index : null)!;
+                            });
+                          },
+                        );
+                      },
+                    ).toList(),
+                  );
+                } else if (snapshot.hasError) {
+                  return Text('${snapshot.error}');
+                }
+
+                return const CircularProgressIndicator();
+              });
       return type == '支出' ? reason1 : reason2;
     }
 
@@ -115,7 +186,8 @@ class _AddCashFlowPageState extends State<AddCashFlowPage> {
                       setState(() {});
                     }
                   },
-                  isSingle: true, defaultSelected: type,
+                  isSingle: true,
+                  defaultSelected: type,
                 ),
               ),
               reason(),
@@ -151,5 +223,37 @@ class _AddCashFlowPageState extends State<AddCashFlowPage> {
             ],
           ),
         ));
+  }
+}
+
+class FinancialReason {
+  final String id;
+  final String user;
+  final int type;
+  final String reason;
+  final String note;
+
+  const FinancialReason({
+    required this.id,
+    required this.user,
+    required this.reason,
+    required this.type,
+    required this.note,
+  });
+}
+
+class _Parser {
+  static List<FinancialReason> fromJson(Map<String, dynamic> json) {
+    List<FinancialReason> ret = [];
+    json['data'].forEach((value) {
+      ret.add(FinancialReason(
+        id: value["id"] ?? "",
+        user: value['user'] ?? "",
+        type: value['type'] ?? "",
+        reason: value['reason'] ?? "",
+        note: value['note'] ?? "",
+      ));
+    });
+    return ret;
   }
 }

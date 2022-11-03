@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-29 01:37:32
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-02 16:25:01
+ * @LastEditTime: 2022-11-03 14:27:50
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -35,8 +35,11 @@ class _AnaysisPageState extends State<AnaysisPage> {
             MaterialPageRoute(builder: (context) => const CashFlowPage()));
       },
       Icons.calculate: () {
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => const BudgetSettingPage()));
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) =>
+                    const Scaffold(body: BudgetSettingPage())));
       },
       Icons.add: () {
         showBottomSheet(

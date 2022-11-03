@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-29 01:37:32
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-03 13:15:37
+ * @LastEditTime: 2022-11-03 13:54:49
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -56,6 +56,15 @@ class _BudgetSettingPageState extends State<BudgetSettingPage> {
       },
     };
 
+    fun() {
+      showBottomSheet(
+          context: context,
+          builder: (context) => const SizedBox(
+                height: 380,
+                child: AddFinancialReasonPage(),
+              ));
+    }
+
     return PageWithFloatButton(
         funcIcon: para,
         child: Scaffold(
@@ -68,15 +77,7 @@ class _BudgetSettingPageState extends State<BudgetSettingPage> {
                     itemBuilder: (context, i) {
                       if (i == snapshot.data!.length) {
                         return TextButton(
-                            onPressed: () {
-                              showBottomSheet(
-                                  context: context,
-                                  builder: (context) => const SizedBox(
-                                        height: 380,
-                                        child: AddFinancialReasonPage(),
-                                      ));
-                            },
-                            child: const Text("追加"));
+                            onPressed: fun, child: const Text("追加"));
                       }
 
                       return InputWithTest(
@@ -163,12 +164,12 @@ class _Parser {
 
     json['data'].forEach((value) {
       ret.add(_Budget(
-        id: value["id"],
-        user: value['user'],
-        year: value['year'],
-        reason: value['reason'],
-        type: value['type'],
-        amount: value['budget'],
+        id: value["id"] ?? "",
+        user: value['user'] ?? "",
+        year: value['year'] ?? "",
+        reason: value['reason'] ?? "",
+        type: value['type'] ?? 0,
+        amount: value['budget'] ?? 0,
         note: value['note'] ?? "",
       ));
     });

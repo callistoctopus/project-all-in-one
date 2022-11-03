@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-26 15:06:57
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-03 13:17:08
+ * @LastEditTime: 2022-11-03 14:27:46
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -23,10 +23,8 @@ class AddFinancialReasonPage extends StatefulWidget {
 
 class _AddFinancialReasonPageState extends State<AddFinancialReasonPage> {
   var user = "";
-  var time = DateTime(2022);
   var reason = "";
   var type = "支出";
-  var amount = "";
   var note = '';
 
   @override
@@ -37,7 +35,7 @@ class _AddFinancialReasonPageState extends State<AddFinancialReasonPage> {
       },
       Icons.save: () async {
         final response = await http.post(
-          Uri.parse('http://139.224.11.164:8080/api/add/financialReason'),
+          Uri.parse('http://139.224.11.164:8080/api/add/financial'),
           headers: <String, String>{
             'Content-Type': 'application/json; charset=UTF-8',
           },
@@ -80,7 +78,8 @@ class _AddFinancialReasonPageState extends State<AddFinancialReasonPage> {
                       setState(() {});
                     }
                   },
-                  isSingle: true, defaultSelected: type,
+                  isSingle: true,
+                  defaultSelected: type,
                 ),
               ),
               Container(
@@ -94,12 +93,12 @@ class _AddFinancialReasonPageState extends State<AddFinancialReasonPage> {
                   cursorHeight: 25,
                   // scrollPadding: EdgeInsets.all(2.0),
                   decoration: const InputDecoration(
-                    prefixText: "种类名称",
+                    prefixText: "",
                     border: OutlineInputBorder(),
-                    hintText: '',
+                    hintText: '种类名称',
                   ),
                   onChanged: (String text) {
-                    amount = text;
+                    reason = text;
                   },
                 ),
               ),
