@@ -1,3 +1,12 @@
+/*
+ * @Author: gui-qi
+ * @Date: 2022-10-29 03:34:00
+ * @LastEditors: gui-qi
+ * @LastEditTime: 2022-11-03 12:08:44
+ * @Description: 
+ * 
+ * Copyright (c) 2022, All Rights Reserved. 
+ */
 import 'dart:math';
 
 import 'package:flutter/material.dart';
@@ -16,14 +25,14 @@ Color randomColor() {
   return Color(0xFFFFFFFF & Random().nextInt(0xFFFFFFFF));
 }
 
-class AnimatedContainerDemo extends StatefulWidget {
-  const AnimatedContainerDemo({Key? key}) : super(key: key);
+class AnimatedContainerPage extends StatefulWidget {
+  const AnimatedContainerPage({Key? key}) : super(key: key);
 
   @override
-  State<AnimatedContainerDemo> createState() => _AnimatedContainerDemoState();
+  State<AnimatedContainerPage> createState() => _AnimatedContainerPageState();
 }
 
-class _AnimatedContainerDemoState extends State<AnimatedContainerDemo> {
+class _AnimatedContainerPageState extends State<AnimatedContainerPage> {
   late Color color;
   late double borderRadius;
   late double margin;
@@ -80,7 +89,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: AnimatedContainerDemo(),
+      home: AnimatedContainerPage(),
     );
   }
 }

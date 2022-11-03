@@ -1,14 +1,11 @@
 package com.callistoctopus.springbootweb.dao.model;
 
-public class Budget {
+public class FinancialReason {
 
     String id;
     String user;
-    String year;
-    String reason;
     int type;
-    double budget;
-    String note;
+    String reason;
 
     public String getId() {
         return id;
@@ -22,12 +19,6 @@ public class Budget {
     public void setUser(String user) {
         this.user = user;
     }
-    public String getYear() {
-        return year;
-    }
-    public void setYear(String year) {
-        this.year = year;
-    }
     public String getReason() {
         return reason;
     }
@@ -40,17 +31,4 @@ public class Budget {
     public void setType(int type) {
         this.type = type;
     }
-    public double getBudget() {
-        return budget;
-    }
-    public void setBudget(double budget) {
-        this.budget = budget;
-    }
-    public String getNote() {
-        return note;
-    }
-    public void setNote(String note) {
-        this.note = note;
-    }
-
 }

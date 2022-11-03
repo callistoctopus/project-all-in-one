@@ -9,11 +9,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
-import org.apache.ibatis.io.Resources;
-import org.apache.ibatis.jdbc.Null;
 import org.apache.ibatis.session.SqlSession;
-import org.apache.ibatis.session.SqlSessionFactory;
-import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -22,8 +18,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.callistoctopus.springbootweb.dao.SessionFactory;
 import com.callistoctopus.springbootweb.dao.mapper.BudgetMapper;
 import com.callistoctopus.springbootweb.dao.mapper.DetailMapper;
+import com.callistoctopus.springbootweb.dao.mapper.FinancialReasonMapper;
 import com.callistoctopus.springbootweb.dao.model.Budget;
 import com.callistoctopus.springbootweb.dao.model.DayToDayAccount;
+import com.callistoctopus.springbootweb.dao.model.FinancialReason;
 import com.callistoctopus.springbootweb.model.ApiResponseData;
 
 @RestController
@@ -40,14 +38,13 @@ public class AccountDetailController {
         } else {
             return ApiResponseData.from(false, "数据库连接异常");
         }
-        
+
+        session.close();
         return ApiResponseData.from(true, "success", data);
     }
 
     @RequestMapping(value = "/add/detail", method = RequestMethod.POST)
     ApiResponseData addDetail(@RequestBody DayToDayAccount entity) {
-        List<DayToDayAccount> data = new ArrayList<>();
-
         entity.setId(UUID.randomUUID().toString());
         entity.setTime(new Date());
         
@@ -62,7 +59,7 @@ public class AccountDetailController {
         session.commit();
         session.close();
         
-        return ApiResponseData.from(true, "success", data);
+        return ApiResponseData.from(true, "success");
     }
 
     @RequestMapping(value = "/query/budget", method = RequestMethod.POST)
@@ -77,16 +74,47 @@ public class AccountDetailController {
             return ApiResponseData.from(false, "数据库连接异常");
         }
         
+        session.close();
         return ApiResponseData.from(true, "success", data);
     }
 
-    @RequestMapping(value = "/delete/detail", method = RequestMethod.POST)
+    @RequestMapping(value = "/add/budget", method = RequestMethod.POST)
     ApiResponseData delete(@RequestBody RequestMapping rMapping) throws Exception {
         return ApiResponseData.from(true, "success", null);
     }
 
-    @RequestMapping(value = "/update/detail", method = RequestMethod.POST)
-    ApiResponseData update(@RequestBody RequestMapping rMapping) throws Exception {
-        return ApiResponseData.from(true, "success", null);
+    @RequestMapping(value = "/query/financial", method = RequestMethod.POST)
+    ApiResponseData queryFinancial() throws Exception {
+        List<FinancialReason> data = new ArrayList<>();
+        
+        SqlSession session = SessionFactory.getSession();
+        if(session != null){
+            FinancialReasonMapper mapper = session.getMapper(FinancialReasonMapper.class);
+            data = mapper.selectAll();
+        } else {
+            return ApiResponseData.from(false, "数据库连接异常");
+        }
+        
+        session.close();
+        return ApiResponseData.from(true, "success", data);
+    }
+
+    @RequestMapping(value = "/add/financial", method = RequestMethod.POST)
+    ApiResponseData addFinancial(@RequestBody FinancialReason entity) throws Exception {
+
+        entity.setId(UUID.randomUUID().toString());
+        
+        SqlSession session = SessionFactory.getSession();
+        if(session != null){
+            FinancialReasonMapper mapper = session.getMapper(FinancialReasonMapper.class);
+            mapper.insert(entity);
+        } else {
+            return ApiResponseData.from(false, "数据库连接异常");
+        }
+
+        session.commit();
+        session.close();
+        
+        return ApiResponseData.from(true, "success");
     }
 }

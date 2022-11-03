@@ -18,5 +18,6 @@
     <!-- <package name="com.callistoctopus.springbootweb.dao.xml"/> -->
     <mapper resource="com/callistoctopus/springbootweb/dao/xml/DetailMapper.xml"/>
     <mapper resource="com/callistoctopus/springbootweb/dao/xml/BudgetMapper.xml"/>
+    <mapper resource="com/callistoctopus/springbootweb/dao/xml/FinancialReasonMapper.xml"/>
   </mappers>
 </configuration>

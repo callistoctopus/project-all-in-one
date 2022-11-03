@@ -2,13 +2,14 @@
  * @Author: gui-qi
  * @Date: 2022-10-29 01:37:32
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-03 07:12:58
+ * @LastEditTime: 2022-11-03 13:15:37
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
  */
 import 'dart:convert';
 
+import 'package:client/add_financial_reason_page.dart';
 import 'package:client/component/custom_float_button.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -55,21 +56,6 @@ class _BudgetSettingPageState extends State<BudgetSettingPage> {
       },
     };
 
-    // List<_Budget> t = const [
-    //   _Budget(
-    //       id: "", user: "", year:'', reason: "交通", type: 0, amount: 200, note: "note"),
-    //   _Budget(
-    //       id: "", user: "", year:'', reason: "买菜", type: 0, amount: 200, note: "note"),
-    //   _Budget(
-    //       id: "", user: "", year:'', reason: "水果", type: 0, amount: 200, note: "note"),
-    //   _Budget(
-    //       id: "", user: "", year:'', reason: "房租", type: 0, amount: 200, note: "note"),
-    //   _Budget(
-    //       id: "", user: "", year:'', reason: "房贷", type: 0, amount: 200, note: "note"),
-    //   _Budget(
-    //       id: "", user: "", year:'', reason: "生活", type: 0, amount: 200, note: "note"),
-    // ];
-
     return PageWithFloatButton(
         funcIcon: para,
         child: Scaffold(
@@ -77,10 +63,22 @@ class _BudgetSettingPageState extends State<BudgetSettingPage> {
             future: futureAlbum,
             builder: (context, snapshot) {
               if (snapshot.hasData) {
-                // return Text(snapshot.data!.id);
                 return ListView.builder(
-                    itemCount: snapshot.data!.length,
+                    itemCount: snapshot.data!.length + 1,
                     itemBuilder: (context, i) {
+                      if (i == snapshot.data!.length) {
+                        return TextButton(
+                            onPressed: () {
+                              showBottomSheet(
+                                  context: context,
+                                  builder: (context) => const SizedBox(
+                                        height: 380,
+                                        child: AddFinancialReasonPage(),
+                                      ));
+                            },
+                            child: const Text("追加"));
+                      }
+
                       return InputWithTest(
                         text: snapshot.data![i].reason,
                         oldBudget: snapshot.data![i].amount.toString(),
@@ -89,20 +87,9 @@ class _BudgetSettingPageState extends State<BudgetSettingPage> {
               } else if (snapshot.hasError) {
                 return Text('${snapshot.error}');
               }
-
-              // By default, show a loading spinner.
               return const CircularProgressIndicator();
             },
           ),
-          // ListView.builder(
-          //   itemCount: futureAlbum.length,
-          //   itemBuilder: (BuildContext context, int index) {
-          //     return InputWithTest(
-          //       text: futureAlbum[index].reason,
-          //       oldBudget: futureAlbum[index].amount.toString(),
-          //     );
-          //   },
-          // )),
         ));
   }
 }
@@ -173,15 +160,16 @@ class _Budget {
 class _Parser {
   static List<_Budget> fromJson(Map<String, dynamic> json) {
     List<_Budget> ret = [];
+
     json['data'].forEach((value) {
       ret.add(_Budget(
         id: value["id"],
         user: value['user'],
         year: value['year'],
-        reason: value['item'],
+        reason: value['reason'],
         type: value['type'],
         amount: value['budget'],
-        note: value['note']?? "",
+        note: value['note'] ?? "",
       ));
     });
     return ret;
