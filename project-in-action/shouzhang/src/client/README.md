@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-29 03:31:37
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-04 03:44:19
+ * @LastEditTime: 2022-11-04 08:14:37
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -26,9 +26,12 @@ samples, guidance on mobile development, and a full API reference.
 
 
 fultter create client
+
 flutter pub add english_words
 flutter pub add fl_chart
 flutter pub add intl
 flutter pub add http
 flutter pub add cupertino_icons
 flutter pub add iconsax
+flutter pub add ionicons
+flutter pub add font_awesome_flutter

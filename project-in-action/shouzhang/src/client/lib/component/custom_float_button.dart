@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-11-02 15:26:48
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-03 03:09:06
+ * @LastEditTime: 2022-11-04 06:47:29
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -11,8 +11,9 @@ import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
 class PageWithFloatButton extends StatelessWidget {
-  PageWithFloatButton({required this.child, this.funcIcon, super.key});
+  PageWithFloatButton({required this.child, this.funcIcon, super.key, this.defaultForward});
   Map<IconData, Function>? funcIcon;
+  bool? defaultForward = true;
   final Widget child;
 
   @override
@@ -57,6 +58,7 @@ class _FlowMenuState extends State<_FlowMenu>
       duration: const Duration(milliseconds: 250),
       vsync: this,
     );
+    menuAnimation.forward();
   }
 
   Widget flowMenuItem(IconData icon, Function? func) {

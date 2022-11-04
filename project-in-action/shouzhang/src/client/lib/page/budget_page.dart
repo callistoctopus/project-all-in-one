@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-29 01:37:32
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-04 02:28:23
+ * @LastEditTime: 2022-11-04 07:49:54
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -12,6 +12,7 @@ import 'package:client/page/add_financial_reason_page.dart';
 import 'package:client/component/custom_float_button.dart';
 import 'package:client/service/data_access_service.dart';
 import 'package:flutter/material.dart';
+import 'package:iconsax/iconsax.dart';
 
 class BudgetSettingPage extends StatefulWidget {
   const BudgetSettingPage({super.key});
@@ -34,22 +35,29 @@ class _BudgetSettingPageState extends State<BudgetSettingPage> {
   @override
   Widget build(BuildContext context) {
     Map<IconData, Function> para = {
-      Icons.cancel: () {
+      Iconsax.back_square: () {
         Navigator.pop(context);
       },
-      Icons.save: () {
+      Iconsax.save_add: () {
         Navigator.pop(context);
+      },
+      Iconsax.add: () {
+        showBottomSheet(
+            context: context,
+            builder: (context) => const SizedBox(
+                  height: 380,
+                  child: AddFinancialReasonPage(),
+                ));
+      },
+      Iconsax.filter_search: () {
+        showBottomSheet(
+            context: context,
+            builder: (context) => const SizedBox(
+                  height: 380,
+                  child: AddFinancialReasonPage(),
+                ));
       },
     };
-
-    fun() {
-      showBottomSheet(
-          context: context,
-          builder: (context) => const SizedBox(
-                height: 380,
-                child: AddFinancialReasonPage(),
-              ));
-    }
 
     return PageWithFloatButton(
         funcIcon: para,
@@ -59,13 +67,8 @@ class _BudgetSettingPageState extends State<BudgetSettingPage> {
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 return ListView.builder(
-                    itemCount: snapshot.data!.length + 1,
+                    itemCount: snapshot.data!.length,
                     itemBuilder: (context, i) {
-                      if (i == snapshot.data!.length) {
-                        return TextButton(
-                            onPressed: fun, child: const Text("追加"));
-                      }
-
                       return InputWithTest(
                         text: snapshot.data![i].reason,
                         oldBudget: snapshot.data![i].amount.toString(),

@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-11-04 02:31:52
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-04 03:01:14
+ * @LastEditTime: 2022-11-04 06:48:38
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -12,7 +12,7 @@ class FinancialReason {
   late String id;
   late String user;
   late String reason;
-  late int type;
+  late int type = 0;
   late String note;
 }
 
