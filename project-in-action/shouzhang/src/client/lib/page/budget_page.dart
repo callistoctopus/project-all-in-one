@@ -2,11 +2,13 @@
  * @Author: gui-qi
  * @Date: 2022-10-29 01:37:32
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-04 18:11:12
+ * @LastEditTime: 2022-11-04 19:13:54
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
  */
+import 'dart:ui';
+
 import 'package:client/model/budget.dart';
 import 'package:client/page/add_financial_reason_page.dart';
 import 'package:client/component/custom_float_button.dart';
@@ -80,27 +82,36 @@ class _BudgetSettingPageState extends State<BudgetSettingPage> {
                       });
 
                       return Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: <Widget>[
                           SizedBox(
-                              width: constraints.maxWidth / 2 - 20,
-                              child: ListView.builder(
-                                  itemCount: outList.length,
-                                  itemBuilder: (context, i) {
-                                    return InputWithTest(
-                                      text: outList[i]!.reason,
-                                      oldBudget: outList[i]!.amount.toString(),
-                                    );
-                                  })),
+                              width: constraints.maxWidth / 2 -20,
+                              child: ListView.separated(
+                                itemCount: outList.length,
+                                itemBuilder: (context, i) {
+                                  return InputWithTest(
+                                    text: outList[i]!.reason,
+                                    oldBudget: outList[i]!.amount.toString(),
+                                  );
+                                },
+                                separatorBuilder:
+                                    (BuildContext context, int index) =>
+                                        const Divider(),
+                              )),
                           SizedBox(
                               width: constraints.maxWidth / 2 -20,
-                              child: ListView.builder(
-                                  itemCount: inList.length,
-                                  itemBuilder: (context, i) {
-                                    return InputWithTest(
-                                      text: inList[i]!.reason,
-                                      oldBudget: inList[i]!.amount.toString(),
-                                    );
-                                  })),
+                              child: ListView.separated(
+                                itemCount: inList.length,
+                                itemBuilder: (context, i) {
+                                  return InputWithTest(
+                                    text: inList[i]!.reason,
+                                    oldBudget: inList[i]!.amount.toString(),
+                                  );
+                                },
+                                separatorBuilder:
+                                    (BuildContext context, int index) =>
+                                        const Divider(),
+                              )),
                         ],
                         // ),
                       );
@@ -131,31 +142,34 @@ class _InputWithTestState extends State<InputWithTest> {
   var money = "";
   @override
   Widget build(BuildContext context) {
-    return Row(
+    return Padding(padding: EdgeInsets.only(right: 15),child: Row(
       children: <Widget>[
         Expanded(
-            flex: 3,
+            flex: 4,
             child: Text(
                 style: const TextStyle(fontSize: 16),
                 textAlign: TextAlign.center,
                 widget.text)),
         Expanded(
-          flex: 3,
-          child: TextField(
-            textAlign: TextAlign.justify,
-            textAlignVertical: TextAlignVertical.center,
-            cursorHeight: 25,
-            decoration: InputDecoration(
-              prefixText: "￥",
-              border: const UnderlineInputBorder(),
-              hintText: widget.oldBudget,
-            ),
-            onChanged: (String text) {
-              money = text;
-            },
-          ),
-        ),
+            flex: 5,
+            child: SizedBox(
+              height: 40, 
+              child: TextField(
+                strutStyle: const StrutStyle(height: 1.5,forceStrutHeight:true),
+                cursorHeight: 25,
+                decoration: InputDecoration(
+                  contentPadding:const EdgeInsets.only(left: 1,top: 1, right: 1,bottom: 1),
+                  prefixText: "￥",
+                  border: const OutlineInputBorder(
+                      borderSide: BorderSide(width: 0,style: BorderStyle.solid)),
+                  hintText: widget.oldBudget,
+                ),
+                onChanged: (String text) {
+                  money = text;
+                },
+              ),
+            )),
       ],
-    );
+    ));
   }
 }
