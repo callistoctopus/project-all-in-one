@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-29 03:31:37
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-04 03:29:01
+ * @LastEditTime: 2022-11-04 03:44:19
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -31,3 +31,4 @@ flutter pub add fl_chart
 flutter pub add intl
 flutter pub add http
 flutter pub add cupertino_icons
+flutter pub add iconsax

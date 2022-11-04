@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-11-02 15:26:48
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-04 02:03:04
+ * @LastEditTime: 2022-11-04 05:06:15
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -10,9 +10,10 @@
 import 'package:flutter/material.dart';
 
 class CustomChoiceChip extends StatefulWidget {
-  const CustomChoiceChip({super.key, required this.dataList});
+  CustomChoiceChip({super.key, required this.dataList});
 
   final List<String> dataList;
+  int _value = 0;
 
   @override
   State<CustomChoiceChip> createState() => _CustomChoiceChipState();
@@ -20,7 +21,6 @@ class CustomChoiceChip extends StatefulWidget {
 
 class _CustomChoiceChipState extends State<CustomChoiceChip>
     with SingleTickerProviderStateMixin {
-  int _value = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -38,10 +38,10 @@ class _CustomChoiceChipState extends State<CustomChoiceChip>
                     side: BorderSide(
                         width: 0, color: Theme.of(context).primaryColor),
                     label: Text(widget.dataList[index]),
-                    selected: _value == index,
+                    selected: widget._value == index,
                     onSelected: (bool selected) {
                       setState(() {
-                        _value = (selected ? index : null)!;
+                        widget._value = selected ? index : 0;
                       });
                     },
                   ));
