@@ -2,16 +2,15 @@
  * @Author: gui-qi
  * @Date: 2022-10-29 01:37:32
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-03 14:27:59
+ * @LastEditTime: 2022-11-04 02:21:41
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
  */
-import 'dart:convert';
-
-import 'package:client/component/custom_float_button.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
+import 'package:client/component/custom_float_button.dart';
+import 'package:client/model/bill.dart';
+import 'package:client/service/data_access_service.dart';
 
 class CashFlowPage extends StatefulWidget {
   const CashFlowPage({super.key});
@@ -21,39 +20,23 @@ class CashFlowPage extends StatefulWidget {
 }
 
 class _CashFlowPageState extends State<CashFlowPage> {
-  late Future<List<Detail>> futureAlbum;
-
-  final ScrollController _firstController = ScrollController();
-
-  Future<List<Detail>> fetchAlbum() async {
-    final response = await http
-        .post(Uri.parse('http://139.224.11.164:8080/api/query/detail'));
-
-    if (response.statusCode == 200) {
-      return _Parser.fromJson(jsonDecode(utf8.decode(response.bodyBytes)));
-    } else {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text('Failed to load album')));
-      return [];
-    }
-  }
+  late Future<List<Bill>> futureListBill;
 
   @override
   void initState() {
     super.initState();
     try {
-      futureAlbum = fetchAlbum();
+      futureListBill = DataAccessService.futureListBill();
     } on Exception {}
   }
 
   @override
   Widget build(BuildContext context) {
     return PageWithFloatButton(
-      child: FutureBuilder<List<Detail>>(
-        future: futureAlbum,
+      child: FutureBuilder<List<Bill>>(
+        future: futureListBill,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            // return Text(snapshot.data!.id);
             return Scaffold(
                 body: ListView.builder(
                     itemCount: snapshot.data!.length * 2,
@@ -89,49 +72,9 @@ class _CashFlowPageState extends State<CashFlowPage> {
           } else if (snapshot.hasError) {
             return Text('${snapshot.error}');
           }
-
-          // By default, show a loading spinner.
           return const CircularProgressIndicator();
         },
       ),
     );
-  }
-}
-
-class Detail {
-  final String id;
-  final String user;
-  final String time;
-  final String reason;
-  final int type;
-  final double amount;
-  final String note;
-
-  const Detail({
-    required this.id,
-    required this.user,
-    required this.time,
-    required this.reason,
-    required this.type,
-    required this.amount,
-    required this.note,
-  });
-}
-
-class _Parser {
-  static List<Detail> fromJson(Map<String, dynamic> json) {
-    List<Detail> ret = [];
-    json['data'].forEach((value) {
-      ret.add(Detail(
-        id: value["id"],
-        user: value['user'],
-        time: value['time'],
-        reason: value['reason'],
-        type: value['type'],
-        amount: value['amount'],
-        note: value['note'] ?? "",
-      ));
-    });
-    return ret;
   }
 }

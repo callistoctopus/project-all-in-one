@@ -2,17 +2,16 @@
  * @Author: gui-qi
  * @Date: 2022-10-29 01:37:32
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-03 13:54:49
+ * @LastEditTime: 2022-11-04 02:28:23
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
  */
-import 'dart:convert';
-
-import 'package:client/add_financial_reason_page.dart';
+import 'package:client/model/budget.dart';
+import 'package:client/page/add_financial_reason_page.dart';
 import 'package:client/component/custom_float_button.dart';
+import 'package:client/service/data_access_service.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 
 class BudgetSettingPage extends StatefulWidget {
   const BudgetSettingPage({super.key});
@@ -22,26 +21,13 @@ class BudgetSettingPage extends StatefulWidget {
 }
 
 class _BudgetSettingPageState extends State<BudgetSettingPage> {
-  late Future<List<_Budget>> futureAlbum;
-
-  Future<List<_Budget>> fetchAlbum() async {
-    final response = await http
-        .post(Uri.parse('http://139.224.11.164:8080/api/query/budget'));
-
-    if (response.statusCode == 200) {
-      return _Parser.fromJson(jsonDecode(utf8.decode(response.bodyBytes)));
-    } else {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text('Failed to load album')));
-      return [];
-    }
-  }
+  late Future<List<Budget>> fetchListBudget;
 
   @override
   void initState() {
     super.initState();
     try {
-      futureAlbum = fetchAlbum();
+      fetchListBudget = DataAccessService.fetchListBudget();
     } on Exception {}
   }
 
@@ -68,8 +54,8 @@ class _BudgetSettingPageState extends State<BudgetSettingPage> {
     return PageWithFloatButton(
         funcIcon: para,
         child: Scaffold(
-          body: FutureBuilder<List<_Budget>>(
-            future: futureAlbum,
+          body: FutureBuilder<List<Budget>>(
+            future: fetchListBudget,
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 return ListView.builder(
@@ -135,44 +121,5 @@ class _InputWithTestState extends State<InputWithTest> {
         ),
       ],
     );
-  }
-}
-
-class _Budget {
-  final String id;
-  final String user;
-  final String year;
-  final String reason;
-  final int type;
-  final double amount;
-  final String note;
-
-  const _Budget({
-    required this.id,
-    required this.user,
-    required this.year,
-    required this.reason,
-    required this.type,
-    required this.amount,
-    required this.note,
-  });
-}
-
-class _Parser {
-  static List<_Budget> fromJson(Map<String, dynamic> json) {
-    List<_Budget> ret = [];
-
-    json['data'].forEach((value) {
-      ret.add(_Budget(
-        id: value["id"] ?? "",
-        user: value['user'] ?? "",
-        year: value['year'] ?? "",
-        reason: value['reason'] ?? "",
-        type: value['type'] ?? 0,
-        amount: value['budget'] ?? 0,
-        note: value['note'] ?? "",
-      ));
-    });
-    return ret;
   }
 }

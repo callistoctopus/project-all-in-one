@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-29 01:37:32
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-03 14:27:50
+ * @LastEditTime: 2022-11-04 03:32:46
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -11,9 +11,9 @@ import 'package:client/component/custom_float_button.dart';
 import 'package:client/develop/develop.dart';
 import 'package:flutter/material.dart';
 
-import 'add_cash_flow_page.dart';
-import 'budget_setting_page.dart';
-import 'cash_flow_page.dart';
+import 'add_bill_page.dart';
+import 'budget_page.dart';
+import 'bill_flow_page.dart';
 
 class AnaysisPage extends StatefulWidget {
   const AnaysisPage({super.key});
@@ -34,7 +34,7 @@ class _AnaysisPageState extends State<AnaysisPage> {
         Navigator.push(context,
             MaterialPageRoute(builder: (context) => const CashFlowPage()));
       },
-      Icons.calculate: () {
+      Icons.calculate_outlined: () {
         Navigator.push(
             context,
             MaterialPageRoute(

@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-26 15:06:57
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-03 14:27:46
+ * @LastEditTime: 2022-11-04 03:11:03
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -10,8 +10,10 @@
 import 'dart:convert';
 
 import 'package:client/component/custom_float_button.dart';
+import 'package:client/model/financial_reason.dart';
+import 'package:client/service/data_access_service.dart';
 import 'package:flutter/material.dart';
-import 'component/icon_toggle_buttons.dart';
+import '../component/icon_toggle_buttons.dart';
 import 'package:http/http.dart' as http;
 
 class AddFinancialReasonPage extends StatefulWidget {
@@ -22,10 +24,11 @@ class AddFinancialReasonPage extends StatefulWidget {
 }
 
 class _AddFinancialReasonPageState extends State<AddFinancialReasonPage> {
-  var user = "";
-  var reason = "";
-  var type = "支出";
-  var note = '';
+  // var user = "";
+  // var reason = "";
+  // var type = "支出";
+  // var note = '';
+  FinancialReason fr = FinancialReason();
 
   @override
   Widget build(BuildContext context) {
@@ -34,26 +37,28 @@ class _AddFinancialReasonPageState extends State<AddFinancialReasonPage> {
         Navigator.pop(context);
       },
       Icons.save: () async {
-        final response = await http.post(
-          Uri.parse('http://139.224.11.164:8080/api/add/financial'),
-          headers: <String, String>{
-            'Content-Type': 'application/json; charset=UTF-8',
-          },
-          body: jsonEncode(<String, dynamic>{
-            'user': 'test',
-            'type': this.type == '支出' ? 0 : 1,
-            'reason': this.reason,
-            'note': this.note,
-          }),
-        );
+        DataAccessService.saveFinancialReason(fr);
+        Navigator.pop(context);
+        // final response = await http.post(
+        //   Uri.parse('http://139.224.11.164:8080/api/add/financial'),
+        //   headers: <String, String>{
+        //     'Content-Type': 'application/json; charset=UTF-8',
+        //   },
+        //   body: jsonEncode(<String, dynamic>{
+        //     'user': 'test',
+        //     'type': this.type == '支出' ? 0 : 1,
+        //     'reason': this.reason,
+        //     'note': this.note,
+        //   }),
+        // );
 
-        if (response.statusCode == 200) {
-          Navigator.pop(context);
-        } else {
-          ScaffoldMessenger.of(context)
-              .showSnackBar(SnackBar(content: Text('Failed to add album')));
-          return;
-        }
+        // if (response.statusCode == 200) {
+        //   Navigator.pop(context);
+        // } else {
+        //   ScaffoldMessenger.of(context)
+        //       .showSnackBar(SnackBar(content: Text('Failed to add album')));
+        //   return;
+        // }
       }
     };
 
@@ -73,13 +78,14 @@ class _AddFinancialReasonPageState extends State<AddFinancialReasonPage> {
                 child: IconToggleButtons(
                   labelIcon: const {'支出': Icons.output, '收入': Icons.input},
                   onSelect: (lables) {
-                    if (lables.isNotEmpty && type != lables[0]) {
-                      type = lables[0];
+                    var t = '支出' == lables[0] ? 0 : 1;
+                    if (lables.isNotEmpty && fr.type != t) {
+                      fr.type = t;
                       setState(() {});
                     }
                   },
                   isSingle: true,
-                  defaultSelected: type,
+                  defaultSelected: fr.type == 0 ? '支出' : '收入',
                 ),
               ),
               Container(
@@ -98,7 +104,7 @@ class _AddFinancialReasonPageState extends State<AddFinancialReasonPage> {
                     hintText: '种类名称',
                   ),
                   onChanged: (String text) {
-                    reason = text;
+                    fr.reason = text;
                   },
                 ),
               ),

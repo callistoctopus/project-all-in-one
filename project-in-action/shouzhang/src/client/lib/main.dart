@@ -8,7 +8,7 @@
  * Copyright (c) 2022, All Rights Reserved. 
  */
 import 'package:flutter/material.dart';
-import 'anaysis_page.dart';
+import 'page/anaysis_page.dart';
 
 void main() {
 
