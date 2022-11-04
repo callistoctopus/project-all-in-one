@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-11-04 02:15:05
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-04 03:04:56
+ * @LastEditTime: 2022-11-04 16:30:22
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -35,7 +35,7 @@ class DataAccessService {
         'amount': bill.amount,
         'note': bill.note,
         'reason': bill.reason,
-        'time': bill.time,
+        'time': bill.time.toString(),
         'type': bill.type,
         'user': bill.user,
       }),

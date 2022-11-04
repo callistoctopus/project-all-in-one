@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-29 01:37:32
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-04 07:49:54
+ * @LastEditTime: 2022-11-04 15:59:38
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -11,6 +11,7 @@ import 'package:client/model/budget.dart';
 import 'package:client/page/add_financial_reason_page.dart';
 import 'package:client/component/custom_float_button.dart';
 import 'package:client/service/data_access_service.dart';
+import 'package:client/units/common_const.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 
@@ -35,13 +36,13 @@ class _BudgetSettingPageState extends State<BudgetSettingPage> {
   @override
   Widget build(BuildContext context) {
     Map<IconData, Function> para = {
-      Iconsax.back_square: () {
+      CommonConst.ICONS['BACK']!: () {
         Navigator.pop(context);
       },
-      Iconsax.save_add: () {
+      CommonConst.ICONS['SAVE']!: () {
         Navigator.pop(context);
       },
-      Iconsax.add: () {
+      CommonConst.ICONS['ADD']!: () {
         showBottomSheet(
             context: context,
             builder: (context) => const SizedBox(
@@ -49,7 +50,7 @@ class _BudgetSettingPageState extends State<BudgetSettingPage> {
                   child: AddFinancialReasonPage(),
                 ));
       },
-      Iconsax.filter_search: () {
+      CommonConst.ICONS['FILTER']!: () {
         showBottomSheet(
             context: context,
             builder: (context) => const SizedBox(

@@ -40,6 +40,7 @@ dependencies:
   http: ^0.13.5
   intl: ^0.17.0
   iconsax: ^0.0.8
+  font_awesome_flutter: ^10.2.1
 
 dev_dependencies:
   flutter_test:

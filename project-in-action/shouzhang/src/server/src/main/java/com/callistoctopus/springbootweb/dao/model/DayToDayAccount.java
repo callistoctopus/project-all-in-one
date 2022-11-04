@@ -2,10 +2,17 @@ package com.callistoctopus.springbootweb.dao.model;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class DayToDayAccount {
 
     String id;
     String user;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     Date time;
     String reason;
     int type;

@@ -2,19 +2,19 @@
  * @Author: gui-qi
  * @Date: 2022-11-04 02:15:05
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-04 02:58:39
+ * @LastEditTime: 2022-11-04 16:31:45
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
  */
 class Bill {
-   late String id;
-   late String user;
-   late String time;
-   late String reason;
-   late int type = 0;
-   late double amount;
-   late String note;
+   String? id;
+   String user = '';
+   DateTime? time;
+   String? reason;
+   int? type = 0;
+   double? amount;
+   String? note;
 }
 
 class BillParser {
@@ -24,7 +24,7 @@ class BillParser {
       Bill bill = Bill();
       bill.id = value["id"] ?? "";
       bill.user = value['user'] ?? "";
-      bill.time = value['time'] ?? "";
+      bill.time = value['time'] != null ? DateTime.parse(value['time']) : null;
       bill.reason = value['reason'] ?? "";
       bill.type = value['type'] ?? 0;
       bill.amount = value['amount'] ?? 0;

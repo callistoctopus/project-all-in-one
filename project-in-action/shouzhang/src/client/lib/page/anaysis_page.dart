@@ -2,13 +2,14 @@
  * @Author: gui-qi
  * @Date: 2022-10-29 01:37:32
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-04 05:01:16
+ * @LastEditTime: 2022-11-04 15:56:54
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
  */
 import 'package:client/component/custom_float_button.dart';
 import 'package:client/develop/develop.dart';
+import 'package:client/units/common_const.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 
@@ -27,22 +28,22 @@ class _AnaysisPageState extends State<AnaysisPage> {
   @override
   Widget build(BuildContext context) {
     Map<IconData, Function> para = {
-      Icons.bug_report_rounded: () {
+      CommonConst.ICONS['BUG']!: () {
         Navigator.push(context,
             MaterialPageRoute(builder: (context) => const DevelopmentPage()));
       },
-      Iconsax.receipt: () {
+      CommonConst.ICONS['LIST']!: () {
         Navigator.push(context,
             MaterialPageRoute(builder: (context) => const CashFlowPage()));
       },
-      Iconsax.activity: () {
+      CommonConst.ICONS['BUDGET']!: () {
         Navigator.push(
             context,
             MaterialPageRoute(
                 builder: (context) =>
                     const Scaffold(body: BudgetSettingPage())));
       },
-      Iconsax.add: () {
+      CommonConst.ICONS['ADD']!: () {
         showBottomSheet(
             context: context,
             builder: (context) => const SizedBox(

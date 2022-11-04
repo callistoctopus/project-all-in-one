@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-11-02 15:26:48
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-04 05:06:15
+ * @LastEditTime: 2022-11-04 14:24:11
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -10,10 +10,11 @@
 import 'package:flutter/material.dart';
 
 class CustomChoiceChip extends StatefulWidget {
-  CustomChoiceChip({super.key, required this.dataList});
+  CustomChoiceChip({super.key, required this.dataList, required this.onSelect, this.defaultSelect});
 
   final List<String> dataList;
-  int _value = 0;
+  final Function(int) onSelect;
+  int? defaultSelect = 0;
 
   @override
   State<CustomChoiceChip> createState() => _CustomChoiceChipState();
@@ -38,10 +39,11 @@ class _CustomChoiceChipState extends State<CustomChoiceChip>
                     side: BorderSide(
                         width: 0, color: Theme.of(context).primaryColor),
                     label: Text(widget.dataList[index]),
-                    selected: widget._value == index,
+                    selected: widget.defaultSelect == index,
                     onSelected: (bool selected) {
+                      widget.onSelect(index);
                       setState(() {
-                        widget._value = selected ? index : 0;
+                        widget.defaultSelect = selected ? index : 0;
                       });
                     },
                   ));

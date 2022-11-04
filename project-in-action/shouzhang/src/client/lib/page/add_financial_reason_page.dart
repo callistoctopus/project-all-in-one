@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-26 15:06:57
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-04 03:11:03
+ * @LastEditTime: 2022-11-04 16:02:46
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -12,6 +12,7 @@ import 'dart:convert';
 import 'package:client/component/custom_float_button.dart';
 import 'package:client/model/financial_reason.dart';
 import 'package:client/service/data_access_service.dart';
+import 'package:client/units/common_const.dart';
 import 'package:flutter/material.dart';
 import '../component/icon_toggle_buttons.dart';
 import 'package:http/http.dart' as http;
@@ -24,41 +25,17 @@ class AddFinancialReasonPage extends StatefulWidget {
 }
 
 class _AddFinancialReasonPageState extends State<AddFinancialReasonPage> {
-  // var user = "";
-  // var reason = "";
-  // var type = "支出";
-  // var note = '';
   FinancialReason fr = FinancialReason();
 
   @override
   Widget build(BuildContext context) {
     Map<IconData, Function> para = {
-      Icons.cancel: () {
+      CommonConst.ICONS['BACK']!: () {
         Navigator.pop(context);
       },
-      Icons.save: () async {
+      CommonConst.ICONS['SAVE']!: () async {
         DataAccessService.saveFinancialReason(fr);
         Navigator.pop(context);
-        // final response = await http.post(
-        //   Uri.parse('http://139.224.11.164:8080/api/add/financial'),
-        //   headers: <String, String>{
-        //     'Content-Type': 'application/json; charset=UTF-8',
-        //   },
-        //   body: jsonEncode(<String, dynamic>{
-        //     'user': 'test',
-        //     'type': this.type == '支出' ? 0 : 1,
-        //     'reason': this.reason,
-        //     'note': this.note,
-        //   }),
-        // );
-
-        // if (response.statusCode == 200) {
-        //   Navigator.pop(context);
-        // } else {
-        //   ScaffoldMessenger.of(context)
-        //       .showSnackBar(SnackBar(content: Text('Failed to add album')));
-        //   return;
-        // }
       }
     };
 
