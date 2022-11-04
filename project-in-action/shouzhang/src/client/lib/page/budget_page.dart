@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-29 01:37:32
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-04 19:13:54
+ * @LastEditTime: 2022-11-04 19:28:10
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -89,9 +89,12 @@ class _BudgetSettingPageState extends State<BudgetSettingPage> {
                               child: ListView.separated(
                                 itemCount: outList.length,
                                 itemBuilder: (context, i) {
+                                  if(i == 0){
+                                    return const Text("支出");
+                                  }
                                   return InputWithTest(
-                                    text: outList[i]!.reason,
-                                    oldBudget: outList[i]!.amount.toString(),
+                                    text: outList[i-1]!.reason,
+                                    oldBudget: outList[i-1]!.amount.toString(),
                                   );
                                 },
                                 separatorBuilder:
@@ -103,9 +106,14 @@ class _BudgetSettingPageState extends State<BudgetSettingPage> {
                               child: ListView.separated(
                                 itemCount: inList.length,
                                 itemBuilder: (context, i) {
+
+                                  if(i == 0){
+                                    return const Text("收入");
+                                  }
+
                                   return InputWithTest(
-                                    text: inList[i]!.reason,
-                                    oldBudget: inList[i]!.amount.toString(),
+                                    text: inList[i-1]!.reason,
+                                    oldBudget: inList[i-1]!.amount.toString(),
                                   );
                                 },
                                 separatorBuilder:
