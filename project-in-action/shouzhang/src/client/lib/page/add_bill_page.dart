@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-26 15:06:57
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-04 16:17:21
+ * @LastEditTime: 2022-11-04 16:52:01
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -97,7 +97,7 @@ class _AddCashFlowPageState extends State<AddCashFlowPage> {
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
                       List<String> dataList =
-                          snapshot.data!.map((e) => e.reason).toList();
+                          snapshot.data!.map((e) => e.reason!).toList();
                       bill.reason = dataList[0];
                       return CustomChoiceChip(
                         dataList: dataList,

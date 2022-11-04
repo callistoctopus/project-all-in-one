@@ -2,18 +2,18 @@
  * @Author: gui-qi
  * @Date: 2022-11-04 02:31:52
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-04 06:48:38
+ * @LastEditTime: 2022-11-04 16:51:30
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
  */
 
 class FinancialReason {
-  late String id;
-  late String user;
-  late String reason;
-  late int type = 0;
-  late String note;
+  String? id;
+  String user = '';
+  String? reason;
+  int type = 0;
+  String? note;
 }
 
 class FinancialReasonParser {

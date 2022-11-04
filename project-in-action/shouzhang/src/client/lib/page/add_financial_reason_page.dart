@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-26 15:06:57
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-04 16:02:46
+ * @LastEditTime: 2022-11-04 16:50:06
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -34,6 +34,24 @@ class _AddFinancialReasonPageState extends State<AddFinancialReasonPage> {
         Navigator.pop(context);
       },
       CommonConst.ICONS['SAVE']!: () async {
+        if (fr.reason == null) {
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              backgroundColor: Theme.of(context).primaryColor,
+              duration: const Duration(milliseconds: 1200),
+              shape: const ContinuousRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(25))),
+              padding: const EdgeInsets.only(
+                  left: 15, top: 15, right: 15, bottom: 15),
+              content: Text(
+                '请输入种类名称',
+                style: TextStyle(color: Theme.of(context).canvasColor),
+                textAlign: TextAlign.center,
+              ),
+              behavior: SnackBarBehavior.floating,
+              dismissDirection: DismissDirection.up));
+          return;
+        }
+
         DataAccessService.saveFinancialReason(fr);
         Navigator.pop(context);
       }

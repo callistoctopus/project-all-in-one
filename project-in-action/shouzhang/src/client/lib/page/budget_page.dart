@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-29 01:37:32
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-04 15:59:38
+ * @LastEditTime: 2022-11-04 18:11:12
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -63,22 +63,54 @@ class _BudgetSettingPageState extends State<BudgetSettingPage> {
     return PageWithFloatButton(
         funcIcon: para,
         child: Scaffold(
-          body: FutureBuilder<List<Budget>>(
-            future: fetchListBudget,
-            builder: (context, snapshot) {
-              if (snapshot.hasData) {
-                return ListView.builder(
-                    itemCount: snapshot.data!.length,
-                    itemBuilder: (context, i) {
-                      return InputWithTest(
-                        text: snapshot.data![i].reason,
-                        oldBudget: snapshot.data![i].amount.toString(),
+          body: LayoutBuilder(
+            builder: (BuildContext context, BoxConstraints constraints) {
+              return Padding(
+                padding: const EdgeInsets.only(top: 15),
+                child: FutureBuilder<List<Budget>>(
+                  future: fetchListBudget,
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      List<Budget?> outList = [];
+                      List<Budget?> inList = [];
+
+                      snapshot.data!.forEach((budget) {
+                        if (budget.type == 0) outList.add(budget);
+                        if (budget.type == 1) inList.add(budget);
+                      });
+
+                      return Row(
+                        children: <Widget>[
+                          SizedBox(
+                              width: constraints.maxWidth / 2 - 20,
+                              child: ListView.builder(
+                                  itemCount: outList.length,
+                                  itemBuilder: (context, i) {
+                                    return InputWithTest(
+                                      text: outList[i]!.reason,
+                                      oldBudget: outList[i]!.amount.toString(),
+                                    );
+                                  })),
+                          SizedBox(
+                              width: constraints.maxWidth / 2 -20,
+                              child: ListView.builder(
+                                  itemCount: inList.length,
+                                  itemBuilder: (context, i) {
+                                    return InputWithTest(
+                                      text: inList[i]!.reason,
+                                      oldBudget: inList[i]!.amount.toString(),
+                                    );
+                                  })),
+                        ],
+                        // ),
                       );
-                    });
-              } else if (snapshot.hasError) {
-                return Text('${snapshot.error}');
-              }
-              return const CircularProgressIndicator();
+                    } else if (snapshot.hasError) {
+                      return Text('${snapshot.error}');
+                    }
+                    return const CircularProgressIndicator();
+                  },
+                ),
+              );
             },
           ),
         ));
@@ -101,14 +133,14 @@ class _InputWithTestState extends State<InputWithTest> {
   Widget build(BuildContext context) {
     return Row(
       children: <Widget>[
-        SizedBox(
-            width: 100,
+        Expanded(
+            flex: 3,
             child: Text(
                 style: const TextStyle(fontSize: 16),
                 textAlign: TextAlign.center,
                 widget.text)),
-        SizedBox(
-          width: 140.0,
+        Expanded(
+          flex: 3,
           child: TextField(
             textAlign: TextAlign.justify,
             textAlignVertical: TextAlignVertical.center,
