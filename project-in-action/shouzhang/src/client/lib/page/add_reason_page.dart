@@ -2,40 +2,31 @@
  * @Author: gui-qi
  * @Date: 2022-10-26 15:06:57
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-04 16:52:01
+ * @LastEditTime: 2022-11-05 08:48:59
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
  */
-import 'package:client/component/custom_choice_chip.dart';
 import 'package:client/component/custom_float_button.dart';
-import 'package:client/model/bill.dart';
 import 'package:client/model/financial_reason.dart';
 import 'package:client/service/data_access_service.dart';
 import 'package:client/units/common_const.dart';
 import 'package:flutter/material.dart';
 import '../component/icon_toggle_buttons.dart';
 
-class AddCashFlowPage extends StatefulWidget {
-  const AddCashFlowPage({super.key});
+class AddFinancialReasonPage extends StatefulWidget {
+  const AddFinancialReasonPage({super.key, 
+  // required this.para
+  });
+
+  // final Map<IconData, Function> para;
 
   @override
-  State<AddCashFlowPage> createState() => _AddCashFlowPageState();
+  State<AddFinancialReasonPage> createState() => _AddFinancialReasonPageState();
 }
 
-class _AddCashFlowPageState extends State<AddCashFlowPage> {
-  late Future<List<FinancialReason>> rl1;
-  late Future<List<FinancialReason>> rl2;
-  Bill bill = Bill();
-
-  @override
-  void initState() {
-    super.initState();
-    try {
-      rl1 = DataAccessService.fetchFinancialReasonOut();
-      rl2 = DataAccessService.fetchFinancialReasonIn();
-    } on Exception {}
-  }
+class _AddFinancialReasonPageState extends State<AddFinancialReasonPage> {
+  FinancialReason fr = FinancialReason();
 
   @override
   Widget build(BuildContext context) {
@@ -43,17 +34,17 @@ class _AddCashFlowPageState extends State<AddCashFlowPage> {
       CommonConst.ICONS['BACK']!: () {
         Navigator.pop(context);
       },
-      CommonConst.ICONS['SAVE']!: () {
-        if (bill.amount == null) {
+      CommonConst.ICONS['SAVE']!: () async {
+        if (fr.reason == null) {
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
               backgroundColor: Theme.of(context).primaryColor,
               duration: const Duration(milliseconds: 1200),
               shape: const ContinuousRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(25))),
-              padding:
-                  const EdgeInsets.only(left: 15, top: 15, right: 15, bottom: 15),
+              padding: const EdgeInsets.only(
+                  left: 15, top: 15, right: 15, bottom: 15),
               content: Text(
-                '请输入金额',
+                '请输入种类名称',
                 style: TextStyle(color: Theme.of(context).canvasColor),
                 textAlign: TextAlign.center,
               ),
@@ -62,56 +53,37 @@ class _AddCashFlowPageState extends State<AddCashFlowPage> {
           return;
         }
 
-        bill.time = DateTime.now();
-        DataAccessService.saveBill(bill);
+        DataAccessService.saveFinancialReason(fr);
         Navigator.pop(context);
       }
     };
 
+    // #docregion itemBuilder
     return PageWithFloatButton(
         funcIcon: para,
         child: Scaffold(
           body: ListView(
+            // mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
               Container(
                 padding: const EdgeInsets.only(left: 12, top: 3),
-                child: const Text(style: TextStyle(fontSize: 12), "记一笔"),
+                child: const Text(style: TextStyle(fontSize: 12), "追加种类"),
               ),
               Padding(
                 padding: const EdgeInsets.only(left: 3, top: 6, right: 0),
                 child: IconToggleButtons(
                   labelIcon: const {'支出': Icons.output, '收入': Icons.input},
                   onSelect: (lables) {
-                    int t = lables[0] == '支出' ? 0 : 1;
-                    if (lables.isNotEmpty && bill.type != t) {
-                      bill.type = t;
+                    var t = '支出' == lables[0] ? 0 : 1;
+                    if (lables.isNotEmpty && fr.type != t) {
+                      fr.type = t;
                       setState(() {});
                     }
                   },
                   isSingle: true,
-                  defaultSelected: bill.type == 0 ? '支出' : '收入',
+                  defaultSelected: fr.type == 0 ? '支出' : '收入',
                 ),
               ),
-              FutureBuilder<List<FinancialReason>>(
-                  future: bill.type == 0 ? rl1 : rl2,
-                  builder: (context, snapshot) {
-                    if (snapshot.hasData) {
-                      List<String> dataList =
-                          snapshot.data!.map((e) => e.reason!).toList();
-                      bill.reason = dataList[0];
-                      return CustomChoiceChip(
-                        dataList: dataList,
-                        onSelect: (i) {
-                          bill.reason = dataList[i];
-                        },
-                        defaultSelect: dataList.indexOf(bill.reason!),
-                      );
-                    } else if (snapshot.hasError) {
-                      return Text('${snapshot.error}');
-                    }
-
-                    return const CircularProgressIndicator();
-                  }),
               Container(
                 height: 70, //这里调整高度即可，建议按照屏幕高度比例来计算
                 padding: const EdgeInsets.only(
@@ -123,12 +95,12 @@ class _AddCashFlowPageState extends State<AddCashFlowPage> {
                   cursorHeight: 25,
                   // scrollPadding: EdgeInsets.all(2.0),
                   decoration: const InputDecoration(
-                    prefixText: "￥",
+                    prefixText: "",
                     border: OutlineInputBorder(),
-                    hintText: '金额',
+                    hintText: '种类名称',
                   ),
                   onChanged: (String text) {
-                    bill.amount = double.parse(text);
+                    fr.reason = text;
                   },
                 ),
               ),

@@ -2,29 +2,19 @@
  * @Author: gui-qi
  * @Date: 2022-11-04 02:25:21
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-04 02:25:39
+ * @LastEditTime: 2022-11-05 08:11:36
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
  */
 class Budget {
-  final String id;
-  final String user;
-  final String year;
-  final String reason;
-  final int type;
-  final double amount;
-  final String note;
-
-  const Budget({
-    required this.id,
-    required this.user,
-    required this.year,
-    required this.reason,
-    required this.type,
-    required this.amount,
-    required this.note,
-  });
+  String id = "";
+  String? user;
+  String? year;
+  String reason = "";
+  int type = 0;
+  double amount = 0;
+  String note = "";
 }
 
 class BudgetParser {
@@ -32,15 +22,15 @@ class BudgetParser {
     List<Budget> ret = [];
 
     json['data'].forEach((value) {
-      ret.add(Budget(
-        id: value["id"] ?? "",
-        user: value['user'] ?? "",
-        year: value['year'] ?? "",
-        reason: value['reason'] ?? "",
-        type: value['type'] ?? 0,
-        amount: value['budget'] ?? 0,
-        note: value['note'] ?? "",
-      ));
+      Budget b = Budget();
+      b.id = value["id"] ?? "";
+      b.user = value['user'] ?? "";
+      b.year = value['year'] ?? "";
+      b.reason = value['reason'] ?? "";
+      b.type = value['type'] ?? 0;
+      b.amount = value['budget'] ?? 0;
+      b.note = value['note'] ?? "";
+      ret.add(b);
     });
     return ret;
   }

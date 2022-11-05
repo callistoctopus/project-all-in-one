@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-11-02 15:26:48
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-04 06:47:29
+ * @LastEditTime: 2022-11-05 04:18:23
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -28,22 +28,22 @@ class PageWithFloatButton extends StatelessWidget {
       alignment: AlignmentDirectional.center,
       children: <Widget>[
         child,
-        _FlowMenu(menuMap: funcIcon = funcIcon ?? para2),
+        FlowMenu(menuMap: funcIcon = funcIcon ?? para2),
       ],
     );
   }
 }
 
-class _FlowMenu extends StatefulWidget {
-  const _FlowMenu({required this.menuMap, super.key});
+class FlowMenu extends StatefulWidget {
+  const FlowMenu({required this.menuMap, super.key});
 
   final Map<IconData, Function> menuMap;
 
   @override
-  State<_FlowMenu> createState() => _FlowMenuState();
+  State<FlowMenu> createState() => _FlowMenuState();
 }
 
-class _FlowMenuState extends State<_FlowMenu>
+class _FlowMenuState extends State<FlowMenu>
     with SingleTickerProviderStateMixin {
   late AnimationController menuAnimation;
 
