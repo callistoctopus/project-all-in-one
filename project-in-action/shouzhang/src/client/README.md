@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-29 03:31:37
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-04 09:05:02
+ * @LastEditTime: 2022-11-06 16:25:33
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -38,8 +38,19 @@ export FLUTTER_STORAGE_BASE_URL=https://storage.flutter-io.cn
 fultter create client
 
 flutter pub add english_words
+flutter pub add iconsax
+flutter pub add font_awesome_flutter
+
 flutter pub add fl_chart
 flutter pub add intl
 flutter pub add http
-flutter pub add iconsax
-flutter pub add font_awesome_flutter
+
+flutter pub add hive
+flutter pub add hive_flutter
+
+flutter pub add hive_generator --dev
+flutter pub add build_runner --dev
+
+flutter pub add uuid
+
+flutter packages pub run build_runner build

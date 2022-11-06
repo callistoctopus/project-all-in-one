@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-29 01:37:32
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-05 08:20:44
+ * @LastEditTime: 2022-11-06 16:13:39
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -30,10 +30,10 @@ class _AnaysisPageState extends State<AnaysisPage> {
   @override
   Widget build(BuildContext context) {
     Map<IconData, Function> para = {
-      CommonConst.ICONS['BUG']!: () {
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => const DevelopmentPage()));
-      },
+      // CommonConst.ICONS['BUG']!: () {
+      //   Navigator.push(context,
+      //       MaterialPageRoute(builder: (context) => const DevelopmentPage()));
+      // },
       CommonConst.ICONS['LIST']!: () {
         Navigator.push(context,
             MaterialPageRoute(builder: (context) => const CashFlowPage()));

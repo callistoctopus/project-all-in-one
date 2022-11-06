@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-29 01:37:32
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-05 14:44:17
+ * @LastEditTime: 2022-11-06 16:11:59
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -176,6 +176,7 @@ class _BudgetSettingPageState extends State<BudgetSettingPage> {
                                           text: widget.outList[i]!.reason,
                                           oldBudget: widget.outList[i]!.amount
                                               .toString(),
+                                              onSelected: (text) => widget.outList[i].amount = double.parse(text),
                                         );
                                       },
                                       separatorBuilder:
@@ -193,6 +194,7 @@ class _BudgetSettingPageState extends State<BudgetSettingPage> {
                                           text: widget.inList[i]!.reason,
                                           oldBudget: widget.inList[i]!.amount
                                               .toString(),
+                                              onSelected: (text) => widget.inList[i].amount = double.parse(text),
                                         );
                                       },
                                       separatorBuilder:
@@ -221,17 +223,18 @@ class _BudgetSettingPageState extends State<BudgetSettingPage> {
 }
 
 class InputWithTest extends StatefulWidget {
-  const InputWithTest({super.key, required this.text, required this.oldBudget});
+  const InputWithTest({super.key, required this.text, required this.oldBudget, required this.onSelected});
 
   final String text;
   final String oldBudget;
+  final Function(String) onSelected;
 
   @override
   State<InputWithTest> createState() => _InputWithTestState();
 }
 
 class _InputWithTestState extends State<InputWithTest> {
-  var money = "";
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -264,7 +267,7 @@ class _InputWithTestState extends State<InputWithTest> {
                       hintText: widget.oldBudget,
                     ),
                     onChanged: (String text) {
-                      money = text;
+                      widget.onSelected(text);
                     },
                   ),
                 )),

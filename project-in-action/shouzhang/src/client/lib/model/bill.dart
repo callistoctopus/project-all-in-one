@@ -2,23 +2,45 @@
  * @Author: gui-qi
  * @Date: 2022-11-04 02:15:05
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-04 16:31:45
+ * @LastEditTime: 2022-11-06 16:47:41
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
  */
-class Bill {
+
+import 'package:hive/hive.dart';
+part 'bill.g.dart';
+@HiveType(typeId: 2)
+class Bill extends HiveObject{
+  @HiveField(0)
    String? id;
+
+   @HiveField(1)
    String user = '';
+
+   @HiveField(2)
    DateTime? time;
+
+   @HiveField(3)
    String? reason;
+
+   @HiveField(4)
    int? type = 0;
+
+   @HiveField(5)
    double? amount;
+
+   @HiveField(6)
    String? note;
+   
+   @HiveField(7)
+   DateTime? updateTime;
 }
 
+
+
 class BillParser {
-  static List<Bill> fromJson(Map<String, dynamic> json) {
+  static List<Bill> fromMap(Map<String, dynamic> json) {
     List<Bill> ret = [];
     json['data'].forEach((value) {
       Bill bill = Bill();
@@ -31,6 +53,12 @@ class BillParser {
       bill.note = value['note'] ?? "";
       ret.add(bill);
     });
+    return ret;
+  }
+
+  static Map<String, dynamic>  toMap(Bill bill) {
+    Map<String, dynamic>  ret = {};
+
     return ret;
   }
 }
