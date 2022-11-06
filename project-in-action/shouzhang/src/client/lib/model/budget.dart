@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-11-04 02:25:21
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-05 08:11:36
+ * @LastEditTime: 2022-11-05 14:00:57
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -20,6 +20,8 @@ class Budget {
 class BudgetParser {
   static List<Budget> fromJson(Map<String, dynamic> json) {
     List<Budget> ret = [];
+
+    if(json == null || json['data'] == null)return ret;
 
     json['data'].forEach((value) {
       Budget b = Budget();

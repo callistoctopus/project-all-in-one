@@ -4,4 +4,16 @@
   <select id="selectAll" resultType="com.callistoctopus.springbootweb.dao.model.Budget">
     select id, user, year, reason, type, budget from budget;
   </select>
+
+  <!-- <insert id="saveBudgets" parameterType="com.callistoctopus.springbootweb.dao.model.BudgetMapper">
+  insert into budget (id,user,time,reason,type,amount,note)
+  values (#{id},#{user},#{time},#{reason},#{type},#{amount},#{note})
+  </insert> -->
+
+  <insert id="saveBudgets" parameterType="com.callistoctopus.springbootweb.dao.model.Budget" useGeneratedKeys="true" keyProperty="id">
+  insert into budget (id, user, year, reason, type, budget, note) values
+    <foreach item="item" collection="list" separator=",">
+    (#{item.id}, #{item.user}, #{item.year}, #{item.reason}, #{item.type}, #{item.budget}, #{item.note})
+    </foreach>
+  </insert>
 </mapper>

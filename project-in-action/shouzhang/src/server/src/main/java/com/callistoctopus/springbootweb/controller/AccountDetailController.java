@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
+import java.util.function.Function;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -77,6 +78,30 @@ public class AccountDetailController {
         
         session.close();
         return ApiResponseData.from(true, "success", data);
+    }
+
+    @RequestMapping(value = "/save/budgets", method = RequestMethod.POST)
+    ApiResponseData saveBudgets(@RequestBody List<Budget> entity) throws Exception {
+        
+        SqlSession session = SessionFactory.getSession();
+        List<Budget> t = new ArrayList<Budget>();
+        for(Budget e : entity){
+            if("".equals(e.getId()) || e.getId() == null){
+                e.setId(UUID.randomUUID().toString());
+                t.add(e);
+            }
+        }
+
+        if(session != null){
+            BudgetMapper mapper = session.getMapper(BudgetMapper.class);
+            mapper.saveBudgets(t);
+        } else {
+            return ApiResponseData.from(false, "数据库连接异常");
+        }
+        
+        session.commit();
+        session.close();
+        return ApiResponseData.from(true, "success");
     }
 
     @RequestMapping(value = "/add/budget", method = RequestMethod.POST)

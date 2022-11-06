@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-29 01:37:32
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-05 08:19:41
+ * @LastEditTime: 2022-11-05 14:44:17
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -17,8 +17,8 @@ import 'package:flutter/material.dart';
 class BudgetSettingPage extends StatefulWidget {
   BudgetSettingPage({super.key});
 
-  List<Budget?> outList = [];
-  List<Budget?> inList = [];
+  List<Budget> outList = [];
+  List<Budget> inList = [];
 
   @override
   State<BudgetSettingPage> createState() => _BudgetSettingPageState();
@@ -34,6 +34,16 @@ class _BudgetSettingPageState extends State<BudgetSettingPage> {
     super.initState();
     try {
       fetchListBudget = DataAccessService.fetchListBudget();
+      fetchListBudget.then((value) {
+        value.forEach((budget) {
+          if (budget.type == 0 && !widget.outList.contains(budget)) {
+            widget.outList.add(budget);
+          }
+          if (budget.type == 1 && !widget.outList.contains(budget)) {
+            widget.inList.add(budget);
+          }
+        });
+      });
     } on Exception {}
   }
 
@@ -44,6 +54,8 @@ class _BudgetSettingPageState extends State<BudgetSettingPage> {
         Navigator.pop(context);
       },
       CommonConst.ICONS['SAVE']!: () {
+        DataAccessService.saveListBudget(widget.outList);
+        DataAccessService.saveListBudget(widget.inList);
         Navigator.pop(context);
       },
       CommonConst.ICONS['ADD']!: () {
@@ -62,9 +74,9 @@ class _BudgetSettingPageState extends State<BudgetSettingPage> {
                         b.amount = po.amount ?? 0;
                         b.note = po.note;
                         if (po.type == 0) {
-                          widget.inList.add(b);
-                        } else {
                           widget.outList.add(b);
+                        } else {
+                          widget.inList.add(b);
                         }
                       });
                     },
@@ -143,8 +155,12 @@ class _BudgetSettingPageState extends State<BudgetSettingPage> {
                         builder: (context, snapshot) {
                           if (snapshot.hasData) {
                             snapshot.data!.forEach((budget) {
-                              if (budget.type == 0) widget.outList.add(budget);
-                              if (budget.type == 1) widget.inList.add(budget);
+                              if (budget.type == 0 &&
+                                  !widget.outList.contains(budget))
+                                widget.outList.add(budget);
+                              if (budget.type == 1 &&
+                                  !widget.inList.contains(budget))
+                                widget.inList.add(budget);
                             });
 
                             return Row(
@@ -158,8 +174,8 @@ class _BudgetSettingPageState extends State<BudgetSettingPage> {
                                       itemBuilder: (context, i) {
                                         return InputWithTest(
                                           text: widget.outList[i]!.reason,
-                                          oldBudget:
-                                              widget.outList[i]!.amount.toString(),
+                                          oldBudget: widget.outList[i]!.amount
+                                              .toString(),
                                         );
                                       },
                                       separatorBuilder:
@@ -175,8 +191,8 @@ class _BudgetSettingPageState extends State<BudgetSettingPage> {
                                       itemBuilder: (context, i) {
                                         return InputWithTest(
                                           text: widget.inList[i]!.reason,
-                                          oldBudget:
-                                              widget.inList[i]!.amount.toString(),
+                                          oldBudget: widget.inList[i]!.amount
+                                              .toString(),
                                         );
                                       },
                                       separatorBuilder:

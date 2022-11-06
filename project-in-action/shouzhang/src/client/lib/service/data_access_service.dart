@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-11-04 02:15:05
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-04 16:30:22
+ * @LastEditTime: 2022-11-05 13:34:22
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -59,6 +59,37 @@ class DataAccessService {
     }
   }
 
+  static Future<bool> saveListBudget(List<Budget> budgetList) async {
+    List<Map<String, dynamic>> budgetListMap = [];
+
+    budgetList.forEach((element) {
+      Map<String, dynamic> json = {
+        'id': element.id,
+        'user': element.user,
+        'year': element.year,
+        'reason': element.reason,
+        'type': element.type,
+        'budget': element.amount,
+        'note': element.note,
+      };
+      budgetListMap.add(json);
+    });
+
+    final response = await http.post(
+      Uri.parse('http://139.224.11.164:8080/api/save/budgets'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(budgetListMap),
+    );
+
+    if (response.statusCode == 200) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   static Future<bool> saveFinancialReason(FinancialReason fr) async {
     final response = await http.post(
       Uri.parse('http://139.224.11.164:8080/api/add/financial'),
@@ -85,19 +116,20 @@ class DataAccessService {
         .post(Uri.parse('http://139.224.11.164:8080/api/query/financial/0'));
 
     if (response.statusCode == 200) {
-      return FinancialReasonParser.fromJson(jsonDecode(utf8.decode(response.bodyBytes)));
+      return FinancialReasonParser.fromJson(
+          jsonDecode(utf8.decode(response.bodyBytes)));
     } else {
       return [];
     }
   }
-
 
   static Future<List<FinancialReason>> fetchFinancialReasonIn() async {
     final response = await http
         .post(Uri.parse('http://139.224.11.164:8080/api/query/financial/1'));
 
     if (response.statusCode == 200) {
-      return FinancialReasonParser.fromJson(jsonDecode(utf8.decode(response.bodyBytes)));
+      return FinancialReasonParser.fromJson(
+          jsonDecode(utf8.decode(response.bodyBytes)));
     } else {
       return [];
     }

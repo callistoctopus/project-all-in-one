@@ -6,4 +6,6 @@ import com.callistoctopus.springbootweb.dao.model.Budget;
 
 public interface BudgetMapper {
     List<Budget> selectAll();
+
+    void saveBudgets(List<Budget> budgetList);
 }
