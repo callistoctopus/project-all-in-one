@@ -1,11 +1,14 @@
 package com.callistoctopus.springbootweb.dao.mapper;
 
+import java.util.Date;
 import java.util.List;
 
 import com.callistoctopus.springbootweb.dao.model.Budget;
 
 public interface BudgetMapper {
-    List<Budget> selectAll();
+    List<Budget> select(String user, Date startTime, Date endTime);
 
-    void saveBudgets(List<Budget> budgetList);
+    void insert(Budget budget);
+
+    void update(Budget budget);
 }

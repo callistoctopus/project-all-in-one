@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-29 01:37:32
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-07 06:30:53
+ * @LastEditTime: 2022-11-07 06:48:15
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -65,6 +65,9 @@ class _AnaysisPageState extends State<AnaysisPage> {
                   ),
                 ));
       },
+      CommonConst.ICONS['SYNC']!: () {
+        DataAccessService.syncData();
+      }
     };
 
     return PageWithFloatButton(

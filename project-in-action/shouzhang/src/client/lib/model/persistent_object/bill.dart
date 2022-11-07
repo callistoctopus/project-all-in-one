@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-11-04 02:15:05
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-07 06:08:13
+ * @LastEditTime: 2022-11-07 08:49:45
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -42,7 +42,7 @@ class Bill extends HiveObject {
   int isDeleted = 0;
 
   @HiveField(8)
-  DateTime? updateTime;
+  DateTime updateTime;
 
   factory Bill.fromJson(Map<String, dynamic> json) => _$BillFromJson(json);
 

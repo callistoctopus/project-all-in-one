@@ -24,7 +24,7 @@ class BillAdapter extends TypeAdapter<Bill> {
       fields[4] as int,
       fields[5] as double,
       fields[6] as String,
-      fields[8] as DateTime?,
+      fields[8] as DateTime,
     )..isDeleted = fields[7] as int;
   }
 
@@ -75,9 +75,7 @@ Bill _$BillFromJson(Map<String, dynamic> json) => Bill(
       json['type'] as int,
       (json['amount'] as num).toDouble(),
       json['note'] as String,
-      json['updateTime'] == null
-          ? null
-          : DateTime.parse(json['updateTime'] as String),
+      DateTime.parse(json['updateTime'] as String),
     )..isDeleted = json['isDeleted'] as int;
 
 Map<String, dynamic> _$BillToJson(Bill instance) => <String, dynamic>{
@@ -89,5 +87,5 @@ Map<String, dynamic> _$BillToJson(Bill instance) => <String, dynamic>{
       'amount': instance.amount,
       'note': instance.note,
       'isDeleted': instance.isDeleted,
-      'updateTime': instance.updateTime?.toIso8601String(),
+      'updateTime': instance.updateTime.toIso8601String(),
     };

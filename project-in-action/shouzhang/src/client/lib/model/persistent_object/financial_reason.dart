@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-11-04 02:31:52
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-07 06:12:56
+ * @LastEditTime: 2022-11-07 08:50:01
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -20,25 +20,25 @@ class FinancialReason extends HiveObject {
       this.isDeleted, this.updateTime);
 
   @HiveField(0)
-  String? id;
+  String id;
 
   @HiveField(1)
   String user = '';
 
   @HiveField(2)
-  String? reason;
+  String reason;
 
   @HiveField(3)
   int type = 0;
 
   @HiveField(4)
-  String? note;
+  String note;
 
   @HiveField(5)
   int isDeleted = 0;
 
   @HiveField(6)
-  DateTime? updateTime;
+  DateTime updateTime;
 
   factory FinancialReason.fromJson(Map<String, dynamic> json) =>
       _$FinancialReasonFromJson(json);

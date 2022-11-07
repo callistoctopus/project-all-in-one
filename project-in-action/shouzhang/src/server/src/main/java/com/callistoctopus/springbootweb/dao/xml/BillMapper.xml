@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.callistoctopus.springbootweb.dao.mapper.BillMapper">
+
+  <select id="select" resultType="com.callistoctopus.springbootweb.dao.model.Bill">
+    select id,user,time,reason,type,amount,note,is_deleted as isDeleted,update_time as updateTime from bill
+  </select>
+
+  <insert id="insert" parameterType="com.callistoctopus.springbootweb.dao.model.Bill">
+  insert into bill (id,user,time,reason,type,amount,note,is_deleted,update_time)
+  values (#{id},#{user},#{time},#{reason},#{type},#{amount},#{note},#{isDeleted},#{updateTime})
+  </insert>
+
+  <update id="update" parameterType="com.callistoctopus.springbootweb.dao.model.Bill">
+  update bill set user=#{user},time=#{time},reason=#{reason},type=#{type},amount=#{amount},note=#{note},is_deleted=#{isDeleted},update_time=#{updateTime} where id = #{id}
+  </update>
+
+</mapper>

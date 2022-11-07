@@ -18,14 +18,14 @@ class BudgetAdapter extends TypeAdapter<Budget> {
     };
     return Budget(
       fields[0] as String,
-      fields[1] as String?,
-      fields[2] as String?,
+      fields[1] as String,
+      fields[2] as String,
       fields[3] as String,
       fields[4] as int,
       fields[5] as double,
       fields[6] as String,
       fields[7] as int,
-      fields[8] as DateTime?,
+      fields[8] as DateTime,
     );
   }
 
@@ -44,7 +44,7 @@ class BudgetAdapter extends TypeAdapter<Budget> {
       ..writeByte(4)
       ..write(obj.type)
       ..writeByte(5)
-      ..write(obj.amount)
+      ..write(obj.budget)
       ..writeByte(6)
       ..write(obj.note)
       ..writeByte(7)
@@ -70,16 +70,14 @@ class BudgetAdapter extends TypeAdapter<Budget> {
 
 Budget _$BudgetFromJson(Map<String, dynamic> json) => Budget(
       json['id'] as String,
-      json['user'] as String?,
-      json['year'] as String?,
+      json['user'] as String,
+      json['year'] as String,
       json['reason'] as String,
       json['type'] as int,
-      (json['amount'] as num).toDouble(),
+      (json['budget'] as num).toDouble(),
       json['note'] as String,
       json['isDeleted'] as int,
-      json['updateTime'] == null
-          ? null
-          : DateTime.parse(json['updateTime'] as String),
+      DateTime.parse(json['updateTime'] as String),
     );
 
 Map<String, dynamic> _$BudgetToJson(Budget instance) => <String, dynamic>{
@@ -88,8 +86,8 @@ Map<String, dynamic> _$BudgetToJson(Budget instance) => <String, dynamic>{
       'year': instance.year,
       'reason': instance.reason,
       'type': instance.type,
-      'amount': instance.amount,
+      'budget': instance.budget,
       'note': instance.note,
       'isDeleted': instance.isDeleted,
-      'updateTime': instance.updateTime?.toIso8601String(),
+      'updateTime': instance.updateTime.toIso8601String(),
     };

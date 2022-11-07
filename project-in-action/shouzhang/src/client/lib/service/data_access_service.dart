@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-11-04 02:15:05
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-07 06:26:33
+ * @LastEditTime: 2022-11-07 15:19:58
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -11,68 +11,132 @@ import 'dart:convert';
 import 'package:client/model/persistent_object/bill.dart';
 import 'package:client/model/persistent_object/budget.dart';
 import 'package:client/model/persistent_object/financial_reason.dart';
+import 'package:client/units/common_utils.dart';
 import 'package:hive/hive.dart';
 import 'package:http/http.dart' as http;
 import 'package:uuid/uuid.dart';
 
 class DataAccessService {
   static Future<bool> syncData() async {
-
     var box = Hive.box("setting");
     List<Bill> billList = [];
     List<Budget> budgetList = [];
     List<FinancialReason> financialReasonList = [];
-    int sysnTime = box.get('lastSyncTime',defaultValue: -1);
-    if(sysnTime == -1){
-      billList = Hive.box<Bill>("bill").values.toList();
-      budgetList = Hive.box<Budget>("budget").values.toList();
-      financialReasonList = Hive.box<FinancialReason>("financialReason").values.toList();
-    }else{
-      Hive.box<Bill>("bill").values.forEach((element) {
-        if(element.updateTime!.millisecond > sysnTime) billList.add(element);
-      });
+    DateTime sysnTime = box.get('lastSyncTime',
+        defaultValue: CommonUtils.format(DateTime(1992)));
 
-      Hive.box<Budget>("budget").values.forEach((element) {
-        if(element.updateTime!.millisecond > sysnTime) budgetList.add(element);
-      });
+    Hive.box<Bill>("bill").values.forEach((element) {
+      if (element.updateTime.compareTo(sysnTime) > 0) billList.add(element);
+    });
 
-      Hive.box<FinancialReason>("financialReason").values.forEach((element) {
-        if(element.updateTime!.millisecond > sysnTime) financialReasonList.add(element);
-      });
-    }
+    Hive.box<Budget>("budget").values.forEach((element) {
+      if (element.updateTime.compareTo(sysnTime) > 0) budgetList.add(element);
+    });
 
-    // var billListMap = [];
-    // var budgetListMap = [];
-    // var financialReasonListMap = [];
+    Hive.box<FinancialReason>("financialReason").values.forEach((element) {
+      if (element.updateTime.compareTo(sysnTime) > 0) {
+        financialReasonList.add(element);
+      }
+    });
 
-    // billList.forEach((element) {
-    //   // billListMap.add(BillParser.toMap(element));
-    // });
-
-    // budgetList.forEach((element) {
-    //   // budgetListMap.add(BudgetParser.toMap(element));
-    // });
-
-    // financialReasonList.forEach((element) {
-    //   // financialReasonListMap.add(FinancialReasonParser.toMap(element));
-    // });
-
-    var entity = {"BillList": billList, "BudgetList": budgetList, "FinancialReasonList": financialReasonList};
-
+    var entity = {
+      "User": "",
+      "LastSyncTime": sysnTime.toString(),
+      "BillList": billList,
+      "BudgetList": budgetList,
+      "FinancialReasonList": financialReasonList
+    };
+    var jsonEntity = jsonEncode(entity);
+    print(jsonEntity);
     final response = await http.post(
       Uri.parse('http://139.224.11.164:8080/api/sync'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
-      body: jsonEncode(entity),
+      body: jsonEntity,
     );
 
     if (response.statusCode == 200) {
-      sysnTime = jsonDecode(response.body)['sysnTime'];
-      return true;
-    } else {
-      return false;
+      var jsonBody = jsonDecode(utf8.decode(response.bodyBytes));
+
+      if (jsonBody != null) {
+        bool result = jsonBody['result'];
+        if (result == true) {
+          var data = jsonBody['data'];
+
+          List billListr = data['billList'];
+          billListr.forEach((element2) {
+            bool isUpdate = false;
+            Bill b = Bill.fromJson(element2);
+            Hive.box<Bill>("bill").values.forEach((element) {
+              if (element.id == b.id) {
+                element.user = b.user;
+                element.time = b.time;
+                element.reason = b.reason;
+                element.type = b.type;
+                element.amount = b.amount;
+                element.note = b.note;
+                element.isDeleted = b.isDeleted;
+                element.updateTime = b.updateTime;
+                element.save();
+                isUpdate = true;
+              }
+            });
+            if (isUpdate == false) {
+              Hive.box<Bill>("bill").add(b);
+            }
+          });
+
+          List budgetListr = data['budgetList'];
+          budgetListr.forEach((element2) {
+            bool isUpdate = false;
+            Budget b = Budget.fromJson(element2);
+            Hive.box<Budget>("budget").values.forEach((element) {
+              if (element.id == b.id) {
+                element.user = b.user;
+                element.year = b.year;
+                element.reason = b.reason;
+                element.type = b.type;
+                element.budget = b.budget;
+                element.note = b.note;
+                element.isDeleted = b.isDeleted;
+                element.updateTime = b.updateTime;
+                element.save();
+                isUpdate = true;
+              }
+            });
+            if (isUpdate == false) {
+              Hive.box<Budget>("budget").add(b);
+            }
+          });
+
+          List financialReasonListr = data['financialReasonList'];
+          financialReasonListr.forEach((element2) {
+            bool isUpdate = false;
+            FinancialReason b = FinancialReason.fromJson(element2);
+            Hive.box<FinancialReason>("financialReason").values.forEach((element) {
+              if (element.id == b.id) {
+                element.user = b.user;
+                element.reason = b.reason;
+                element.type = b.type;
+                element.note = b.note;
+                element.isDeleted = b.isDeleted;
+                element.updateTime = b.updateTime;
+                element.save();
+                isUpdate = true;
+              }
+            });
+            if (isUpdate == false) {
+              Hive.box<FinancialReason>("financialReason").add(b);
+            }
+          });
+
+          sysnTime = DateTime.parse(data['latestSyncTime']);
+          box.put('lastSyncTime', sysnTime);
+        }
+      }
     }
+    return false;
   }
 
   static Future<List<Bill>> futureListBill() async {
@@ -88,7 +152,8 @@ class DataAccessService {
   static Future<bool> saveBill(Bill bill) async {
     var box = Hive.box<Bill>("bill");
 
-    bill.updateTime = DateTime.now();
+    bill.time = CommonUtils.now();
+    bill.updateTime = CommonUtils.now();
     if (bill.isInBox) {
       bill.save();
     } else {
@@ -112,7 +177,7 @@ class DataAccessService {
   static Future<bool> saveListBudget(List<Budget> budgetList) async {
     var box = Hive.box<Budget>("Budget");
     budgetList.forEach((element) {
-      element.updateTime = DateTime.now();
+      element.updateTime = CommonUtils.now();
       if (element.isInBox) {
         element.save();
       } else {
@@ -126,7 +191,7 @@ class DataAccessService {
 
   static Future<bool> saveFinancialReason(FinancialReason fr) async {
     var box = Hive.box<FinancialReason>("financialReason");
-    fr.updateTime = DateTime.now();
+    fr.updateTime = CommonUtils.now();
     fr.id = const Uuid().v1();
     box.add(fr);
     return true;

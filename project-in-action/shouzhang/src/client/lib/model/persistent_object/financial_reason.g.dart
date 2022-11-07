@@ -17,13 +17,13 @@ class FinancialReasonAdapter extends TypeAdapter<FinancialReason> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return FinancialReason(
-      fields[0] as String?,
+      fields[0] as String,
       fields[1] as String,
-      fields[2] as String?,
+      fields[2] as String,
       fields[3] as int,
-      fields[4] as String?,
+      fields[4] as String,
       fields[5] as int,
-      fields[6] as DateTime?,
+      fields[6] as DateTime,
     );
   }
 
@@ -64,15 +64,13 @@ class FinancialReasonAdapter extends TypeAdapter<FinancialReason> {
 
 FinancialReason _$FinancialReasonFromJson(Map<String, dynamic> json) =>
     FinancialReason(
-      json['id'] as String?,
+      json['id'] as String,
       json['user'] as String,
-      json['reason'] as String?,
+      json['reason'] as String,
       json['type'] as int,
-      json['note'] as String?,
+      json['note'] as String,
       json['isDeleted'] as int,
-      json['updateTime'] == null
-          ? null
-          : DateTime.parse(json['updateTime'] as String),
+      DateTime.parse(json['updateTime'] as String),
     );
 
 Map<String, dynamic> _$FinancialReasonToJson(FinancialReason instance) =>
@@ -83,5 +81,5 @@ Map<String, dynamic> _$FinancialReasonToJson(FinancialReason instance) =>
       'type': instance.type,
       'note': instance.note,
       'isDeleted': instance.isDeleted,
-      'updateTime': instance.updateTime?.toIso8601String(),
+      'updateTime': instance.updateTime.toIso8601String(),
     };

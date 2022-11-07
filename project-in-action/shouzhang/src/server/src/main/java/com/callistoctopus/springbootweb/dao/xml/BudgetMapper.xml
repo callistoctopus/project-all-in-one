@@ -1,19 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.callistoctopus.springbootweb.dao.mapper.BudgetMapper">
-  <select id="selectAll" resultType="com.callistoctopus.springbootweb.dao.model.Budget">
-    select id, user, year, reason, type, budget from budget;
+
+  <select id="select" resultType="com.callistoctopus.springbootweb.dao.model.Budget">
+    select id,user,year,reason,type,budget,note,is_deleted as isDeleted,update_time as updateTime from budget
   </select>
 
-  <!-- <insert id="saveBudgets" parameterType="com.callistoctopus.springbootweb.dao.model.BudgetMapper">
-  insert into budget (id,user,time,reason,type,amount,note)
-  values (#{id},#{user},#{time},#{reason},#{type},#{amount},#{note})
-  </insert> -->
-
-  <insert id="saveBudgets" parameterType="com.callistoctopus.springbootweb.dao.model.Budget" useGeneratedKeys="true" keyProperty="id">
-  insert into budget (id, user, year, reason, type, budget, note) values
-    <foreach item="item" collection="list" separator=",">
-    (#{item.id}, #{item.user}, #{item.year}, #{item.reason}, #{item.type}, #{item.budget}, #{item.note})
-    </foreach>
+  <insert id="insert" parameterType="com.callistoctopus.springbootweb.dao.model.Budget">
+  insert into budget (id,user,year,reason,type,budget,note,is_deleted,update_time)
+  values (#{id},#{user},#{year},#{reason},#{type},#{budget},#{note},#{isDeleted},#{updateTime})
   </insert>
+
+  <update id="update" parameterType="com.callistoctopus.springbootweb.dao.model.Budget">
+  update budget set user=#{user},year=#{year},reason=#{reason},type=#{type},budget=#{budget},note=#{note},is_deleted=#{isDeleted},update_time=#{updateTime} where id = #{id}
+  </update>
+
 </mapper>
