@@ -2,12 +2,12 @@
  * @Author: gui-qi
  * @Date: 2022-10-29 01:37:32
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-06 16:11:59
+ * @LastEditTime: 2022-11-07 06:39:05
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
  */
-import 'package:client/model/budget.dart';
+import 'package:client/model/persistent_object/budget.dart';
 import 'package:client/page/add_cash_page.dart';
 import 'package:client/component/custom_float_button.dart';
 import 'package:client/service/data_access_service.dart';
@@ -66,13 +66,17 @@ class _BudgetSettingPageState extends State<BudgetSettingPage> {
                   child: CashInputPage(
                     onSaved: (po) {
                       setState(() {
-                        Budget b = Budget();
-                        b.user = "test";
-                        b.year = "2022";
-                        b.reason = po.reason;
-                        b.type = po.type;
-                        b.amount = po.amount ?? 0;
-                        b.note = po.note;
+                        Budget b = Budget(
+                          "",
+                          "",
+                          "",
+                          po.reason,
+                          po.type,
+                          po.amount,
+                          po.note,
+                          0,
+                          DateTime.now()
+                        );
                         if (po.type == 0) {
                           widget.outList.add(b);
                         } else {
@@ -156,11 +160,13 @@ class _BudgetSettingPageState extends State<BudgetSettingPage> {
                           if (snapshot.hasData) {
                             snapshot.data!.forEach((budget) {
                               if (budget.type == 0 &&
-                                  !widget.outList.contains(budget))
+                                  !widget.outList.contains(budget)) {
                                 widget.outList.add(budget);
+                              }
                               if (budget.type == 1 &&
-                                  !widget.inList.contains(budget))
+                                  !widget.inList.contains(budget)) {
                                 widget.inList.add(budget);
+                              }
                             });
 
                             return Row(

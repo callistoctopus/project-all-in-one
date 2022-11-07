@@ -2,17 +2,15 @@
  * @Author: gui-qi
  * @Date: 2022-11-04 02:15:05
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-06 16:51:09
+ * @LastEditTime: 2022-11-07 06:26:33
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
  */
 import 'dart:convert';
-import 'dart:ffi';
-import 'dart:math';
-import 'package:client/model/budget.dart';
-import 'package:client/model/bill.dart';
-import 'package:client/model/financial_reason.dart';
+import 'package:client/model/persistent_object/bill.dart';
+import 'package:client/model/persistent_object/budget.dart';
+import 'package:client/model/persistent_object/financial_reason.dart';
 import 'package:hive/hive.dart';
 import 'package:http/http.dart' as http;
 import 'package:uuid/uuid.dart';
@@ -43,23 +41,23 @@ class DataAccessService {
       });
     }
 
-    var billListMap = [];
-    var budgetListMap = [];
-    var financialReasonListMap = [];
+    // var billListMap = [];
+    // var budgetListMap = [];
+    // var financialReasonListMap = [];
 
-    billList.forEach((element) {
-      billListMap.add(BillParser.toMap(element));
-    });
+    // billList.forEach((element) {
+    //   // billListMap.add(BillParser.toMap(element));
+    // });
 
-    budgetList.forEach((element) {
-      budgetListMap.add(BudgetParser.toMap(element));
-    });
+    // budgetList.forEach((element) {
+    //   // budgetListMap.add(BudgetParser.toMap(element));
+    // });
 
-    financialReasonList.forEach((element) {
-      financialReasonListMap.add(FinancialReasonParser.toMap(element));
-    });
+    // financialReasonList.forEach((element) {
+    //   // financialReasonListMap.add(FinancialReasonParser.toMap(element));
+    // });
 
-    var entity = {"Bill": billListMap, "Budget": budgetListMap, "FinancialReason": financialReasonList};
+    var entity = {"BillList": billList, "BudgetList": budgetList, "FinancialReasonList": financialReasonList};
 
     final response = await http.post(
       Uri.parse('http://139.224.11.164:8080/api/sync'),

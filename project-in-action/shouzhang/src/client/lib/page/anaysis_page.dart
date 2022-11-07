@@ -2,18 +2,17 @@
  * @Author: gui-qi
  * @Date: 2022-10-29 01:37:32
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-06 16:13:39
+ * @LastEditTime: 2022-11-07 06:30:53
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
  */
 import 'package:client/component/custom_float_button.dart';
 import 'package:client/develop/develop.dart';
-import 'package:client/model/bill.dart';
+import 'package:client/model/persistent_object/bill.dart';
 import 'package:client/service/data_access_service.dart';
 import 'package:client/units/common_const.dart';
 import 'package:flutter/material.dart';
-import 'package:iconsax/iconsax.dart';
 
 import 'add_cash_page.dart';
 import 'budget_page.dart';
@@ -42,8 +41,7 @@ class _AnaysisPageState extends State<AnaysisPage> {
         Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) =>
-                    Scaffold(body: BudgetSettingPage())));
+                builder: (context) => Scaffold(body: BudgetSettingPage())));
       },
       CommonConst.ICONS['ADD']!: () {
         showBottomSheet(
@@ -52,13 +50,16 @@ class _AnaysisPageState extends State<AnaysisPage> {
                   height: 380,
                   child: CashInputPage(
                     onSaved: (po) {
-                      Bill bill = Bill();
-                      bill.user = "test";
-                      bill.time = DateTime.now();
-                      bill.reason = po.reason;
-                      bill.type = po.type;
-                      bill.amount = po.amount;
-                      bill.note = po.note;
+                      Bill bill = Bill(
+                        "",
+                        "",
+                        DateTime.now(),
+                        po.reason,
+                        po.type,
+                        po.amount,
+                        po.note,
+                        DateTime.now(),
+                      );
                       DataAccessService.saveBill(bill);
                     },
                   ),

@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-26 08:18:13
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-06 16:14:46
+ * @LastEditTime: 2022-11-07 06:39:13
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -10,9 +10,9 @@
 
 import 'dart:io';
 
-import 'package:client/model/bill.dart';
-import 'package:client/model/budget.dart';
-import 'package:client/model/financial_reason.dart';
+import 'package:client/model/persistent_object/bill.dart';
+import 'package:client/model/persistent_object/budget.dart';
+import 'package:client/model/persistent_object/financial_reason.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'page/anaysis_page.dart';

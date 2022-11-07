@@ -2,24 +2,25 @@
  * @Author: gui-qi
  * @Date: 2022-10-26 15:06:57
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-05 08:47:46
+ * @LastEditTime: 2022-11-07 06:34:17
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
  */
 import 'package:client/component/custom_choice_chip.dart';
 import 'package:client/component/custom_float_button.dart';
-import 'package:client/model/financial_reason.dart';
+import 'package:client/component/icon_toggle_buttons.dart';
+import 'package:client/model/persistent_object/financial_reason.dart';
+import 'package:client/model/view_object/add_cash_page_vo.dart';
 import 'package:client/page/add_reason_page.dart';
 import 'package:client/service/data_access_service.dart';
 import 'package:client/units/common_const.dart';
 import 'package:flutter/material.dart';
-import '../component/icon_toggle_buttons.dart';
 
 class CashInputPage extends StatefulWidget {
   CashInputPage({required this.onSaved, super.key});
 
-  Function(CashInputPO po) onSaved;
+  Function(CashInputVO po) onSaved;
 
   @override
   State<CashInputPage> createState() => _CashInputPageState();
@@ -29,7 +30,7 @@ class _CashInputPageState extends State<CashInputPage> {
   late Future<List<FinancialReason>> rl1;
   late Future<List<FinancialReason>> rl2;
 
-  CashInputPO cpo = CashInputPO();
+  CashInputVO cpo = CashInputVO();
 
   @override
   void initState() {
@@ -47,7 +48,7 @@ class _CashInputPageState extends State<CashInputPage> {
         Navigator.pop(context);
       },
       CommonConst.ICONS['SAVE']!: () {
-        if (cpo.amount == null) {
+        if (cpo.amount == -1) {
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
               backgroundColor: Theme.of(context).primaryColor,
               duration: const Duration(milliseconds: 1200),
@@ -69,34 +70,6 @@ class _CashInputPageState extends State<CashInputPage> {
         Navigator.pop(context);
       }
     };
-
-    // Map<IconData, Function> para2 = {
-    //   CommonConst.ICONS['BACK']!: () {
-    //     Navigator.pop(context);
-    //   },
-    //   CommonConst.ICONS['SAVE']!: () async {
-    //     // if (fr.reason == null) {
-    //     //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-    //     //       backgroundColor: Theme.of(context).primaryColor,
-    //     //       duration: const Duration(milliseconds: 1200),
-    //     //       shape: const ContinuousRectangleBorder(
-    //     //           borderRadius: BorderRadius.all(Radius.circular(25))),
-    //     //       padding: const EdgeInsets.only(
-    //     //           left: 15, top: 15, right: 15, bottom: 15),
-    //     //       content: Text(
-    //     //         '请输入种类名称',
-    //     //         style: TextStyle(color: Theme.of(context).canvasColor),
-    //     //         textAlign: TextAlign.center,
-    //     //       ),
-    //     //       behavior: SnackBarBehavior.floating,
-    //     //       dismissDirection: DismissDirection.up));
-    //     //   return;
-    //     // }
-
-    //     // DataAccessService.saveFinancialReason(fr);
-    //     Navigator.pop(context);
-    //   }
-    // };
 
     f() {
       showBottomSheet(
@@ -173,7 +146,7 @@ class _CashInputPageState extends State<CashInputPage> {
                     hintText: '金额',
                   ),
                   onChanged: (String text) {
-                    cpo.amount = double.tryParse(text);
+                    cpo.amount = double.tryParse(text) ?? -1;
                   },
                 ),
               ),
@@ -194,11 +167,4 @@ class _CashInputPageState extends State<CashInputPage> {
           ),
         ));
   }
-}
-
-class CashInputPO {
-  int type = 0;
-  String reason = "";
-  double? amount;
-  String note = "";
 }
