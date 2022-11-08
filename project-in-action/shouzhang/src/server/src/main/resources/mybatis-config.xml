@@ -16,6 +16,7 @@
   </environments>
   <mappers>
     <!-- <package name="com.callistoctopus.springbootweb.dao.xml"/> -->
+    <mapper resource="com/callistoctopus/springbootweb/dao/xml/UserMapper.xml"/>
     <mapper resource="com/callistoctopus/springbootweb/dao/xml/BillMapper.xml"/>
     <mapper resource="com/callistoctopus/springbootweb/dao/xml/BudgetMapper.xml"/>
     <mapper resource="com/callistoctopus/springbootweb/dao/xml/FinancialReasonMapper.xml"/>

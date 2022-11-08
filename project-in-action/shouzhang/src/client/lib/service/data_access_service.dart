@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-11-04 02:15:05
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-07 15:19:58
+ * @LastEditTime: 2022-11-08 06:59:10
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -114,7 +114,9 @@ class DataAccessService {
           financialReasonListr.forEach((element2) {
             bool isUpdate = false;
             FinancialReason b = FinancialReason.fromJson(element2);
-            Hive.box<FinancialReason>("financialReason").values.forEach((element) {
+            Hive.box<FinancialReason>("financialReason")
+                .values
+                .forEach((element) {
               if (element.id == b.id) {
                 element.user = b.user;
                 element.reason = b.reason;
@@ -137,6 +139,52 @@ class DataAccessService {
       }
     }
     return false;
+  }
+
+  static Future sigin(String user, String password) async {
+    final response = await http.post(
+      Uri.parse('http://139.224.11.164:8080/api/login'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode({'user':user,'password':password, 'isSigin':true}),
+    );
+
+    if (response.statusCode == 200) {
+      var jsonBody = jsonDecode(utf8.decode(response.bodyBytes));
+      if (jsonBody != null) {
+        bool result = jsonBody['result'];
+        if (result == true) {
+          var settingBox = Hive.box('setting');
+          settingBox.put('user', user);
+          settingBox.put('password', password);
+          settingBox.put('isLogined', true);
+        }
+      }
+    }
+  }
+
+  static Future login(String user, String password) async {
+    final response = await http.post(
+      Uri.parse('http://139.224.11.164:8080/api/login'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode({'user':user,'password':password, 'isSigin':false}),
+    );
+
+    if (response.statusCode == 200) {
+      var jsonBody = jsonDecode(utf8.decode(response.bodyBytes));
+      if (jsonBody != null) {
+        bool result = jsonBody['result'];
+        if (result == true) {
+          var settingBox = Hive.box('setting');
+          settingBox.put('user', user);
+          settingBox.put('password', password);
+          settingBox.put('isLogined', true);
+        }
+      }
+    }
   }
 
   static Future<List<Bill>> futureListBill() async {

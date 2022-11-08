@@ -2,16 +2,12 @@ package com.callistoctopus.springbootweb.dao.model;
 
 import java.util.Date;
 
-public class FinancialReason {
-
+public class User {
     String id;
     String user;
-    int type;
-    String reason;
-    String note;
+    String password;
+    Date createTime;
     int isDeleted;
-
-    Date updateTime;
 
     public String getId() {
         return id;
@@ -29,20 +25,20 @@ public class FinancialReason {
         this.user = user;
     }
 
-    public int getType() {
-        return type;
+    public String getPassword() {
+        return password;
     }
 
-    public void setType(int type) {
-        this.type = type;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    public String getReason() {
-        return reason;
+    public Date getCreateTime() {
+        return createTime;
     }
 
-    public void setReason(String reason) {
-        this.reason = reason;
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 
     public int getIsDeleted() {
@@ -61,11 +57,5 @@ public class FinancialReason {
         this.updateTime = updateTime;
     }
 
-    public String getNote() {
-        return note;
-    }
-
-    public void setNote(String note) {
-        this.note = note;
-    }
+    Date updateTime;
 }

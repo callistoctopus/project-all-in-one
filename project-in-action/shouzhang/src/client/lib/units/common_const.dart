@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-11-04 15:49:28
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-07 14:12:55
+ * @LastEditTime: 2022-11-08 05:39:47
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -10,17 +10,21 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:intl/intl.dart';
 
 class CommonConst {
-  static Map<String, IconData> ICONS = {
-    'ADD': Iconsax.add,
-    'BUG': Icons.bug_report_rounded,
-    'LIST': Iconsax.receipt,
-    'BUDGET': Iconsax.activity,
-    'FILTER': Iconsax.filter_search,
-    'BACK': Iconsax.back_square,
-    'SAVE': FontAwesomeIcons.save,
-    'SYNC': Iconsax.refresh,
-  };
+
+}
+
+class ICONS{
+    static const IconData ADD = Iconsax.add;
+    static const IconData BUG = Icons.bug_report_rounded;
+    static const IconData LIST = Iconsax.receipt;
+    static const IconData BUDGET = Iconsax.activity;
+    static const IconData FILTER = Iconsax.filter_search;
+    static const IconData BACK = Iconsax.back_square;
+    static const IconData SAVE = FontAwesomeIcons.save;
+    static const IconData SYNC = Iconsax.refresh;
+    static const IconData USER = Iconsax.user;
+    static const IconData PASSWORD = Iconsax.password_check;
+    static const IconData LOGOUT = Iconsax.logout;
 }

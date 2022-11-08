@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-29 01:37:32
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-07 10:01:50
+ * @LastEditTime: 2022-11-08 02:26:31
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -50,15 +50,15 @@ class _BudgetSettingPageState extends State<BudgetSettingPage> {
   @override
   Widget build(BuildContext context) {
     Map<IconData, Function> para = {
-      CommonConst.ICONS['BACK']!: () {
+      ICONS.BACK: () {
         Navigator.pop(context);
       },
-      CommonConst.ICONS['SAVE']!: () {
+      ICONS.SAVE: () {
         DataAccessService.saveListBudget(widget.outList);
         DataAccessService.saveListBudget(widget.inList);
         Navigator.pop(context);
       },
-      CommonConst.ICONS['ADD']!: () {
+      ICONS.ADD: () {
         showBottomSheet(
             context: context,
             builder: (context) => SizedBox(

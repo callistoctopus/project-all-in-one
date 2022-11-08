@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-26 15:06:57
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-07 06:26:53
+ * @LastEditTime: 2022-11-08 02:25:08
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -27,10 +27,10 @@ class _AddFinancialReasonPageState extends State<AddFinancialReasonPage> {
   @override
   Widget build(BuildContext context) {
     Map<IconData, Function> para = {
-      CommonConst.ICONS['BACK']!: () {
+      ICONS.BACK: () {
         Navigator.pop(context);
       },
-      CommonConst.ICONS['SAVE']!: () async {
+      ICONS.SAVE: () async {
         if (fr.reason == null) {
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
               backgroundColor: Theme.of(context).primaryColor,
