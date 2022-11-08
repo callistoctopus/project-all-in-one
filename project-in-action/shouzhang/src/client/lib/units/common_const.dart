@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-11-04 15:49:28
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-08 05:39:47
+ * @LastEditTime: 2022-11-08 13:01:09
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -27,4 +27,5 @@ class ICONS{
     static const IconData USER = Iconsax.user;
     static const IconData PASSWORD = Iconsax.password_check;
     static const IconData LOGOUT = Iconsax.logout;
+    static const IconData BOOK = Iconsax.book_1;
 }

@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-29 01:37:32
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-08 02:26:31
+ * @LastEditTime: 2022-11-08 07:44:41
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -13,6 +13,7 @@ import 'package:client/component/custom_float_button.dart';
 import 'package:client/service/data_access_service.dart';
 import 'package:client/units/common_const.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class BudgetSettingPage extends StatefulWidget {
   BudgetSettingPage({super.key});
@@ -51,12 +52,14 @@ class _BudgetSettingPageState extends State<BudgetSettingPage> {
   Widget build(BuildContext context) {
     Map<IconData, Function> para = {
       ICONS.BACK: () {
-        Navigator.pop(context);
+        // Navigator.pop(context);
+        context.go('/');
       },
       ICONS.SAVE: () {
         DataAccessService.saveListBudget(widget.outList);
         DataAccessService.saveListBudget(widget.inList);
-        Navigator.pop(context);
+        // Navigator.pop(context);
+        context.go('/');
       },
       ICONS.ADD: () {
         showBottomSheet(
@@ -91,7 +94,8 @@ class _BudgetSettingPageState extends State<BudgetSettingPage> {
 
     Map<IconData, Function> para2 = {
       Icons.arrow_back: () {
-        Navigator.pop(context);
+        // Navigator.pop(context);
+        context.go('/');
       }
     };
 

@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-29 03:31:37
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-07 05:38:25
+ * @LastEditTime: 2022-11-08 09:38:48
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -45,6 +45,7 @@ flutter pub add fl_chart
 flutter pub add intl
 flutter pub add http
 flutter pub add uuid
+flutter pub add go_router
 
 flutter pub add hive
 flutter pub add hive_flutter
@@ -55,3 +56,5 @@ flutter pub add build_runner --dev
 flutter pub add json_serializable --dev
 
 flutter packages pub run build_runner build
+
+flutter upgrade --force

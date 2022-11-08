@@ -2,12 +2,13 @@
  * @Author: gui-qi
  * @Date: 2022-11-02 15:26:48
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-05 04:18:23
+ * @LastEditTime: 2022-11-08 10:04:36
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
  */
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 // ignore: must_be_immutable
 class PageWithFloatButton extends StatelessWidget {
@@ -20,7 +21,8 @@ class PageWithFloatButton extends StatelessWidget {
   Widget build(BuildContext context) {
     Map<IconData, Function> para2 = {
       Icons.arrow_back: () {
-        Navigator.pop(context);
+        // Navigator.pop(context);
+        context.go('/');
       }
     };
 

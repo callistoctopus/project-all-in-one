@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-26 15:06:57
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-08 02:24:48
+ * @LastEditTime: 2022-11-08 07:55:32
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -16,6 +16,7 @@ import 'package:client/page/add_reason_page.dart';
 import 'package:client/service/data_access_service.dart';
 import 'package:client/units/common_const.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class CashInputPage extends StatefulWidget {
   CashInputPage({required this.onSaved, super.key});
@@ -46,6 +47,7 @@ class _CashInputPageState extends State<CashInputPage> {
     Map<IconData, Function> para = {
       ICONS.BACK: () {
         Navigator.pop(context);
+        // context.go('/');
       },
       ICONS.SAVE: () {
         if (cpo.amount == -1) {
@@ -68,6 +70,7 @@ class _CashInputPageState extends State<CashInputPage> {
 
         widget.onSaved(cpo);
         Navigator.pop(context);
+        // context.go('/');
       }
     };
 

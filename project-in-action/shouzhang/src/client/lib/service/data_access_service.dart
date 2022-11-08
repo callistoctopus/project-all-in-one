@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-11-04 02:15:05
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-08 06:59:10
+ * @LastEditTime: 2022-11-08 12:45:25
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -200,6 +200,7 @@ class DataAccessService {
   static Future<bool> saveBill(Bill bill) async {
     var box = Hive.box<Bill>("bill");
 
+    bill.user = Hive.box('setting').get('user');
     bill.time = CommonUtils.now();
     bill.updateTime = CommonUtils.now();
     if (bill.isInBox) {
@@ -225,6 +226,7 @@ class DataAccessService {
   static Future<bool> saveListBudget(List<Budget> budgetList) async {
     var box = Hive.box<Budget>("Budget");
     budgetList.forEach((element) {
+      element.user = Hive.box('setting').get('user');
       element.updateTime = CommonUtils.now();
       if (element.isInBox) {
         element.save();
@@ -239,6 +241,7 @@ class DataAccessService {
 
   static Future<bool> saveFinancialReason(FinancialReason fr) async {
     var box = Hive.box<FinancialReason>("financialReason");
+    fr.user = Hive.box('setting').get('user');
     fr.updateTime = CommonUtils.now();
     fr.id = const Uuid().v1();
     box.add(fr);

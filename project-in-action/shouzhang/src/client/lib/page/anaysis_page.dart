@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-29 01:37:32
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-08 05:41:38
+ * @LastEditTime: 2022-11-08 13:44:15
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -13,6 +13,7 @@ import 'package:client/model/persistent_object/bill.dart';
 import 'package:client/service/data_access_service.dart';
 import 'package:client/units/common_const.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hive/hive.dart';
 
 import 'add_cash_page.dart';
@@ -33,10 +34,27 @@ class _AnaysisPageState extends State<AnaysisPage> {
       //       MaterialPageRoute(builder: (context) => const DevelopmentPage()));
       // },
       ICONS.LIST: () {
-        Navigator.pushNamed(context, '/billList');
+        // Navigator.pushNamed(context, '/billList');
+        context.go('/billList');
       },
       ICONS.BUDGET: () {
-        Navigator.pushNamed(context, '/budget');
+        // Navigator.pushNamed(context, '/budget');
+        context.go('/budget');
+      },
+      ICONS.SYNC: () {
+        DataAccessService.syncData();
+      },
+      ICONS.LOGOUT: () {
+        var settingBox = Hive.box('setting');
+        settingBox.put('isLogined', false);
+        // Navigator.pushNamed(context, '/');
+        context.go('/login');
+      },
+      ICONS.BOOK: () {
+        var settingBox = Hive.box('setting');
+        settingBox.put('isLogined', false);
+        // Navigator.pushNamed(context, '/');
+        context.go('/login');
       },
       ICONS.ADD: () {
         showBottomSheet(
@@ -59,14 +77,6 @@ class _AnaysisPageState extends State<AnaysisPage> {
                     },
                   ),
                 ));
-      },
-      ICONS.SYNC: () {
-        DataAccessService.syncData();
-      },
-      ICONS.LOGOUT: () {
-        var settingBox = Hive.box('setting');
-        settingBox.put('isLogined', false);
-        Navigator.pushNamed(context, '/login');
       },
     };
 
