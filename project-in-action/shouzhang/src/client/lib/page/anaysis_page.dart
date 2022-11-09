@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-29 01:37:32
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-09 13:19:22
+ * @LastEditTime: 2022-11-09 13:27:58
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -45,10 +45,6 @@ class _AnaysisPageState extends State<AnaysisPage> {
       ICONS.SYNC: () {
         DataAccessService.syncData();
       },
-      ICONS.LOGOUT: () {
-        DB.setLogined(false);
-        context.go('/login');
-      },
       ICONS.BOOK: () {
         context.go('/account');
       },
@@ -73,6 +69,10 @@ class _AnaysisPageState extends State<AnaysisPage> {
                     },
                   ),
                 ));
+      },
+      ICONS.LOGOUT: () {
+        DB.setLogined(false);
+        context.go('/login');
       },
     };
 
