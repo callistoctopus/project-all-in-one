@@ -3,7 +3,6 @@ package com.callistoctopus.springbootweb.controller;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 
 import org.apache.ibatis.session.SqlSession;
@@ -15,6 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSON;
 import com.callistoctopus.springbootweb.dao.SessionFactory;
+import com.callistoctopus.springbootweb.dao.model.Account;
+import com.callistoctopus.springbootweb.dao.model.AccountUser;
 import com.callistoctopus.springbootweb.dao.model.Bill;
 import com.callistoctopus.springbootweb.dao.model.Budget;
 import com.callistoctopus.springbootweb.dao.model.FinancialReason;
@@ -41,6 +42,8 @@ public class AccountDetailController {
 
         List<Bill> billList = new ArrayList<Bill>();
         List<Budget> budgetList = new ArrayList<Budget>();
+        List<Account> accountList = new ArrayList<Account>();
+        List<AccountUser> accountUserList = new ArrayList<AccountUser>();
         List<FinancialReason> financialReasonList = new ArrayList<FinancialReason>();
         Date now = new Date();
 
@@ -57,6 +60,8 @@ public class AccountDetailController {
                 financialReasonList = syncDataService.syncFinancialReason(user, entity.getFinancialReasonList(),
                         lastSyncTime,
                         now, session);
+                accountList = syncDataService.syncAccount(user, entity.getAccountList(), session);
+                accountUserList = syncDataService.syncAccountUser(user, entity.getAccountUserList(), session);
 
             } else {
                 return ApiResponseData.from(false, "数据库连接异常");
@@ -74,6 +79,8 @@ public class AccountDetailController {
         res.setBillList(billList);
         res.setBudgetList(budgetList);
         res.setFinancialReasonList(financialReasonList);
+        res.setAccountList(accountList);
+        res.setAccountUserList(accountUserList);
 
         return ApiResponseData.from(true, "success", res);
     }
@@ -82,10 +89,10 @@ public class AccountDetailController {
     ApiResponseData login(@RequestBody String bodyEntity) {
         Boolean ret = false;
         String msg = "";
-
+        SqlSession session = null;
         AuthRequestEntity entity = JSON.parseObject(bodyEntity, AuthRequestEntity.class);
         try {
-            SqlSession session = SessionFactory.getSession();
+            session = SessionFactory.getSession();
             if (entity.getIsSigin()) {
                 if (session != null) {
                     if (authService.isUserExisted(entity.getUser(), session)) {
@@ -100,6 +107,26 @@ public class AccountDetailController {
                         user.setIsDeleted(0);
                         user.setUpdateTime(new Date());
                         authService.createUser(user, session);
+
+                        Account account = new Account();
+                        account.setId(UUID.randomUUID().toString());
+                        account.setUser(entity.getUser());
+                        account.setAccount(entity.getUser());
+                        account.setState(0);
+                        account.setIsDeleted(0);
+                        account.setCreateTime(new Date());
+                        account.setUpdateTime(new Date());
+                        authService.createAccount(account, session);
+
+                        AccountUser accountUser = new AccountUser();
+                        accountUser.setId(UUID.randomUUID().toString());
+                        accountUser.setAccount(entity.getUser());
+                        accountUser.setUser(entity.getUser());
+                        accountUser.setIsDeleted(0);
+                        accountUser.setState(0);
+                        accountUser.setUpdateTime(new Date());
+                        authService.createAccountUser(accountUser, session);
+
                         ret = true;
                         msg = "注册成功";
                     }
@@ -114,15 +141,21 @@ public class AccountDetailController {
                 }
             }
 
-            session.commit();
-            session.close();
+            if (session != null) {
+                session.commit();
+                session.close();
+            }
         } catch (Exception e) {
             e.printStackTrace();
             ret = false;
             msg = "系统异常";
+
+            if (session != null) {
+                session.commit();
+                session.close();
+            }
         }
 
-        
         return ApiResponseData.from(ret, msg);
     }
 }

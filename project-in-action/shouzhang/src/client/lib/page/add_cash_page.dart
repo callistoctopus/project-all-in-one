@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-26 15:06:57
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-08 07:55:32
+ * @LastEditTime: 2022-11-09 12:46:35
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -47,7 +47,6 @@ class _CashInputPageState extends State<CashInputPage> {
     Map<IconData, Function> para = {
       ICONS.BACK: () {
         Navigator.pop(context);
-        // context.go('/');
       },
       ICONS.SAVE: () {
         if (cpo.amount == -1) {

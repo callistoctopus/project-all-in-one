@@ -1,6 +1,5 @@
 package com.callistoctopus.springbootweb.service;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -9,9 +8,13 @@ import java.util.Map;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Service;
 
+import com.callistoctopus.springbootweb.dao.mapper.AccountMapper;
+import com.callistoctopus.springbootweb.dao.mapper.AccountUserMapper;
 import com.callistoctopus.springbootweb.dao.mapper.BillMapper;
 import com.callistoctopus.springbootweb.dao.mapper.BudgetMapper;
 import com.callistoctopus.springbootweb.dao.mapper.FinancialReasonMapper;
+import com.callistoctopus.springbootweb.dao.model.Account;
+import com.callistoctopus.springbootweb.dao.model.AccountUser;
 import com.callistoctopus.springbootweb.dao.model.Bill;
 import com.callistoctopus.springbootweb.dao.model.Budget;
 import com.callistoctopus.springbootweb.dao.model.FinancialReason;
@@ -92,6 +95,56 @@ public class SyncDataService {
                         list.remove(idList.get(financialReason.getId()));
                 } else {
                     mapper.insert(financialReason);
+                }
+            });
+        }
+
+        return list;
+    }
+
+    public List<Account> syncAccount(String user, List<Account> accountList, SqlSession session) {
+        AccountMapper mapper = session.getMapper(AccountMapper.class);
+        List<Account> list = mapper.select(user);
+        Map<String, Account> idList = new HashMap<>();
+        if (list != null) {
+            list.forEach((account) -> {
+                idList.put(account.getId(), account);
+            });
+        }
+
+        if (accountList != null && accountList.size() != 0) {
+            accountList.forEach((account) -> {
+                if (idList.keySet().contains(account.getId())) {
+                    mapper.update(account);
+                    if (list != null)
+                        list.remove(idList.get(account.getId()));
+                } else {
+                    mapper.insert(account);
+                }
+            });
+        }
+
+        return list;
+    }
+
+    public List<AccountUser> syncAccountUser(String user, List<AccountUser> accountUserList, SqlSession session) {
+        AccountUserMapper mapper = session.getMapper(AccountUserMapper.class);
+        List<AccountUser> list = mapper.select(user);
+        Map<String, AccountUser> idList = new HashMap<>();
+        if (list != null) {
+            list.forEach((account) -> {
+                idList.put(account.getId(), account);
+            });
+        }
+
+        if (accountUserList != null && accountUserList.size() != 0) {
+            accountUserList.forEach((accountUser) -> {
+                if (idList.keySet().contains(accountUser.getId())) {
+                    mapper.update(accountUser);
+                    if (list != null)
+                        list.remove(idList.get(accountUser.getId()));
+                } else {
+                    mapper.insert(accountUser);
                 }
             });
         }

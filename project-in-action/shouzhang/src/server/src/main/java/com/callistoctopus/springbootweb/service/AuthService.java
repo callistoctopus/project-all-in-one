@@ -1,21 +1,13 @@
 package com.callistoctopus.springbootweb.service;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Service;
 
-import com.callistoctopus.springbootweb.dao.mapper.BillMapper;
-import com.callistoctopus.springbootweb.dao.mapper.BudgetMapper;
-import com.callistoctopus.springbootweb.dao.mapper.FinancialReasonMapper;
+import com.callistoctopus.springbootweb.dao.mapper.AccountMapper;
+import com.callistoctopus.springbootweb.dao.mapper.AccountUserMapper;
 import com.callistoctopus.springbootweb.dao.mapper.UserMapper;
-import com.callistoctopus.springbootweb.dao.model.Bill;
-import com.callistoctopus.springbootweb.dao.model.Budget;
-import com.callistoctopus.springbootweb.dao.model.FinancialReason;
+import com.callistoctopus.springbootweb.dao.model.Account;
+import com.callistoctopus.springbootweb.dao.model.AccountUser;
 import com.callistoctopus.springbootweb.dao.model.User;
 
 @Service
@@ -49,6 +41,22 @@ public class AuthService {
         UserMapper mapper = session.getMapper(UserMapper.class);
 
         mapper.insert(user);
+        
+        return true;
+    }
+
+    public Boolean createAccount(Account account, SqlSession session) {
+        AccountMapper mapper = session.getMapper(AccountMapper.class);
+
+        mapper.insert(account);
+        
+        return true;
+    }
+
+    public Boolean createAccountUser(AccountUser accountUser, SqlSession session) {
+        AccountUserMapper mapper = session.getMapper(AccountUserMapper.class);
+
+        mapper.insert(accountUser);
         
         return true;
     }

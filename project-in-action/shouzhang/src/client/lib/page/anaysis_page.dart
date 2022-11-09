@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-29 01:37:32
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-08 13:44:15
+ * @LastEditTime: 2022-11-09 09:46:49
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -51,10 +51,7 @@ class _AnaysisPageState extends State<AnaysisPage> {
         context.go('/login');
       },
       ICONS.BOOK: () {
-        var settingBox = Hive.box('setting');
-        settingBox.put('isLogined', false);
-        // Navigator.pushNamed(context, '/');
-        context.go('/login');
+        context.go('/account');
       },
       ICONS.ADD: () {
         showBottomSheet(

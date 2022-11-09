@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.callistoctopus.springbootweb.dao.mapper.AccountMapper">
+
+  <select id="select" resultType="com.callistoctopus.springbootweb.dao.model.Account">
+    select id,user,account,state,create_time as createTime, is_deleted as isDeleted,update_time as updateTime from account
+  </select>
+
+  <insert id="insert" parameterType="com.callistoctopus.springbootweb.dao.model.Account">
+  insert into account (id,user,account,state,create_time,is_deleted,update_time)
+  values (#{id},#{user},#{account},#{state},#{createTime},#{isDeleted},#{updateTime})
+  </insert>
+
+  <update id="update" parameterType="com.callistoctopus.springbootweb.dao.model.Account">
+  update account set user=#{user},account=#{account},state=#{state},create_time=#{createTime},is_deleted=#{isDeleted},update_time=#{updateTime} where id = #{id}
+  </update>
+
+</mapper>

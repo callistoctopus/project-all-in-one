@@ -3,12 +3,11 @@ package com.callistoctopus.springbootweb.model;
 import java.util.Date;
 import java.util.List;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
 import com.callistoctopus.springbootweb.dao.model.Budget;
+import com.callistoctopus.springbootweb.dao.model.Account;
+import com.callistoctopus.springbootweb.dao.model.AccountUser;
 import com.callistoctopus.springbootweb.dao.model.Bill;
 import com.callistoctopus.springbootweb.dao.model.FinancialReason;
-import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class SyncResponseEntity {
 
@@ -16,6 +15,24 @@ public class SyncResponseEntity {
     List<Bill> BillList;
     List<Budget> BudgetList;
     List<FinancialReason> FinancialReasonList;
+    List<Account> AccountList;
+    List<AccountUser> AccountUserList;
+
+    public List<Account> getAccountList() {
+        return AccountList;
+    }
+
+    public void setAccountList(List<Account> accountList) {
+        AccountList = accountList;
+    }
+
+    public List<AccountUser> getAccountUserList() {
+        return AccountUserList;
+    }
+
+    public void setAccountUserList(List<AccountUser> accountUserList) {
+        AccountUserList = accountUserList;
+    }
 
     public Date getLatestSyncTime() {
         return LatestSyncTime;

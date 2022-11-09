@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-26 08:18:13
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-08 12:55:32
+ * @LastEditTime: 2022-11-09 12:41:07
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -10,10 +10,13 @@
 
 import 'dart:io';
 
+import 'package:client/model/persistent_object/account.dart';
+import 'package:client/model/persistent_object/account_user.dart';
 import 'package:client/model/persistent_object/bill.dart';
 import 'package:client/model/persistent_object/budget.dart';
 import 'package:client/model/persistent_object/financial_reason.dart';
 import 'package:client/model/runtime_object/auth_do.dart';
+import 'package:client/page/account_page.dart';
 import 'package:client/page/bill_flow_page.dart';
 import 'package:client/page/budget_page.dart';
 import 'package:client/page/login_page.dart';
@@ -30,14 +33,18 @@ Future<void> main() async {
   } else {
     await Hive.initFlutter();
   }
-
-  Hive.openBox('setting');
+  
   Hive.registerAdapter(FinancialReasonAdapter());
   Hive.registerAdapter(BillAdapter());
   Hive.registerAdapter(BudgetAdapter());
+  Hive.registerAdapter(AccountAdapter());
+  Hive.registerAdapter(AccountUserAdapter());
+  await Hive.openBox('setting');
   await Hive.openBox<FinancialReason>('financialReason');
   await Hive.openBox<Budget>('budget');
   await Hive.openBox<Bill>('bill');
+  await Hive.openBox<Account>('account');
+  await Hive.openBox<AccountUser>('accountUser');
 
   AuthDO.refresh();
 
@@ -65,6 +72,12 @@ Future<void> main() async {
         path: '/budget',
         builder: (BuildContext context, GoRouterState state) {
           return Scaffold(body: BudgetSettingPage());
+        },
+      ),
+      GoRoute(
+        path: '/account',
+        builder: (BuildContext context, GoRouterState state) {
+          return Scaffold(body: AccountPage());
         },
       ),
     ],

@@ -2,12 +2,14 @@
  * @Author: gui-qi
  * @Date: 2022-11-04 02:15:05
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-08 12:45:25
+ * @LastEditTime: 2022-11-09 10:03:42
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
  */
 import 'dart:convert';
+import 'package:client/model/persistent_object/account.dart';
+import 'package:client/model/persistent_object/account_user.dart';
 import 'package:client/model/persistent_object/bill.dart';
 import 'package:client/model/persistent_object/budget.dart';
 import 'package:client/model/persistent_object/financial_reason.dart';
@@ -22,6 +24,8 @@ class DataAccessService {
     List<Bill> billList = [];
     List<Budget> budgetList = [];
     List<FinancialReason> financialReasonList = [];
+    List<Account> accountList = [];
+    List<AccountUser> accountUserList = [];
     DateTime sysnTime = box.get('lastSyncTime',
         defaultValue: CommonUtils.format(DateTime(1992)));
 
@@ -39,12 +43,26 @@ class DataAccessService {
       }
     });
 
+    Hive.box<Account>("account").values.forEach((element) {
+      if (element.updateTime.compareTo(sysnTime) > 0) {
+        accountList.add(element);
+      }
+    });
+
+    Hive.box<AccountUser>("accountUser").values.forEach((element) {
+      if (element.updateTime.compareTo(sysnTime) > 0) {
+        accountUserList.add(element);
+      }
+    });
+
     var entity = {
       "User": "",
       "LastSyncTime": sysnTime.toString(),
       "BillList": billList,
       "BudgetList": budgetList,
-      "FinancialReasonList": financialReasonList
+      "FinancialReasonList": financialReasonList,
+      "accountList": accountList,
+      "accountUserList": accountUserList,
     };
     var jsonEntity = jsonEncode(entity);
     print(jsonEntity);
@@ -58,7 +76,7 @@ class DataAccessService {
 
     if (response.statusCode == 200) {
       var jsonBody = jsonDecode(utf8.decode(response.bodyBytes));
-
+      print(jsonBody);
       if (jsonBody != null) {
         bool result = jsonBody['result'];
         if (result == true) {
@@ -133,6 +151,47 @@ class DataAccessService {
             }
           });
 
+          List accountListr = data['accountList'];
+          accountListr.forEach((element2) {
+            bool isUpdate = false;
+            Account b = Account.fromJson(element2);
+            Hive.box<Account>("account").values.forEach((element) {
+              if (element.id == b.id) {
+                element.user = b.user;
+                element.account = b.account;
+                element.state = b.state;
+                element.createTime = b.createTime;
+                element.isDeleted = b.isDeleted;
+                element.updateTime = b.updateTime;
+                element.save();
+                isUpdate = true;
+              }
+            });
+            if (isUpdate == false) {
+              Hive.box<Account>("account").add(b);
+            }
+          });
+
+          List accountUserListr = data['accountUserList'];
+          accountUserListr.forEach((element2) {
+            bool isUpdate = false;
+            AccountUser b = AccountUser.fromJson(element2);
+            Hive.box<AccountUser>("accountUser").values.forEach((element) {
+              if (element.id == b.id) {
+                element.user = b.user;
+                element.account = b.account;
+                element.state = b.state;
+                element.isDeleted = b.isDeleted;
+                element.updateTime = b.updateTime;
+                element.save();
+                isUpdate = true;
+              }
+            });
+            if (isUpdate == false) {
+              Hive.box<AccountUser>("accountUser").add(b);
+            }
+          });
+
           sysnTime = DateTime.parse(data['latestSyncTime']);
           box.put('lastSyncTime', sysnTime);
         }
@@ -147,7 +206,7 @@ class DataAccessService {
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
-      body: jsonEncode({'user':user,'password':password, 'isSigin':true}),
+      body: jsonEncode({'user': user, 'password': password, 'isSigin': true}),
     );
 
     if (response.statusCode == 200) {
@@ -170,7 +229,7 @@ class DataAccessService {
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
-      body: jsonEncode({'user':user,'password':password, 'isSigin':false}),
+      body: jsonEncode({'user': user, 'password': password, 'isSigin': false}),
     );
 
     if (response.statusCode == 200) {
