@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-29 01:37:32
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-08 07:44:41
+ * @LastEditTime: 2022-11-09 13:21:10
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -52,13 +52,11 @@ class _BudgetSettingPageState extends State<BudgetSettingPage> {
   Widget build(BuildContext context) {
     Map<IconData, Function> para = {
       ICONS.BACK: () {
-        // Navigator.pop(context);
         context.go('/');
       },
       ICONS.SAVE: () {
         DataAccessService.saveListBudget(widget.outList);
         DataAccessService.saveListBudget(widget.inList);
-        // Navigator.pop(context);
         context.go('/');
       },
       ICONS.ADD: () {
@@ -90,13 +88,6 @@ class _BudgetSettingPageState extends State<BudgetSettingPage> {
                   ),
                 ));
       },
-    };
-
-    Map<IconData, Function> para2 = {
-      Icons.arrow_back: () {
-        // Navigator.pop(context);
-        context.go('/');
-      }
     };
 
     return PageWithFloatButton(

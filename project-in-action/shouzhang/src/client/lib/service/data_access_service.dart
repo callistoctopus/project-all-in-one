@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-11-04 02:15:05
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-09 10:03:42
+ * @LastEditTime: 2022-11-09 13:22:41
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -14,20 +14,19 @@ import 'package:client/model/persistent_object/bill.dart';
 import 'package:client/model/persistent_object/budget.dart';
 import 'package:client/model/persistent_object/financial_reason.dart';
 import 'package:client/units/common_utils.dart';
-import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:uuid/uuid.dart';
 
 class DataAccessService {
   static Future<bool> syncData() async {
-    var box = Hive.box("setting");
     List<Bill> billList = [];
     List<Budget> budgetList = [];
     List<FinancialReason> financialReasonList = [];
     List<Account> accountList = [];
     List<AccountUser> accountUserList = [];
-    DateTime sysnTime = box.get('lastSyncTime',
-        defaultValue: CommonUtils.format(DateTime(1992)));
+    DateTime sysnTime = Hive.box("setting")
+        .get('lastSyncTime', defaultValue: CommonUtils.format(DateTime(1992)));
 
     Hive.box<Bill>("bill").values.forEach((element) {
       if (element.updateTime.compareTo(sysnTime) > 0) billList.add(element);
@@ -193,7 +192,7 @@ class DataAccessService {
           });
 
           sysnTime = DateTime.parse(data['latestSyncTime']);
-          box.put('lastSyncTime', sysnTime);
+          Hive.box("setting").put('lastSyncTime', sysnTime);
         }
       }
     }

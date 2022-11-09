@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-26 15:06:57
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-09 12:46:35
+ * @LastEditTime: 2022-11-09 13:17:52
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -16,12 +16,11 @@ import 'package:client/page/add_reason_page.dart';
 import 'package:client/service/data_access_service.dart';
 import 'package:client/units/common_const.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 
 class CashInputPage extends StatefulWidget {
-  CashInputPage({required this.onSaved, super.key});
+  const CashInputPage({required this.onSaved, super.key});
 
-  Function(CashInputVO po) onSaved;
+  final Function(CashInputVO po) onSaved;
 
   @override
   State<CashInputPage> createState() => _CashInputPageState();
@@ -36,10 +35,8 @@ class _CashInputPageState extends State<CashInputPage> {
   @override
   void initState() {
     super.initState();
-    try {
-      rl1 = DataAccessService.fetchFinancialReasonOut();
-      rl2 = DataAccessService.fetchFinancialReasonIn();
-    } on Exception {}
+    rl1 = DataAccessService.fetchFinancialReasonOut();
+    rl2 = DataAccessService.fetchFinancialReasonIn();
   }
 
   @override
@@ -69,18 +66,8 @@ class _CashInputPageState extends State<CashInputPage> {
 
         widget.onSaved(cpo);
         Navigator.pop(context);
-        // context.go('/');
       }
     };
-
-    f() {
-      showBottomSheet(
-          context: context,
-          builder: (context) => const SizedBox(
-                height: 380,
-                child: AddFinancialReasonPage(),
-              ));
-    }
 
     return PageWithFloatButton(
         funcIcon: para,
@@ -111,14 +98,19 @@ class _CashInputPageState extends State<CashInputPage> {
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
                       List<String> dataList =
-                          snapshot.data!.map((e) => e.reason!).toList();
+                          snapshot.data!.map((e) => e.reason).toList();
                       dataList.add("+追加");
                       cpo.reason = dataList[0];
                       return CustomChoiceChip(
                         dataList: dataList,
                         onSelect: (i) {
                           if (i == (dataList.length - 1)) {
-                            return f();
+                            return showBottomSheet(
+                                context: context,
+                                builder: (context) => const SizedBox(
+                                      height: 380,
+                                      child: AddFinancialReasonPage(),
+                                    ));
                           }
                           cpo.reason = dataList[i];
                         },

@@ -2,17 +2,16 @@
  * @Author: gui-qi
  * @Date: 2022-10-26 15:06:57
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-08 13:47:35
+ * @LastEditTime: 2022-11-09 13:25:01
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
  */
-import 'package:client/model/runtime_object/auth_do.dart';
 import 'package:client/service/data_access_service.dart';
+import 'package:client/service/local_database_service.dart';
 import 'package:client/units/common_const.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 
 class LoginPage extends StatefulWidget {
   LoginPage({super.key});
@@ -29,17 +28,15 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
-    bool isAutoLogin =
-        Hive.box('setting').get('isAutoLogin', defaultValue: false);
+    bool isAutoLogin = DB.isAutoLogin();
 
     Widget w1 = Container(
-        height: 50, //这里调整高度即可，建议按照屏幕高度比例来计算
+        height: 50, 
         padding: const EdgeInsets.only(left: 16, top: 5, right: 16, bottom: 0),
         child: TextButton(
             onPressed: () async {
               await DataAccessService.login(widget.user, widget.password);
-              var settingBox = Hive.box('setting');
-              if (settingBox.get('isLogined', defaultValue: false)) {
+              if (DB.isLogined()) {
                 // ignore: use_build_context_synchronously
                 context.go('/');
               }
@@ -52,8 +49,7 @@ class _LoginPageState extends State<LoginPage> {
         child: TextButton(
             onPressed: () async {
               await DataAccessService.sigin(widget.user, widget.password);
-              var settingBox = Hive.box('setting');
-              if (settingBox.get('isLogined', defaultValue: false)) {
+              if (DB.isLogined()) {
                 // ignore: use_build_context_synchronously
                 context.go('/');
               }
@@ -100,8 +96,7 @@ class _LoginPageState extends State<LoginPage> {
                 value: isAutoLogin,
                 onChanged: (checked) {
                   isAutoLogin = checked ?? false;
-                  var settingBox = Hive.box('setting');
-                  settingBox.put('isAutoLogin', isAutoLogin);
+                  DB.setAutoLogin(isAutoLogin);
                   setState(() {});
                 })
           ],

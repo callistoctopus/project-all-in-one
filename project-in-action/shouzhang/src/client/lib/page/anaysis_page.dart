@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-29 01:37:32
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-09 09:46:49
+ * @LastEditTime: 2022-11-09 13:19:22
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -11,6 +11,7 @@ import 'package:client/component/custom_float_button.dart';
 import 'package:client/develop/develop.dart';
 import 'package:client/model/persistent_object/bill.dart';
 import 'package:client/service/data_access_service.dart';
+import 'package:client/service/local_database_service.dart';
 import 'package:client/units/common_const.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -45,9 +46,7 @@ class _AnaysisPageState extends State<AnaysisPage> {
         DataAccessService.syncData();
       },
       ICONS.LOGOUT: () {
-        var settingBox = Hive.box('setting');
-        settingBox.put('isLogined', false);
-        // Navigator.pushNamed(context, '/');
+        DB.setLogined(false);
         context.go('/login');
       },
       ICONS.BOOK: () {

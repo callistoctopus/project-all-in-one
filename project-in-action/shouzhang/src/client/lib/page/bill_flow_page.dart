@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-29 01:37:32
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-07 06:35:33
+ * @LastEditTime: 2022-11-09 13:20:36
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -73,12 +73,10 @@ class _CashFlowPageState extends State<CashFlowPage> {
                                       .toString()
                                       .substring(0, 10))),
                               Expanded(
-                                  flex: 2,
-                                  child: Text(snapshot.data![i].user!)),
+                                  flex: 2, child: Text(snapshot.data![i].user)),
                               Expanded(
                                   flex: 2,
-                                  child: Text(snapshot.data![i].reason!)),
-                              // Expanded(flex:2,child: Text(snapshot.data![i ~/ 2].note!)),
+                                  child: Text(snapshot.data![i].reason)),
                               Expanded(flex: 1, child: Text(amount, style: ts)),
                             ],
                           );
