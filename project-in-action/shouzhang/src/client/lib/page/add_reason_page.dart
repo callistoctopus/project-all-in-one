@@ -2,17 +2,17 @@
  * @Author: gui-qi
  * @Date: 2022-10-26 15:06:57
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-09 13:18:50
+ * @LastEditTime: 2022-11-10 01:43:59
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
  */
 import 'package:client/component/custom_float_button.dart';
+import 'package:client/component/icon_toggle_buttons.dart';
 import 'package:client/model/persistent_object/financial_reason.dart';
-import 'package:client/service/data_access_service.dart';
+import 'package:client/service/local_database_service.dart';
 import 'package:client/units/common_const.dart';
 import 'package:flutter/material.dart';
-import '../component/icon_toggle_buttons.dart';
 
 class AddFinancialReasonPage extends StatefulWidget {
   const AddFinancialReasonPage({super.key,});
@@ -29,7 +29,6 @@ class _AddFinancialReasonPageState extends State<AddFinancialReasonPage> {
     Map<IconData, Function> para = {
       ICONS.BACK: () {
         Navigator.pop(context);
-        // context.go('/');
       },
       ICONS.SAVE: () async {
         if (fr.reason == null) {
@@ -50,18 +49,15 @@ class _AddFinancialReasonPageState extends State<AddFinancialReasonPage> {
           return;
         }
 
-        DataAccessService.saveFinancialReason(fr);
+        DB.saveFinancialReason(fr);
         Navigator.pop(context);
-        // context.go('/');
       }
     };
 
-    // #docregion itemBuilder
     return PageWithFloatButton(
         funcIcon: para,
         child: Scaffold(
           body: ListView(
-            // mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
               Container(
                 padding: const EdgeInsets.only(left: 12, top: 3),
@@ -83,15 +79,13 @@ class _AddFinancialReasonPageState extends State<AddFinancialReasonPage> {
                 ),
               ),
               Container(
-                height: 70, //这里调整高度即可，建议按照屏幕高度比例来计算
+                height: 70, 
                 padding: const EdgeInsets.only(
                     left: 16, top: 15, right: 16, bottom: 0),
-                // margin: const EdgeInsets.only(top:5),
                 child: TextField(
                   textAlign: TextAlign.justify,
                   textAlignVertical: TextAlignVertical.center,
                   cursorHeight: 25,
-                  // scrollPadding: EdgeInsets.all(2.0),
                   decoration: const InputDecoration(
                     prefixText: "",
                     border: OutlineInputBorder(),

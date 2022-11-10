@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-29 01:37:32
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-09 13:21:10
+ * @LastEditTime: 2022-11-10 01:44:39
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -10,7 +10,7 @@
 import 'package:client/model/persistent_object/budget.dart';
 import 'package:client/page/add_cash_page.dart';
 import 'package:client/component/custom_float_button.dart';
-import 'package:client/service/data_access_service.dart';
+import 'package:client/service/local_database_service.dart';
 import 'package:client/units/common_const.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -34,7 +34,7 @@ class _BudgetSettingPageState extends State<BudgetSettingPage> {
   void initState() {
     super.initState();
     try {
-      fetchListBudget = DataAccessService.fetchListBudget();
+      fetchListBudget = DB.fetchListBudget();
       fetchListBudget.then((value) {
         value.forEach((budget) {
           if (budget.type == 0 && !widget.outList.contains(budget)) {
@@ -52,12 +52,12 @@ class _BudgetSettingPageState extends State<BudgetSettingPage> {
   Widget build(BuildContext context) {
     Map<IconData, Function> para = {
       ICONS.BACK: () {
-        context.go('/');
+        context.go(ROUTE.HOME);
       },
       ICONS.SAVE: () {
-        DataAccessService.saveListBudget(widget.outList);
-        DataAccessService.saveListBudget(widget.inList);
-        context.go('/');
+        DB.saveListBudget(widget.outList);
+        DB.saveListBudget(widget.inList);
+        context.go(ROUTE.HOME);
       },
       ICONS.ADD: () {
         showBottomSheet(

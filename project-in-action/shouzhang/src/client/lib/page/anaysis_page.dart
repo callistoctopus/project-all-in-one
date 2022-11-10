@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-29 01:37:32
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-09 13:27:58
+ * @LastEditTime: 2022-11-10 02:11:38
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -10,7 +10,7 @@
 import 'package:client/component/custom_float_button.dart';
 import 'package:client/develop/develop.dart';
 import 'package:client/model/persistent_object/bill.dart';
-import 'package:client/service/data_access_service.dart';
+import 'package:client/service/server_data_access_service.dart';
 import 'package:client/service/local_database_service.dart';
 import 'package:client/units/common_const.dart';
 import 'package:flutter/material.dart';
@@ -28,25 +28,39 @@ class AnaysisPage extends StatefulWidget {
 
 class _AnaysisPageState extends State<AnaysisPage> {
   @override
+  void initState() {
+    super.initState();
+    DataAccessService.syncData();
+  }
+
+  @override
   Widget build(BuildContext context) {
     Map<IconData, Function> para = {
       // CommonConst.ICONS['BUG']!: () {
       //   Navigator.push(context,
       //       MaterialPageRoute(builder: (context) => const DevelopmentPage()));
       // },
-      ICONS.LIST: () {
-        // Navigator.pushNamed(context, '/billList');
-        context.go('/billList');
-      },
-      ICONS.BUDGET: () {
-        // Navigator.pushNamed(context, '/budget');
-        context.go('/budget');
-      },
+      // ICONS.LIST: () {
+      //   // Navigator.pushNamed(context, '/billList');
+      //   context.go('/billList');
+      // },
+      // ICONS.BUDGET: () {
+      //   // Navigator.pushNamed(context, '/budget');
+      //   context.go('/budget');
+      // },
       ICONS.SYNC: () {
         DataAccessService.syncData();
       },
-      ICONS.BOOK: () {
-        context.go('/account');
+      // ICONS.BOOK: () {
+      //   context.go('/account');
+      // },
+      ICONS.LOGOUT: () {
+        DB.setLogined(false);
+        context.go(ROUTE.LOGIN);
+      },
+      ICONS.SETTING: () {
+        DB.setLogined(false);
+        context.go(ROUTE.LOGIN);
       },
       ICONS.ADD: () {
         showBottomSheet(
@@ -65,14 +79,10 @@ class _AnaysisPageState extends State<AnaysisPage> {
                         po.note,
                         DateTime.now(),
                       );
-                      DataAccessService.saveBill(bill);
+                      DB.saveBill(bill);
                     },
                   ),
                 ));
-      },
-      ICONS.LOGOUT: () {
-        DB.setLogined(false);
-        context.go('/login');
       },
     };
 
@@ -80,8 +90,27 @@ class _AnaysisPageState extends State<AnaysisPage> {
       funcIcon: para,
       child: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Expanded(
+                    child: GestureDetector(
+                        onTap: () {
+                          context.go(ROUTE.BILLS);
+                        },
+                        child: const Card(
+                            child: Text("账单", textAlign: TextAlign.center)))),
+                Expanded(
+                    child: GestureDetector(
+                        onTap: () {
+                          context.go(ROUTE.BUDGET);
+                        },
+                        child: const Card(
+                            child: Text("预算", textAlign: TextAlign.center)))),
+              ],
+            ),
             Text(
               '消费预测，建议，警告',
               style: Theme.of(context).textTheme.headlineMedium,

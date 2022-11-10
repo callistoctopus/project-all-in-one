@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-11-04 02:15:05
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-09 13:22:41
+ * @LastEditTime: 2022-11-10 03:19:30
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -13,6 +13,7 @@ import 'package:client/model/persistent_object/account_user.dart';
 import 'package:client/model/persistent_object/bill.dart';
 import 'package:client/model/persistent_object/budget.dart';
 import 'package:client/model/persistent_object/financial_reason.dart';
+import 'package:client/service/local_database_service.dart';
 import 'package:client/units/common_utils.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:http/http.dart' as http;
@@ -55,7 +56,7 @@ class DataAccessService {
     });
 
     var entity = {
-      "User": "",
+      "User": DB.user(),
       "LastSyncTime": sysnTime.toString(),
       "BillList": billList,
       "BudgetList": budgetList,
@@ -193,6 +194,14 @@ class DataAccessService {
 
           sysnTime = DateTime.parse(data['latestSyncTime']);
           Hive.box("setting").put('lastSyncTime', sysnTime);
+
+          if (DB.currentAccount() != DB.user()) {
+            String account = "";
+            if (DB.allAccounts().isNotEmpty) {
+              account = DB.allAccounts()[0].account;
+            }
+            DB.setAccount(account);
+          }
         }
       }
     }
@@ -217,6 +226,7 @@ class DataAccessService {
           settingBox.put('user', user);
           settingBox.put('password', password);
           settingBox.put('isLogined', true);
+          DB.setAccount("");
         }
       }
     }
@@ -240,87 +250,9 @@ class DataAccessService {
           settingBox.put('user', user);
           settingBox.put('password', password);
           settingBox.put('isLogined', true);
+          DB.setAccount("");
         }
       }
     }
-  }
-
-  static Future<List<Bill>> futureListBill() async {
-    List<Bill> list = [];
-    var box = Hive.box<Bill>("bill");
-    box.values.forEach((element) {
-      list.add(element);
-    });
-
-    return list;
-  }
-
-  static Future<bool> saveBill(Bill bill) async {
-    var box = Hive.box<Bill>("bill");
-
-    bill.user = Hive.box('setting').get('user');
-    bill.time = CommonUtils.now();
-    bill.updateTime = CommonUtils.now();
-    if (bill.isInBox) {
-      bill.save();
-    } else {
-      bill.id = const Uuid().v1();
-      box.add(bill);
-    }
-
-    return true;
-  }
-
-  static Future<List<Budget>> fetchListBudget() async {
-    List<Budget> list = [];
-    var box = Hive.box<Budget>("budget");
-    box.values.forEach((element) {
-      list.add(element);
-    });
-
-    return list;
-  }
-
-  static Future<bool> saveListBudget(List<Budget> budgetList) async {
-    var box = Hive.box<Budget>("Budget");
-    budgetList.forEach((element) {
-      element.user = Hive.box('setting').get('user');
-      element.updateTime = CommonUtils.now();
-      if (element.isInBox) {
-        element.save();
-      } else {
-        element.id = const Uuid().v1();
-        box.add(element);
-      }
-    });
-
-    return true;
-  }
-
-  static Future<bool> saveFinancialReason(FinancialReason fr) async {
-    var box = Hive.box<FinancialReason>("financialReason");
-    fr.user = Hive.box('setting').get('user');
-    fr.updateTime = CommonUtils.now();
-    fr.id = const Uuid().v1();
-    box.add(fr);
-    return true;
-  }
-
-  static Future<List<FinancialReason>> fetchFinancialReasonOut() async {
-    List<FinancialReason> list = [];
-    var box = Hive.box<FinancialReason>("financialReason");
-    box.values.forEach((element) {
-      if (element.type == 0) list.add(element);
-    });
-    return list;
-  }
-
-  static Future<List<FinancialReason>> fetchFinancialReasonIn() async {
-    List<FinancialReason> list = [];
-    var box = Hive.box<FinancialReason>("financialReason");
-    box.values.forEach((element) {
-      if (element.type == 1) list.add(element);
-    });
-    return list;
   }
 }

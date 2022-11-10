@@ -3,7 +3,24 @@
 <mapper namespace="com.callistoctopus.springbootweb.dao.mapper.BillMapper">
 
   <select id="select" resultType="com.callistoctopus.springbootweb.dao.model.Bill">
-    select id,user,time,reason,type,amount,note,is_deleted as isDeleted,update_time as updateTime from bill
+      select
+        b.id,
+        b.user,
+        b.time,
+        b.reason,
+        b.type,
+        b.amount,
+        b.note,
+        b.is_deleted as isDeleted,
+        b.update_time as updateTime
+      from
+        bill b 
+      left join account_user au on
+        au.user = b.user
+      LEFT join account a on
+        a.account = au.account
+      where
+        a.user = #{user}
   </select>
 
   <insert id="insert" parameterType="com.callistoctopus.springbootweb.dao.model.Bill">

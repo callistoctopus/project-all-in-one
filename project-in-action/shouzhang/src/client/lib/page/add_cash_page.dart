@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-26 15:06:57
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-09 13:17:52
+ * @LastEditTime: 2022-11-10 02:09:38
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -13,7 +13,7 @@ import 'package:client/component/icon_toggle_buttons.dart';
 import 'package:client/model/persistent_object/financial_reason.dart';
 import 'package:client/model/view_object/add_cash_page_vo.dart';
 import 'package:client/page/add_reason_page.dart';
-import 'package:client/service/data_access_service.dart';
+import 'package:client/service/local_database_service.dart';
 import 'package:client/units/common_const.dart';
 import 'package:flutter/material.dart';
 
@@ -35,8 +35,8 @@ class _CashInputPageState extends State<CashInputPage> {
   @override
   void initState() {
     super.initState();
-    rl1 = DataAccessService.fetchFinancialReasonOut();
-    rl2 = DataAccessService.fetchFinancialReasonIn();
+    rl1 = DB.fetchFinancialReasonOut();
+    rl2 = DB.fetchFinancialReasonIn();
   }
 
   @override
@@ -105,9 +105,7 @@ class _CashInputPageState extends State<CashInputPage> {
                         dataList: dataList,
                         onSelect: (i) {
                           if (i == (dataList.length - 1)) {
-                            return showBottomSheet(
-                                context: context,
-                                builder: (context) => const SizedBox(
+                            return showDialog(context: context, builder: (context) => const SizedBox(
                                       height: 380,
                                       child: AddFinancialReasonPage(),
                                     ));

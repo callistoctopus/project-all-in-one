@@ -2,15 +2,15 @@
  * @Author: gui-qi
  * @Date: 2022-10-29 01:37:32
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-09 13:20:36
+ * @LastEditTime: 2022-11-10 01:44:17
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
  */
 import 'package:client/model/persistent_object/bill.dart';
+import 'package:client/service/local_database_service.dart';
 import 'package:flutter/material.dart';
 import 'package:client/component/custom_float_button.dart';
-import 'package:client/service/data_access_service.dart';
 
 class CashFlowPage extends StatefulWidget {
   const CashFlowPage({super.key});
@@ -26,7 +26,7 @@ class _CashFlowPageState extends State<CashFlowPage> {
   void initState() {
     super.initState();
     try {
-      futureListBill = DataAccessService.futureListBill();
+      futureListBill = DB.futureListBill();
     } on Exception {}
   }
 

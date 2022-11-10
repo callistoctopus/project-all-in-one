@@ -2,12 +2,12 @@
  * @Author: gui-qi
  * @Date: 2022-10-26 15:06:57
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-09 13:25:01
+ * @LastEditTime: 2022-11-10 01:34:50
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
  */
-import 'package:client/service/data_access_service.dart';
+import 'package:client/service/server_data_access_service.dart';
 import 'package:client/service/local_database_service.dart';
 import 'package:client/units/common_const.dart';
 import 'package:flutter/material.dart';
@@ -38,7 +38,7 @@ class _LoginPageState extends State<LoginPage> {
               await DataAccessService.login(widget.user, widget.password);
               if (DB.isLogined()) {
                 // ignore: use_build_context_synchronously
-                context.go('/');
+                context.go(ROUTE.HOME);
               }
             },
             child: const Text("登录")));
@@ -51,7 +51,7 @@ class _LoginPageState extends State<LoginPage> {
               await DataAccessService.sigin(widget.user, widget.password);
               if (DB.isLogined()) {
                 // ignore: use_build_context_synchronously
-                context.go('/');
+                context.go(ROUTE.HOME);
               }
             },
             child: const Text("注册")));
