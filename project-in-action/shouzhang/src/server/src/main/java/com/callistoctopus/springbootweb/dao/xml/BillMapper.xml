@@ -12,26 +12,42 @@
   </select>
 
   <select id="select" resultType="com.callistoctopus.springbootweb.dao.model.Bill">
-      select
-        b.id,
-        b.user,
-        b.time,
-        b.reason,
-        b.type,
-        b.amount,
-        b.note,
-        b.is_deleted as isDeleted,
-        b.update_time as updateTime
-      from
-        bill b 
-      left join account_user au on
-        au.user = b.user
-      LEFT join account a on
-        a.account = au.account
-      where
-        a.user = #{user} 
-        and b.update_time > #{startTime} 
-	      <![CDATA[ and b.update_time < #{endTime} ]]>
+        select
+          b.id,
+          b.user,
+          b.time,
+          b.reason,
+          b.type,
+          b.amount,
+          b.note,
+          b.is_deleted as isDeleted,
+          b.update_time as updateTime
+        from
+          bill b
+        inner join
+        (
+          select
+            au2.id,
+            au2.user,
+            au2.account,
+            au2.state,
+            au2.is_deleted as isDeleted,
+            au2.update_time as updateTime
+          from
+            account_user au
+          left join account_user au2
+            on
+            au.account = au2.account
+          where
+            au.user = #{user}) c 
+              on
+          b.user = c.user
+        where 
+          b.update_time > #{startTime} 
+          <![CDATA[ and b.update_time < #{endTime} ]]>
+        group by
+          b.id
+        
   </select>
 
   <insert id="insert" parameterType="com.callistoctopus.springbootweb.dao.model.Bill">

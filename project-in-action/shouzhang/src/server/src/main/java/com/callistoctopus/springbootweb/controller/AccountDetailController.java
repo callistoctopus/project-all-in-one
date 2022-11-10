@@ -48,7 +48,7 @@ public class AccountDetailController {
         List<AccountUser> accountUserList = new ArrayList<AccountUser>();
         List<FinancialReason> financialReasonList = new ArrayList<FinancialReason>();
         Date now = new Date();
-        SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         SqlSession session = null;
 
         try {

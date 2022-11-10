@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-26 15:06:57
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-10 08:34:56
+ * @LastEditTime: 2022-11-10 14:38:37
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -24,7 +24,7 @@ class AccountPage extends StatefulWidget {
 }
 
 class _AccountPageState extends State<AccountPage> {
-  List<AccountUser> user = DB.accountUsers();
+  List<AccountUser> user = DB.getSharedAccountUser();
   List<Account> account = DB.allAccounts();
   bool showInvite = false;
   String username = "";
@@ -44,9 +44,9 @@ class _AccountPageState extends State<AccountPage> {
                     TextButton(
                         onPressed: () {
                           if (username != "") {
-                            AccountUser au = AccountUser(Uuid().v1(), username,
+                            AccountUser au = AccountUser(const Uuid().v1(), username,
                                 DB.currentAccount(), 1, 0, CommonUtils.now());
-                            Hive.box<AccountUser>(TABLE.accountUser).add(au);
+                            DB.saveAccountUser(au);
                           }
 
                           setState(() {
@@ -100,10 +100,9 @@ class _AccountPageState extends State<AccountPage> {
                                 onPressed: () {
                                   user[i - 1].state = 0;
                                   DB.saveAccountUser(user[i - 1]);
-                                  setState(() {
-                                    
-                                  });
-                                }, child: const Text("接受")))
+                                  setState(() {});
+                                },
+                                child: const Text("接受")))
                   ],
                 ));
               }

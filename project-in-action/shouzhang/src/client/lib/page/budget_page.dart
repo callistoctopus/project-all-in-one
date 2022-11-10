@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-29 01:37:32
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-10 01:44:39
+ * @LastEditTime: 2022-11-10 14:40:02
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -174,8 +174,8 @@ class _BudgetSettingPageState extends State<BudgetSettingPage> {
                                       itemCount: widget.outList.length,
                                       itemBuilder: (context, i) {
                                         return InputWithTest(
-                                          text: widget.outList[i]!.reason,
-                                          oldBudget: widget.outList[i]!.budget
+                                          text: widget.outList[i].reason,
+                                          oldBudget: widget.outList[i].budget
                                               .toString(),
                                               onSelected: (text) => widget.outList[i].budget = double.parse(text),
                                         );
@@ -192,8 +192,8 @@ class _BudgetSettingPageState extends State<BudgetSettingPage> {
                                       itemCount: widget.inList.length,
                                       itemBuilder: (context, i) {
                                         return InputWithTest(
-                                          text: widget.inList[i]!.reason,
-                                          oldBudget: widget.inList[i]!.budget
+                                          text: widget.inList[i].reason,
+                                          oldBudget: widget.inList[i].budget
                                               .toString(),
                                               onSelected: (text) => widget.inList[i].budget = double.parse(text),
                                         );

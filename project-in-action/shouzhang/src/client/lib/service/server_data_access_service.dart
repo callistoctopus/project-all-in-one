@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-11-04 02:15:05
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-10 09:01:49
+ * @LastEditTime: 2022-11-10 14:25:36
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -17,7 +17,6 @@ import 'package:client/service/local_database_service.dart';
 import 'package:client/units/common_utils.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:http/http.dart' as http;
-import 'package:uuid/uuid.dart';
 
 class DataAccessService {
   static Future<bool> syncData() async {
@@ -27,24 +26,24 @@ class DataAccessService {
     List<Account> accountList = [];
     List<AccountUser> accountUserList = [];
     DateTime sysnTime = Hive.box("setting")
-        .get('lastSyncTime${DB.user()}', defaultValue: CommonUtils.format(DateTime(1992)));
+        .get('lastSyncTime${DB.currentUser()}', defaultValue: CommonUtils.format(DateTime(1992)));
 
     Hive.box<Bill>("bill").values.forEach((element) {
-      if (element.updateTime.compareTo(sysnTime) > 0 && element.user == DB.user()) billList.add(element);
+      if (element.updateTime.compareTo(sysnTime) > 0 && element.user == DB.currentUser()) billList.add(element);
     });
 
     Hive.box<Budget>("budget").values.forEach((element) {
-      if (element.updateTime.compareTo(sysnTime) > 0 && element.user == DB.user()) budgetList.add(element);
+      if (element.updateTime.compareTo(sysnTime) > 0 && element.user == DB.currentUser()) budgetList.add(element);
     });
 
     Hive.box<FinancialReason>("financialReason").values.forEach((element) {
-      if (element.updateTime.compareTo(sysnTime) > 0 && element.user == DB.user()) {
+      if (element.updateTime.compareTo(sysnTime) > 0 && element.user == DB.currentUser()) {
         financialReasonList.add(element);
       }
     });
 
     Hive.box<Account>("account").values.forEach((element) {
-      if (element.updateTime.compareTo(sysnTime) > 0 && element.user == DB.user()) {
+      if (element.updateTime.compareTo(sysnTime) > 0 && element.user == DB.currentUser()) {
         accountList.add(element);
       }
     });
@@ -56,7 +55,7 @@ class DataAccessService {
     });
 
     var entity = {
-      "User": DB.user(),
+      "User": DB.currentUser(),
       "LastSyncTime": sysnTime.toString(),
       "BillList": billList,
       "BudgetList": budgetList,
@@ -193,9 +192,9 @@ class DataAccessService {
           });
 
           sysnTime = DateTime.parse(data['latestSyncTime']);
-          Hive.box("setting").put('lastSyncTime${DB.user()}', sysnTime);
+          Hive.box("setting").put('lastSyncTime${DB.currentUser()}', sysnTime);
 
-          if (DB.currentAccount() != DB.user()) {
+          if (DB.currentAccount() != DB.currentUser()) {
             String account = "";
             if (DB.allAccounts().isNotEmpty) {
               account = DB.allAccounts()[0].account;

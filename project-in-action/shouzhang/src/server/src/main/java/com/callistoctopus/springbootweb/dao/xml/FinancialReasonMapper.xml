@@ -22,14 +22,29 @@
       f.update_time as updateTime
     from
       financial_reason f 
-    left join account_user au on
-      au.user = f.user
-    LEFT join account a on
-      a.account = au.account
+    inner join
+        (
+          select
+            au2.id,
+            au2.user,
+            au2.account,
+            au2.state,
+            au2.is_deleted as isDeleted,
+            au2.update_time as updateTime
+          from
+            account_user au
+          left join account_user au2
+            on
+            au.account = au2.account
+          where
+            au.user = #{user}) c 
+              on
+          f.user = c.user
     where
-      a.user = #{user} 
-      and f.update_time > #{startTime}
+      f.update_time > #{startTime}
 	    <![CDATA[ and f.update_time < #{endTime}]]>
+    group by
+      f.id
   </select>
 
   <insert id="insert" parameterType="com.callistoctopus.springbootweb.dao.model.FinancialReason">
