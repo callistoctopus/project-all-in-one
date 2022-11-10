@@ -3,7 +3,24 @@
 <mapper namespace="com.callistoctopus.springbootweb.dao.mapper.FinancialReasonMapper">
 
   <select id="select" resultType="com.callistoctopus.springbootweb.dao.model.FinancialReason">
-    select id,user,reason,type,note,is_deleted as isDeleted,update_time as updateTime from financial_reason
+    select
+      f.id,
+      f.user,
+      f.reason,
+      f.type,
+      f.note,
+      f.is_deleted as isDeleted,
+      f.update_time as updateTime
+    from
+      financial_reason f 
+    left join account_user au on
+      au.user = f.user
+    LEFT join account a on
+      a.account = au.account
+    where
+      a.user = #{user} 
+      and f.update_time > #{startTime}
+	    <![CDATA[ and f.update_time < #{endTime}]]>
   </select>
 
   <insert id="insert" parameterType="com.callistoctopus.springbootweb.dao.model.FinancialReason">

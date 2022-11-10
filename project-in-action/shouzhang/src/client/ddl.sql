@@ -1,3 +1,4 @@
+-- zhangben.day_to_day_account definition
 DROP table if exists bill;
 CREATE TABLE `bill` (
   `id` varchar(100) NOT NULL,
@@ -38,3 +39,37 @@ CREATE TABLE `financial_reason` (
   `update_time` datetime DEFAULT NULL COMMENT '最新更新时间',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='经济行为发生要因';
+
+DROP table if exists user;
+CREATE TABLE `user` (
+  `id` varchar(100) NOT NULL,
+  `user` varchar(100) NOT NULL COMMENT '用户名',
+  `password` text NOT NULL COMMENT '密码',
+  `create_time` datetime DEFAULT NULL COMMENT '用户创建时间',
+  `is_deleted` smallint DEFAULT NULL COMMENT '是否删除',
+  `update_time` datetime DEFAULT NULL COMMENT '最新更新时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='用户表';
+
+DROP table if exists account;
+CREATE TABLE `account` (
+  `id` varchar(100) NOT NULL,
+  `user` varchar(100) NOT NULL COMMENT '账户持有人',
+  `account` varchar(100) NOT NULL COMMENT '账户名',
+  `state` smallint DEFAULT NULL COMMENT '账户状态',
+  `create_time` datetime DEFAULT NULL COMMENT '账户创建时间',
+  `is_deleted` smallint DEFAULT NULL COMMENT '是否删除',
+  `update_time` datetime DEFAULT NULL COMMENT '最新更新时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='账户表';
+
+DROP table if exists account_user;
+CREATE TABLE `account_user` (
+  `id` varchar(100) NOT NULL,
+  `account` varchar(100) NOT NULL COMMENT '账户名',
+  `user` varchar(100) DEFAULT NULL COMMENT '用户名',
+  `state` smallint DEFAULT NULL COMMENT '关系状态',
+  `is_deleted` smallint DEFAULT NULL COMMENT '是否删除',
+  `update_time` datetime DEFAULT NULL COMMENT '最新更新时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='账户表';

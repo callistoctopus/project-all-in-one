@@ -75,7 +75,8 @@ public class SyncDataService {
         return list;
     }
 
-    public List<FinancialReason> syncFinancialReason(String user, List<FinancialReason> financialReasonList, Date lastSyncTime,
+    public List<FinancialReason> syncFinancialReason(String user, List<FinancialReason> financialReasonList,
+            Date lastSyncTime,
             Date currentTime, SqlSession session) {
         // List<FinancialReason> ret = new ArrayList<>();
         FinancialReasonMapper mapper = session.getMapper(FinancialReasonMapper.class);
@@ -102,9 +103,10 @@ public class SyncDataService {
         return list;
     }
 
-    public List<Account> syncAccount(String user, List<Account> accountList, SqlSession session) {
+    public List<Account> syncAccount(String user, List<Account> accountList, Date lastSyncTime,
+            Date currentTime, SqlSession session) {
         AccountMapper mapper = session.getMapper(AccountMapper.class);
-        List<Account> list = mapper.select(user);
+        List<Account> list = mapper.select(user, lastSyncTime, currentTime);
         Map<String, Account> idList = new HashMap<>();
         if (list != null) {
             list.forEach((account) -> {
@@ -127,9 +129,10 @@ public class SyncDataService {
         return list;
     }
 
-    public List<AccountUser> syncAccountUser(String user, List<AccountUser> accountUserList, SqlSession session) {
+    public List<AccountUser> syncAccountUser(String user, List<AccountUser> accountUserList, Date lastSyncTime,
+            Date currentTime, SqlSession session) {
         AccountUserMapper mapper = session.getMapper(AccountUserMapper.class);
-        List<AccountUser> list = mapper.select(user);
+        List<AccountUser> list = mapper.select(user, lastSyncTime, currentTime);
         Map<String, AccountUser> idList = new HashMap<>();
         if (list != null) {
             list.forEach((account) -> {

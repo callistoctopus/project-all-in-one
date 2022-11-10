@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-29 01:37:32
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-10 02:11:38
+ * @LastEditTime: 2022-11-10 04:56:41
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -48,9 +48,9 @@ class _AnaysisPageState extends State<AnaysisPage> {
       //   // Navigator.pushNamed(context, '/budget');
       //   context.go('/budget');
       // },
-      ICONS.SYNC: () {
-        DataAccessService.syncData();
-      },
+      // ICONS.SYNC: () {
+      //   DataAccessService.syncData();
+      // },
       // ICONS.BOOK: () {
       //   context.go('/account');
       // },

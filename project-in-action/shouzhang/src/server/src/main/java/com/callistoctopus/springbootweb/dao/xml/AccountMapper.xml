@@ -3,7 +3,20 @@
 <mapper namespace="com.callistoctopus.springbootweb.dao.mapper.AccountMapper">
 
   <select id="select" resultType="com.callistoctopus.springbootweb.dao.model.Account">
-    select id,user,account,state,create_time as createTime, is_deleted as isDeleted,update_time as updateTime from account
+    select
+      id,
+      user,
+      account,
+      state,
+      create_time as createTime,
+      is_deleted as isDeleted,
+      update_time as updateTime
+    from
+      account 
+    where
+      user = #{user} 
+      and update_time > #{startTime}
+	    <![CDATA[ and update_time < #{endTime}]]>
   </select>
 
   <insert id="insert" parameterType="com.callistoctopus.springbootweb.dao.model.Account">

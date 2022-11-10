@@ -3,7 +3,26 @@
 <mapper namespace="com.callistoctopus.springbootweb.dao.mapper.BudgetMapper">
 
   <select id="select" resultType="com.callistoctopus.springbootweb.dao.model.Budget">
-    select id,user,year,reason,type,budget,note,is_deleted as isDeleted,update_time as updateTime from budget
+    select
+      b.id,
+      b.user,
+      b.year,
+      b.reason,
+      b.type,
+      b.budget,
+      b.note,
+      b.is_deleted as isDeleted,
+      b.update_time as updateTime
+    from
+      budget b 
+    left join account_user au on
+      au.user = b.user
+    LEFT join account a on
+      a.account = au.account
+    where
+      a.user = #{user} 
+      and b.update_time > #{startTime}
+	    <![CDATA[ and b.update_time < #{endTime}]]>
   </select>
 
   <insert id="insert" parameterType="com.callistoctopus.springbootweb.dao.model.Budget">

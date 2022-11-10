@@ -20,7 +20,9 @@
       LEFT join account a on
         a.account = au.account
       where
-        a.user = #{user}
+        a.user = #{user} 
+        and b.update_time > #{startTime} 
+	      <![CDATA[ and b.update_time < #{endTime} ]]>
   </select>
 
   <insert id="insert" parameterType="com.callistoctopus.springbootweb.dao.model.Bill">

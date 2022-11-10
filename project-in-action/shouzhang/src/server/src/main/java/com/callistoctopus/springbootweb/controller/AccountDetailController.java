@@ -1,9 +1,11 @@
 package com.callistoctopus.springbootweb.controller;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
+import java.util.logging.SimpleFormatter;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,32 +48,38 @@ public class AccountDetailController {
         List<AccountUser> accountUserList = new ArrayList<AccountUser>();
         List<FinancialReason> financialReasonList = new ArrayList<FinancialReason>();
         Date now = new Date();
+        SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        SqlSession session = null;
 
         try {
             SyncRequestEntity entity = JSON.parseObject(bodyEntity, SyncRequestEntity.class);
             Date lastSyncTime = entity.getLastSyncTime();
             String user = entity.getUser();
 
-            SqlSession session = SessionFactory.getSession();
+            session = SessionFactory.getSession();
             if (session != null) {
 
-                billList = syncDataService.syncBill(user, entity.getBillList(), lastSyncTime, now, session);
-                budgetList = syncDataService.syncBudget(user, entity.getBudgetList(), lastSyncTime, now, session);
+                billList = syncDataService.syncBill(user, entity.getBillList(), lastSyncTime, sf.parse(sf.format(now)), session);
+                budgetList = syncDataService.syncBudget(user, entity.getBudgetList(), lastSyncTime, sf.parse(sf.format(now)), session);
                 financialReasonList = syncDataService.syncFinancialReason(user, entity.getFinancialReasonList(),
                         lastSyncTime,
                         now, session);
-                accountList = syncDataService.syncAccount(user, entity.getAccountList(), session);
-                accountUserList = syncDataService.syncAccountUser(user, entity.getAccountUserList(), session);
+                accountList = syncDataService.syncAccount(user, entity.getAccountList(), lastSyncTime, sf.parse(sf.format(now)), session);
+                accountUserList = syncDataService.syncAccountUser(user, entity.getAccountUserList(), lastSyncTime, sf.parse(sf.format(now)), session);
 
             } else {
                 return ApiResponseData.from(false, "数据库连接异常");
             }
 
-            session.commit();
-            session.close();
+            
         } catch (Exception e) {
             e.printStackTrace();
             return ApiResponseData.from(false, "数据同步异常");
+        } 
+
+        if (session != null) {
+            session.commit();
+            session.close();
         }
 
         SyncResponseEntity res = new SyncResponseEntity();
@@ -140,20 +148,15 @@ public class AccountDetailController {
                     msg = "用户名密码错误";
                 }
             }
-
-            if (session != null) {
-                session.commit();
-                session.close();
-            }
         } catch (Exception e) {
             e.printStackTrace();
             ret = false;
             msg = "系统异常";
+        }
 
-            if (session != null) {
-                session.commit();
-                session.close();
-            }
+        if (session != null) {
+            session.commit();
+            session.close();
         }
 
         return ApiResponseData.from(ret, msg);

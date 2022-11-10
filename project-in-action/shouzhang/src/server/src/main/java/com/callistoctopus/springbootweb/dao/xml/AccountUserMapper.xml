@@ -3,7 +3,21 @@
 <mapper namespace="com.callistoctopus.springbootweb.dao.mapper.AccountUserMapper">
 
   <select id="select" resultType="com.callistoctopus.springbootweb.dao.model.AccountUser">
-    select id,user,account,state, is_deleted as isDeleted,update_time as updateTime from account_user
+    select
+      au.id,
+      au.user,
+      au.account,
+      au.state,
+      au.is_deleted as isDeleted,
+      au.update_time as updateTime
+    from
+      account_user au 
+    LEFT join account a on
+      a.account = au.account
+    where
+      a.user = 'adminA' 
+      and au.update_time > #{startTime}
+      <![CDATA[ and au.update_time < #{endTime}]]>
   </select>
 
   <insert id="insert" parameterType="com.callistoctopus.springbootweb.dao.model.AccountUser">
