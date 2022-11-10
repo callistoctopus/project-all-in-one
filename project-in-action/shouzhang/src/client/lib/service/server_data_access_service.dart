@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-11-04 02:15:05
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-10 03:19:30
+ * @LastEditTime: 2022-11-10 09:01:49
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -27,30 +27,30 @@ class DataAccessService {
     List<Account> accountList = [];
     List<AccountUser> accountUserList = [];
     DateTime sysnTime = Hive.box("setting")
-        .get('lastSyncTime', defaultValue: CommonUtils.format(DateTime(1992)));
+        .get('lastSyncTime${DB.user()}', defaultValue: CommonUtils.format(DateTime(1992)));
 
     Hive.box<Bill>("bill").values.forEach((element) {
-      if (element.updateTime.compareTo(sysnTime) > 0) billList.add(element);
+      if (element.updateTime.compareTo(sysnTime) > 0 && element.user == DB.user()) billList.add(element);
     });
 
     Hive.box<Budget>("budget").values.forEach((element) {
-      if (element.updateTime.compareTo(sysnTime) > 0) budgetList.add(element);
+      if (element.updateTime.compareTo(sysnTime) > 0 && element.user == DB.user()) budgetList.add(element);
     });
 
     Hive.box<FinancialReason>("financialReason").values.forEach((element) {
-      if (element.updateTime.compareTo(sysnTime) > 0) {
+      if (element.updateTime.compareTo(sysnTime) > 0 && element.user == DB.user()) {
         financialReasonList.add(element);
       }
     });
 
     Hive.box<Account>("account").values.forEach((element) {
-      if (element.updateTime.compareTo(sysnTime) > 0) {
+      if (element.updateTime.compareTo(sysnTime) > 0 && element.user == DB.user()) {
         accountList.add(element);
       }
     });
 
     Hive.box<AccountUser>("accountUser").values.forEach((element) {
-      if (element.updateTime.compareTo(sysnTime) > 0) {
+      if (element.updateTime.compareTo(sysnTime) > 0 && element.account == DB.currentAccount()) {
         accountUserList.add(element);
       }
     });
@@ -193,7 +193,7 @@ class DataAccessService {
           });
 
           sysnTime = DateTime.parse(data['latestSyncTime']);
-          Hive.box("setting").put('lastSyncTime', sysnTime);
+          Hive.box("setting").put('lastSyncTime${DB.user()}', sysnTime);
 
           if (DB.currentAccount() != DB.user()) {
             String account = "";

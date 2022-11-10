@@ -4,19 +4,21 @@
 
   <select id="select" resultType="com.callistoctopus.springbootweb.dao.model.Account">
     select
-      id,
-      user,
-      account,
-      state,
-      create_time as createTime,
-      is_deleted as isDeleted,
-      update_time as updateTime
+      a.id,
+      a.user,
+      a.account,
+      a.state,
+      a.create_time as createTime,
+      a.is_deleted as isDeleted,
+      a.update_time as updateTime
     from
-      account 
+      account a    
+    LEFT join account_user au on
+      a.account = au.account
     where
-      user = #{user} 
-      and update_time > #{startTime}
-	    <![CDATA[ and update_time < #{endTime}]]>
+      au.user = #{user} 
+      and a.update_time > #{startTime}
+	    <![CDATA[ and a.update_time < #{endTime}]]>
   </select>
 
   <insert id="insert" parameterType="com.callistoctopus.springbootweb.dao.model.Account">

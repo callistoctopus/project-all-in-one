@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-29 01:37:32
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-10 04:56:41
+ * @LastEditTime: 2022-11-10 06:46:43
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -51,9 +51,9 @@ class _AnaysisPageState extends State<AnaysisPage> {
       // ICONS.SYNC: () {
       //   DataAccessService.syncData();
       // },
-      // ICONS.BOOK: () {
-      //   context.go('/account');
-      // },
+      ICONS.BOOK: () {
+        context.go('/account');
+      },
       ICONS.LOGOUT: () {
         DB.setLogined(false);
         context.go(ROUTE.LOGIN);

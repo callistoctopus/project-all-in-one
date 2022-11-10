@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-11-09 12:50:18
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-10 03:18:35
+ * @LastEditTime: 2022-11-10 09:38:26
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -69,7 +69,10 @@ class DB {
   static Future<List<Bill>> futureListBill() async {
     List<Bill> list = [];
     Hive.box<Bill>(TABLE.bill).values.forEach((element) {
-      if (DB.accountUsers().contains(element.user)) {
+      List<String?> userList = DB.accountUsers().map((e) {
+        if (e.state == 0) return e.user;
+      }).toList();
+      if (userList.contains(element.user)) {
         list.add(element);
       }
     });
@@ -90,10 +93,23 @@ class DB {
     return true;
   }
 
+  static bool saveAccountUser(AccountUser accountUser) {
+    accountUser.updateTime = CommonUtils.now();
+    if (accountUser.isInBox) {
+      accountUser.save();
+    } else {
+      Hive.box<AccountUser>(TABLE.accountUser).add(accountUser);
+    }
+    return true;
+  }
+
   static Future<List<Budget>> fetchListBudget() async {
     List<Budget> list = [];
+    List<String?> userList = DB.accountUsers().map((e) {
+      if (e.state == 0) return e.user;
+    }).toList();
     Hive.box<Budget>(TABLE.budget).values.forEach((element) {
-      if (DB.accountUsers().contains(element.user)) {
+      if (userList.contains(element.user)) {
         list.add(element);
       }
     });
@@ -162,10 +178,10 @@ class DB {
     return accounts;
   }
 
-  static List<String> accountUsers() {
-    List<String> list = [];
+  static List<AccountUser> accountUsers() {
+    List<AccountUser> list = [];
     Hive.box<AccountUser>(TABLE.accountUser).values.forEach((element) {
-      if (element.account == DB.currentAccount()) list.add(element.user);
+      if (element.user == DB.user() || element.account == DB.currentAccount()) list.add(element);
     });
     return list;
   }

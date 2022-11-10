@@ -12,10 +12,8 @@
       au.update_time as updateTime
     from
       account_user au 
-    LEFT join account a on
-      a.account = au.account
     where
-      a.user = 'adminA' 
+      (au.user = #{user} or au.account = #{user} )
       and au.update_time > #{startTime}
       <![CDATA[ and au.update_time < #{endTime}]]>
   </select>
