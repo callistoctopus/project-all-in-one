@@ -2,6 +2,15 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.callistoctopus.springbootweb.dao.mapper.BudgetMapper">
 
+  <select id="check" resultType="int">
+    select
+      count(*) 
+    from
+      budget b  
+    where
+      b.id = #{id}
+  </select>
+
   <select id="select" resultType="com.callistoctopus.springbootweb.dao.model.Budget">
     select
       b.id,

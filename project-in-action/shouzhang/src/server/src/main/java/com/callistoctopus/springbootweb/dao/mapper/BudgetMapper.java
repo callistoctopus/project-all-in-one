@@ -11,4 +11,6 @@ public interface BudgetMapper {
     void insert(Budget budget);
 
     void update(Budget budget);
+
+    int check(String id);
 }

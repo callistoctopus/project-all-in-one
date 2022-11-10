@@ -11,4 +11,6 @@ public interface BillMapper {
     void insert(Bill bill);
 
     void update(Bill bill);
+
+    int check(String id);
 }

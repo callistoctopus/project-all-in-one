@@ -11,4 +11,6 @@ public interface AccountMapper {
     int update(Account accountUser);
 
     void insert(Account accountUser);
+
+    int check(String id);
 }

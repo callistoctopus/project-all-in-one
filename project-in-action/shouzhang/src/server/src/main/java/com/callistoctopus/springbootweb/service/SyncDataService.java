@@ -1,5 +1,6 @@
 package com.callistoctopus.springbootweb.service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -25,133 +26,146 @@ public class SyncDataService {
             SqlSession session) {
 
         BillMapper mapper = session.getMapper(BillMapper.class);
+        List<Bill> ret = new ArrayList<>();
         List<Bill> list = mapper.select(user, lastSyncTime, currentTime);
-        Map<String, Bill> idList = new HashMap<>();
-        if (list != null) {
-            list.forEach((bill) -> {
-                idList.put(bill.getId(), bill);
-            });
-        }
+        List<String> idList = new ArrayList<>();
 
         if (billList != null && billList.size() != 0) {
             billList.forEach((bill) -> {
-                if (idList.keySet().contains(bill.getId())) {
+                if (mapper.check(bill.getId()) != 0) {
                     mapper.update(bill);
-                    if (list != null)
-                        list.remove(idList.get(bill.getId()));
+                    idList.add(bill.getId());
                 } else {
                     mapper.insert(bill);
                 }
             });
         }
 
-        return list;
+        if (list != null) {
+            list.forEach((e) -> {
+                if (!idList.contains(e.getId())) {
+                    ret.add(e);
+                }
+            });
+        }
+
+        return ret;
     }
 
     public List<Budget> syncBudget(String user, List<Budget> budgetList, Date lastSyncTime, Date currentTime,
             SqlSession session) {
-        // List<Budget> ret = new ArrayList<>();
+        List<Budget> ret = new ArrayList<>();
         BudgetMapper mapper = session.getMapper(BudgetMapper.class);
         List<Budget> list = mapper.select(user, lastSyncTime, currentTime);
-        Map<String, Budget> idList = new HashMap<>();
-        if (list != null) {
-            list.forEach((budget) -> {
-                idList.put(budget.getId(), budget);
-            });
-        }
+        List<String> idList = new ArrayList<>();
 
         if (budgetList != null && budgetList.size() != 0) {
             budgetList.forEach((budget) -> {
-                if (idList.keySet().contains(budget.getId())) {
+                if (mapper.check(budget.getId()) != 0) {
                     mapper.update(budget);
-                    if (list != null)
-                        list.remove(idList.get(budget.getId()));
+                    idList.add(budget.getId());
                 } else {
                     mapper.insert(budget);
                 }
             });
         }
 
-        return list;
+        if (list != null) {
+            list.forEach((e) -> {
+                if (!idList.contains(e.getId())) {
+                    ret.add(e);
+                }
+            });
+        }
+
+        return ret;
     }
 
     public List<FinancialReason> syncFinancialReason(String user, List<FinancialReason> financialReasonList,
             Date lastSyncTime,
             Date currentTime, SqlSession session) {
-        // List<FinancialReason> ret = new ArrayList<>();
+        List<FinancialReason> ret = new ArrayList<>();
         FinancialReasonMapper mapper = session.getMapper(FinancialReasonMapper.class);
         List<FinancialReason> list = mapper.select(user, lastSyncTime, currentTime);
-        Map<String, FinancialReason> idList = new HashMap<>();
-        if (list != null) {
-            list.forEach((financialReason) -> {
-                idList.put(financialReason.getId(), financialReason);
-            });
-        }
+        List<String> idList = new ArrayList<>();
 
         if (financialReasonList != null && financialReasonList.size() != 0) {
             financialReasonList.forEach((financialReason) -> {
-                if (idList.keySet().contains(financialReason.getId())) {
+                if (mapper.check(financialReason.getId()) != 0) {
                     mapper.update(financialReason);
-                    if (list != null)
-                        list.remove(idList.get(financialReason.getId()));
+                    idList.add(financialReason.getId());
                 } else {
                     mapper.insert(financialReason);
                 }
             });
         }
 
-        return list;
+        if (list != null) {
+            list.forEach((e) -> {
+                if (!idList.contains(e.getId())) {
+                    ret.add(e);
+                }
+            });
+        }
+
+        return ret;
     }
 
     public List<Account> syncAccount(String user, List<Account> accountList, Date lastSyncTime,
             Date currentTime, SqlSession session) {
+        List<Account> ret = new ArrayList<>();
         AccountMapper mapper = session.getMapper(AccountMapper.class);
         List<Account> list = mapper.select(user, lastSyncTime, currentTime);
-        Map<String, Account> idList = new HashMap<>();
-        if (list != null) {
-            list.forEach((account) -> {
-                idList.put(account.getId(), account);
-            });
-        }
+        List<String> idList = new ArrayList<>();
 
         if (accountList != null && accountList.size() != 0) {
             accountList.forEach((account) -> {
-                if (idList.keySet().contains(account.getId())) {
+                if (mapper.check(account.getId()) != 0) {
                     mapper.update(account);
-                    if (list != null)
-                        list.remove(idList.get(account.getId()));
+                    idList.add(account.getId());
                 } else {
                     mapper.insert(account);
                 }
             });
         }
 
-        return list;
+        if (list != null) {
+            list.forEach((e) -> {
+                if (!idList.contains(e.getId())) {
+                    ret.add(e);
+                }
+            });
+        }
+
+        return ret;
     }
 
     public List<AccountUser> syncAccountUser(String user, List<AccountUser> accountUserList, Date lastSyncTime,
             Date currentTime, SqlSession session) {
+        List<AccountUser> ret = new ArrayList<>();
         AccountUserMapper mapper = session.getMapper(AccountUserMapper.class);
         List<AccountUser> list = mapper.select(user, lastSyncTime, currentTime);
-        Map<String, AccountUser> idList = new HashMap<>();
-        if (list != null) {
-            list.forEach((account) -> {
-                idList.put(account.getId(), account);
-            });
-        }
+        List<String> idList = new ArrayList<>();
 
         if (accountUserList != null && accountUserList.size() != 0) {
             accountUserList.forEach((accountUser) -> {
-                if (idList.keySet().contains(accountUser.getId())) {
+                if (mapper.check(accountUser.getId()) != 0) {
                     mapper.update(accountUser);
-                    if (list != null)
-                        list.remove(idList.get(accountUser.getId()));
+                    idList.add(accountUser.getId());
                 } else {
                     mapper.insert(accountUser);
                 }
             });
         }
 
-        return list;
+        if (list != null) {
+            list.forEach((e) -> {
+                if (!idList.contains(e.getId())) {
+                    ret.add(e);
+                }
+            });
+        }
+
+        return ret;
     }
 }

@@ -2,6 +2,15 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.callistoctopus.springbootweb.dao.mapper.AccountUserMapper">
 
+  <select id="check" resultType="int">
+    select
+      count(*) 
+    from
+      account_user au  
+    where
+      au.id = #{id}
+  </select>
+
   <select id="select" resultType="com.callistoctopus.springbootweb.dao.model.AccountUser">
     select
       au.id,

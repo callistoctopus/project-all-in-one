@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-11-09 12:50:18
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-10 09:38:26
+ * @LastEditTime: 2022-11-10 12:00:34
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -68,10 +68,8 @@ class DB {
 
   static Future<List<Bill>> futureListBill() async {
     List<Bill> list = [];
+    List<String?> userList = DB.getSharedUser();
     Hive.box<Bill>(TABLE.bill).values.forEach((element) {
-      List<String?> userList = DB.accountUsers().map((e) {
-        if (e.state == 0) return e.user;
-      }).toList();
       if (userList.contains(element.user)) {
         list.add(element);
       }
@@ -146,8 +144,12 @@ class DB {
 
   static Future<List<FinancialReason>> fetchFinancialReasonOut() async {
     List<FinancialReason> list = [];
+
+    List<String?> userList = DB.accountUsers().map((e) {
+      if (e.state == 0) return e.user;
+    }).toList();
     Hive.box<FinancialReason>(TABLE.financialReason).values.forEach((element) {
-      if (element.type == 0 && DB.accountUsers().contains(element.user))
+      if (element.type == 0 && userList.contains(element.user))
         list.add(element);
     });
     return list;
@@ -155,8 +157,11 @@ class DB {
 
   static Future<List<FinancialReason>> fetchFinancialReasonIn() async {
     List<FinancialReason> list = [];
+    List<String?> userList = DB.accountUsers().map((e) {
+      if (e.state == 0) return e.user;
+    }).toList();
     Hive.box<FinancialReason>(TABLE.financialReason).values.forEach((element) {
-      if (element.type == 1 && DB.accountUsers().contains(element.user))
+      if (element.type == 1 && userList.contains(element.user))
         list.add(element);
     });
     return list;
@@ -181,9 +186,26 @@ class DB {
   static List<AccountUser> accountUsers() {
     List<AccountUser> list = [];
     Hive.box<AccountUser>(TABLE.accountUser).values.forEach((element) {
-      if (element.user == DB.user() || element.account == DB.currentAccount()) list.add(element);
+      if (element.user == DB.user() || element.account == DB.currentAccount())
+        list.add(element);
     });
     return list;
+  }
+
+  static List<String> getSharedUser() {
+    List<String> ret = [];
+    var box = Hive.box<AccountUser>(TABLE.accountUser);
+    box.values.forEach((element) {
+      // if (element.account == DB.currentAccount()) ret.add(element.user);
+      if (element.user == DB.user()) {
+        box.values.forEach((element1) {
+          if (element.account == element1.account) {
+            ret.add(element1.user);
+          }
+        });
+      }
+    });
+    return ret;
   }
 }
 

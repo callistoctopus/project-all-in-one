@@ -11,4 +11,6 @@ public interface FinancialReasonMapper {
     void insert(FinancialReason financialReason);
 
     void update(FinancialReason financialReason);
+
+    int check(String id);
 }

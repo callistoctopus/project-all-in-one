@@ -53,9 +53,9 @@ public class AccountDetailController {
 
         try {
             SyncRequestEntity entity = JSON.parseObject(bodyEntity, SyncRequestEntity.class);
-            // Date lastSyncTime = entity.getLastSyncTime();
-            Date lastSyncTime = new Date();
-            lastSyncTime.setYear(30);
+            Date lastSyncTime = entity.getLastSyncTime();
+            // Date lastSyncTime = new Date();
+            // lastSyncTime.setYear(30);
             String user = entity.getUser();
 
             session = SessionFactory.getSession();
