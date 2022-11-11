@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-29 01:37:32
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-11 06:45:18
+ * @LastEditTime: 2022-11-11 10:09:31
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -11,6 +11,7 @@ import 'package:client/component/custom_float_button.dart';
 import 'package:client/develop/develop.dart';
 import 'package:client/model/persistent_object/bill.dart';
 import 'package:client/page/add_bill_page.dart';
+import 'package:client/page/add_reason_page.dart';
 import 'package:client/service/server_data_access_service.dart';
 import 'package:client/service/local_database_service.dart';
 import 'package:client/units/common_const.dart';
@@ -32,6 +33,20 @@ class _HomePageState extends State<HomePage> {
     DataAccessService.syncData();
   }
 
+  saveBill(CashInputVO po) {
+    Bill bill = Bill(
+      const Uuid().v1(),
+      DB.currentUser(),
+      DateTime.now(),
+      po.reason,
+      po.type,
+      po.amount,
+      po.note,
+      DateTime.now(),
+    );
+    DB.saveBill(bill);
+  }
+
   @override
   Widget build(BuildContext context) {
     Map<IconData, Function> para = {
@@ -44,8 +59,18 @@ class _HomePageState extends State<HomePage> {
             MaterialPageRoute(builder: (context) => const DevelopmentPage()));
       },
       ICONS.ADD: () {
+        showModalBottomSheet(
+            context: context,
+            builder: (context) => AddBillView(
+                  onSaved: (po) => saveBill(po),
+                ));
+      },
+      ICONS.BUG: () {
         showBottomSheet(
-            context: context, builder: (context) => _COMPONENT.addBill());
+            context: context,
+            builder: (context) => AddBillView(
+                  onSaved: (CashInputVO po) {},
+                ));
       },
     };
 
@@ -111,26 +136,5 @@ class _COMPONENT {
                 child: Card(
                     child: Center(
                         child: Text(title, textAlign: TextAlign.center))))));
-  }
-
-  static Widget addBill() {
-    return SizedBox(
-      height: 380,
-      child: AddBillView(
-        onSaved: (po) {
-          Bill bill = Bill(
-            const Uuid().v1(),
-            DB.currentUser(),
-            DateTime.now(),
-            po.reason,
-            po.type,
-            po.amount,
-            po.note,
-            DateTime.now(),
-          );
-          DB.saveBill(bill);
-        },
-      ),
-    );
   }
 }

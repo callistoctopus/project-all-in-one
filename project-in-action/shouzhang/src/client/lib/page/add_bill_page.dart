@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-26 15:06:57
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-11 07:13:15
+ * @LastEditTime: 2022-11-11 10:16:11
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -12,9 +12,12 @@ import 'package:client/component/custom_float_button.dart';
 import 'package:client/component/custom_snack_bar.dart';
 import 'package:client/component/icon_toggle_buttons.dart';
 import 'package:client/model/persistent_object/financial_reason.dart';
+import 'package:client/page/add_reason_page.dart';
 import 'package:client/service/local_database_service.dart';
 import 'package:client/units/common_const.dart';
+import 'package:client/units/common_utils.dart';
 import 'package:flutter/material.dart';
+import 'package:uuid/uuid.dart';
 
 class AddBillView extends StatefulWidget {
   const AddBillView({required this.onSaved, super.key});
@@ -31,6 +34,13 @@ class _AddBillViewState extends State<AddBillView> {
 
   CashInputVO cpo = CashInputVO();
 
+  saveFinancialReason(FinancialReasonVO rivo) {
+    FinancialReason fr = FinancialReason(const Uuid().v1(), DB.currentUser(),
+        rivo.reason, rivo.type, rivo.note, 0, CommonUtils.now());
+
+    DB.saveFinancialReason(fr);
+  }
+
   @override
   void initState() {
     super.initState();
@@ -39,10 +49,14 @@ class _AddBillViewState extends State<AddBillView> {
   }
 
   @override
-  Widget build(BuildContext context1) {
+  Widget build(BuildContext context) {
+
+    rl1 = DB.fetchFinancialReasonOut();
+    rl2 = DB.fetchFinancialReasonIn();
+    
     Map<IconData, Function> para = {
       ICONS.BACK: () {
-        Navigator.pop(context1);
+        Navigator.pop(context);
       },
       ICONS.SAVE: () {
         if (cpo.amount == -1) {
@@ -50,7 +64,7 @@ class _AddBillViewState extends State<AddBillView> {
         }
 
         widget.onSaved(cpo);
-        Navigator.pop(context1);
+        Navigator.pop(context);
       }
     };
 
@@ -90,30 +104,16 @@ class _AddBillViewState extends State<AddBillView> {
                         dataList: dataList,
                         onSelect: (i) {
                           if (i == (dataList.length - 1)) {
-                            const SimpleDialog(
-                              children:[Text("aa")]
-                                // context: context1,
-                                // builder: (context1) => Text("aa")
-                                // SizedBox(
-                                //       height: 380,
-                                //       width: 250,
-                                //       child: AddFinancialReasonView(
-                                //         onEvent: (rivo) {
-                                //           FinancialReason fr = FinancialReason(
-                                //               const Uuid().v1(),
-                                //               DB.currentUser(),
-                                //               rivo.reason,
-                                //               rivo.type,
-                                //               rivo.note,
-                                //               0,
-                                //               CommonUtils.now());
-
-                                //           DB.saveFinancialReason(fr);
-                                //           setState(() {});
-                                //         },
-                                //       ),
-                                //     )
-                                    );
+                            return showModalBottomSheet(
+                              constraints: const BoxConstraints(maxHeight: 300),
+                              context: context,
+                              builder: (context) => AddFinancialReasonView(
+                                onEvent: (rivo) {
+                                  saveFinancialReason(rivo);
+                                  setState(() {});
+                                },
+                              ),
+                            );
                           }
                           cpo.reason = dataList[i];
                         },
