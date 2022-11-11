@@ -2,31 +2,30 @@
  * @Author: gui-qi
  * @Date: 2022-10-26 15:06:57
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-10 02:09:38
+ * @LastEditTime: 2022-11-11 07:13:15
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
  */
 import 'package:client/component/custom_choice_chip.dart';
 import 'package:client/component/custom_float_button.dart';
+import 'package:client/component/custom_snack_bar.dart';
 import 'package:client/component/icon_toggle_buttons.dart';
 import 'package:client/model/persistent_object/financial_reason.dart';
-import 'package:client/model/view_object/add_cash_page_vo.dart';
-import 'package:client/page/add_reason_page.dart';
 import 'package:client/service/local_database_service.dart';
 import 'package:client/units/common_const.dart';
 import 'package:flutter/material.dart';
 
-class CashInputPage extends StatefulWidget {
-  const CashInputPage({required this.onSaved, super.key});
+class AddBillView extends StatefulWidget {
+  const AddBillView({required this.onSaved, super.key});
 
   final Function(CashInputVO po) onSaved;
 
   @override
-  State<CashInputPage> createState() => _CashInputPageState();
+  State<AddBillView> createState() => _AddBillViewState();
 }
 
-class _CashInputPageState extends State<CashInputPage> {
+class _AddBillViewState extends State<AddBillView> {
   late Future<List<FinancialReason>> rl1;
   late Future<List<FinancialReason>> rl2;
 
@@ -40,32 +39,18 @@ class _CashInputPageState extends State<CashInputPage> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context1) {
     Map<IconData, Function> para = {
       ICONS.BACK: () {
-        Navigator.pop(context);
+        Navigator.pop(context1);
       },
       ICONS.SAVE: () {
         if (cpo.amount == -1) {
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-              backgroundColor: Theme.of(context).primaryColor,
-              duration: const Duration(milliseconds: 1200),
-              shape: const ContinuousRectangleBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(25))),
-              padding: const EdgeInsets.only(
-                  left: 15, top: 15, right: 15, bottom: 15),
-              content: Text(
-                '请输入金额',
-                style: TextStyle(color: Theme.of(context).canvasColor),
-                textAlign: TextAlign.center,
-              ),
-              behavior: SnackBarBehavior.floating,
-              dismissDirection: DismissDirection.up));
-          return;
+          return CustomSnackBar().show(context, "请输入金额");
         }
 
         widget.onSaved(cpo);
-        Navigator.pop(context);
+        Navigator.pop(context1);
       }
     };
 
@@ -105,10 +90,30 @@ class _CashInputPageState extends State<CashInputPage> {
                         dataList: dataList,
                         onSelect: (i) {
                           if (i == (dataList.length - 1)) {
-                            return showDialog(context: context, builder: (context) => const SizedBox(
-                                      height: 380,
-                                      child: AddFinancialReasonPage(),
-                                    ));
+                            const SimpleDialog(
+                              children:[Text("aa")]
+                                // context: context1,
+                                // builder: (context1) => Text("aa")
+                                // SizedBox(
+                                //       height: 380,
+                                //       width: 250,
+                                //       child: AddFinancialReasonView(
+                                //         onEvent: (rivo) {
+                                //           FinancialReason fr = FinancialReason(
+                                //               const Uuid().v1(),
+                                //               DB.currentUser(),
+                                //               rivo.reason,
+                                //               rivo.type,
+                                //               rivo.note,
+                                //               0,
+                                //               CommonUtils.now());
+
+                                //           DB.saveFinancialReason(fr);
+                                //           setState(() {});
+                                //         },
+                                //       ),
+                                //     )
+                                    );
                           }
                           cpo.reason = dataList[i];
                         },
@@ -121,7 +126,7 @@ class _CashInputPageState extends State<CashInputPage> {
                     return const CircularProgressIndicator();
                   }),
               Container(
-                height: 70, //这里调整高度即可，建议按照屏幕高度比例来计算
+                height: 70,
                 padding: const EdgeInsets.only(
                     left: 16, top: 15, right: 16, bottom: 0),
                 // margin: const EdgeInsets.only(top:5),
@@ -157,4 +162,11 @@ class _CashInputPageState extends State<CashInputPage> {
           ),
         ));
   }
+}
+
+class CashInputVO {
+  int type = 0;
+  String reason = "";
+  double amount = -1;
+  String note = "";
 }

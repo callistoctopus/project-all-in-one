@@ -77,11 +77,11 @@ public class AccountDetailController {
         } catch (Exception e) {
             e.printStackTrace();
             return ApiResponseData.from(false, "数据同步异常");
-        } 
-
-        if (session != null) {
-            session.commit();
-            session.close();
+        } finally{
+            if (session != null) {
+                session.commit();
+                session.close();
+            }
         }
 
         SyncResponseEntity res = new SyncResponseEntity();
@@ -154,13 +154,13 @@ public class AccountDetailController {
             e.printStackTrace();
             ret = false;
             msg = "系统异常";
+        } finally{
+            if (session != null) {
+                session.commit();
+                session.close();
+            }
         }
-
-        if (session != null) {
-            session.commit();
-            session.close();
-        }
-
+        
         return ApiResponseData.from(ret, msg);
     }
 }

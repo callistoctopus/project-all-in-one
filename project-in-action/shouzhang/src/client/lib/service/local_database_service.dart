@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-11-09 12:50:18
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-10 14:39:09
+ * @LastEditTime: 2022-11-11 06:55:31
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -219,6 +219,14 @@ class DB {
     }
     return ret;
   }
+
+  static int budgetYear(){
+    return Hive.box(TABLE.setting).get(KEY.budgetYear, defaultValue: 2022);
+  }
+
+  static void setBudgetYear(int year){
+    Hive.box(TABLE.setting).put(KEY.budgetYear, year);
+  }
 }
 
 class TABLE {
@@ -237,4 +245,5 @@ class KEY {
   static const String account = 'account';
   static const String accountUsers = 'accountUsers';
   static const String lastSyncTime = 'lastSyncTime';
+  static const String budgetYear = 'budgetYear';
 }

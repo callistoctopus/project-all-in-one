@@ -2,13 +2,13 @@
  * @Author: gui-qi
  * @Date: 2022-11-09 12:54:29
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-10 01:29:29
+ * @LastEditTime: 2022-11-11 03:03:14
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
  */
 import 'package:client/page/account_page.dart';
-import 'package:client/page/anaysis_page.dart';
+import 'package:client/page/home_page.dart';
 import 'package:client/page/bill_flow_page.dart';
 import 'package:client/page/budget_page.dart';
 import 'package:client/page/login_page.dart';
@@ -24,7 +24,7 @@ class RouteConfig {
         GoRoute(
           path: ROUTE.HOME,
           builder: (BuildContext context, GoRouterState state) {
-            return const Scaffold(body: AnaysisPage());
+            return const Scaffold(body: HomePage());
           },
         ),
         GoRoute(

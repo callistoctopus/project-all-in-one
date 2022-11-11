@@ -2,18 +2,19 @@
  * @Author: gui-qi
  * @Date: 2022-10-29 01:37:32
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-10 14:40:02
+ * @LastEditTime: 2022-11-11 06:57:10
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
  */
 import 'package:client/model/persistent_object/budget.dart';
-import 'package:client/page/add_cash_page.dart';
+import 'package:client/page/add_bill_page.dart';
 import 'package:client/component/custom_float_button.dart';
 import 'package:client/service/local_database_service.dart';
 import 'package:client/units/common_const.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:uuid/uuid.dart';
 
 class BudgetSettingPage extends StatefulWidget {
   BudgetSettingPage({super.key});
@@ -27,8 +28,6 @@ class BudgetSettingPage extends StatefulWidget {
 
 class _BudgetSettingPageState extends State<BudgetSettingPage> {
   late Future<List<Budget>> fetchListBudget;
-
-  int year = 2022;
 
   @override
   void initState() {
@@ -50,6 +49,10 @@ class _BudgetSettingPageState extends State<BudgetSettingPage> {
 
   @override
   Widget build(BuildContext context) {
+
+
+  int year = DB.budgetYear();
+
     Map<IconData, Function> para = {
       ICONS.BACK: () {
         context.go(ROUTE.HOME);
@@ -64,13 +67,13 @@ class _BudgetSettingPageState extends State<BudgetSettingPage> {
             context: context,
             builder: (context) => SizedBox(
                   height: 380,
-                  child: CashInputPage(
+                  child: AddBillView(
                     onSaved: (po) {
                       setState(() {
                         Budget b = Budget(
-                          "",
-                          "",
-                          "",
+                          const Uuid().v1(),
+                          DB.currentUser(),
+                          DB.budgetYear().toString(),
                           po.reason,
                           po.type,
                           po.amount,
@@ -113,8 +116,8 @@ class _BudgetSettingPageState extends State<BudgetSettingPage> {
                                 label: Text((2022 + index).toString()),
                                 selected: year == (index + 2022),
                                 onSelected: (bool selected) {
+                                  DB.setBudgetYear(index + 2022);
                                   setState(() {
-                                    year = selected ? (index + 2022) : 2022;
                                   });
                                 },
                               ));

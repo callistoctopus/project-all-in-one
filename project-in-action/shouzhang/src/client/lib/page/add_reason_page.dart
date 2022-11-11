@@ -2,28 +2,25 @@
  * @Author: gui-qi
  * @Date: 2022-10-26 15:06:57
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-10 01:43:59
+ * @LastEditTime: 2022-11-11 06:35:45
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
  */
 import 'package:client/component/custom_float_button.dart';
+import 'package:client/component/custom_snack_bar.dart';
 import 'package:client/component/icon_toggle_buttons.dart';
-import 'package:client/model/persistent_object/financial_reason.dart';
-import 'package:client/service/local_database_service.dart';
 import 'package:client/units/common_const.dart';
 import 'package:flutter/material.dart';
 
-class AddFinancialReasonPage extends StatefulWidget {
-  const AddFinancialReasonPage({super.key,});
+class AddFinancialReasonView extends StatelessWidget {
+  AddFinancialReasonView({
+    required this.onEvent,
+    super.key,
+  });
 
-  @override
-  State<AddFinancialReasonPage> createState() => _AddFinancialReasonPageState();
-}
-
-class _AddFinancialReasonPageState extends State<AddFinancialReasonPage> {
-  FinancialReason fr = FinancialReason("","","",0,"",0,DateTime.now());
-
+  final Function(FinancialReasonVO) onEvent;
+  FinancialReasonVO rivo = FinancialReasonVO();
   @override
   Widget build(BuildContext context) {
     Map<IconData, Function> para = {
@@ -31,25 +28,10 @@ class _AddFinancialReasonPageState extends State<AddFinancialReasonPage> {
         Navigator.pop(context);
       },
       ICONS.SAVE: () async {
-        if (fr.reason == null) {
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-              backgroundColor: Theme.of(context).primaryColor,
-              duration: const Duration(milliseconds: 1200),
-              shape: const ContinuousRectangleBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(25))),
-              padding: const EdgeInsets.only(
-                  left: 15, top: 15, right: 15, bottom: 15),
-              content: Text(
-                '请输入种类名称',
-                style: TextStyle(color: Theme.of(context).canvasColor),
-                textAlign: TextAlign.center,
-              ),
-              behavior: SnackBarBehavior.floating,
-              dismissDirection: DismissDirection.up));
-          return;
+        if (rivo.reason == "") {
+          return CustomSnackBar().show(context, '请输入种类名称');
         }
-
-        DB.saveFinancialReason(fr);
+        onEvent(rivo);
         Navigator.pop(context);
       }
     };
@@ -69,17 +51,16 @@ class _AddFinancialReasonPageState extends State<AddFinancialReasonPage> {
                   labelIcon: const {'支出': Icons.output, '收入': Icons.input},
                   onSelect: (lables) {
                     var t = '支出' == lables[0] ? 0 : 1;
-                    if (lables.isNotEmpty && fr.type != t) {
-                      fr.type = t;
-                      setState(() {});
+                    if (lables.isNotEmpty && rivo.type != t) {
+                      rivo.type = t;
                     }
                   },
                   isSingle: true,
-                  defaultSelected: fr.type == 0 ? '支出' : '收入',
+                  defaultSelected: rivo.type == 0 ? '支出' : '收入',
                 ),
               ),
               Container(
-                height: 70, 
+                height: 70,
                 padding: const EdgeInsets.only(
                     left: 16, top: 15, right: 16, bottom: 0),
                 child: TextField(
@@ -92,21 +73,30 @@ class _AddFinancialReasonPageState extends State<AddFinancialReasonPage> {
                     hintText: '种类名称',
                   ),
                   onChanged: (String text) {
-                    fr.reason = text;
+                    rivo.reason = text;
                   },
                 ),
               ),
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                 child: TextField(
-                  decoration: InputDecoration(
-                    border: UnderlineInputBorder(),
-                    hintText: '备注',
-                  ),
-                ),
+                    decoration: const InputDecoration(
+                      border: UnderlineInputBorder(),
+                      hintText: '备注',
+                    ),
+                    onChanged: (String text) {
+                      rivo.note = text;
+                    }),
               ),
             ],
           ),
         ));
   }
+}
+
+class FinancialReasonVO {
+  int type = 0;
+  String reason = "";
+  String note = "";
 }
