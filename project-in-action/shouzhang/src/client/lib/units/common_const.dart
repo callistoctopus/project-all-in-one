@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-11-04 15:49:28
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-10 01:30:17
+ * @LastEditTime: 2022-11-12 13:10:14
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -27,14 +27,4 @@ class ICONS {
   static const IconData LOGOUT = Iconsax.logout;
   static const IconData BOOK = Iconsax.book_1;
   static const IconData SETTING = Iconsax.setting_2;
-}
-
-class ROUTE {
-  static const String HOME = '/';
-  static const String BILLS = '/bills';
-  static const String ADD_BILL = '/add_bill';
-  static const String ADD_REASON = '/add_reason';
-  static const String LOGIN = '/login';
-  static const String BUDGET = '/budget';
-  static const String ACCOUNT = '/account';
 }

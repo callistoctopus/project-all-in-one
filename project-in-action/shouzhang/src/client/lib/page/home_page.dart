@@ -2,16 +2,16 @@
  * @Author: gui-qi
  * @Date: 2022-10-29 01:37:32
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-11 10:09:31
+ * @LastEditTime: 2022-11-12 13:10:52
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
  */
 import 'package:client/component/custom_float_button.dart';
-import 'package:client/develop/develop.dart';
+import 'package:client/config/route.dart';
+import 'package:client/develop/setting_page.dart';
 import 'package:client/model/persistent_object/bill.dart';
 import 'package:client/page/add_bill_page.dart';
-import 'package:client/page/add_reason_page.dart';
 import 'package:client/service/server_data_access_service.dart';
 import 'package:client/service/local_database_service.dart';
 import 'package:client/units/common_const.dart';
@@ -27,6 +27,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  bool selected = false;
   @override
   void initState() {
     super.initState();
@@ -55,21 +56,13 @@ class _HomePageState extends State<HomePage> {
         context.go(ROUTE.LOGIN);
       },
       ICONS.SETTING: () {
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => const DevelopmentPage()));
+        context.go(ROUTE.SETTING);
       },
       ICONS.ADD: () {
         showModalBottomSheet(
             context: context,
             builder: (context) => AddBillView(
                   onSaved: (po) => saveBill(po),
-                ));
-      },
-      ICONS.BUG: () {
-        showBottomSheet(
-            context: context,
-            builder: (context) => AddBillView(
-                  onSaved: (CashInputVO po) {},
                 ));
       },
     };
@@ -88,6 +81,25 @@ class _HomePageState extends State<HomePage> {
                 _COMPONENT.v1(context, '账本', () => context.go(ROUTE.ACCOUNT)),
               ],
             ),
+            Dev.onDevelop(Padding(
+                padding: const EdgeInsets.only(top: 15),
+                child: GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      selected = !selected;
+                    });
+                  },
+                  child: AnimatedContainer(
+                    height: selected ? 100.0 : 180.0,
+                    color: selected ? Colors.yellow : Colors.blue,
+                    alignment: selected
+                        ? Alignment.center
+                        : AlignmentDirectional.topStart,
+                    duration: const Duration(milliseconds: 600),
+                    curve: Curves.fastOutSlowIn,
+                    child: const Card(child: Text("今天"),),
+                  )),
+                )),
 
             // Text(
             //   '消费预测，建议，警告',

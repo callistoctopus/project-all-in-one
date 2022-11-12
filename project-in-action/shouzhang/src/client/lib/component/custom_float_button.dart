@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-11-02 15:26:48
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-08 10:04:36
+ * @LastEditTime: 2022-11-11 15:33:12
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -21,7 +21,6 @@ class PageWithFloatButton extends StatelessWidget {
   Widget build(BuildContext context) {
     Map<IconData, Function> para2 = {
       Icons.arrow_back: () {
-        // Navigator.pop(context);
         context.go('/');
       }
     };

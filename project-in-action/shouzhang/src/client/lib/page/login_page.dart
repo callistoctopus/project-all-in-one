@@ -2,11 +2,13 @@
  * @Author: gui-qi
  * @Date: 2022-10-26 15:06:57
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-11 09:53:03
+ * @LastEditTime: 2022-11-12 13:10:50
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
  */
+import 'package:client/component/custom_snack_bar.dart';
+import 'package:client/config/route.dart';
 import 'package:client/service/server_data_access_service.dart';
 import 'package:client/service/local_database_service.dart';
 import 'package:client/units/common_const.dart';
@@ -50,6 +52,8 @@ class _LoginPageState extends State<LoginPage> {
             await DataAccessService.login(widget.user, widget.password);
             if (DB.isLogined()) {
               context.go(ROUTE.HOME);
+            } else {
+              CustomSnackBar().show(context, "好像哪里出了问题");
             }
           }),
         if (widget.isLoginPage)
@@ -62,6 +66,8 @@ class _LoginPageState extends State<LoginPage> {
             await DataAccessService.sigin(widget.user, widget.password);
             if (DB.isLogined()) {
               context.go(ROUTE.HOME);
+            }else {
+              CustomSnackBar().show(context, "好像哪里出了问题");
             }
           }),
         if (!widget.isLoginPage)

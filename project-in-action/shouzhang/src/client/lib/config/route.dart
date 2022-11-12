@@ -2,11 +2,12 @@
  * @Author: gui-qi
  * @Date: 2022-11-09 12:54:29
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-11 03:03:14
+ * @LastEditTime: 2022-11-12 13:09:37
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
  */
+import 'package:client/develop/setting_page.dart';
 import 'package:client/page/account_page.dart';
 import 'package:client/page/home_page.dart';
 import 'package:client/page/bill_flow_page.dart';
@@ -51,6 +52,18 @@ class RouteConfig {
             return const Scaffold(body: AccountPage());
           },
         ),
+        GoRoute(
+          path: ROUTE.DEBUG,
+          builder: (BuildContext context, GoRouterState state) {
+            return const DevelopmentPage();
+          },
+        ),
+        GoRoute(
+          path: ROUTE.SETTING,
+          builder: (BuildContext context, GoRouterState state) {
+            return const DevelopmentPage();
+          },
+        ),
       ],
       redirect: (context, state) {
         if (DB.isLogined()) {
@@ -60,4 +73,16 @@ class RouteConfig {
       },
     );
   }
+}
+
+class ROUTE {
+  static const String HOME = '/';
+  static const String BILLS = '/bills';
+  static const String ADD_BILL = '/add_bill';
+  static const String ADD_REASON = '/add_reason';
+  static const String LOGIN = '/login';
+  static const String BUDGET = '/budget';
+  static const String ACCOUNT = '/account';
+  static const String DEBUG = '/debig';
+  static const String SETTING = '/setting';
 }
