@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-26 08:18:13
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-11 01:30:27
+ * @LastEditTime: 2022-11-13 07:40:52
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -16,10 +16,12 @@ Future<void> main() async {
   await DB.init();
 
   runApp(MaterialApp.router(
+    themeMode: ThemeMode.light,
     theme: ThemeData(
-      colorSchemeSeed: Colors.green,
-      useMaterial3: true,
-      visualDensity: VisualDensity.standard,
+      // brightness: Brightness.light,
+      // colorSchemeSeed: Colors.black,
+      // useMaterial3: true,
+      // visualDensity: VisualDensity.standard,
     ),
     routerConfig: RouteConfig.routeConfig(),
   ));

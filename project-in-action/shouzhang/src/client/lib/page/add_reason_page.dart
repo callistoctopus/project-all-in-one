@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-26 15:06:57
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-11 06:35:45
+ * @LastEditTime: 2022-11-12 16:59:01
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -21,6 +21,7 @@ class AddFinancialReasonView extends StatelessWidget {
 
   final Function(FinancialReasonVO) onEvent;
   FinancialReasonVO rivo = FinancialReasonVO();
+  
   @override
   Widget build(BuildContext context) {
     Map<IconData, Function> para = {

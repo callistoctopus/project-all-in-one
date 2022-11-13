@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-11-04 02:15:05
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-10 14:25:36
+ * @LastEditTime: 2022-11-13 04:15:33
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -20,36 +20,45 @@ import 'package:http/http.dart' as http;
 
 class DataAccessService {
   static Future<bool> syncData() async {
+    if (DB.isOfflineMode()) {
+      return true;
+    }
     List<Bill> billList = [];
     List<Budget> budgetList = [];
     List<FinancialReason> financialReasonList = [];
     List<Account> accountList = [];
     List<AccountUser> accountUserList = [];
-    DateTime sysnTime = Hive.box("setting")
-        .get('lastSyncTime${DB.currentUser()}', defaultValue: CommonUtils.format(DateTime(1992)));
+    DateTime sysnTime = Hive.box("setting").get(
+        'lastSyncTime${DB.currentUser()}',
+        defaultValue: CommonUtils.format(DateTime(1992)));
 
     Hive.box<Bill>("bill").values.forEach((element) {
-      if (element.updateTime.compareTo(sysnTime) > 0 && element.user == DB.currentUser()) billList.add(element);
+      if (element.updateTime.compareTo(sysnTime) > 0 &&
+          element.user == DB.currentUser()) billList.add(element);
     });
 
     Hive.box<Budget>("budget").values.forEach((element) {
-      if (element.updateTime.compareTo(sysnTime) > 0 && element.user == DB.currentUser()) budgetList.add(element);
+      if (element.updateTime.compareTo(sysnTime) > 0 &&
+          element.user == DB.currentUser()) budgetList.add(element);
     });
 
     Hive.box<FinancialReason>("financialReason").values.forEach((element) {
-      if (element.updateTime.compareTo(sysnTime) > 0 && element.user == DB.currentUser()) {
+      if (element.updateTime.compareTo(sysnTime) > 0 &&
+          element.user == DB.currentUser()) {
         financialReasonList.add(element);
       }
     });
 
     Hive.box<Account>("account").values.forEach((element) {
-      if (element.updateTime.compareTo(sysnTime) > 0 && element.user == DB.currentUser()) {
+      if (element.updateTime.compareTo(sysnTime) > 0 &&
+          element.user == DB.currentUser()) {
         accountList.add(element);
       }
     });
 
     Hive.box<AccountUser>("accountUser").values.forEach((element) {
-      if (element.updateTime.compareTo(sysnTime) > 0 && element.account == DB.currentAccount()) {
+      if (element.updateTime.compareTo(sysnTime) > 0 &&
+          element.account == DB.currentAccount()) {
         accountUserList.add(element);
       }
     });
@@ -232,26 +241,31 @@ class DataAccessService {
   }
 
   static Future login(String user, String password) async {
-    final response = await http.post(
-      Uri.parse('http://139.224.11.164:8080/api/login'),
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
-      body: jsonEncode({'user': user, 'password': password, 'isSigin': false}),
-    );
+    try {
+      final response = await http.post(
+        Uri.parse('http://139.224.11.164:8080/api/login'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body:
+            jsonEncode({'user': user, 'password': password, 'isSigin': false}),
+      );
 
-    if (response.statusCode == 200) {
-      var jsonBody = jsonDecode(utf8.decode(response.bodyBytes));
-      if (jsonBody != null) {
-        bool result = jsonBody['result'];
-        if (result == true) {
-          var settingBox = Hive.box('setting');
-          settingBox.put('user', user);
-          settingBox.put('password', password);
-          settingBox.put('isLogined', true);
-          DB.setAccount("");
+      if (response.statusCode == 200) {
+        var jsonBody = jsonDecode(utf8.decode(response.bodyBytes));
+        if (jsonBody != null) {
+          bool result = jsonBody['result'];
+          if (result == true) {
+            var settingBox = Hive.box('setting');
+            settingBox.put('user', user);
+            settingBox.put('password', password);
+            settingBox.put('isLogined', true);
+            DB.setAccount("");
+          }
         }
       }
+    } catch (e) {
+      print(e);
     }
   }
 }

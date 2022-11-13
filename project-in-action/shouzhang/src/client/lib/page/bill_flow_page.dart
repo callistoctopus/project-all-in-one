@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-29 01:37:32
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-12 12:14:26
+ * @LastEditTime: 2022-11-13 07:11:15
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -27,7 +27,6 @@ class _CashFlowPageState extends State<CashFlowPage> {
   @override
   void initState() {
     super.initState();
-    // Timer(, () { })
     try {
       futureListBill = DB.futureListBill();
     } on Exception {}
@@ -35,10 +34,12 @@ class _CashFlowPageState extends State<CashFlowPage> {
 
   @override
   Widget build(BuildContext context) {
-    return PageWithFloatButton(
-      child: Scaffold(
+    return 
+    PageWithFloatButton(
+      child: 
+      Scaffold(
           body: Padding(
-              padding: const EdgeInsets.only(left: 15, right: 15, top: 15),
+              padding: const EdgeInsets.only(left: 20, right: 20, top: 15),
               child: FutureBuilder<List<Bill>>(
                   future: futureListBill,
                   builder: (context, snapshot) {
@@ -61,13 +62,15 @@ class _CashFlowPageState extends State<CashFlowPage> {
                           }
                         },
                         separatorBuilder: (BuildContext context, int index) =>
-                            const Divider(),
+                            const Divider(height: 17,color: Colors.grey, thickness: 0),
                       );
                     } else if (snapshot.hasError) {
                       return Text('${snapshot.error}');
                     }
                     return const CircularProgressIndicator();
-                  }))),
+                  })
+                  )
+                  ),
     );
   }
 }

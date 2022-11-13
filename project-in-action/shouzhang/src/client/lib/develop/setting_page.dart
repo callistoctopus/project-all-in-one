@@ -2,62 +2,32 @@
  * @Author: gui-qi
  * @Date: 2022-10-29 01:37:32
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-12 13:08:08
+ * @LastEditTime: 2022-11-12 15:53:17
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
  */
 import 'package:client/component/custom_float_button.dart';
-import 'package:client/develop/AnimatedListPage.dart';
-import 'package:client/develop/absorb_pointer_page.dart';
-import 'package:client/develop/dismissible_page.dart';
-import 'package:client/develop/wrap_page.dart';
+import 'package:client/config/route.dart';
 import 'package:client/service/local_database_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:hive_flutter/hive_flutter.dart';
+import 'package:go_router/go_router.dart';
 
-import 'ink_well_page.dart';
-
-class DevelopmentPage extends StatefulWidget {
-  const DevelopmentPage({super.key});
+class SettingPage extends StatefulWidget {
+  const SettingPage({super.key});
 
   @override
-  State<DevelopmentPage> createState() => _DevelopmentPageState();
+  State<SettingPage> createState() => _SettingPageState();
 }
 
-class _DevelopmentPageState extends State<DevelopmentPage> {
+class _SettingPageState extends State<SettingPage> {
   @override
   Widget build(BuildContext context) {
-    Map<String, void Function()?> para2 = {
-      'WarpPage': () {
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => const WarpPage()));
-      },
-      'InkWellPage': () {
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => const InkWellPage()));
-      },
-      'DismissiblePage': () {
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => const DismissiblePage()));
-      },
-      'AbsorbPointerPage': () {
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => const AbsorbPointerPage()));
-      },
-      'AnimatedListPage': () {
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => const AnimatedListSample()));
-      },
-    };
-
     return PageWithFloatButton(
         child: Column(
       children: [
-        SettingItem(
+        SettingItem1(
           initValue: DB.isDev(),
           itemName: "开发者模式",
           callback: (bool? value) {
@@ -66,18 +36,12 @@ class _DevelopmentPageState extends State<DevelopmentPage> {
             });
           },
         ),
-        // ListView(
-        //     children: para2.keys
-        //         .map<Widget>((name) => Padding(
-        //             padding: const EdgeInsets.only(
-        //                 left: 16, top: 15, right: 16, bottom: 0),
-        //             child: GestureDetector(
-        //                 onTap: para2[name],
-        //                 child: Text(
-        //                   name,
-        //                   style: TextStyle(fontSize: 18),
-        //                 ))))
-        //         .toList())
+        SettingItem2(
+          callback: () {
+            context.go(ROUTE.DEBUG);
+          },
+          itemName: '示例',
+        ),
       ],
     ));
   }
@@ -94,8 +58,8 @@ class Dev {
   }
 }
 
-class SettingItem extends StatelessWidget {
-  const SettingItem(
+class SettingItem1 extends StatelessWidget {
+  const SettingItem1(
       {super.key,
       required this.callback,
       required this.itemName,
@@ -127,5 +91,29 @@ class SettingItem extends StatelessWidget {
             ))
       ],
     );
+  }
+}
+
+class SettingItem2 extends StatelessWidget {
+  const SettingItem2(
+      {super.key, required this.callback, required this.itemName});
+
+  final String itemName;
+  final Function callback;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+        onTap: () {
+          callback();
+        },
+        child: Row(
+          children: [
+            Text(
+              itemName,
+              style: const TextStyle(inherit: false, color: Colors.black),
+            ),
+          ],
+        ));
   }
 }

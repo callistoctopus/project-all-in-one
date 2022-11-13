@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-26 15:06:57
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-12 13:10:50
+ * @LastEditTime: 2022-11-13 04:12:06
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -49,11 +49,16 @@ class _LoginPageState extends State<LoginPage> {
           }),
         if (widget.isLoginPage)
           _VIEW().login(() async {
+            DB.setOfflineMode(false);
             await DataAccessService.login(widget.user, widget.password);
             if (DB.isLogined()) {
               context.go(ROUTE.HOME);
             } else {
-              CustomSnackBar().show(context, "好像哪里出了问题");
+              DB.setOfflineMode(true);
+              CustomSnackBar().show(context, "好像哪里出了问题，已为您开启离线模式");
+              setState(() {
+                
+              });
             }
           }),
         if (widget.isLoginPage)
@@ -61,12 +66,17 @@ class _LoginPageState extends State<LoginPage> {
             widget.isLoginPage = false;
             setState(() {});
           }),
+        if (widget.isLoginPage && DB.isOfflineMode())
+          _VIEW().offline(() {
+            context.go(ROUTE.HOME);
+          }),
         if (!widget.isLoginPage)
           _VIEW().signin(() async {
+            DB.setOfflineMode(false);
             await DataAccessService.sigin(widget.user, widget.password);
             if (DB.isLogined()) {
               context.go(ROUTE.HOME);
-            }else {
+            } else {
               CustomSnackBar().show(context, "好像哪里出了问题");
             }
           }),
@@ -143,6 +153,17 @@ class _VIEW {
               callback();
             },
             child: const Text("登录")));
+  }
+
+  Widget offline(Function callback) {
+    return Container(
+        height: 50,
+        padding: const EdgeInsets.only(left: 16, top: 5, right: 16, bottom: 0),
+        child: TextButton(
+            onPressed: () {
+              callback();
+            },
+            child: const Text("离线模式")));
   }
 
   Widget autoLogin(Function callback) {

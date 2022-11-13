@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-11-02 15:26:48
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-11 15:33:12
+ * @LastEditTime: 2022-11-13 14:05:43
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -12,7 +12,8 @@ import 'package:go_router/go_router.dart';
 
 // ignore: must_be_immutable
 class PageWithFloatButton extends StatelessWidget {
-  PageWithFloatButton({required this.child, this.funcIcon, super.key, this.defaultForward});
+  PageWithFloatButton(
+      {required this.child, this.funcIcon, super.key, this.defaultForward});
   Map<IconData, Function>? funcIcon;
   bool? defaultForward = true;
   final Widget child;
@@ -46,7 +47,7 @@ class FlowMenu extends StatefulWidget {
 
 class _FlowMenuState extends State<FlowMenu>
     with SingleTickerProviderStateMixin {
-  late AnimationController menuAnimation;
+  late AnimationController animationController;
 
   void _updateMenu(IconData icon) {
     setState(() {});
@@ -55,47 +56,46 @@ class _FlowMenuState extends State<FlowMenu>
   @override
   void initState() {
     super.initState();
-    menuAnimation = AnimationController(
+    animationController = AnimationController(
       duration: const Duration(milliseconds: 250),
       vsync: this,
     );
-    menuAnimation.forward();
+    // animationController.forward();
   }
 
   Widget flowMenuItem(IconData icon, Function? func) {
-    return Stack(children: <Widget>[
-      Positioned.fill(
-        child: Container(
-          margin: const EdgeInsets.all(5),
-          color: Colors.white, // Color
-        ),
-      ),
-      GestureDetector(
+
+    return Padding(
+        padding: const EdgeInsets.symmetric(vertical: 8.0),
+        child: GestureDetector(
           onDoubleTap: () {
             _updateMenu(icon);
-            menuAnimation.status == AnimationStatus.completed
-                ? menuAnimation.reverse()
-                : menuAnimation.forward();
+            animationController.status == AnimationStatus.completed
+                ? animationController.reverse()
+                : animationController.forward();
           },
-          child: IconButton(
-            icon: Icon(
-              icon,
-              size: 40,
-            ),
+          child: RawMaterialButton(
+            fillColor: Colors.white,
+            splashColor: Colors.amber[100],
+            shape: const CircleBorder(),
+            // constraints: BoxConstraints.tight(Size(buttonDiameter, buttonDiameter)),
             onPressed: () {
               func!();
             },
-            style:
-                _enabledFilledButtonStyle(false, Theme.of(context).colorScheme),
-          ))
-    ]);
+            child: Icon(
+              icon,
+              color: Colors.black,
+              size: 45.0,
+            ),
+          ),
+        ));
   }
 
   @override
   Widget build(BuildContext context) {
     return Flow(
-      delegate:
-          _FlowMenuDelegate(menuAnimation: menuAnimation, pcontext: context),
+      delegate: _FlowMenuDelegate(
+          menuAnimation: animationController, pcontext: context),
       children: widget.menuMap.keys
           .map<Widget>((icon) => flowMenuItem(icon, widget.menuMap[icon]))
           .toList(),
@@ -117,38 +117,56 @@ class _FlowMenuDelegate extends FlowDelegate {
 
   @override
   void paintChildren(FlowPaintingContext context) {
-    double dx = 0.0;
     for (int i = 0; i < context.childCount; ++i) {
-      var cw = context.getChildSize(i)!.width + 10;
-      dx = cw * i;
-      var x = pcontext.size!.width - context.getChildSize(i)!.width - 15;
-      var y = pcontext.size!.height - context.getChildSize(i)!.width - 15;
+      double x = pcontext.size!.width - context.getChildSize(i)!.width - 15;
+      double y = pcontext.size!.height - context.getChildSize(i)!.height - 15;
+      double tx = 0;
+      double ty = 0;
+      switch (i) {
+        case 0:
+          break;
+        case 1:
+          tx = context.getChildSize(i)!.width;
+          break;
+        case 2:
+          tx = context.getChildSize(i)!.width * 0.6;
+          ty = context.getChildSize(i)!.height;
+          break;
+        case 3:
+          tx = -15;
+          ty = context.getChildSize(i)!.height * 1.5;
+          break;
+        case 4:
+          break;
+        case 5:
+          break;
+        case 6:
+          break;
+        case 7:
+          break;
+        case 8:
+          break;
+        default:
+          break;
+      }
+
+      int t = i;
+      if(menuAnimation.value == 0){
+        if(i == 0){
+          t = context.childCount -1;
+        }
+        if(i == (context.childCount -1)){
+          t = 0;
+        }
+      }
       context.paintChild(
-        i,
+        t,
         transform: Matrix4.translationValues(
-          x - dx * menuAnimation.value,
-          y,
+          x - tx * menuAnimation.value,
+          y - ty * menuAnimation.value,
           0,
         ),
       );
     }
   }
-}
-
-ButtonStyle _enabledFilledButtonStyle(bool selected, ColorScheme colors) {
-  return IconButton.styleFrom(
-    foregroundColor: selected ? colors.onPrimary : colors.primary,
-    backgroundColor: selected ? colors.primary : colors.surfaceVariant,
-    disabledForegroundColor: colors.onSurface.withOpacity(0.38),
-    disabledBackgroundColor: colors.onSurface.withOpacity(0.12),
-    hoverColor: selected
-        ? colors.onPrimary.withOpacity(0.08)
-        : colors.primary.withOpacity(0.08),
-    focusColor: selected
-        ? colors.onPrimary.withOpacity(0.12)
-        : colors.primary.withOpacity(0.12),
-    highlightColor: selected
-        ? colors.onPrimary.withOpacity(0.12)
-        : colors.primary.withOpacity(0.12),
-  );
 }

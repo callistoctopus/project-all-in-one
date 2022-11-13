@@ -2,13 +2,14 @@
  * @Author: gui-qi
  * @Date: 2022-10-29 01:37:32
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-12 13:10:52
+ * @LastEditTime: 2022-11-13 13:49:29
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
  */
 import 'package:client/component/custom_float_button.dart';
 import 'package:client/config/route.dart';
+import 'package:client/develop/FadeTransition.dart';
 import 'package:client/develop/setting_page.dart';
 import 'package:client/model/persistent_object/bill.dart';
 import 'package:client/page/add_bill_page.dart';
@@ -51,6 +52,13 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     Map<IconData, Function> para = {
+      ICONS.ADD: () {
+        showModalBottomSheet(
+            context: context,
+            builder: (context) => AddBillView(
+                  onSaved: (po) => saveBill(po),
+                ));
+      },
       ICONS.LOGOUT: () {
         DB.setLogined(false);
         context.go(ROUTE.LOGIN);
@@ -58,7 +66,7 @@ class _HomePageState extends State<HomePage> {
       ICONS.SETTING: () {
         context.go(ROUTE.SETTING);
       },
-      ICONS.ADD: () {
+      ICONS.LIST: () {
         showModalBottomSheet(
             context: context,
             builder: (context) => AddBillView(
@@ -76,14 +84,23 @@ class _HomePageState extends State<HomePage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                _COMPONENT.v1(context, '账单', () => context.go(ROUTE.BILLS)),
-                _COMPONENT.v1(context, '预算', () => context.go(ROUTE.BUDGET)),
-                _COMPONENT.v1(context, '账本', () => context.go(ROUTE.ACCOUNT)),
+                _COMPONENT.menu(context, '账单', () => context.go(ROUTE.BILLS)),
+                _COMPONENT.verticalDivider(),
+                _COMPONENT.menu(context, '预算', () => context.go(ROUTE.BUDGET)),
+                _COMPONENT.verticalDivider(),
+                _COMPONENT.menu(context, '账本', () => context.go(ROUTE.ACCOUNT)),
               ],
             ),
+            const Divider(
+              color: Colors.grey,
+              thickness: 0,
+              indent: 20,
+              endIndent: 20,
+              height: 1,
+            ),
             Dev.onDevelop(Padding(
-                padding: const EdgeInsets.only(top: 15),
-                child: GestureDetector(
+              padding: const EdgeInsets.only(top: 15),
+              child: GestureDetector(
                   onTap: () {
                     setState(() {
                       selected = !selected;
@@ -97,9 +114,12 @@ class _HomePageState extends State<HomePage> {
                         : AlignmentDirectional.topStart,
                     duration: const Duration(milliseconds: 600),
                     curve: Curves.fastOutSlowIn,
-                    child: const Card(child: Text("今天"),),
+                    child: const Card(
+                      child: Text("今天"),
+                    ),
                   )),
-                )),
+            )),
+            Dev.onDevelop(const MyStatefulWidget()),
 
             // Text(
             //   '消费预测，建议，警告',
@@ -129,6 +149,10 @@ class _HomePageState extends State<HomePage> {
             //   '消息提示',
             //   style: Theme.of(context).textTheme.headlineMedium,
             // ),
+            // Text(
+            //   '设置背景图',
+            //   style: Theme.of(context).textTheme.headlineMedium,
+            // ),
           ],
         ),
       ),
@@ -137,16 +161,27 @@ class _HomePageState extends State<HomePage> {
 }
 
 class _COMPONENT {
-  static Widget v1(BuildContext context, String title, Function onEvent) {
+  static Widget menu(BuildContext context, String title, Function onEvent) {
     return Expanded(
         child: GestureDetector(
             onTap: () {
               onEvent();
             },
             child: SizedBox(
-                height: 40,
-                child: Card(
-                    child: Center(
-                        child: Text(title, textAlign: TextAlign.center))))));
+                height: 30,
+                child:
+                    Center(child: Text(title, textAlign: TextAlign.center)))));
+  }
+
+  static Widget verticalDivider() {
+    return const SizedBox(
+        height: 30,
+        child: VerticalDivider(
+          color: Colors.grey,
+          thickness: 1,
+          width: 1,
+          indent: 2,
+          endIndent: 2,
+        ));
   }
 }

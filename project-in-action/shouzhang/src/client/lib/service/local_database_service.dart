@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-11-09 12:50:18
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-12 12:44:40
+ * @LastEditTime: 2022-11-13 04:07:46
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -235,6 +235,14 @@ class DB {
   static void setDevMode(bool isDev) {
     Hive.box(TABLE.setting).put(KEY.devMode, isDev);
   }
+
+  static void setOfflineMode(bool mode){
+    Hive.box(TABLE.setting).put(KEY.offlineMode, mode);
+  }
+
+  static bool isOfflineMode(){
+    return Hive.box(TABLE.setting).get(KEY.offlineMode, defaultValue: false);
+  }
 }
 
 class TABLE {
@@ -255,4 +263,5 @@ class KEY {
   static const String lastSyncTime = 'lastSyncTime';
   static const String budgetYear = 'budgetYear';
   static const String devMode = 'devMode';
+  static const String offlineMode = 'offlineMode';
 }

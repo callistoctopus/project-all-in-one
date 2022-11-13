@@ -2,11 +2,12 @@
  * @Author: gui-qi
  * @Date: 2022-11-09 12:54:29
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-12 13:09:37
+ * @LastEditTime: 2022-11-13 06:35:13
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
  */
+import 'package:client/develop/dev_sample_page.dart';
 import 'package:client/develop/setting_page.dart';
 import 'package:client/page/account_page.dart';
 import 'package:client/page/home_page.dart';
@@ -37,7 +38,7 @@ class RouteConfig {
         GoRoute(
           path: ROUTE.BILLS,
           builder: (BuildContext context, GoRouterState state) {
-            return const CashFlowPage();
+            return const Scaffold(body: CashFlowPage());
           },
         ),
         GoRoute(
@@ -55,18 +56,18 @@ class RouteConfig {
         GoRoute(
           path: ROUTE.DEBUG,
           builder: (BuildContext context, GoRouterState state) {
-            return const DevelopmentPage();
+            return DevSamplePage();
           },
         ),
         GoRoute(
           path: ROUTE.SETTING,
           builder: (BuildContext context, GoRouterState state) {
-            return const DevelopmentPage();
+            return const SettingPage();
           },
         ),
       ],
       redirect: (context, state) {
-        if (DB.isLogined()) {
+        if (DB.isLogined() || DB.isOfflineMode()) {
           return null;
         }
         return ROUTE.LOGIN;
