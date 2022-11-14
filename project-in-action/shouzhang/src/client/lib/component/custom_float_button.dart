@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-11-02 15:26:48
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-13 14:05:43
+ * @LastEditTime: 2022-11-14 08:16:13
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -51,6 +51,9 @@ class _FlowMenuState extends State<FlowMenu>
 
   void _updateMenu(IconData icon) {
     setState(() {});
+    animationController.status == AnimationStatus.completed
+        ? animationController.reverse()
+        : animationController.forward();
   }
 
   @override
@@ -60,19 +63,18 @@ class _FlowMenuState extends State<FlowMenu>
       duration: const Duration(milliseconds: 250),
       vsync: this,
     );
-    // animationController.forward();
+    animationController.forward();
   }
 
   Widget flowMenuItem(IconData icon, Function? func) {
-
     return Padding(
         padding: const EdgeInsets.symmetric(vertical: 8.0),
         child: GestureDetector(
           onDoubleTap: () {
             _updateMenu(icon);
-            animationController.status == AnimationStatus.completed
-                ? animationController.reverse()
-                : animationController.forward();
+          },
+          onLongPress: () {
+            _updateMenu(icon);
           },
           child: RawMaterialButton(
             fillColor: Colors.white,
@@ -151,11 +153,11 @@ class _FlowMenuDelegate extends FlowDelegate {
       }
 
       int t = i;
-      if(menuAnimation.value == 0){
-        if(i == 0){
-          t = context.childCount -1;
+      if (menuAnimation.value == 0) {
+        if (i == 0) {
+          t = context.childCount - 1;
         }
-        if(i == (context.childCount -1)){
+        if (i == (context.childCount - 1)) {
           t = 0;
         }
       }

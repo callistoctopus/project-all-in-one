@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-29 03:31:37
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-08 09:38:48
+ * @LastEditTime: 2022-11-14 05:28:22
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -50,6 +50,7 @@ flutter pub add go_router
 flutter pub add hive
 flutter pub add hive_flutter
 flutter pub add json_annotation
+flutter pub add fl_chart
 
 flutter pub add hive_generator --dev
 flutter pub add build_runner --dev

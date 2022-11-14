@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-29 01:37:32
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-13 13:49:29
+ * @LastEditTime: 2022-11-14 08:11:32
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -122,23 +122,28 @@ class _HomePageState extends State<HomePage> {
             Dev.onDevelop(const MyStatefulWidget()),
 
             // Text(
-            //   '消费预测，建议，警告',
+            //   '日别，月别，周别，年别，消费分析，建议，警告',
+            //   
             //   style: Theme.of(context).textTheme.headlineMedium,
             // ),
             // Text(
-            //   '预算',
+            //   '日别，月别，周别，年别，预算分析，建议，警告',
             //   style: Theme.of(context).textTheme.headlineMedium,
             // ),
             // Text(
-            //   '日报',
+            //   '资产管理，盘账',
             //   style: Theme.of(context).textTheme.headlineMedium,
             // ),
             // Text(
-            //   '周报',
+            //   '消费目标，预计达成时间',
             //   style: Theme.of(context).textTheme.headlineMedium,
             // ),
             // Text(
-            //   '月报',
+            //   '预算，年度，',
+            //   style: Theme.of(context).textTheme.headlineMedium,
+            // ),
+            // Text(
+            //   '消费/预算 原因，消费种类（类型）',
             //   style: Theme.of(context).textTheme.headlineMedium,
             // ),
             // Text(
