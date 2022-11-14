@@ -13,7 +13,7 @@ class IconToggleButtons extends StatefulWidget {
   final Map<String, IconData> labelIcon;
   Function(List<String>) onSelect;
   final String defaultSelected;
-  
+
   List<String> currentIndex = [];
 
   @override
@@ -115,31 +115,24 @@ class _IconToggleButtonState extends State<IconToggleButton> {
 
     IconData icon = widget.icon;
 
-    return IconButton(
-      isSelected: widget.selected,
-      icon: Icon(icon),
-      selectedIcon: Icon(icon),
-      onPressed: onPressed,
-      style: style,
-    );
+    return Ink(
+        color: widget.selected ? Colors.grey : Colors.white,
+        child: IconButton(
+          isSelected: widget.selected,
+          icon: Icon(icon),
+          selectedIcon: Icon(icon),
+          onPressed: onPressed,
+          style: style,
+        ));
   }
 }
 
 ButtonStyle enabledFilledButtonStyle(bool selected, ColorScheme colors) {
   return IconButton.styleFrom(
-    foregroundColor: selected ? colors.onPrimary : colors.primary,
-    backgroundColor: selected ? colors.primary : colors.surfaceVariant,
-    disabledForegroundColor: colors.onSurface.withOpacity(0.38),
-    disabledBackgroundColor: colors.onSurface.withOpacity(0.12),
-    hoverColor: selected
-        ? colors.onPrimary.withOpacity(0.08)
-        : colors.primary.withOpacity(0.08),
-    focusColor: selected
-        ? colors.onPrimary.withOpacity(0.12)
-        : colors.primary.withOpacity(0.12),
-    highlightColor: selected
-        ? colors.onPrimary.withOpacity(0.12)
-        : colors.primary.withOpacity(0.12),
+    side: const BorderSide(color: Colors.black),
+    foregroundColor: selected ? Colors.black : Colors.white,
+    shape:const CircleBorder(),
+    backgroundColor: selected ? Colors.black : Colors.white,
   );
 }
 
@@ -165,7 +158,8 @@ class IconButtonToggleApp extends StatelessWidget {
       home: Scaffold(
         body: IconToggleButtons(
           labelIcon: {'abc': Icons.save},
-          onSelect: (n) {}, defaultSelected: 'abc',
+          onSelect: (n) {},
+          defaultSelected: 'abc',
         ),
       ),
     );

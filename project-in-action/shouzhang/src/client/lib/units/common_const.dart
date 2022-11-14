@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-11-04 15:49:28
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-12 13:10:14
+ * @LastEditTime: 2022-11-14 08:32:06
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -19,7 +19,7 @@ class ICONS {
   static const IconData LIST = Iconsax.receipt;
   static const IconData BUDGET = Iconsax.activity;
   static const IconData FILTER = Iconsax.filter_search;
-  static const IconData BACK = Iconsax.back_square;
+  static const IconData BACK = Icons.arrow_back;
   static const IconData SAVE = FontAwesomeIcons.save;
   static const IconData SYNC = Iconsax.refresh;
   static const IconData USER = Iconsax.user;

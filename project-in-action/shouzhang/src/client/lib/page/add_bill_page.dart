@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-26 15:06:57
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-11 10:16:11
+ * @LastEditTime: 2022-11-14 10:10:42
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -41,6 +41,11 @@ class _AddBillViewState extends State<AddBillView> {
     DB.saveFinancialReason(fr);
   }
 
+  deleteFinancialReason(FinancialReason ri){
+    ri.isDeleted = 1;
+    DB.updateFinancialReason(ri);
+  }
+
   @override
   void initState() {
     super.initState();
@@ -50,10 +55,9 @@ class _AddBillViewState extends State<AddBillView> {
 
   @override
   Widget build(BuildContext context) {
-
     rl1 = DB.fetchFinancialReasonOut();
     rl2 = DB.fetchFinancialReasonIn();
-    
+
     Map<IconData, Function> para = {
       ICONS.BACK: () {
         Navigator.pop(context);
@@ -118,6 +122,10 @@ class _AddBillViewState extends State<AddBillView> {
                           cpo.reason = dataList[i];
                         },
                         defaultSelect: dataList.indexOf(cpo.reason),
+                        onLongPress: (index) {
+                          deleteFinancialReason(snapshot.data!.where((element) => element.reason == dataList[index]).toList()[0]);
+                          setState(() {});
+                        },
                       );
                     } else if (snapshot.hasError) {
                       return Text('${snapshot.error}');

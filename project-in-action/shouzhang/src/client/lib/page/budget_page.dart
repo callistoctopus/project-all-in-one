@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-29 01:37:32
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-12 13:10:40
+ * @LastEditTime: 2022-11-14 08:28:45
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -110,10 +110,11 @@ class _BudgetSettingPageState extends State<BudgetSettingPage> {
                               padding: const EdgeInsets.only(
                                   top: 5.0, right: 10.0, bottom: 5),
                               child: ChoiceChip(
+                                backgroundColor: Colors.white,
                                 padding: const EdgeInsets.all(2),
-                                side: BorderSide(
+                                side: const BorderSide(
                                     width: 0,
-                                    color: Theme.of(context).primaryColor),
+                                    color: Colors.grey),
                                 label: Text((2022 + index).toString()),
                                 selected: year == (index + 2022),
                                 onSelected: (bool selected) {

@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-11-09 12:50:18
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-13 04:07:46
+ * @LastEditTime: 2022-11-14 10:10:21
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -139,12 +139,19 @@ class DB {
     return true;
   }
 
+  static Future<bool> updateFinancialReason(FinancialReason fr) async {
+    if (fr.isInBox) {
+      fr.save();
+    } 
+    return true;
+  }
+
   static Future<List<FinancialReason>> fetchFinancialReasonOut() async {
     List<FinancialReason> list = [];
 
     List<String?> userList = DB.getSharedUser();
     Hive.box<FinancialReason>(TABLE.financialReason).values.forEach((element) {
-      if (element.type == 0 && userList.contains(element.user)) {
+      if (element.type == 0 && userList.contains(element.user) && element.isDeleted == 0) {
         list.add(element);
       }
     });
@@ -155,7 +162,7 @@ class DB {
     List<FinancialReason> list = [];
     List<String?> userList = DB.getSharedUser();
     Hive.box<FinancialReason>(TABLE.financialReason).values.forEach((element) {
-      if (element.type == 1 && userList.contains(element.user)) {
+      if (element.type == 1 && userList.contains(element.user) && element.isDeleted == 0) {
         list.add(element);
       }
     });

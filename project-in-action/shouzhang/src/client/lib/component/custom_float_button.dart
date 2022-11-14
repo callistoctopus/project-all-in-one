@@ -2,11 +2,12 @@
  * @Author: gui-qi
  * @Date: 2022-11-02 15:26:48
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-14 08:16:13
+ * @LastEditTime: 2022-11-14 08:23:18
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
  */
+import 'package:client/units/common_const.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -21,7 +22,7 @@ class PageWithFloatButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Map<IconData, Function> para2 = {
-      Icons.arrow_back: () {
+      ICONS.BACK: () {
         context.go('/');
       }
     };
