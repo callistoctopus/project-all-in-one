@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-29 03:31:37
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-14 05:28:22
+ * @LastEditTime: 2022-11-14 13:30:11
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -39,7 +39,6 @@ fultter create client
 
 flutter pub add english_words
 flutter pub add iconsax
-flutter pub add font_awesome_flutter
 
 flutter pub add fl_chart
 flutter pub add intl

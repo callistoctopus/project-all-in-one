@@ -2,18 +2,19 @@
  * @Author: gui-qi
  * @Date: 2022-10-26 15:06:57
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-10 14:38:37
+ * @LastEditTime: 2022-11-14 14:38:43
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
  */
 import 'package:client/component/custom_float_button.dart';
+import 'package:client/dao/account_dao.dart';
+import 'package:client/dao/account_user_dao.dart';
+import 'package:client/dao/setting_dao.dart';
 import 'package:client/model/persistent_object/account.dart';
 import 'package:client/model/persistent_object/account_user.dart';
-import 'package:client/service/local_database_service.dart';
 import 'package:client/units/common_utils.dart';
 import 'package:flutter/material.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 import 'package:uuid/uuid.dart';
 
 class AccountPage extends StatefulWidget {
@@ -24,8 +25,8 @@ class AccountPage extends StatefulWidget {
 }
 
 class _AccountPageState extends State<AccountPage> {
-  List<AccountUser> user = DB.getSharedAccountUser();
-  List<Account> account = DB.allAccounts();
+  List<AccountUser> user = AccountUserDao.getSharedAccountUser();
+  List<Account> account = AccountDao.allAccounts();
   bool showInvite = false;
   String username = "";
   @override
@@ -45,8 +46,8 @@ class _AccountPageState extends State<AccountPage> {
                         onPressed: () {
                           if (username != "") {
                             AccountUser au = AccountUser(const Uuid().v1(), username,
-                                DB.currentAccount(), 1, 0, CommonUtils.now());
-                            DB.saveAccountUser(au);
+                                SettingDao.currentAccount(), 1, 0, CommonUtils.now());
+                            AccountUserDao.saveAccountUser(au);
                           }
 
                           setState(() {
@@ -94,12 +95,12 @@ class _AccountPageState extends State<AccountPage> {
                     Text(user[i - account.length].user),
                     user[i - 1].state == 0
                         ? const Text("已接受")
-                        : (user[i - 1].account == DB.currentAccount()
+                        : (user[i - 1].account == SettingDao.currentAccount()
                             ? const Text("待接受")
                             : TextButton(
                                 onPressed: () {
                                   user[i - 1].state = 0;
-                                  DB.saveAccountUser(user[i - 1]);
+                                  AccountUserDao.saveAccountUser(user[i - 1]);
                                   setState(() {});
                                 },
                                 child: const Text("接受")))

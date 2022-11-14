@@ -2,25 +2,26 @@
  * @Author: gui-qi
  * @Date: 2022-11-04 02:15:05
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-13 04:15:33
+ * @LastEditTime: 2022-11-14 14:40:44
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
  */
 import 'dart:convert';
+import 'package:client/dao/account_dao.dart';
+import 'package:client/dao/setting_dao.dart';
 import 'package:client/model/persistent_object/account.dart';
 import 'package:client/model/persistent_object/account_user.dart';
 import 'package:client/model/persistent_object/bill.dart';
 import 'package:client/model/persistent_object/budget.dart';
 import 'package:client/model/persistent_object/financial_reason.dart';
-import 'package:client/service/local_database_service.dart';
 import 'package:client/units/common_utils.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:http/http.dart' as http;
 
 class DataAccessService {
   static Future<bool> syncData() async {
-    if (DB.isOfflineMode()) {
+    if (SettingDao.isOfflineMode()) {
       return true;
     }
     List<Bill> billList = [];
@@ -29,42 +30,42 @@ class DataAccessService {
     List<Account> accountList = [];
     List<AccountUser> accountUserList = [];
     DateTime sysnTime = Hive.box("setting").get(
-        'lastSyncTime${DB.currentUser()}',
+        'lastSyncTime${SettingDao.currentUser()}',
         defaultValue: CommonUtils.format(DateTime(1992)));
 
     Hive.box<Bill>("bill").values.forEach((element) {
       if (element.updateTime.compareTo(sysnTime) > 0 &&
-          element.user == DB.currentUser()) billList.add(element);
+          element.user == SettingDao.currentUser()) billList.add(element);
     });
 
     Hive.box<Budget>("budget").values.forEach((element) {
       if (element.updateTime.compareTo(sysnTime) > 0 &&
-          element.user == DB.currentUser()) budgetList.add(element);
+          element.user == SettingDao.currentUser()) budgetList.add(element);
     });
 
     Hive.box<FinancialReason>("financialReason").values.forEach((element) {
       if (element.updateTime.compareTo(sysnTime) > 0 &&
-          element.user == DB.currentUser()) {
+          element.user == SettingDao.currentUser()) {
         financialReasonList.add(element);
       }
     });
 
     Hive.box<Account>("account").values.forEach((element) {
       if (element.updateTime.compareTo(sysnTime) > 0 &&
-          element.user == DB.currentUser()) {
+          element.user == SettingDao.currentUser()) {
         accountList.add(element);
       }
     });
 
     Hive.box<AccountUser>("accountUser").values.forEach((element) {
       if (element.updateTime.compareTo(sysnTime) > 0 &&
-          element.account == DB.currentAccount()) {
+          element.account == SettingDao.currentAccount()) {
         accountUserList.add(element);
       }
     });
 
     var entity = {
-      "User": DB.currentUser(),
+      "User": SettingDao.currentUser(),
       "LastSyncTime": sysnTime.toString(),
       "BillList": billList,
       "BudgetList": budgetList,
@@ -201,14 +202,14 @@ class DataAccessService {
           });
 
           sysnTime = DateTime.parse(data['latestSyncTime']);
-          Hive.box("setting").put('lastSyncTime${DB.currentUser()}', sysnTime);
+          Hive.box("setting").put('lastSyncTime${SettingDao.currentUser()}', sysnTime);
 
-          if (DB.currentAccount() != DB.currentUser()) {
+          if (SettingDao.currentAccount() != SettingDao.currentUser()) {
             String account = "";
-            if (DB.allAccounts().isNotEmpty) {
-              account = DB.allAccounts()[0].account;
+            if (AccountDao.allAccounts().isNotEmpty) {
+              account = AccountDao.allAccounts()[0].account;
             }
-            DB.setAccount(account);
+            SettingDao.setAccount(account);
           }
         }
       }
@@ -234,7 +235,7 @@ class DataAccessService {
           settingBox.put('user', user);
           settingBox.put('password', password);
           settingBox.put('isLogined', true);
-          DB.setAccount("");
+          SettingDao.setAccount("");
         }
       }
     }
@@ -260,7 +261,7 @@ class DataAccessService {
             settingBox.put('user', user);
             settingBox.put('password', password);
             settingBox.put('isLogined', true);
-            DB.setAccount("");
+            SettingDao.setAccount("");
           }
         }
       }

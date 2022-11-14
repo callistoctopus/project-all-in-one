@@ -2,16 +2,17 @@
  * @Author: gui-qi
  * @Date: 2022-10-29 01:37:32
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-14 08:28:45
+ * @LastEditTime: 2022-11-14 14:41:09
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
  */
 import 'package:client/config/route.dart';
+import 'package:client/dao/budget_dao.dart';
+import 'package:client/dao/setting_dao.dart';
 import 'package:client/model/persistent_object/budget.dart';
 import 'package:client/page/add_bill_page.dart';
 import 'package:client/component/custom_float_button.dart';
-import 'package:client/service/local_database_service.dart';
 import 'package:client/units/common_const.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -34,7 +35,7 @@ class _BudgetSettingPageState extends State<BudgetSettingPage> {
   void initState() {
     super.initState();
     try {
-      fetchListBudget = DB.fetchListBudget();
+      fetchListBudget = BudgetDao.fetchListBudget();
       fetchListBudget.then((value) {
         value.forEach((budget) {
           if (budget.type == 0 && !widget.outList.contains(budget)) {
@@ -52,15 +53,15 @@ class _BudgetSettingPageState extends State<BudgetSettingPage> {
   Widget build(BuildContext context) {
 
 
-  int year = DB.budgetYear();
+  int year = SettingDao.budgetYear();
 
-    Map<IconData, Function> para = {
+    Map<dynamic, Function> para = {
       ICONS.BACK: () {
         context.go(ROUTE.HOME);
       },
       ICONS.SAVE: () {
-        DB.saveListBudget(widget.outList);
-        DB.saveListBudget(widget.inList);
+        BudgetDao.saveListBudget(widget.outList);
+        BudgetDao.saveListBudget(widget.inList);
         context.go(ROUTE.HOME);
       },
       ICONS.ADD: () {
@@ -73,8 +74,8 @@ class _BudgetSettingPageState extends State<BudgetSettingPage> {
                       setState(() {
                         Budget b = Budget(
                           const Uuid().v1(),
-                          DB.currentUser(),
-                          DB.budgetYear().toString(),
+                          SettingDao.currentUser(),
+                          SettingDao.budgetYear().toString(),
                           po.reason,
                           po.type,
                           po.amount,
@@ -118,7 +119,7 @@ class _BudgetSettingPageState extends State<BudgetSettingPage> {
                                 label: Text((2022 + index).toString()),
                                 selected: year == (index + 2022),
                                 onSelected: (bool selected) {
-                                  DB.setBudgetYear(index + 2022);
+                                  SettingDao.setBudgetYear(index + 2022);
                                   setState(() {
                                   });
                                 },

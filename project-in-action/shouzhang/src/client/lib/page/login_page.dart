@@ -2,15 +2,15 @@
  * @Author: gui-qi
  * @Date: 2022-10-26 15:06:57
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-13 04:12:06
+ * @LastEditTime: 2022-11-14 14:41:55
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
  */
 import 'package:client/component/custom_snack_bar.dart';
 import 'package:client/config/route.dart';
+import 'package:client/dao/setting_dao.dart';
 import 'package:client/service/server_data_access_service.dart';
-import 'package:client/service/local_database_service.dart';
 import 'package:client/units/common_const.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -49,12 +49,12 @@ class _LoginPageState extends State<LoginPage> {
           }),
         if (widget.isLoginPage)
           _VIEW().login(() async {
-            DB.setOfflineMode(false);
+            SettingDao.setOfflineMode(false);
             await DataAccessService.login(widget.user, widget.password);
-            if (DB.isLogined()) {
+            if (SettingDao.isLogined()) {
               context.go(ROUTE.HOME);
             } else {
-              DB.setOfflineMode(true);
+              SettingDao.setOfflineMode(true);
               CustomSnackBar().show(context, "好像哪里出了问题，已为您开启离线模式");
               setState(() {
                 
@@ -66,15 +66,15 @@ class _LoginPageState extends State<LoginPage> {
             widget.isLoginPage = false;
             setState(() {});
           }),
-        if (widget.isLoginPage && DB.isOfflineMode())
+        if (widget.isLoginPage && SettingDao.isOfflineMode())
           _VIEW().offline(() {
             context.go(ROUTE.HOME);
           }),
         if (!widget.isLoginPage)
           _VIEW().signin(() async {
-            DB.setOfflineMode(false);
+            SettingDao.setOfflineMode(false);
             await DataAccessService.sigin(widget.user, widget.password);
-            if (DB.isLogined()) {
+            if (SettingDao.isLogined()) {
               context.go(ROUTE.HOME);
             } else {
               CustomSnackBar().show(context, "好像哪里出了问题");
@@ -175,9 +175,9 @@ class _VIEW {
           children: [
             const Text("自动登录"),
             Checkbox(
-                value: DB.isAutoLogin(),
+                value: SettingDao.isAutoLogin(),
                 onChanged: (checked) {
-                  DB.setAutoLogin(checked ?? false);
+                  SettingDao.setAutoLogin(checked ?? false);
                   callback();
                 })
           ],

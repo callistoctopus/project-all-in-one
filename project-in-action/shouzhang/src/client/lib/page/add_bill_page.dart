@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-26 15:06:57
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-14 10:10:42
+ * @LastEditTime: 2022-11-14 14:41:00
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -11,9 +11,10 @@ import 'package:client/component/custom_choice_chip.dart';
 import 'package:client/component/custom_float_button.dart';
 import 'package:client/component/custom_snack_bar.dart';
 import 'package:client/component/icon_toggle_buttons.dart';
+import 'package:client/dao/reason_dao.dart';
+import 'package:client/dao/setting_dao.dart';
 import 'package:client/model/persistent_object/financial_reason.dart';
 import 'package:client/page/add_reason_page.dart';
-import 'package:client/service/local_database_service.dart';
 import 'package:client/units/common_const.dart';
 import 'package:client/units/common_utils.dart';
 import 'package:flutter/material.dart';
@@ -35,30 +36,30 @@ class _AddBillViewState extends State<AddBillView> {
   CashInputVO cpo = CashInputVO();
 
   saveFinancialReason(FinancialReasonVO rivo) {
-    FinancialReason fr = FinancialReason(const Uuid().v1(), DB.currentUser(),
+    FinancialReason fr = FinancialReason(const Uuid().v1(), SettingDao.currentUser(),
         rivo.reason, rivo.type, rivo.note, 0, CommonUtils.now());
 
-    DB.saveFinancialReason(fr);
+    ReasonDao.saveFinancialReason(fr);
   }
 
-  deleteFinancialReason(FinancialReason ri){
+  deleteFinancialReason(FinancialReason ri) {
     ri.isDeleted = 1;
-    DB.updateFinancialReason(ri);
+    ReasonDao.updateFinancialReason(ri);
   }
 
   @override
   void initState() {
     super.initState();
-    rl1 = DB.fetchFinancialReasonOut();
-    rl2 = DB.fetchFinancialReasonIn();
+    rl1 = ReasonDao.fetchFinancialReasonOut();
+    rl2 = ReasonDao.fetchFinancialReasonIn();
   }
 
   @override
   Widget build(BuildContext context) {
-    rl1 = DB.fetchFinancialReasonOut();
-    rl2 = DB.fetchFinancialReasonIn();
+    rl1 = ReasonDao.fetchFinancialReasonOut();
+    rl2 = ReasonDao.fetchFinancialReasonIn();
 
-    Map<IconData, Function> para = {
+    Map<dynamic, Function> para = {
       ICONS.BACK: () {
         Navigator.pop(context);
       },
@@ -96,6 +97,13 @@ class _AddBillViewState extends State<AddBillView> {
                   defaultSelected: cpo.type == 0 ? '支出' : '收入',
                 ),
               ),
+              const Divider(
+                color: Colors.grey,
+                thickness: 0,
+                indent: 20,
+                endIndent: 20,
+                height: 1,
+              ),
               FutureBuilder<List<FinancialReason>>(
                   future: cpo.type == 0 ? rl1 : rl2,
                   builder: (context, snapshot) {
@@ -123,7 +131,10 @@ class _AddBillViewState extends State<AddBillView> {
                         },
                         defaultSelect: dataList.indexOf(cpo.reason),
                         onLongPress: (index) {
-                          deleteFinancialReason(snapshot.data!.where((element) => element.reason == dataList[index]).toList()[0]);
+                          deleteFinancialReason(snapshot.data!
+                              .where((element) =>
+                                  element.reason == dataList[index])
+                              .toList()[0]);
                           setState(() {});
                         },
                       );
@@ -133,6 +144,13 @@ class _AddBillViewState extends State<AddBillView> {
 
                     return const CircularProgressIndicator();
                   }),
+              const Divider(
+                color: Colors.grey,
+                thickness: 0,
+                indent: 20,
+                endIndent: 20,
+                height: 1,
+              ),
               Container(
                 height: 70,
                 padding: const EdgeInsets.only(

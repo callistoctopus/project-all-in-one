@@ -2,11 +2,12 @@
  * @Author: gui-qi
  * @Date: 2022-11-09 12:54:29
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-13 06:35:13
+ * @LastEditTime: 2022-11-14 14:37:18
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
  */
+import 'package:client/dao/setting_dao.dart';
 import 'package:client/develop/dev_sample_page.dart';
 import 'package:client/develop/setting_page.dart';
 import 'package:client/page/account_page.dart';
@@ -14,8 +15,6 @@ import 'package:client/page/home_page.dart';
 import 'package:client/page/bill_flow_page.dart';
 import 'package:client/page/budget_page.dart';
 import 'package:client/page/login_page.dart';
-import 'package:client/service/local_database_service.dart';
-import 'package:client/units/common_const.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -67,7 +66,7 @@ class RouteConfig {
         ),
       ],
       redirect: (context, state) {
-        if (DB.isLogined() || DB.isOfflineMode()) {
+        if (SettingDao.isLogined() || SettingDao.isOfflineMode()) {
           return null;
         }
         return ROUTE.LOGIN;

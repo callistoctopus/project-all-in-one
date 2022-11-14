@@ -2,11 +2,12 @@
  * @Author: gui-qi
  * @Date: 2022-11-02 15:26:48
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-14 08:23:18
+ * @LastEditTime: 2022-11-14 14:42:31
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
  */
+import 'package:client/dao/setting_dao.dart';
 import 'package:client/units/common_const.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -15,13 +16,13 @@ import 'package:go_router/go_router.dart';
 class PageWithFloatButton extends StatelessWidget {
   PageWithFloatButton(
       {required this.child, this.funcIcon, super.key, this.defaultForward});
-  Map<IconData, Function>? funcIcon;
+  Map<dynamic, Function>? funcIcon;
   bool? defaultForward = true;
   final Widget child;
 
   @override
   Widget build(BuildContext context) {
-    Map<IconData, Function> para2 = {
+    Map<dynamic, Function> para2 = {
       ICONS.BACK: () {
         context.go('/');
       }
@@ -40,7 +41,7 @@ class PageWithFloatButton extends StatelessWidget {
 class FlowMenu extends StatefulWidget {
   const FlowMenu({required this.menuMap, super.key});
 
-  final Map<IconData, Function> menuMap;
+  final Map<dynamic, Function> menuMap;
 
   @override
   State<FlowMenu> createState() => _FlowMenuState();
@@ -50,7 +51,7 @@ class _FlowMenuState extends State<FlowMenu>
     with SingleTickerProviderStateMixin {
   late AnimationController animationController;
 
-  void _updateMenu(IconData icon) {
+  void _updateMenu(dynamic icon) {
     setState(() {});
     animationController.status == AnimationStatus.completed
         ? animationController.reverse()
@@ -67,9 +68,9 @@ class _FlowMenuState extends State<FlowMenu>
     animationController.forward();
   }
 
-  Widget flowMenuItem(IconData icon, Function? func) {
+  Widget flowMenuItem(dynamic icon, Function? func) {
     return Padding(
-        padding: const EdgeInsets.symmetric(vertical: 8.0),
+        padding: const EdgeInsets.symmetric(vertical: 3.0),
         child: GestureDetector(
           onDoubleTap: () {
             _updateMenu(icon);
@@ -78,6 +79,7 @@ class _FlowMenuState extends State<FlowMenu>
             _updateMenu(icon);
           },
           child: RawMaterialButton(
+            padding: const EdgeInsets.all(6),
             fillColor: Colors.white,
             splashColor: Colors.amber[100],
             shape: const CircleBorder(),
@@ -85,11 +87,18 @@ class _FlowMenuState extends State<FlowMenu>
             onPressed: () {
               func!();
             },
-            child: Icon(
-              icon,
-              color: Colors.black,
-              size: 45.0,
-            ),
+            child: SettingDao.isDev() == true
+                ? Icon(
+                    icon,
+                    color: Colors.black,
+                    size: 45.0,
+                  )
+                : CircleAvatar(
+                    backgroundColor: Colors.white,
+                    child: Text(
+                      icon,
+                      style: const TextStyle(color: Colors.black),
+                    )),
           ),
         ));
   }

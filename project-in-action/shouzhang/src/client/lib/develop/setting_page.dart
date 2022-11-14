@@ -2,14 +2,14 @@
  * @Author: gui-qi
  * @Date: 2022-10-29 01:37:32
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-12 15:53:17
+ * @LastEditTime: 2022-11-14 14:36:41
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
  */
 import 'package:client/component/custom_float_button.dart';
 import 'package:client/config/route.dart';
-import 'package:client/service/local_database_service.dart';
+import 'package:client/dao/setting_dao.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -28,11 +28,11 @@ class _SettingPageState extends State<SettingPage> {
         child: Column(
       children: [
         SettingItem1(
-          initValue: DB.isDev(),
+          initValue: SettingDao.isDev(),
           itemName: "开发者模式",
           callback: (bool? value) {
             setState(() {
-              DB.setDevMode(value ?? false);
+              SettingDao.setDevMode(value ?? false);
             });
           },
         ),
@@ -49,7 +49,7 @@ class _SettingPageState extends State<SettingPage> {
 
 class Dev {
   static Widget onDevelop(Widget child) {
-    if (DB.isDev()) {
+    if (SettingDao.isDev()) {
       return child;
     }
     return const SizedBox(
