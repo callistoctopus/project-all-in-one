@@ -2,15 +2,16 @@
  * @Author: gui-qi
  * @Date: 2022-10-29 01:37:32
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-13 07:11:15
+ * @LastEditTime: 2022-11-15 02:43:23
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
  */
 import 'dart:async';
 
+import 'package:client/dao/bill_dao.dart';
 import 'package:client/model/persistent_object/bill.dart';
-import 'package:client/service/local_database_service.dart';
+import 'package:client/page/add_bill_page.dart';
 import 'package:flutter/material.dart';
 import 'package:client/component/custom_float_button.dart';
 
@@ -28,16 +29,14 @@ class _CashFlowPageState extends State<CashFlowPage> {
   void initState() {
     super.initState();
     try {
-      futureListBill = DB.futureListBill();
+      futureListBill = BillDao.futureListBill();
     } on Exception {}
   }
 
   @override
   Widget build(BuildContext context) {
-    return 
-    PageWithFloatButton(
-      child: 
-      Scaffold(
+    return PageWithFloatButton(
+      child: Scaffold(
           body: Padding(
               padding: const EdgeInsets.only(left: 20, right: 20, top: 15),
               child: FutureBuilder<List<Bill>>(
@@ -56,29 +55,67 @@ class _CashFlowPageState extends State<CashFlowPage> {
                               ],
                             );
                           } else {
-                            return BillRow(
-                              bill: snapshot.data![i],
-                            );
+                            return Dismissible(
+                                key: ValueKey<Bill>(snapshot.data![i]),
+                                onDismissed: (DismissDirection direction) {
+                                  setState(() {
+                                    BillDao.deleteBill(snapshot.data![i]);
+                                    snapshot.data!.removeAt(i);
+                                  });
+                                },
+                                child: BillRow(
+                                  bill: snapshot.data![i],
+                                  onLongPress: (bill) {
+                                    
+                                  },
+                                  onTap: (bill) {
+                                    showModalBottomSheet(
+                                      context: context,
+                                      builder: (context) => AddBillView(
+                                        onSaved: (po) {
+                                          bill.reason = po.reason;
+                                          bill.type = po.type;
+                                          bill.amount = po.amount;
+                                          bill.note = po.note;
+                                          BillDao.saveBill(bill);
+                                          setState(() {
+                                            
+                                          });
+                                        },
+                                        cpo: CashInputVO()
+                                          ..amount = bill.amount
+                                          ..reason = bill.reason
+                                          ..type = bill.type
+                                          ..note = bill.note,
+                                      ),
+                                    );
+                                  },
+                                ));
                           }
                         },
                         separatorBuilder: (BuildContext context, int index) =>
-                            const Divider(height: 17,color: Colors.grey, thickness: 0),
+                            const Divider(
+                                height: 17, color: Colors.grey, thickness: 0),
                       );
                     } else if (snapshot.hasError) {
                       return Text('${snapshot.error}');
                     }
                     return const CircularProgressIndicator();
-                  })
-                  )
-                  ),
+                  }))),
     );
   }
 }
 
 class BillRow extends StatelessWidget {
-  const BillRow({super.key, required this.bill});
+  const BillRow(
+      {super.key,
+      required this.bill,
+      required this.onTap,
+      required this.onLongPress});
 
   final Bill bill;
+  final Function(Bill) onTap;
+  final Function(Bill) onLongPress;
 
   @override
   Widget build(BuildContext context) {
@@ -91,13 +128,21 @@ class BillRow extends StatelessWidget {
 
     String amount = pre + bill.amount.toString();
 
-    return Row(
-      children: [
-        Expanded(flex: 2, child: Text(bill.time.toString().substring(0, 10))),
-        Expanded(flex: 2, child: Text(bill.user)),
-        Expanded(flex: 2, child: Text(bill.reason)),
-        Expanded(flex: 1, child: Text(amount, style: ts)),
-      ],
-    );
+    return GestureDetector(
+        onTap: () {
+          onTap(bill);
+        },
+        onLongPress: () {
+          onLongPress(bill);
+        },
+        child: Row(
+          children: [
+            Expanded(
+                flex: 1, child: Text(bill.time.toString().substring(0, 10))),
+            Expanded(flex: 1, child: Text(bill.user)),
+            Expanded(flex: 1, child: Text(bill.reason)),
+            Expanded(flex: 1, child: Text(amount, style: ts)),
+          ],
+        ));
   }
 }

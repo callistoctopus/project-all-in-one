@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-11-14 14:23:27
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-14 14:36:04
+ * @LastEditTime: 2022-11-15 02:19:37
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -15,8 +15,7 @@ import 'package:client/units/common_utils.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:uuid/uuid.dart';
 
-class ReasonDao{
-
+class ReasonDao {
   static Future<bool> saveFinancialReason(FinancialReason fr) async {
     fr.user = SettingDao.currentUser();
     fr.updateTime = CommonUtils.now();
@@ -32,7 +31,15 @@ class ReasonDao{
   static Future<bool> updateFinancialReason(FinancialReason fr) async {
     if (fr.isInBox) {
       fr.save();
-    } 
+    }
+    return true;
+  }
+
+  static Future<bool> deleteFinancialReason(FinancialReason fr) async {
+    fr.isDeleted = 1;
+    if (fr.isInBox) {
+      fr.save();
+    }
     return true;
   }
 
@@ -41,7 +48,9 @@ class ReasonDao{
 
     List<String?> userList = AccountUserDao.getSharedUser();
     Hive.box<FinancialReason>(TABLE.financialReason).values.forEach((element) {
-      if (element.type == 0 && userList.contains(element.user) && element.isDeleted == 0) {
+      if (element.type == 0 &&
+          userList.contains(element.user) &&
+          element.isDeleted == 0) {
         list.add(element);
       }
     });
@@ -52,7 +61,9 @@ class ReasonDao{
     List<FinancialReason> list = [];
     List<String?> userList = AccountUserDao.getSharedUser();
     Hive.box<FinancialReason>(TABLE.financialReason).values.forEach((element) {
-      if (element.type == 1 && userList.contains(element.user) && element.isDeleted == 0) {
+      if (element.type == 1 &&
+          userList.contains(element.user) &&
+          element.isDeleted == 0) {
         list.add(element);
       }
     });

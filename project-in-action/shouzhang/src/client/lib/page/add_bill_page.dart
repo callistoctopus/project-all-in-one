@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-26 15:06:57
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-14 14:41:00
+ * @LastEditTime: 2022-11-15 02:39:53
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -21,9 +21,10 @@ import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
 
 class AddBillView extends StatefulWidget {
-  const AddBillView({required this.onSaved, super.key});
+  AddBillView({required this.onSaved, super.key, this.cpo});
 
   final Function(CashInputVO po) onSaved;
+  CashInputVO? cpo;
 
   @override
   State<AddBillView> createState() => _AddBillViewState();
@@ -33,18 +34,17 @@ class _AddBillViewState extends State<AddBillView> {
   late Future<List<FinancialReason>> rl1;
   late Future<List<FinancialReason>> rl2;
 
-  CashInputVO cpo = CashInputVO();
-
   saveFinancialReason(FinancialReasonVO rivo) {
-    FinancialReason fr = FinancialReason(const Uuid().v1(), SettingDao.currentUser(),
-        rivo.reason, rivo.type, rivo.note, 0, CommonUtils.now());
+    FinancialReason fr = FinancialReason(
+        const Uuid().v1(),
+        SettingDao.currentUser(),
+        rivo.reason,
+        rivo.type,
+        rivo.note,
+        0,
+        CommonUtils.now());
 
     ReasonDao.saveFinancialReason(fr);
-  }
-
-  deleteFinancialReason(FinancialReason ri) {
-    ri.isDeleted = 1;
-    ReasonDao.updateFinancialReason(ri);
   }
 
   @override
@@ -52,6 +52,7 @@ class _AddBillViewState extends State<AddBillView> {
     super.initState();
     rl1 = ReasonDao.fetchFinancialReasonOut();
     rl2 = ReasonDao.fetchFinancialReasonIn();
+    widget.cpo ??= CashInputVO();
   }
 
   @override
@@ -64,11 +65,11 @@ class _AddBillViewState extends State<AddBillView> {
         Navigator.pop(context);
       },
       ICONS.SAVE: () {
-        if (cpo.amount == -1) {
+        if (widget.cpo!.amount == -1) {
           return CustomSnackBar().show(context, "请输入金额");
         }
 
-        widget.onSaved(cpo);
+        widget.onSaved(widget.cpo!);
         Navigator.pop(context);
       }
     };
@@ -88,13 +89,13 @@ class _AddBillViewState extends State<AddBillView> {
                   labelIcon: const {'支出': Icons.output, '收入': Icons.input},
                   onSelect: (lables) {
                     int t = lables[0] == '支出' ? 0 : 1;
-                    if (lables.isNotEmpty && cpo.type != t) {
-                      cpo.type = t;
+                    if (lables.isNotEmpty && widget.cpo!.type != t) {
+                      widget.cpo!.type = t;
                       setState(() {});
                     }
                   },
                   isSingle: true,
-                  defaultSelected: cpo.type == 0 ? '支出' : '收入',
+                  defaultSelected: widget.cpo!.type == 0 ? '支出' : '收入',
                 ),
               ),
               const Divider(
@@ -105,13 +106,15 @@ class _AddBillViewState extends State<AddBillView> {
                 height: 1,
               ),
               FutureBuilder<List<FinancialReason>>(
-                  future: cpo.type == 0 ? rl1 : rl2,
+                  future: widget.cpo!.type == 0 ? rl1 : rl2,
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
                       List<String> dataList =
                           snapshot.data!.map((e) => e.reason).toList();
                       dataList.add("+追加");
-                      cpo.reason = dataList[0];
+                      widget.cpo!.reason == ""
+                          ? widget.cpo!.reason = dataList[0]
+                          : widget.cpo!.reason;
                       return CustomChoiceChip(
                         dataList: dataList,
                         onSelect: (i) {
@@ -127,15 +130,39 @@ class _AddBillViewState extends State<AddBillView> {
                               ),
                             );
                           }
-                          cpo.reason = dataList[i];
+                          widget.cpo!.reason = dataList[i];
                         },
-                        defaultSelect: dataList.indexOf(cpo.reason),
+                        defaultSelect: dataList.indexOf(widget.cpo!.reason),
                         onLongPress: (index) {
-                          deleteFinancialReason(snapshot.data!
-                              .where((element) =>
-                                  element.reason == dataList[index])
-                              .toList()[0]);
-                          setState(() {});
+                          showDialog<void>(
+                              context: context,
+                              barrierDismissible: false,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  title: const Text('确定删除？'),
+                                  actions: <Widget>[
+                                    TextButton(
+                                      child: const Text('确定'),
+                                      onPressed: () {
+                                        ReasonDao.deleteFinancialReason(snapshot
+                                            .data!
+                                            .where((element) =>
+                                                element.reason ==
+                                                dataList[index])
+                                            .toList()[0]);
+                                        Navigator.of(context).pop();
+                                        setState(() {});
+                                      },
+                                    ),
+                                    TextButton(
+                                      child: const Text('取消'),
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                    ),
+                                  ],
+                                );
+                              });
                         },
                       );
                     } else if (snapshot.hasError) {
@@ -157,17 +184,18 @@ class _AddBillViewState extends State<AddBillView> {
                     left: 16, top: 15, right: 16, bottom: 0),
                 // margin: const EdgeInsets.only(top:5),
                 child: TextField(
+                  controller: TextEditingController.fromValue(
+                      TextEditingValue(text: widget.cpo!.amount == -1 ? "" :widget.cpo!.amount.toString())),
                   textAlign: TextAlign.justify,
                   textAlignVertical: TextAlignVertical.center,
                   cursorHeight: 25,
-                  // scrollPadding: EdgeInsets.all(2.0),
                   decoration: const InputDecoration(
                     prefixText: "￥",
                     border: OutlineInputBorder(),
                     hintText: '金额',
                   ),
                   onChanged: (String text) {
-                    cpo.amount = double.tryParse(text) ?? -1;
+                    widget.cpo!.amount = double.tryParse(text) ?? -1;
                   },
                 ),
               ),
@@ -180,7 +208,7 @@ class _AddBillViewState extends State<AddBillView> {
                     hintText: '备注',
                   ),
                   onChanged: (String text) {
-                    cpo.note = text;
+                    widget.cpo!.note = text;
                   },
                 ),
               ),

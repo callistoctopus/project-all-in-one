@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-11-14 14:19:43
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-14 14:35:00
+ * @LastEditTime: 2022-11-15 00:48:20
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -20,7 +20,7 @@ class BillDao{
     List<Bill> list = [];
     List<String?> userList = AccountUserDao.getSharedUser();
     Hive.box<Bill>(TABLE.bill).values.forEach((element) {
-      if (userList.contains(element.user)) {
+      if (userList.contains(element.user) && element.isDeleted == 0) {
         list.add(element);
       }
     });
@@ -38,6 +38,15 @@ class BillDao{
       bill.id = const Uuid().v1();
       Hive.box<Bill>(TABLE.bill).add(bill);
     }
+    return true;
+  }
+
+  static bool deleteBill(Bill bill) {
+    bill.isDeleted = 1;
+    bill.updateTime = CommonUtils.now();
+    if (bill.isInBox) {
+      bill.save();
+    } 
     return true;
   }
 }
