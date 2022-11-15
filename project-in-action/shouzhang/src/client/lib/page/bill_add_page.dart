@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-26 15:06:57
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-15 02:39:53
+ * @LastEditTime: 2022-11-15 10:41:42
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -74,6 +74,8 @@ class _AddBillViewState extends State<AddBillView> {
       }
     };
 
+    List<String> kinds = ['支出', '收入'];
+
     return PageWithFloatButton(
         funcIcon: para,
         child: Scaffold(
@@ -83,20 +85,14 @@ class _AddBillViewState extends State<AddBillView> {
                 padding: const EdgeInsets.only(left: 12, top: 3),
                 child: const Text(style: TextStyle(fontSize: 12), "记一笔"),
               ),
-              Padding(
-                padding: const EdgeInsets.only(left: 3, top: 6, right: 0),
-                child: IconToggleButtons(
-                  labelIcon: const {'支出': Icons.output, '收入': Icons.input},
-                  onSelect: (lables) {
-                    int t = lables[0] == '支出' ? 0 : 1;
-                    if (lables.isNotEmpty && widget.cpo!.type != t) {
-                      widget.cpo!.type = t;
-                      setState(() {});
-                    }
-                  },
-                  isSingle: true,
-                  defaultSelected: widget.cpo!.type == 0 ? '支出' : '收入',
-                ),
+              CustomChoiceChip(
+                dataList: kinds,
+                onSelect: (i) {
+                  widget.cpo!.type = i;
+                  setState(() {});
+                },
+                defaultSelect: widget.cpo == null ? 0 : widget.cpo!.type,
+                onLongPress: (index) {},
               ),
               const Divider(
                 color: Colors.grey,
@@ -112,9 +108,11 @@ class _AddBillViewState extends State<AddBillView> {
                       List<String> dataList =
                           snapshot.data!.map((e) => e.reason).toList();
                       dataList.add("+追加");
-                      widget.cpo!.reason == ""
-                          ? widget.cpo!.reason = dataList[0]
-                          : widget.cpo!.reason;
+                      if(dataList.length > 1) {
+                        widget.cpo!.reason = dataList[0];
+                      }
+                          // ? widget.cpo!.reason = dataList[0]
+                          // : widget.cpo!.reason;
                       return CustomChoiceChip(
                         dataList: dataList,
                         onSelect: (i) {
@@ -127,6 +125,8 @@ class _AddBillViewState extends State<AddBillView> {
                                   saveFinancialReason(rivo);
                                   setState(() {});
                                 },
+                                rivo: FinancialReasonVO()
+                                  ..type = widget.cpo!.type,
                               ),
                             );
                           }
@@ -184,8 +184,10 @@ class _AddBillViewState extends State<AddBillView> {
                     left: 16, top: 15, right: 16, bottom: 0),
                 // margin: const EdgeInsets.only(top:5),
                 child: TextField(
-                  controller: TextEditingController.fromValue(
-                      TextEditingValue(text: widget.cpo!.amount == -1 ? "" :widget.cpo!.amount.toString())),
+                  controller: TextEditingController.fromValue(TextEditingValue(
+                      text: widget.cpo!.amount == -1
+                          ? ""
+                          : widget.cpo!.amount.toString())),
                   textAlign: TextAlign.justify,
                   textAlignVertical: TextAlignVertical.center,
                   cursorHeight: 25,

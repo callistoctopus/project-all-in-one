@@ -1,5 +1,4 @@
--- zhangben.day_to_day_account definition
-DROP table if exists bill;
+ROP table if exists bill;
 CREATE TABLE `bill` (
   `id` varchar(100) NOT NULL,
   `user` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '经济行为执行者',

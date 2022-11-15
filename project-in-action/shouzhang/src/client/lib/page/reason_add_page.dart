@@ -2,26 +2,27 @@
  * @Author: gui-qi
  * @Date: 2022-10-26 15:06:57
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-14 14:15:06
+ * @LastEditTime: 2022-11-15 10:17:20
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
  */
+import 'package:client/component/custom_choice_chip.dart';
 import 'package:client/component/custom_float_button.dart';
 import 'package:client/component/custom_snack_bar.dart';
-import 'package:client/component/icon_toggle_buttons.dart';
 import 'package:client/units/common_const.dart';
 import 'package:flutter/material.dart';
 
 class AddFinancialReasonView extends StatelessWidget {
   AddFinancialReasonView({
     required this.onEvent,
+    required this.rivo,
     super.key,
   });
-
+  FinancialReasonVO rivo;
   final Function(FinancialReasonVO) onEvent;
-  FinancialReasonVO rivo = FinancialReasonVO();
-  
+
+  List<String> kinds = ['支出', '收入'];
   @override
   Widget build(BuildContext context) {
     Map<dynamic, Function> para = {
@@ -46,19 +47,13 @@ class AddFinancialReasonView extends StatelessWidget {
                 padding: const EdgeInsets.only(left: 12, top: 3),
                 child: const Text(style: TextStyle(fontSize: 12), "追加种类"),
               ),
-              Padding(
-                padding: const EdgeInsets.only(left: 3, top: 6, right: 0),
-                child: IconToggleButtons(
-                  labelIcon: const {'支出': Icons.output, '收入': Icons.input},
-                  onSelect: (lables) {
-                    var t = '支出' == lables[0] ? 0 : 1;
-                    if (lables.isNotEmpty && rivo.type != t) {
-                      rivo.type = t;
-                    }
-                  },
-                  isSingle: true,
-                  defaultSelected: rivo.type == 0 ? '支出' : '收入',
-                ),
+              CustomChoiceChip(
+                dataList: kinds,
+                onSelect: (i) {
+                  rivo.type = i;
+                },
+                defaultSelect: rivo.type,
+                onLongPress: (index) {},
               ),
               Container(
                 height: 70,

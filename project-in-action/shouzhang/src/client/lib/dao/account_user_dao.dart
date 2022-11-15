@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-11-14 14:33:29
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-14 14:33:43
+ * @LastEditTime: 2022-11-15 13:20:27
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -29,9 +29,9 @@ class AccountUserDao {
     var box = Hive.box<AccountUser>(TABLE.accountUser);
     box.values.forEach((element) {
       // if (element.account == DB.currentAccount()) ret.add(element.user);
-      if (element.user == SettingDao.currentUser()) {
+      if (element.user == SettingDao.currentUser() && element.state == 0) {
         box.values.forEach((element1) {
-          if (element.account == element1.account) {
+          if (element.account == element1.account && element1.state == 0) {
             ret.add(element1.user);
           }
         });

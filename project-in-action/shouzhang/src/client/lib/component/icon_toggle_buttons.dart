@@ -46,7 +46,7 @@ class _IconToggleButtonsState extends State<IconToggleButtons> {
     }
 
     return Container(
-        margin: const EdgeInsets.symmetric(vertical: 5.0, horizontal: 5),
+        margin: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 1),
         height: 80,
         child: ListView.builder(
             scrollDirection: Axis.horizontal,
@@ -54,9 +54,9 @@ class _IconToggleButtonsState extends State<IconToggleButtons> {
             itemBuilder: (context, i) {
               String label = widget.labelIcon.keys.elementAt(i);
               return Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(1.0),
                   child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: <Widget>[
                         IconToggleButton(
                           isEnabled: true,
@@ -115,15 +115,22 @@ class _IconToggleButtonState extends State<IconToggleButton> {
 
     IconData icon = widget.icon;
 
-    return Ink(
-        color: widget.selected ? Colors.grey : Colors.white,
-        child: IconButton(
-          isSelected: widget.selected,
-          icon: Icon(icon),
-          selectedIcon: Icon(icon),
+    return 
+    // Ink(
+    //     color: widget.selected ? Colors.grey : Colors.white,
+    //     child: 
+        RawMaterialButton(
+          padding: const EdgeInsets.all(2),
+            fillColor: Colors.white,
+            splashColor: Colors.amber[100],
+            shape: const CircleBorder(),
+          // isSelected: widget.selected,
           onPressed: onPressed,
-          style: style,
-        ));
+          // isSelected: widget.selected,
+          child: Icon(icon),
+          // style: style,
+        // )
+        );
   }
 }
 
@@ -134,34 +141,4 @@ ButtonStyle enabledFilledButtonStyle(bool selected, ColorScheme colors) {
     shape:const CircleBorder(),
     backgroundColor: selected ? Colors.black : Colors.white,
   );
-}
-
-void main() {
-  runApp(const IconButtonToggleApp());
-}
-
-class IconButtonToggleApp extends StatelessWidget {
-  const IconButtonToggleApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(
-        colorSchemeSeed: const Color(0xff6750a4),
-        useMaterial3: true,
-        // Desktop and web platforms have a compact visual density by default.
-        // To see buttons with circular background on desktop/web, the "visualDensity"
-        // needs to be set to "VisualDensity.standard".
-        visualDensity: VisualDensity.standard,
-      ),
-      title: 'Icon Button Types',
-      home: Scaffold(
-        body: IconToggleButtons(
-          labelIcon: {'abc': Icons.save},
-          onSelect: (n) {},
-          defaultSelected: 'abc',
-        ),
-      ),
-    );
-  }
 }
