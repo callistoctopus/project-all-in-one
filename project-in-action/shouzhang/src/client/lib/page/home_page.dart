@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-29 01:37:32
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-14 14:41:31
+ * @LastEditTime: 2022-11-15 05:06:03
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -14,7 +14,7 @@ import 'package:client/dao/setting_dao.dart';
 import 'package:client/develop/FadeTransition.dart';
 import 'package:client/develop/setting_page.dart';
 import 'package:client/model/persistent_object/bill.dart';
-import 'package:client/page/add_bill_page.dart';
+import 'package:client/page/bill_add_page.dart';
 import 'package:client/service/server_data_access_service.dart';
 import 'package:client/units/common_const.dart';
 import 'package:flutter/material.dart';
@@ -85,7 +85,7 @@ class _HomePageState extends State<HomePage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                _COMPONENT.menu(context, '账单', () => context.go(ROUTE.BILLS)),
+                _COMPONENT.menu(context, '流水', () => context.go(ROUTE.BILLS)),
                 _COMPONENT.verticalDivider(),
                 _COMPONENT.menu(context, '预算', () => context.go(ROUTE.BUDGET)),
                 _COMPONENT.verticalDivider(),

@@ -2,16 +2,17 @@
  * @Author: gui-qi
  * @Date: 2022-10-29 01:37:32
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-14 14:41:09
+ * @LastEditTime: 2022-11-15 06:27:25
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
  */
+import 'package:client/component/custom_snack_bar.dart';
 import 'package:client/config/route.dart';
 import 'package:client/dao/budget_dao.dart';
 import 'package:client/dao/setting_dao.dart';
 import 'package:client/model/persistent_object/budget.dart';
-import 'package:client/page/add_bill_page.dart';
+import 'package:client/page/bill_add_page.dart';
 import 'package:client/component/custom_float_button.dart';
 import 'package:client/units/common_const.dart';
 import 'package:flutter/material.dart';
@@ -29,70 +30,47 @@ class BudgetSettingPage extends StatefulWidget {
 }
 
 class _BudgetSettingPageState extends State<BudgetSettingPage> {
-  late Future<List<Budget>> fetchListBudget;
+  List<Budget> fetchListBudget = [];
+
+  saveBudget(CashInputVO civo) {
+    Budget b = Budget(
+        const Uuid().v1(),
+        SettingDao.currentUser(),
+        SettingDao.budgetYear().toString(),
+        civo.reason,
+        civo.type,
+        civo.amount,
+        civo.note,
+        0,
+        DateTime.now());
+    BudgetDao.saveBudget(b);
+  }
 
   @override
   void initState() {
     super.initState();
-    try {
-      fetchListBudget = BudgetDao.fetchListBudget();
-      fetchListBudget.then((value) {
-        value.forEach((budget) {
-          if (budget.type == 0 && !widget.outList.contains(budget)) {
-            widget.outList.add(budget);
-          }
-          if (budget.type == 1 && !widget.outList.contains(budget)) {
-            widget.inList.add(budget);
-          }
-        });
-      });
-    } on Exception {}
   }
 
   @override
   Widget build(BuildContext context) {
+    widget.outList.clear();
+    widget.inList.clear();
+    fetchListBudget = BudgetDao.fetchListBudget();
+    fetchListBudget.forEach((budget) {
+      if (budget.type == 0 && !widget.outList.contains(budget)) {
+        widget.outList.add(budget);
+      }
+      if (budget.type == 1 && !widget.outList.contains(budget)) {
+        widget.inList.add(budget);
+      }
+    });
 
-
-  int year = SettingDao.budgetYear();
+    int year = SettingDao.budgetYear();
 
     Map<dynamic, Function> para = {
       ICONS.BACK: () {
         context.go(ROUTE.HOME);
-      },
-      ICONS.SAVE: () {
-        BudgetDao.saveListBudget(widget.outList);
-        BudgetDao.saveListBudget(widget.inList);
-        context.go(ROUTE.HOME);
-      },
-      ICONS.ADD: () {
-        showBottomSheet(
-            context: context,
-            builder: (context) => SizedBox(
-                  height: 380,
-                  child: AddBillView(
-                    onSaved: (po) {
-                      setState(() {
-                        Budget b = Budget(
-                          const Uuid().v1(),
-                          SettingDao.currentUser(),
-                          SettingDao.budgetYear().toString(),
-                          po.reason,
-                          po.type,
-                          po.amount,
-                          po.note,
-                          0,
-                          DateTime.now()
-                        );
-                        if (po.type == 0) {
-                          widget.outList.add(b);
-                        } else {
-                          widget.inList.add(b);
-                        }
-                      });
-                    },
-                  ),
-                ));
-      },
+      }
     };
 
     return PageWithFloatButton(
@@ -100,128 +78,169 @@ class _BudgetSettingPageState extends State<BudgetSettingPage> {
       child: Scaffold(
         body: LayoutBuilder(
           builder: (BuildContext context, BoxConstraints constraints) {
-            return Column(
-              children: [
-                SizedBox(
-                    height: 40,
-                    child: ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        itemBuilder: (context, index) {
-                          return Padding(
-                              padding: const EdgeInsets.only(
-                                  top: 5.0, right: 10.0, bottom: 5),
-                              child: ChoiceChip(
-                                backgroundColor: Colors.white,
-                                padding: const EdgeInsets.all(2),
-                                side: const BorderSide(
-                                    width: 0,
-                                    color: Colors.grey),
-                                label: Text((2022 + index).toString()),
-                                selected: year == (index + 2022),
-                                onSelected: (bool selected) {
-                                  SettingDao.setBudgetYear(index + 2022);
-                                  setState(() {
-                                  });
-                                },
-                              ));
-                        })),
-                SizedBox(
-                    height: 100,
-                    width: constraints.maxWidth,
-                    child: const Card(child: Text("概览"))),
-                Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: <Widget>[
-                      SizedBox(
-                          height: 40,
-                          width: constraints.maxWidth / 2,
-                          child: const Card(
-                            child: Text(
-                                style: TextStyle(fontSize: 15),
-                                textAlign: TextAlign.center,
-                                "支出"),
-                          )),
-                      SizedBox(
-                          height: 40,
-                          width: constraints.maxWidth / 2,
-                          child: const Card(
-                            child: Text(
-                                style: TextStyle(fontSize: 15),
-                                textAlign: TextAlign.center,
-                                "收入"),
-                          ))
-                    ]),
-                SizedBox(
-                    height: constraints.maxHeight - 180,
-                    child: Padding(
-                      padding: const EdgeInsets.only(top: 5),
-                      child: FutureBuilder<List<Budget>>(
-                        future: fetchListBudget,
-                        builder: (context, snapshot) {
-                          if (snapshot.hasData) {
-                            snapshot.data!.forEach((budget) {
-                              if (budget.type == 0 &&
-                                  !widget.outList.contains(budget)) {
-                                widget.outList.add(budget);
-                              }
-                              if (budget.type == 1 &&
-                                  !widget.inList.contains(budget)) {
-                                widget.inList.add(budget);
-                              }
-                            });
-
-                            return Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: <Widget>[
-                                SizedBox(
-                                    height: constraints.maxHeight,
-                                    width: constraints.maxWidth / 2 - 20,
-                                    child: ListView.separated(
-                                      itemCount: widget.outList.length,
-                                      itemBuilder: (context, i) {
-                                        return InputWithTest(
-                                          text: widget.outList[i].reason,
-                                          oldBudget: widget.outList[i].budget
-                                              .toString(),
-                                              onSelected: (text) => widget.outList[i].budget = double.parse(text),
-                                        );
-                                      },
-                                      separatorBuilder:
-                                          (BuildContext context, int index) =>
-                                              Divider(
-                                        color: Theme.of(context).primaryColor,
+            return Column(children: [
+              SizedBox(
+                  height: 40,
+                  child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemBuilder: (context, index) {
+                        return Padding(
+                            padding: const EdgeInsets.only(
+                                top: 5.0, right: 10.0, bottom: 5),
+                            child: ChoiceChip(
+                              backgroundColor: Colors.white,
+                              padding: const EdgeInsets.all(2),
+                              side: const BorderSide(
+                                  width: 0, color: Colors.grey),
+                              label: Text((2022 + index).toString()),
+                              selected: year == (index + 2022),
+                              onSelected: (bool selected) {
+                                SettingDao.setBudgetYear(index + 2022);
+                                setState(() {});
+                              },
+                            ));
+                      })),
+              const Divider(
+                color: Colors.grey,
+                thickness: 0,
+                indent: 20,
+                endIndent: 20,
+                height: 5,
+              ),
+              Container(
+                  alignment: Alignment.topCenter,
+                  height: 100,
+                  width: constraints.maxWidth,
+                  child: const Text("概览")),
+              const Divider(
+                color: Colors.grey,
+                thickness: 0,
+                indent: 20,
+                endIndent: 20,
+                height: 5,
+              ),
+              Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: <Widget>[
+                    Container(
+                      alignment: Alignment.center,
+                      height: 20,
+                      width: constraints.maxWidth / 2,
+                      child: GestureDetector(
+                          onTap: () {
+                            showModalBottomSheet(
+                                context: context,
+                                builder: (context) => SizedBox(
+                                      height: 380,
+                                      child: AddBillView(
+                                        onSaved: (po) {
+                                          setState(() {
+                                            saveBudget(po);
+                                          });
+                                        },
+                                        cpo: CashInputVO()..type = 0,
                                       ),
-                                    )),
-                                SizedBox(
-                                    width: constraints.maxWidth / 2 - 20,
-                                    child: ListView.separated(
-                                      itemCount: widget.inList.length,
-                                      itemBuilder: (context, i) {
-                                        return InputWithTest(
-                                          text: widget.inList[i].reason,
-                                          oldBudget: widget.inList[i].budget
-                                              .toString(),
-                                              onSelected: (text) => widget.inList[i].budget = double.parse(text),
-                                        );
-                                      },
-                                      separatorBuilder:
-                                          (BuildContext context, int index) =>
-                                              Divider(
-                                        color: Theme.of(context).primaryColor,
-                                      ),
-                                    )),
-                              ],
-                              // ),
-                            );
-                          } else if (snapshot.hasError) {
-                            return Text('${snapshot.error}');
-                          }
-                          return const CircularProgressIndicator();
-                        },
-                      ),
-                    ))
-              ],
-            );
+                                    ));
+                          },
+                          child: const Text("支出 +")),
+                    ),
+                    const SizedBox(
+                        height: 20,
+                        child: VerticalDivider(
+                          color: Colors.grey,
+                          thickness: 1,
+                          width: 0,
+                          indent: 2,
+                          endIndent: 2,
+                        )),
+                    Container(
+                      alignment: Alignment.center,
+                      height: 20,
+                      width: constraints.maxWidth / 2,
+                      child: GestureDetector(
+                          onTap: () {
+                            showModalBottomSheet(
+                                context: context,
+                                builder: (context) => SizedBox(
+                                      height: 380,
+                                      child: AddBillView(
+                                          onSaved: (po) {
+                                            setState(() {
+                                              saveBudget(po);
+                                            });
+                                          },
+                                          cpo: CashInputVO()..type = 1),
+                                    ));
+                          },
+                          child: const Text("收入 +")),
+                    )
+                  ]),
+              SizedBox(
+                  height: constraints.maxHeight - 190,
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 5),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: <Widget>[
+                        SizedBox(
+                            height: constraints.maxHeight,
+                            width: constraints.maxWidth / 2 - 20,
+                            child: ListView.separated(
+                              itemCount: widget.outList.length,
+                              itemBuilder: (context, i) {
+                                return InputWithTest(
+                                    budget: widget.outList[i],
+                                    oldBudget:
+                                        widget.outList[i].budget.toString(),
+                                    onSelected: (budget) {
+                                      BudgetDao.updateBudget(budget);
+                                      setState(() {});
+                                    },
+                                    onDeleted: (budget) {
+                                      BudgetDao.deleteBudget(budget);
+                                      setState(() {});
+                                    });
+                              },
+                              separatorBuilder:
+                                  (BuildContext context, int index) => Divider(
+                                color: Theme.of(context).primaryColor,
+                              ),
+                            )),
+                        const SizedBox(
+                            child: VerticalDivider(
+                          color: Colors.grey,
+                          thickness: 1,
+                          width: 0,
+                          indent: 2,
+                          endIndent: 2,
+                        )),
+                        SizedBox(
+                            width: constraints.maxWidth / 2 - 20,
+                            child: ListView.separated(
+                              itemCount: widget.inList.length,
+                              itemBuilder: (context, i) {
+                                return InputWithTest(
+                                  budget: widget.inList[i],
+                                  oldBudget: widget.inList[i].budget.toString(),
+                                  onSelected: (budget) {
+                                    BudgetDao.updateBudget(budget);
+                                    setState(() {});
+                                  },
+                                  onDeleted: (budget) {
+                                    BudgetDao.deleteBudget(budget);
+                                    setState(() {});
+                                  },
+                                );
+                              },
+                              separatorBuilder:
+                                  (BuildContext context, int index) => Divider(
+                                color: Theme.of(context).primaryColor,
+                              ),
+                            )),
+                      ],
+                    ),
+                  ))
+            ]);
           },
         ),
       ),
@@ -230,18 +249,23 @@ class _BudgetSettingPageState extends State<BudgetSettingPage> {
 }
 
 class InputWithTest extends StatefulWidget {
-  const InputWithTest({super.key, required this.text, required this.oldBudget, required this.onSelected});
+  const InputWithTest(
+      {super.key,
+      required this.budget,
+      required this.oldBudget,
+      required this.onSelected,
+      required this.onDeleted});
 
-  final String text;
+  final Budget budget;
   final String oldBudget;
-  final Function(String) onSelected;
+  final Function(Budget) onSelected;
+  final Function(Budget) onDeleted;
 
   @override
   State<InputWithTest> createState() => _InputWithTestState();
 }
 
 class _InputWithTestState extends State<InputWithTest> {
-
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -249,11 +273,19 @@ class _InputWithTestState extends State<InputWithTest> {
         child: Row(
           children: <Widget>[
             Expanded(
+                flex: 1,
+                child: GestureDetector(
+                  child: const Icon(ICONS.DELETE),
+                  onTap: () {
+                    widget.onDeleted(widget.budget);
+                  },
+                )),
+            Expanded(
                 flex: 4,
                 child: Text(
                     style: const TextStyle(fontSize: 16),
                     textAlign: TextAlign.center,
-                    widget.text)),
+                    widget.budget.reason)),
             Expanded(
                 flex: 5,
                 child: SizedBox(
@@ -274,7 +306,12 @@ class _InputWithTestState extends State<InputWithTest> {
                       hintText: widget.oldBudget,
                     ),
                     onChanged: (String text) {
-                      widget.onSelected(text);
+                      if(double.tryParse(text) ==null){
+                         CustomSnackBar().show(context, "您输入的不是数字");
+                         return;
+                      }
+                      widget.budget.budget = double.tryParse(text) ?? 0;
+                      widget.onSelected(widget.budget);
                     },
                   ),
                 )),

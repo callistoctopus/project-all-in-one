@@ -11,7 +11,7 @@ import 'dart:async';
 
 import 'package:client/dao/bill_dao.dart';
 import 'package:client/model/persistent_object/bill.dart';
-import 'package:client/page/add_bill_page.dart';
+import 'package:client/page/bill_add_page.dart';
 import 'package:flutter/material.dart';
 import 'package:client/component/custom_float_button.dart';
 

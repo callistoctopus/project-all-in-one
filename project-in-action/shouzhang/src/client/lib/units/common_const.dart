@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-11-04 15:49:28
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-14 14:39:13
+ * @LastEditTime: 2022-11-15 05:42:06
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -28,6 +28,7 @@ class ICONS {
 
   static const dynamic USER = Iconsax.user;
   static const dynamic PASSWORD = Iconsax.password_check;
+  static const dynamic DELETE = Iconsax.profile_delete;
 }
 
 class TABLE {

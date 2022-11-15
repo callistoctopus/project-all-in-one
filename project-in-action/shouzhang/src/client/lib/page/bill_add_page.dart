@@ -14,7 +14,7 @@ import 'package:client/component/icon_toggle_buttons.dart';
 import 'package:client/dao/reason_dao.dart';
 import 'package:client/dao/setting_dao.dart';
 import 'package:client/model/persistent_object/financial_reason.dart';
-import 'package:client/page/add_reason_page.dart';
+import 'package:client/page/reason_add_page.dart';
 import 'package:client/units/common_const.dart';
 import 'package:client/units/common_utils.dart';
 import 'package:flutter/material.dart';
