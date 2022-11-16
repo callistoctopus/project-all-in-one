@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-29 01:37:32
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-15 05:06:03
+ * @LastEditTime: 2022-11-15 14:51:31
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -54,7 +54,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     Map<dynamic, Function> para = {
       ICONS.ADD: () {
-        showModalBottomSheet(
+        showBottomSheet(
             context: context,
             builder: (context) => AddBillView(
                   onSaved: (po) => saveBill(po),

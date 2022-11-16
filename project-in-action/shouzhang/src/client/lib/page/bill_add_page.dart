@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-26 15:06:57
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-15 10:41:42
+ * @LastEditTime: 2022-11-15 15:04:01
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -108,27 +108,33 @@ class _AddBillViewState extends State<AddBillView> {
                       List<String> dataList =
                           snapshot.data!.map((e) => e.reason).toList();
                       dataList.add("+追加");
-                      if(dataList.length > 1) {
+                      if (dataList.length > 1) {
                         widget.cpo!.reason = dataList[0];
                       }
-                          // ? widget.cpo!.reason = dataList[0]
-                          // : widget.cpo!.reason;
+                      // ? widget.cpo!.reason = dataList[0]
+                      // : widget.cpo!.reason;
                       return CustomChoiceChip(
                         dataList: dataList,
                         onSelect: (i) {
                           if (i == (dataList.length - 1)) {
                             return showModalBottomSheet(
-                              constraints: const BoxConstraints(maxHeight: 300),
-                              context: context,
-                              builder: (context) => AddFinancialReasonView(
-                                onEvent: (rivo) {
-                                  saveFinancialReason(rivo);
-                                  setState(() {});
-                                },
-                                rivo: FinancialReasonVO()
-                                  ..type = widget.cpo!.type,
-                              ),
-                            );
+                                isScrollControlled: true,
+                                // constraints: const BoxConstraints(maxHeight: 300),
+                                context: context,
+                                builder: (context) => AnimatedPadding(
+                                      padding:
+                                          MediaQuery.of(context).viewInsets,
+                                      duration:
+                                          const Duration(milliseconds: 100),
+                                      child: AddFinancialReasonView(
+                                        onEvent: (rivo) {
+                                          saveFinancialReason(rivo);
+                                          setState(() {});
+                                        },
+                                        rivo: FinancialReasonVO()
+                                          ..type = widget.cpo!.type,
+                                      ),
+                                    ));
                           }
                           widget.cpo!.reason = dataList[i];
                         },
