@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-29 03:31:37
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-16 02:05:25
+ * @LastEditTime: 2022-11-17 12:23:43
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -57,6 +57,8 @@ flutter pub add hive
 flutter pub add hive_flutter
 flutter pub add json_annotation
 flutter pub add fl_chart
+flutter pub add syncfusion_flutter_charts
+flutter pub add percent_indicator
 
 flutter pub add hive_generator --dev
 flutter pub add build_runner --dev

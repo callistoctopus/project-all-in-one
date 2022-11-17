@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-26 15:06:57
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-14 14:41:55
+ * @LastEditTime: 2022-11-17 02:16:29
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -52,13 +52,12 @@ class _LoginPageState extends State<LoginPage> {
             SettingDao.setOfflineMode(false);
             await DataAccessService.login(widget.user, widget.password);
             if (SettingDao.isLogined()) {
+              DataAccessService.syncData();
               context.go(ROUTE.HOME);
             } else {
               SettingDao.setOfflineMode(true);
               CustomSnackBar().show(context, "好像哪里出了问题，已为您开启离线模式");
-              setState(() {
-                
-              });
+              setState(() {});
             }
           }),
         if (widget.isLoginPage)

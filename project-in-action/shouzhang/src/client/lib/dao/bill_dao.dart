@@ -9,7 +9,7 @@
  */
 import 'package:client/dao/account_user_dao.dart';
 import 'package:client/dao/setting_dao.dart';
-import 'package:client/model/persistent_object/bill.dart';
+import 'package:client/model/bill.dart';
 import 'package:client/units/common_const.dart';
 import 'package:client/units/common_utils.dart';
 import 'package:hive_flutter/hive_flutter.dart';

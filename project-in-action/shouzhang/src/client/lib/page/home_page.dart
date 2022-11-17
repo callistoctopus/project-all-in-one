@@ -2,24 +2,23 @@
  * @Author: gui-qi
  * @Date: 2022-10-29 01:37:32
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-17 01:30:41
+ * @LastEditTime: 2022-11-17 13:31:51
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
  */
 import 'package:client/component/custom_float_button.dart';
 import 'package:client/config/route.dart';
-import 'package:client/dao/bill_dao.dart';
-import 'package:client/dao/setting_dao.dart';
 import 'package:client/develop/FadeTransition.dart';
+import 'package:client/page/analysis/Week.dart';
+import 'package:client/page/analysis/month.dart';
+import 'package:client/page/analysis/today.dart';
 import 'package:client/page/setting_page.dart';
-import 'package:client/model/bill.dart';
-import 'package:client/page/add_page.dart';
+import 'package:client/service/analysis_service.dart';
 import 'package:client/service/server_data_access_service.dart';
 import 'package:client/units/common_const.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:uuid/uuid.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -34,20 +33,6 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     DataAccessService.syncData();
-  }
-
-  saveBill(CashInputVO po) {
-    Bill bill = Bill(
-      const Uuid().v1(),
-      SettingDao.currentUser(),
-      DateTime.now(),
-      po.reason,
-      po.type,
-      po.amount,
-      po.note,
-      DateTime.now(),
-    );
-    BillDao.saveBill(bill);
   }
 
   @override
@@ -107,7 +92,30 @@ class _HomePageState extends State<HomePage> {
                   )),
             )),
             Dev.onDevelop(const MyStatefulWidget()),
-
+            SizedBox(height: 150, child: TodayAnalysis()),
+            const Divider(
+              color: Colors.grey,
+              thickness: 0,
+              indent: 20,
+              endIndent: 20,
+              height: 1,
+            ),
+            const SizedBox(height: 150, child: WeekAnalysis()),
+            const Divider(
+              color: Colors.grey,
+              thickness: 0,
+              indent: 20,
+              endIndent: 20,
+              height: 1,
+            ),
+            const SizedBox(height: 150, child: MonthAnalysis()),
+            const Divider(
+              color: Colors.grey,
+              thickness: 0,
+              indent: 20,
+              endIndent: 20,
+              height: 1,
+            ),
             // Text(
             //   '日别，月别，周别，年别，消费分析，建议，警告',
             //
