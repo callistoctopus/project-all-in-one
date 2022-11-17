@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-29 01:37:32
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-14 14:36:41
+ * @LastEditTime: 2022-11-17 00:56:13
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -27,6 +27,12 @@ class _SettingPageState extends State<SettingPage> {
     return PageWithFloatButton(
         child: Column(
       children: [
+        SettingItem2(
+          callback: () {
+            context.go(ROUTE.ACCOUNT);
+          },
+          itemName: '账号',
+        ),
         SettingItem1(
           initValue: SettingDao.isDev(),
           itemName: "开发者模式",
@@ -41,6 +47,13 @@ class _SettingPageState extends State<SettingPage> {
             context.go(ROUTE.DEBUG);
           },
           itemName: '示例',
+        ),
+        SettingItem2(
+          callback: () {
+            SettingDao.setLogined(false);
+            context.go(ROUTE.LOGIN);
+          },
+          itemName: '退出账号',
         ),
       ],
     ));

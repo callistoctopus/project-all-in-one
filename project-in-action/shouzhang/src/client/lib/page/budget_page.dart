@@ -13,7 +13,7 @@ import 'package:client/dao/budget_dao.dart';
 import 'package:client/dao/setting_dao.dart';
 import 'package:client/model/persistent_object/budget.dart';
 import 'package:client/page/ParamStore.dart';
-import 'package:client/page/bill_add_page.dart';
+import 'package:client/page/add_page.dart';
 import 'package:client/component/custom_float_button.dart';
 import 'package:client/units/common_const.dart';
 import 'package:flutter/material.dart';

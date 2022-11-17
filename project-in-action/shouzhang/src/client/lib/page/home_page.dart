@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-29 01:37:32
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-16 14:17:30
+ * @LastEditTime: 2022-11-17 00:57:17
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -12,9 +12,9 @@ import 'package:client/config/route.dart';
 import 'package:client/dao/bill_dao.dart';
 import 'package:client/dao/setting_dao.dart';
 import 'package:client/develop/FadeTransition.dart';
-import 'package:client/develop/setting_page.dart';
+import 'package:client/page/setting_page.dart';
 import 'package:client/model/persistent_object/bill.dart';
-import 'package:client/page/bill_add_page.dart';
+import 'package:client/page/add_page.dart';
 import 'package:client/service/server_data_access_service.dart';
 import 'package:client/units/common_const.dart';
 import 'package:flutter/material.dart';
@@ -56,18 +56,14 @@ class _HomePageState extends State<HomePage> {
       ICONS.ADD: () {
         context.go(ROUTE.ADD_BILL);
       },
-      ICONS.LOGOUT: () {
-        SettingDao.setLogined(false);
-        context.go(ROUTE.LOGIN);
-      },
       ICONS.SETTING: () {
         context.go(ROUTE.SETTING);
       },
-      ICONS.LIST: () {},
     };
 
     return PageWithFloatButton(
       funcIcon: para,
+      defaultForward: false,
       child: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -79,7 +75,7 @@ class _HomePageState extends State<HomePage> {
                 _COMPONENT.verticalDivider(),
                 _COMPONENT.menu(context, '预算', () => context.go(ROUTE.BUDGET)),
                 _COMPONENT.verticalDivider(),
-                _COMPONENT.menu(context, '账本', () => context.go(ROUTE.ACCOUNT)),
+                _COMPONENT.menu(context, '盘账', () => context.go(ROUTE.ACCOUNT)),
               ],
             ),
             const Divider(
