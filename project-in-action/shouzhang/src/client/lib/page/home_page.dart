@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-29 01:37:32
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-15 14:51:31
+ * @LastEditTime: 2022-11-16 14:17:30
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -54,11 +54,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     Map<dynamic, Function> para = {
       ICONS.ADD: () {
-        showBottomSheet(
-            context: context,
-            builder: (context) => AddBillView(
-                  onSaved: (po) => saveBill(po),
-                ));
+        context.go(ROUTE.ADD_BILL);
       },
       ICONS.LOGOUT: () {
         SettingDao.setLogined(false);
@@ -67,13 +63,7 @@ class _HomePageState extends State<HomePage> {
       ICONS.SETTING: () {
         context.go(ROUTE.SETTING);
       },
-      ICONS.LIST: () {
-        showModalBottomSheet(
-            context: context,
-            builder: (context) => AddBillView(
-                  onSaved: (po) => saveBill(po),
-                ));
-      },
+      ICONS.LIST: () {},
     };
 
     return PageWithFloatButton(
@@ -124,7 +114,7 @@ class _HomePageState extends State<HomePage> {
 
             // Text(
             //   '日别，月别，周别，年别，消费分析，建议，警告',
-            //   
+            //
             //   style: Theme.of(context).textTheme.headlineMedium,
             // ),
             // Text(

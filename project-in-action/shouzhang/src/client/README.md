@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-29 03:31:37
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-15 14:14:28
+ * @LastEditTime: 2022-11-16 02:05:25
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -36,6 +36,13 @@ export PUB_HOSTED_URL=https://pub.flutter-io.cn
 export FLUTTER_STORAGE_BASE_URL=https://storage.flutter-io.cn
 
 fultter create client
+flutter build web --base-href=/web/
+docker run -itd \
+     --rm \
+     -p 80:8080 \
+     -v /var/work/git/projects/project-in-action/shouzhang/src/client/build/web:/usr/local/tomcat/webapps/web \
+     --name tomcat9 \
+     tomcat:9.0
 
 flutter pub add english_words
 flutter pub add iconsax

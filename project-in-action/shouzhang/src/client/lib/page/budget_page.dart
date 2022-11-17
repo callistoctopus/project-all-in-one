@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-29 01:37:32
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-15 06:27:25
+ * @LastEditTime: 2022-11-16 14:23:59
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -12,6 +12,7 @@ import 'package:client/config/route.dart';
 import 'package:client/dao/budget_dao.dart';
 import 'package:client/dao/setting_dao.dart';
 import 'package:client/model/persistent_object/budget.dart';
+import 'package:client/page/ParamStore.dart';
 import 'package:client/page/bill_add_page.dart';
 import 'package:client/component/custom_float_button.dart';
 import 'package:client/units/common_const.dart';
@@ -32,19 +33,19 @@ class BudgetSettingPage extends StatefulWidget {
 class _BudgetSettingPageState extends State<BudgetSettingPage> {
   List<Budget> fetchListBudget = [];
 
-  saveBudget(CashInputVO civo) {
-    Budget b = Budget(
-        const Uuid().v1(),
-        SettingDao.currentUser(),
-        SettingDao.budgetYear().toString(),
-        civo.reason,
-        civo.type,
-        civo.amount,
-        civo.note,
-        0,
-        DateTime.now());
-    BudgetDao.saveBudget(b);
-  }
+  // saveBudget(CashInputVO civo) {
+  //   Budget b = Budget(
+  //       const Uuid().v1(),
+  //       SettingDao.currentUser(),
+  //       SettingDao.budgetYear().toString(),
+  //       civo.reason,
+  //       civo.type,
+  //       civo.amount,
+  //       civo.note,
+  //       0,
+  //       DateTime.now());
+  //   BudgetDao.saveBudget(b);
+  // }
 
   @override
   void initState() {
@@ -70,6 +71,9 @@ class _BudgetSettingPageState extends State<BudgetSettingPage> {
     Map<dynamic, Function> para = {
       ICONS.BACK: () {
         context.go(ROUTE.HOME);
+      },
+      ICONS.ADD: () {
+        context.go(ROUTE.ADD_BUDGET);
       }
     };
 
@@ -128,19 +132,20 @@ class _BudgetSettingPageState extends State<BudgetSettingPage> {
                       width: constraints.maxWidth / 2,
                       child: GestureDetector(
                           onTap: () {
-                            showModalBottomSheet(
-                                context: context,
-                                builder: (context) => SizedBox(
-                                      height: 380,
-                                      child: AddBillView(
-                                        onSaved: (po) {
-                                          setState(() {
-                                            saveBudget(po);
-                                          });
-                                        },
-                                        cpo: CashInputVO()..type = 0,
-                                      ),
-                                    ));
+                            // showModalBottomSheet(
+                            //     context: context,
+                            //     builder: (context) => SizedBox(
+                            //           height: 380,
+                            //           child: AddBillView(
+                            //             // onSaved: (po) {
+                            //             //   setState(() {
+                            //             //     saveBudget(po);
+                            //             //   });
+                            //             // },
+                            //             cpo: CashInputVO()..type = 0,
+                            //           ),
+                            //         ));
+                            // context.go(ROUTE.ADD_BUDGET);
                           },
                           child: const Text("支出 +")),
                     ),
@@ -159,18 +164,19 @@ class _BudgetSettingPageState extends State<BudgetSettingPage> {
                       width: constraints.maxWidth / 2,
                       child: GestureDetector(
                           onTap: () {
-                            showModalBottomSheet(
-                                context: context,
-                                builder: (context) => SizedBox(
-                                      height: 380,
-                                      child: AddBillView(
-                                          onSaved: (po) {
-                                            setState(() {
-                                              saveBudget(po);
-                                            });
-                                          },
-                                          cpo: CashInputVO()..type = 1),
-                                    ));
+                            // showModalBottomSheet(
+                            //     context: context,
+                            //     builder: (context) => SizedBox(
+                            //           height: 380,
+                            //           child: AddBillView(
+                            //               // onSaved: (po) {
+                            //               //   setState(() {
+                            //               //     saveBudget(po);
+                            //               //   });
+                            //               // },
+                            //               cpo: CashInputVO()..type = 1),
+                            //         ));
+                            // context.go(ROUTE.ADD_BUDGET);
                           },
                           child: const Text("收入 +")),
                     )

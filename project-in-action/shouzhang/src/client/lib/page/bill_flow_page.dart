@@ -2,18 +2,21 @@
  * @Author: gui-qi
  * @Date: 2022-10-29 01:37:32
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-15 02:43:23
+ * @LastEditTime: 2022-11-16 14:20:23
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
  */
 import 'dart:async';
 
+import 'package:client/config/route.dart';
 import 'package:client/dao/bill_dao.dart';
 import 'package:client/model/persistent_object/bill.dart';
+import 'package:client/page/ParamStore.dart';
 import 'package:client/page/bill_add_page.dart';
 import 'package:flutter/material.dart';
 import 'package:client/component/custom_float_button.dart';
+import 'package:go_router/go_router.dart';
 
 class CashFlowPage extends StatefulWidget {
   const CashFlowPage({super.key});
@@ -69,26 +72,8 @@ class _CashFlowPageState extends State<CashFlowPage> {
                                     
                                   },
                                   onTap: (bill) {
-                                    showModalBottomSheet(
-                                      context: context,
-                                      builder: (context) => AddBillView(
-                                        onSaved: (po) {
-                                          bill.reason = po.reason;
-                                          bill.type = po.type;
-                                          bill.amount = po.amount;
-                                          bill.note = po.note;
-                                          BillDao.saveBill(bill);
-                                          setState(() {
-                                            
-                                          });
-                                        },
-                                        cpo: CashInputVO()
-                                          ..amount = bill.amount
-                                          ..reason = bill.reason
-                                          ..type = bill.type
-                                          ..note = bill.note,
-                                      ),
-                                    );
+                                    PageParamStore.bill = bill;
+                                    context.go(ROUTE.EDIT_BILL);
                                   },
                                 ));
                           }

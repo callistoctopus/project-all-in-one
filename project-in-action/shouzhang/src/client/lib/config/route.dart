@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-11-09 12:54:29
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-14 14:37:18
+ * @LastEditTime: 2022-11-16 14:19:49
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -11,6 +11,7 @@ import 'package:client/dao/setting_dao.dart';
 import 'package:client/develop/dev_sample_page.dart';
 import 'package:client/develop/setting_page.dart';
 import 'package:client/page/account_page.dart';
+import 'package:client/page/bill_add_page.dart';
 import 'package:client/page/home_page.dart';
 import 'package:client/page/bill_flow_page.dart';
 import 'package:client/page/budget_page.dart';
@@ -25,7 +26,8 @@ class RouteConfig {
         GoRoute(
           path: ROUTE.HOME,
           builder: (BuildContext context, GoRouterState state) {
-            return const Scaffold(body: HomePage());
+            return const Scaffold(
+                resizeToAvoidBottomInset: true, body: HomePage());
           },
         ),
         GoRoute(
@@ -64,6 +66,15 @@ class RouteConfig {
             return const SettingPage();
           },
         ),
+        GoRoute(
+          path: ROUTE.EDIT,
+          builder: (BuildContext context, GoRouterState state) {
+            return AddBillView(
+                cpo: CashInputVO()
+                  ..editType = int.parse(state.queryParams["editType"] ?? "0")
+                  ..dataType = int.parse(state.queryParams["dataType"] ?? "0"));
+          },
+        ),
       ],
       redirect: (context, state) {
         if (SettingDao.isLogined() || SettingDao.isOfflineMode()) {
@@ -78,11 +89,15 @@ class RouteConfig {
 class ROUTE {
   static const String HOME = '/';
   static const String BILLS = '/bills';
-  static const String ADD_BILL = '/add_bill';
+  static const String EDIT = '/add';
   static const String ADD_REASON = '/add_reason';
   static const String LOGIN = '/login';
   static const String BUDGET = '/budget';
   static const String ACCOUNT = '/account';
   static const String DEBUG = '/debig';
   static const String SETTING = '/setting';
+  static const String ADD_BILL = '$EDIT?editType=0&dataType=0';
+  static const String EDIT_BILL = '$EDIT?editType=1&dataType=0';
+  static const String ADD_BUDGET = '$EDIT?editType=0&dataType=1';
+  static const String EDIT_BUDGET = '$EDIT?editType=1&dataType=1';
 }
