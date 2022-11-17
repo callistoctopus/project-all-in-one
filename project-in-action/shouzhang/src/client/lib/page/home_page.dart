@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-29 01:37:32
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-17 00:57:17
+ * @LastEditTime: 2022-11-17 01:30:41
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -13,7 +13,7 @@ import 'package:client/dao/bill_dao.dart';
 import 'package:client/dao/setting_dao.dart';
 import 'package:client/develop/FadeTransition.dart';
 import 'package:client/page/setting_page.dart';
-import 'package:client/model/persistent_object/bill.dart';
+import 'package:client/model/bill.dart';
 import 'package:client/page/add_page.dart';
 import 'package:client/service/server_data_access_service.dart';
 import 'package:client/units/common_const.dart';

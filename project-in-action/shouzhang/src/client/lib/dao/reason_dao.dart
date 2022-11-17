@@ -2,14 +2,14 @@
  * @Author: gui-qi
  * @Date: 2022-11-14 14:23:27
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-15 02:19:37
+ * @LastEditTime: 2022-11-17 01:30:22
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
  */
 import 'package:client/dao/account_user_dao.dart';
 import 'package:client/dao/setting_dao.dart';
-import 'package:client/model/persistent_object/financial_reason.dart';
+import 'package:client/model/financial_reason.dart';
 import 'package:client/units/common_const.dart';
 import 'package:client/units/common_utils.dart';
 import 'package:hive_flutter/hive_flutter.dart';

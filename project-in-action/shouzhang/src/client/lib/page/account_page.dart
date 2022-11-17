@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-26 15:06:57
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-15 13:22:30
+ * @LastEditTime: 2022-11-17 01:29:10
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -11,8 +11,8 @@ import 'package:client/component/custom_float_button.dart';
 import 'package:client/dao/account_dao.dart';
 import 'package:client/dao/account_user_dao.dart';
 import 'package:client/dao/setting_dao.dart';
-import 'package:client/model/persistent_object/account.dart';
-import 'package:client/model/persistent_object/account_user.dart';
+import 'package:client/model/account.dart';
+import 'package:client/model/account_user.dart';
 import 'package:client/units/common_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';

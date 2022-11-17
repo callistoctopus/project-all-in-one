@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-29 01:37:32
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-16 14:23:59
+ * @LastEditTime: 2022-11-17 01:30:34
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -11,7 +11,7 @@ import 'package:client/component/custom_snack_bar.dart';
 import 'package:client/config/route.dart';
 import 'package:client/dao/budget_dao.dart';
 import 'package:client/dao/setting_dao.dart';
-import 'package:client/model/persistent_object/budget.dart';
+import 'package:client/model/budget.dart';
 import 'package:client/page/ParamStore.dart';
 import 'package:client/page/add_page.dart';
 import 'package:client/component/custom_float_button.dart';

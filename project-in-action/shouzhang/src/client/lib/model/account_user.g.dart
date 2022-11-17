@@ -1,6 +1,15 @@
+/*
+ * @Author: gui-qi
+ * @Date: 2022-11-09 10:00:06
+ * @LastEditors: gui-qi
+ * @LastEditTime: 2022-11-17 01:28:58
+ * @Description: 
+ * 
+ * Copyright (c) 2022, All Rights Reserved. 
+ */
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'account_user.dart';
+part of './account_user.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator

@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-29 01:37:32
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-16 14:20:23
+ * @LastEditTime: 2022-11-17 01:30:30
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -11,7 +11,7 @@ import 'dart:async';
 
 import 'package:client/config/route.dart';
 import 'package:client/dao/bill_dao.dart';
-import 'package:client/model/persistent_object/bill.dart';
+import 'package:client/model/bill.dart';
 import 'package:client/page/ParamStore.dart';
 import 'package:client/page/add_page.dart';
 import 'package:flutter/material.dart';
