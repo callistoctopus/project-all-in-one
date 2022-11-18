@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-11-09 12:54:29
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-18 01:27:00
+ * @LastEditTime: 2022-11-18 03:24:43
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -26,13 +26,15 @@ class RouteConfig {
         GoRoute(
           path: ROUTE.HOME,
           builder: (BuildContext context, GoRouterState state) {
-            return const Scaffold(
-                resizeToAvoidBottomInset: true, body: HomePage());
+            return const Scaffold(body: HomePage());
           },
         ),
         GoRoute(
           path: ROUTE.LOGIN,
           builder: (BuildContext context, GoRouterState state) {
+            if(SettingDao.isLogined() || SettingDao.isOfflineMode()){
+              return const Scaffold(body: HomePage());
+            }
             return Scaffold(body: LoginPage());
           },
         ),

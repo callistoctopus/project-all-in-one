@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-11-09 12:50:18
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-17 01:29:30
+ * @LastEditTime: 2022-11-18 06:59:03
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -38,5 +38,15 @@ class DB {
     await Hive.openBox<Bill>(TABLE.bill);
     await Hive.openBox<Account>(TABLE.account);
     await Hive.openBox<AccountUser>(TABLE.accountUser);
+  }
+
+  static Future clear() async{
+    await Hive.box(TABLE.setting).clear();
+    await Hive.box<FinancialReason>(TABLE.financialReason).clear();
+    await Hive.box<Budget>(TABLE.budget).clear();
+    await Hive.box<Bill>(TABLE.bill).clear();
+    await Hive.box<Account>(TABLE.account).clear();
+    await Hive.box<AccountUser>(TABLE.accountUser).clear();
+    return;
   }
 }

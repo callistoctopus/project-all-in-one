@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-29 01:37:32
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-17 14:31:42
+ * @LastEditTime: 2022-11-18 06:59:21
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -10,6 +10,7 @@
 import 'package:client/component/custom_float_button.dart';
 import 'package:client/config/route.dart';
 import 'package:client/dao/setting_dao.dart';
+import 'package:client/service/local_database_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -86,14 +87,28 @@ class _SettingPageState extends State<SettingPage> {
         ),
         SettingItem2(
           callback: () {
+            DB.clear();
+            context.go(ROUTE.LOGIN);
+          },
+          itemName: '恢复出厂设置',
+        ),
+        const Divider(
+          color: Colors.grey,
+          thickness: 0,
+          indent: 20,
+          endIndent: 20,
+          height: 1,
+        ),
+        SettingItem2(
+          callback: () {
             showAboutDialog(
-              context: context,
-              applicationVersion: "0.0.1",
-              applicationName: "丫丫记账",
-              applicationIcon: const Icon(Iconsax.pen_tool),
-              applicationLegalese: "Copyright © 2022 QI YAZI. All rights reserved.",
-              useRootNavigator:false
-            );
+                context: context,
+                applicationVersion: "0.0.1",
+                applicationName: "丫丫记账",
+                applicationIcon: const Icon(Iconsax.pen_tool),
+                applicationLegalese:
+                    "Copyright © 2022 QI YAZI. All rights reserved.",
+                useRootNavigator: false);
           },
           itemName: '关于',
         ),

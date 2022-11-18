@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-29 01:37:32
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-17 01:30:34
+ * @LastEditTime: 2022-11-18 03:41:24
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -32,20 +32,6 @@ class BudgetSettingPage extends StatefulWidget {
 
 class _BudgetSettingPageState extends State<BudgetSettingPage> {
   List<Budget> fetchListBudget = [];
-
-  // saveBudget(CashInputVO civo) {
-  //   Budget b = Budget(
-  //       const Uuid().v1(),
-  //       SettingDao.currentUser(),
-  //       SettingDao.budgetYear().toString(),
-  //       civo.reason,
-  //       civo.type,
-  //       civo.amount,
-  //       civo.note,
-  //       0,
-  //       DateTime.now());
-  //   BudgetDao.saveBudget(b);
-  // }
 
   @override
   void initState() {
@@ -131,23 +117,7 @@ class _BudgetSettingPageState extends State<BudgetSettingPage> {
                       height: 20,
                       width: constraints.maxWidth / 2,
                       child: GestureDetector(
-                          onTap: () {
-                            // showModalBottomSheet(
-                            //     context: context,
-                            //     builder: (context) => SizedBox(
-                            //           height: 380,
-                            //           child: AddBillView(
-                            //             // onSaved: (po) {
-                            //             //   setState(() {
-                            //             //     saveBudget(po);
-                            //             //   });
-                            //             // },
-                            //             cpo: CashInputVO()..type = 0,
-                            //           ),
-                            //         ));
-                            // context.go(ROUTE.ADD_BUDGET);
-                          },
-                          child: const Text("支出 +")),
+                          onTap: () {}, child: const Text("支出 +")),
                     ),
                     const SizedBox(
                         height: 20,
@@ -163,22 +133,7 @@ class _BudgetSettingPageState extends State<BudgetSettingPage> {
                       height: 20,
                       width: constraints.maxWidth / 2,
                       child: GestureDetector(
-                          onTap: () {
-                            // showModalBottomSheet(
-                            //     context: context,
-                            //     builder: (context) => SizedBox(
-                            //           height: 380,
-                            //           child: AddBillView(
-                            //               // onSaved: (po) {
-                            //               //   setState(() {
-                            //               //     saveBudget(po);
-                            //               //   });
-                            //               // },
-                            //               cpo: CashInputVO()..type = 1),
-                            //         ));
-                            // context.go(ROUTE.ADD_BUDGET);
-                          },
-                          child: const Text("收入 +")),
+                          onTap: () {}, child: const Text("收入 +")),
                     )
                   ]),
               SizedBox(
@@ -312,9 +267,9 @@ class _InputWithTestState extends State<InputWithTest> {
                       hintText: widget.oldBudget,
                     ),
                     onChanged: (String text) {
-                      if(double.tryParse(text) ==null){
-                         CustomSnackBar().show(context, "您输入的不是数字");
-                         return;
+                      if (double.tryParse(text) == null) {
+                        CustomSnackBar().show(context, "您输入的不是数字");
+                        return;
                       }
                       widget.budget.budget = double.tryParse(text) ?? 0;
                       widget.onSelected(widget.budget);

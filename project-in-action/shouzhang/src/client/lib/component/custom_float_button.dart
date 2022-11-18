@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-11-02 15:26:48
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-18 01:31:57
+ * @LastEditTime: 2022-11-18 08:37:35
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -33,16 +33,17 @@ class PageWithFloatButton extends StatelessWidget {
       alignment: AlignmentDirectional.center,
       children: <Widget>[
         child,
-        showFloatBottom ? FlowMenu(menuMap: funcIcon = funcIcon ?? para2):SizedBox(),
+        showFloatBottom ? FlowMenu(menuMap: funcIcon = funcIcon ?? para2, defaultForward: defaultForward):SizedBox(),
       ],
     );
   }
 }
 
 class FlowMenu extends StatefulWidget {
-  const FlowMenu({required this.menuMap, super.key});
+  FlowMenu({required this.menuMap, this.defaultForward = true, super.key});
 
   final Map<dynamic, Function> menuMap;
+  bool defaultForward = true;
 
   @override
   State<FlowMenu> createState() => _FlowMenuState();
@@ -66,7 +67,9 @@ class _FlowMenuState extends State<FlowMenu>
       duration: const Duration(milliseconds: 250),
       vsync: this,
     );
-    animationController.forward();
+    if(widget.defaultForward) {
+      animationController.forward();
+    }
   }
 
   Widget flowMenuItem(dynamic icon, Function? func) {
@@ -98,7 +101,8 @@ class _FlowMenuState extends State<FlowMenu>
                     backgroundColor: Colors.white,
                     child: Text(
                       icon,
-                      style: const TextStyle(color: Colors.black),
+                      maxLines:1,
+                      style: const TextStyle(color: Colors.black,fontSize: 13),
                     )),
           ),
         ));

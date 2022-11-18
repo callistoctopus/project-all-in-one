@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-11-17 08:06:58
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-17 13:08:56
+ * @LastEditTime: 2022-11-18 02:33:35
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -20,16 +20,11 @@ class WeekAnalysis extends StatefulWidget {
 class WeekAnalysisState extends State<WeekAnalysis> {
   @override
   Widget build(BuildContext context) {
-    return const AspectRatio(
+    return const Center(
+        child: AspectRatio(
       aspectRatio: 2,
       child: _BarChart(),
-      // Card(
-      //   elevation: 0,
-      //   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
-      //   color: const Color(0xff2c4260),
-      //   child: const _BarChart(),
-      // ),
-    );
+    ));
   }
 }
 
@@ -66,8 +61,8 @@ class _BarChart extends StatelessWidget {
             return BarTooltipItem(
               rod.toY.round().toString(),
               const TextStyle(
-                color: Colors.black,
-                fontWeight: FontWeight.bold,
+                color: Colors.black87,
+                fontWeight: FontWeight.normal,
               ),
             );
           },
@@ -76,8 +71,8 @@ class _BarChart extends StatelessWidget {
 
   Widget getTitles(double value, TitleMeta meta) {
     const style = TextStyle(
-      color: Color(0xff7589a2),
-      fontWeight: FontWeight.bold,
+      color: Colors.black87,
+      fontWeight: FontWeight.normal,
       fontSize: 14,
     );
     String text;

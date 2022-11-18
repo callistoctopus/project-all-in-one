@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-29 01:37:32
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-18 01:42:26
+ * @LastEditTime: 2022-11-18 02:11:46
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -48,7 +48,7 @@ class _BillListPageState extends State<BillListPage> {
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
                       return ListView.separated(
-                        itemCount: widget.shortMode ? 20 : 100,
+                        itemCount: widget.shortMode ? 4 : 100,
                         itemBuilder: (context, i) {
                           if (i >= snapshot.data!.length) {
                             return Row(

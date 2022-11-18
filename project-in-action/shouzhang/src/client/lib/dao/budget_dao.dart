@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-11-14 14:25:28
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-15 06:19:46
+ * @LastEditTime: 2022-11-18 06:54:59
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -17,6 +17,19 @@ import 'package:uuid/uuid.dart';
 
 class BudgetDao {
   static List<Budget> fetchListBudget() {
+    List<Budget> list = [];
+    List<String?> userList = AccountUserDao.getSharedUser();
+    Hive.box<Budget>(TABLE.budget).values.forEach((element) {
+      if (userList.contains(element.user) &&
+          element.year == SettingDao.budgetYear().toString() && element.isDeleted == 0) {
+        list.add(element);
+      }
+    });
+
+    return list;
+  }
+
+  static Future<List<Budget>> fetchListBudgetFuture() async{
     List<Budget> list = [];
     List<String?> userList = AccountUserDao.getSharedUser();
     Hive.box<Budget>(TABLE.budget).values.forEach((element) {

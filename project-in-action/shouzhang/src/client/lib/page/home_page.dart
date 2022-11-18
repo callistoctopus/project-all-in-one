@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-29 01:37:32
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-18 01:39:08
+ * @LastEditTime: 2022-11-18 09:36:02
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -17,8 +17,10 @@ import 'package:client/page/bill_list_page.dart';
 import 'package:client/page/setting_page.dart';
 import 'package:client/service/server_data_access_service.dart';
 import 'package:client/units/common_const.dart';
+import 'package:client/units/common_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:iconsax/iconsax.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -41,26 +43,24 @@ class _HomePageState extends State<HomePage> {
       ICONS.ADD: () {
         context.go(ROUTE.ADD_BILL);
       },
-      ICONS.SETTING: () {
-        context.go(ROUTE.SETTING);
-      },
     };
 
     return PageWithFloatButton(
       funcIcon: para,
       defaultForward: false,
       child: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
+        child: ListView(
           children: <Widget>[
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                _COMPONENT.menu(context, '流水', () => context.go(ROUTE.BILLS)),
+                Text(CommonUtils.now().toString().substring(0, 10)),
+                const Text("杭州"),
+                const Text("晴"),
+                const Text("21℃"),
+                const Text("状态：良好"),
                 _COMPONENT.verticalDivider(),
-                _COMPONENT.menu(context, '预算', () => context.go(ROUTE.BUDGET)),
-                _COMPONENT.verticalDivider(),
-                _COMPONENT.menu(context, '盘账', () => context.go(ROUTE.ACCOUNT)),
+                GestureDetector(onTap:(){context.go(ROUTE.SETTING);}, child: const Icon(Iconsax.more_square)),
               ],
             ),
             const Divider(
@@ -70,29 +70,7 @@ class _HomePageState extends State<HomePage> {
               endIndent: 20,
               height: 1,
             ),
-            Dev.onDevelop(Padding(
-              padding: const EdgeInsets.only(top: 15),
-              child: GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      selected = !selected;
-                    });
-                  },
-                  child: AnimatedContainer(
-                    height: selected ? 100.0 : 180.0,
-                    color: selected ? Colors.yellow : Colors.blue,
-                    alignment: selected
-                        ? Alignment.center
-                        : AlignmentDirectional.topStart,
-                    duration: const Duration(milliseconds: 600),
-                    curve: Curves.fastOutSlowIn,
-                    child: const Card(
-                      child: Text("今天"),
-                    ),
-                  )),
-            )),
-            Dev.onDevelop(const MyStatefulWidget()),
-            SizedBox(height: 150, child: TodayAnalysis()),
+            _COMPONENT.chart("今日指标", "", () {}, TodayAnalysis()),
             const Divider(
               color: Colors.grey,
               thickness: 0,
@@ -100,7 +78,7 @@ class _HomePageState extends State<HomePage> {
               endIndent: 20,
               height: 1,
             ),
-            const SizedBox(height: 150, child: WeekAnalysis()),
+            _COMPONENT.chart("本周消费", "", () {}, const WeekAnalysis()),
             const Divider(
               color: Colors.grey,
               thickness: 0,
@@ -108,7 +86,8 @@ class _HomePageState extends State<HomePage> {
               endIndent: 20,
               height: 1,
             ),
-            const SizedBox(height: 150, child: MonthAnalysis()),
+            _COMPONENT.chart("${CommonUtils.now().month}月度消费趋势", "", () {},
+                const MonthAnalysis()),
             const Divider(
               color: Colors.grey,
               thickness: 0,
@@ -116,25 +95,37 @@ class _HomePageState extends State<HomePage> {
               endIndent: 20,
               height: 1,
             ),
-            SizedBox(
-                height: 150,
-                child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Container(
-                          alignment: Alignment.centerLeft,
-                          padding: const EdgeInsets.only(left: 20, top: 3,right: 15),
-                          height: 20,
-                          child: Row(
-                            mainAxisAlignment:MainAxisAlignment.spaceBetween,
-                            children: [
-                            const Text("消费明细",style: TextStyle(fontSize: 12),),
-                            TextButton(
-                                onPressed: () => context.go(ROUTE.BILLS),
-                                child: const Text("详细"))
-                          ])),
-                       SizedBox(height: 130, child: BillListPage(shortMode: true,))
-                    ])),
+            _COMPONENT.chart(
+                "消费明细",
+                "详细",
+                () => context.go(ROUTE.BILLS),
+                BillListPage(
+                  shortMode: true,
+                )),
+            const Divider(
+              color: Colors.grey,
+              thickness: 0,
+              indent: 20,
+              endIndent: 20,
+              height: 1,
+            ),
+            _COMPONENT.chart("参考评分", "", () {}, const SizedBox()),
+            const Divider(
+              color: Colors.grey,
+              thickness: 0,
+              indent: 20,
+              endIndent: 20,
+              height: 1,
+            ),
+            _COMPONENT.chart("预算储备", "管理", () {context.go(ROUTE.BUDGET);}, const SizedBox()),
+            const Divider(
+              color: Colors.grey,
+              thickness: 0,
+              indent: 20,
+              endIndent: 20,
+              height: 1,
+            ),
+            _COMPONENT.chart("资产状态", "盘账", () {}, const SizedBox()),
             const Divider(
               color: Colors.grey,
               thickness: 0,
@@ -144,7 +135,6 @@ class _HomePageState extends State<HomePage> {
             ),
             // Text(
             //   '日别，月别，周别，年别，消费分析，建议，警告',
-            //
             //   style: Theme.of(context).textTheme.headlineMedium,
             // ),
             // Text(
@@ -189,11 +179,11 @@ class _HomePageState extends State<HomePage> {
 class _COMPONENT {
   static Widget menu(BuildContext context, String title, Function onEvent) {
     return Expanded(
-        child: GestureDetector(
-            onTap: () {
-              onEvent();
-            },
-            child: SizedBox(
+            child: GestureDetector(
+        onTap: () {
+          onEvent();
+        },
+        child: SizedBox(
                 height: 30,
                 child:
                     Center(child: Text(title, textAlign: TextAlign.center)))));
@@ -201,7 +191,7 @@ class _COMPONENT {
 
   static Widget verticalDivider() {
     return const SizedBox(
-        height: 30,
+        height: 25,
         child: VerticalDivider(
           color: Colors.grey,
           thickness: 1,
@@ -209,5 +199,31 @@ class _COMPONENT {
           indent: 2,
           endIndent: 2,
         ));
+  }
+
+  static Widget chart(
+      String title, String link, Function callback, Widget child) {
+    return SizedBox(
+        height: 150,
+        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          Container(
+              alignment: Alignment.centerLeft,
+              padding: const EdgeInsets.only(left: 20, top: 3, right: 20),
+              height: 20,
+              child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      title,
+                      style: const TextStyle(fontSize: 12),
+                    ),
+                    GestureDetector(
+                        onTap: () => callback(),
+                        child: Text(link,
+                            style: const TextStyle(
+                                fontSize: 12, color: Colors.blueAccent)))
+                  ])),
+          SizedBox(height: 130, child: child)
+        ]));
   }
 }

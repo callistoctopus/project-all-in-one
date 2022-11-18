@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-11-04 15:49:28
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-15 05:42:06
+ * @LastEditTime: 2022-11-18 08:24:02
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -14,7 +14,7 @@ import 'package:iconsax/iconsax.dart';
 class CommonConst {}
 
 class ICONS {
-  static dynamic ADD = SettingDao.isDev() == true ? Iconsax.add : "追加";
+  static dynamic ADD = SettingDao.isDev() == true ? Iconsax.add : "记一笔";
   static dynamic BUG = SettingDao.isDev() == true ? Icons.bug_report_rounded : "开发";
   static dynamic LIST = SettingDao.isDev() == true ? Iconsax.receipt : "账单";
   static dynamic BUDGET = SettingDao.isDev() == true ? Iconsax.activity : "预算";
@@ -25,6 +25,7 @@ class ICONS {
   static dynamic LOGOUT = SettingDao.isDev() == true ? Iconsax.logout : "登出";
   static dynamic BOOK = SettingDao.isDev() == true ? Iconsax.book_1 : "账号";
   static dynamic SETTING = SettingDao.isDev() == true ? Iconsax.setting_2 : "设置";
+  static dynamic CALCULATOR = SettingDao.isDev() == true ? Iconsax.calculator : "盘账";
 
   static const dynamic USER = Iconsax.user;
   static const dynamic PASSWORD = Iconsax.password_check;

@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-11-17 08:06:58
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-18 00:42:05
+ * @LastEditTime: 2022-11-18 02:32:47
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -43,7 +43,7 @@ class MonthAnalysis extends StatelessWidget {
   }
 
   Widget leftTitleWidgets(double value, TitleMeta meta) {
-    const style = TextStyle(color: Colors.green, fontSize: 12);
+    const style = TextStyle(color: Colors.black87, fontSize: 12);
     return SideTitleWidget(
       axisSide: meta.axisSide,
       child: Text('${value.toInt()}', style: style),
@@ -52,7 +52,7 @@ class MonthAnalysis extends StatelessWidget {
 
   static const _dateTextStyle = TextStyle(
     fontSize: 10,
-    color: Colors.black,
+    color: Colors.black87,
     fontWeight: FontWeight.normal,
   );
 
@@ -61,9 +61,9 @@ class MonthAnalysis extends StatelessWidget {
     const cutOffYValue = 5.0;
 
     return AspectRatio(
-      aspectRatio: 2.4,
+      aspectRatio: 2.6,
       child: Padding(
-        padding: const EdgeInsets.all(10),
+        padding: const EdgeInsets.only(left: 20, top: 8, bottom: 6),
         child: LineChart(
           LineChartData(
             borderData: FlBorderData(
@@ -131,10 +131,6 @@ class MonthAnalysis extends StatelessWidget {
               show: true,
               topTitles: AxisTitles(
                 axisNameSize: 20,
-                axisNameWidget: const Text(
-                  '2022年11月消费趋势',
-                  style: _dateTextStyle,
-                ),
                 sideTitles: SideTitles(
                   showTitles: false,
                   reservedSize: 30,
@@ -163,7 +159,6 @@ class MonthAnalysis extends StatelessWidget {
                 ),
               ),
             ),
-
           ),
         ),
       ),
