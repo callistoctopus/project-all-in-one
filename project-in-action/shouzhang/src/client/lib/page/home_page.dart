@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-29 01:37:32
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-17 13:31:51
+ * @LastEditTime: 2022-11-18 01:39:08
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -13,8 +13,8 @@ import 'package:client/develop/FadeTransition.dart';
 import 'package:client/page/analysis/Week.dart';
 import 'package:client/page/analysis/month.dart';
 import 'package:client/page/analysis/today.dart';
+import 'package:client/page/bill_list_page.dart';
 import 'package:client/page/setting_page.dart';
-import 'package:client/service/analysis_service.dart';
 import 'package:client/service/server_data_access_service.dart';
 import 'package:client/units/common_const.dart';
 import 'package:flutter/material.dart';
@@ -109,6 +109,32 @@ class _HomePageState extends State<HomePage> {
               height: 1,
             ),
             const SizedBox(height: 150, child: MonthAnalysis()),
+            const Divider(
+              color: Colors.grey,
+              thickness: 0,
+              indent: 20,
+              endIndent: 20,
+              height: 1,
+            ),
+            SizedBox(
+                height: 150,
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                          alignment: Alignment.centerLeft,
+                          padding: const EdgeInsets.only(left: 20, top: 3,right: 15),
+                          height: 20,
+                          child: Row(
+                            mainAxisAlignment:MainAxisAlignment.spaceBetween,
+                            children: [
+                            const Text("消费明细",style: TextStyle(fontSize: 12),),
+                            TextButton(
+                                onPressed: () => context.go(ROUTE.BILLS),
+                                child: const Text("详细"))
+                          ])),
+                       SizedBox(height: 130, child: BillListPage(shortMode: true,))
+                    ])),
             const Divider(
               color: Colors.grey,
               thickness: 0,

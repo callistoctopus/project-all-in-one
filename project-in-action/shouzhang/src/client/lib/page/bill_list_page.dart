@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-29 01:37:32
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-17 01:30:30
+ * @LastEditTime: 2022-11-18 01:42:26
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -13,41 +13,42 @@ import 'package:client/config/route.dart';
 import 'package:client/dao/bill_dao.dart';
 import 'package:client/model/bill.dart';
 import 'package:client/page/ParamStore.dart';
-import 'package:client/page/add_page.dart';
 import 'package:flutter/material.dart';
 import 'package:client/component/custom_float_button.dart';
 import 'package:go_router/go_router.dart';
 
-class CashFlowPage extends StatefulWidget {
-  const CashFlowPage({super.key});
+class BillListPage extends StatefulWidget {
+  BillListPage({super.key, this.shortMode = false});
+
+  bool shortMode;
 
   @override
-  State<CashFlowPage> createState() => _CashFlowPageState();
+  State<BillListPage> createState() => _BillListPageState();
 }
 
-class _CashFlowPageState extends State<CashFlowPage> {
+class _BillListPageState extends State<BillListPage> {
   late Future<List<Bill>> futureListBill;
 
   @override
   void initState() {
     super.initState();
-    try {
-      futureListBill = BillDao.futureListBill();
-    } on Exception {}
+    futureListBill = BillDao.futureListBill();
   }
 
   @override
   Widget build(BuildContext context) {
     return PageWithFloatButton(
+      showFloatBottom: widget.shortMode ? false : true,
       child: Scaffold(
           body: Padding(
-              padding: const EdgeInsets.only(left: 20, right: 20, top: 15),
+              padding: EdgeInsets.only(
+                  left: 30, right: 20, top: widget.shortMode ? 5 : 20),
               child: FutureBuilder<List<Bill>>(
                   future: futureListBill,
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
                       return ListView.separated(
-                        itemCount: 100,
+                        itemCount: widget.shortMode ? 20 : 100,
                         itemBuilder: (context, i) {
                           if (i >= snapshot.data!.length) {
                             return Row(
@@ -68,9 +69,7 @@ class _CashFlowPageState extends State<CashFlowPage> {
                                 },
                                 child: BillRow(
                                   bill: snapshot.data![i],
-                                  onLongPress: (bill) {
-                                    
-                                  },
+                                  onLongPress: (bill) {},
                                   onTap: (bill) {
                                     PageParamStore.bill = bill;
                                     context.go(ROUTE.EDIT_BILL);
@@ -79,8 +78,12 @@ class _CashFlowPageState extends State<CashFlowPage> {
                           }
                         },
                         separatorBuilder: (BuildContext context, int index) =>
-                            const Divider(
-                                height: 17, color: Colors.grey, thickness: 0),
+                            Divider(
+                                height: widget.shortMode ? 8 : 17,
+                                color: widget.shortMode
+                                    ? Colors.white38
+                                    : Colors.grey,
+                                thickness: 0),
                       );
                     } else if (snapshot.hasError) {
                       return Text('${snapshot.error}');
@@ -123,9 +126,17 @@ class BillRow extends StatelessWidget {
         child: Row(
           children: [
             Expanded(
-                flex: 1, child: Text(bill.time.toString().substring(0, 10))),
-            Expanded(flex: 1, child: Text(bill.user)),
-            Expanded(flex: 1, child: Text(bill.reason)),
+                flex: 1,
+                child: Text(bill.time.toString().substring(0, 10),
+                    style: const TextStyle(color: Colors.black54))),
+            Expanded(
+                flex: 1,
+                child: Text(bill.user,
+                    style: const TextStyle(color: Colors.black54))),
+            Expanded(
+                flex: 1,
+                child: Text(bill.reason,
+                    style: const TextStyle(color: Colors.black87))),
             Expanded(flex: 1, child: Text(amount, style: ts)),
           ],
         ));

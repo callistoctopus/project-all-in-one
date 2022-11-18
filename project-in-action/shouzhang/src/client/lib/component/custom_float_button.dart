@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-11-02 15:26:48
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-14 14:42:31
+ * @LastEditTime: 2022-11-18 01:31:57
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -15,9 +15,10 @@ import 'package:go_router/go_router.dart';
 // ignore: must_be_immutable
 class PageWithFloatButton extends StatelessWidget {
   PageWithFloatButton(
-      {required this.child, this.funcIcon, super.key, this.defaultForward});
+      {required this.child, this.funcIcon, super.key, this.defaultForward = true, this.showFloatBottom = true});
   Map<dynamic, Function>? funcIcon;
-  bool? defaultForward = true;
+  bool defaultForward = true;
+  bool showFloatBottom;
   final Widget child;
 
   @override
@@ -32,7 +33,7 @@ class PageWithFloatButton extends StatelessWidget {
       alignment: AlignmentDirectional.center,
       children: <Widget>[
         child,
-        FlowMenu(menuMap: funcIcon = funcIcon ?? para2),
+        showFloatBottom ? FlowMenu(menuMap: funcIcon = funcIcon ?? para2):SizedBox(),
       ],
     );
   }

@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-11-09 12:54:29
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-16 14:19:49
+ * @LastEditTime: 2022-11-18 01:27:00
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -39,7 +39,7 @@ class RouteConfig {
         GoRoute(
           path: ROUTE.BILLS,
           builder: (BuildContext context, GoRouterState state) {
-            return const Scaffold(body: CashFlowPage());
+            return Scaffold(body: BillListPage());
           },
         ),
         GoRoute(
