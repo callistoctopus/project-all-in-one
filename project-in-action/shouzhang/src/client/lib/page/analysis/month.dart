@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-11-17 08:06:58
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-17 13:58:59
+ * @LastEditTime: 2022-11-18 00:42:05
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -19,96 +19,18 @@ class MonthAnalysis extends StatelessWidget {
       case 0:
         text = '1';
         break;
-      // case 1:
-      //   text = '';
-      //   break;
-      // case 2:
-      //   text = '';
-      //   break;
-      // case 3:
-      //   text = '';
-      //   break;
-      // case 4:
-      //   text = '';
-      //   break;
-      // case 5:
-      //   text = '';
-      //   break;
       case 6:
         text = '7';
         break;
-      // case 7:
-      //   text = '8';
-      //   break;
-      // case 8:
-      //   text = '9';
-      //   break;
-      // case 9:
-      //   text = '10';
-      //   break;
-      // case 10:
-      //   text = '11';
-      //   break;
-      // case 11:
-      //   text = '12';
-      //   break;
-      // case 12:
-      //   text = '12';
-      //   break;
       case 13:
         text = '14';
         break;
-      // case 14:
-      //   text = '14';
-      //   break;
-      // case 15:
-      //   text = '15';
-      //   break;
-      // case 16:
-      //   text = '16';
-      //   break;
-      // case 17:
-      //   text = '17';
-      //   break;
-      // case 18:
-      //   text = '18';
-      //   break;
-      // case 19:
-      //   text = '19';
-      //   break;
       case 20:
         text = '21';
         break;
-      // case 21:
-      //   text = '21';
-      //   break;
-      // case 22:
-      //   text = '22';
-      //   break;
-      // case 23:
-      //   text = '23';
-      //   break;
-      // case 24:
-      //   text = '24';
-      //   break;
-      // case 25:
-      //   text = '25';
-      //   break;
-      // case 26:
-      //   text = '26';
-      //   break;
       case 27:
         text = '28';
         break;
-      // case 28:
-      //   text = '28';
-      //   break;
-      // case 29:
-      //   text = '29';
-      //   break;
-      // case 30:
-      //   text = '31';
-      //   break;
       default:
         return Container();
     }
@@ -141,7 +63,7 @@ class MonthAnalysis extends StatelessWidget {
     return AspectRatio(
       aspectRatio: 2.4,
       child: Padding(
-        padding: const EdgeInsets.only(left: 2, right: 5, top: 15),
+        padding: const EdgeInsets.all(10),
         child: LineChart(
           LineChartData(
             borderData: FlBorderData(
@@ -207,13 +129,15 @@ class MonthAnalysis extends StatelessWidget {
             minY: 0,
             titlesData: FlTitlesData(
               show: true,
-              topTitles: AxisTitles(axisNameWidget: const Text(
-                  '2022/11',
+              topTitles: AxisTitles(
+                axisNameSize: 20,
+                axisNameWidget: const Text(
+                  '2022年11月消费趋势',
                   style: _dateTextStyle,
                 ),
                 sideTitles: SideTitles(
                   showTitles: false,
-                  reservedSize: 18,
+                  reservedSize: 30,
                   interval: 1,
                   getTitlesWidget: bottomTitleWidgets,
                 ),
@@ -231,26 +155,15 @@ class MonthAnalysis extends StatelessWidget {
               ),
               leftTitles: AxisTitles(
                 axisNameSize: 20,
-                // axisNameWidget: const Padding(
-                //   padding: EdgeInsets.only(bottom: 8),
-                //   child: Text('Value'),
-                // ),
                 sideTitles: SideTitles(
                   showTitles: true,
-                  interval: 1,
-                  reservedSize: 40,
+                  interval: 2,
+                  reservedSize: 20,
                   getTitlesWidget: leftTitleWidgets,
                 ),
               ),
             ),
-            // gridData: FlGridData(
-            //   show: true,
-            //   drawVerticalLine: false,
-            //   horizontalInterval: 1,
-            //   checkToShowHorizontalLine: (double value) {
-            //     return value == 1 || value == 6 || value == 4 || value == 5;
-            //   },
-            // ),
+
           ),
         ),
       ),
