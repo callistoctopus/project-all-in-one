@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-26 15:06:57
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-17 01:30:03
+ * @LastEditTime: 2022-11-18 15:19:38
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -85,6 +85,7 @@ class _AddBillViewState extends State<AddBillView> {
             SettingDao.budgetYear().toString(),
             widget.cpo.reason,
             widget.cpo.type,
+            widget.cpo.duration,
             widget.cpo.amount,
             widget.cpo.note,
             0,
@@ -143,6 +144,7 @@ class _AddBillViewState extends State<AddBillView> {
     };
 
     List<String> kinds = ['支出', '收入'];
+    List<String> duration = ['每天', '工作日', '每周', '每月', '每季度', '半年', '每年'];
 
     return PageWithFloatButton(
         funcIcon: para,
@@ -154,6 +156,7 @@ class _AddBillViewState extends State<AddBillView> {
                   const Text(style: TextStyle(fontSize: 12), "记一笔"),
                   CustomChoiceChip(
                     dataList: kinds,
+                    backgroundColor: Colors.red,
                     onSelect: (i) {
                       widget.cpo.type = i;
                       setState(() {});
@@ -164,7 +167,7 @@ class _AddBillViewState extends State<AddBillView> {
                   const Divider(
                     color: Colors.grey,
                     thickness: 0,
-                    height: 1,
+                    height: 10,
                   ),
                   FutureBuilder<List<FinancialReason>>(
                       future: widget.cpo.type == 0 ? rl1 : rl2,
@@ -177,6 +180,7 @@ class _AddBillViewState extends State<AddBillView> {
                             widget.cpo.reason = dataList[0];
                           }
                           return CustomChoiceChip(
+                            backgroundColor: Colors.green,
                             dataList: dataList,
                             onSelect: (i) {
                               if (i == (dataList.length - 1)) {
@@ -271,9 +275,24 @@ class _AddBillViewState extends State<AddBillView> {
                   const Divider(
                     color: Colors.grey,
                     thickness: 0,
-                    height: 16,
+                    height: 12,
                   ),
-                  SizedBox(
+                  widget.cpo.dataType == 1 ? CustomChoiceChip(
+                    dataList: duration,
+                    onSelect: (i) {
+                      widget.cpo.duration = i;
+                      setState(() {});
+                    },
+                    defaultSelect: widget.cpo.duration,
+                    onLongPress: (index) {},
+                  ) : const SizedBox(),
+                  // const Divider(
+                  //   color: Colors.grey,
+                  //   thickness: 0,
+                  //   height: 16,
+                  // ),
+                  Container(
+                    padding: const EdgeInsets.only(top: 15),
                     height: 70,
                     child: TextField(
                       controller: TextEditingController.fromValue(
@@ -317,5 +336,6 @@ class CashInputVO {
   int type = 0;
   String reason = "";
   double amount = -1;
+  int duration = 0;
   String note = "";
 }

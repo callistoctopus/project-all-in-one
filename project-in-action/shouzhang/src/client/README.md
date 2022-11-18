@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-29 03:31:37
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-17 12:23:43
+ * @LastEditTime: 2022-11-18 15:22:22
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -64,6 +64,6 @@ flutter pub add hive_generator --dev
 flutter pub add build_runner --dev
 flutter pub add json_serializable --dev
 
-flutter packages pub run build_runner build
+flutter packages pub run build_runner build --delete-conflicting-outputs
 
 flutter upgrade --force

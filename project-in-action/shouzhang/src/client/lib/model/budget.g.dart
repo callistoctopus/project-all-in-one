@@ -22,17 +22,18 @@ class BudgetAdapter extends TypeAdapter<Budget> {
       fields[2] as String,
       fields[3] as String,
       fields[4] as int,
-      fields[5] as double,
-      fields[6] as String,
-      fields[7] as int,
-      fields[8] as DateTime,
+      fields[5] as int,
+      fields[6] as double,
+      fields[7] as String,
+      fields[8] as int,
+      fields[9] as DateTime,
     );
   }
 
   @override
   void write(BinaryWriter writer, Budget obj) {
     writer
-      ..writeByte(9)
+      ..writeByte(10)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -44,12 +45,14 @@ class BudgetAdapter extends TypeAdapter<Budget> {
       ..writeByte(4)
       ..write(obj.type)
       ..writeByte(5)
-      ..write(obj.budget)
+      ..write(obj.duration)
       ..writeByte(6)
-      ..write(obj.note)
+      ..write(obj.budget)
       ..writeByte(7)
-      ..write(obj.isDeleted)
+      ..write(obj.note)
       ..writeByte(8)
+      ..write(obj.isDeleted)
+      ..writeByte(9)
       ..write(obj.updateTime);
   }
 
@@ -74,6 +77,7 @@ Budget _$BudgetFromJson(Map<String, dynamic> json) => Budget(
       json['year'] as String,
       json['reason'] as String,
       json['type'] as int,
+      json['duration'] as int,
       (json['budget'] as num).toDouble(),
       json['note'] as String,
       json['isDeleted'] as int,
@@ -86,6 +90,7 @@ Map<String, dynamic> _$BudgetToJson(Budget instance) => <String, dynamic>{
       'year': instance.year,
       'reason': instance.reason,
       'type': instance.type,
+      'duration': instance.duration,
       'budget': instance.budget,
       'note': instance.note,
       'isDeleted': instance.isDeleted,

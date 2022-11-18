@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-11-17 08:06:58
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-18 02:35:13
+ * @LastEditTime: 2022-11-18 15:14:31
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -13,7 +13,18 @@ import 'package:percent_indicator/circular_percent_indicator.dart';
 
 class TodayAnalysis extends StatelessWidget {
   int i = 0;
-  double p = 0.8;
+  double p = 0.0;
+
+  Future<double> persent() async {
+    double p = 0.0;
+    Future<double> t = AnalysisService().getTodayTotalPay();
+
+    await t.then((value) {
+      p = (value / value).toDouble();
+    });
+    return p;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Row(children: [
@@ -23,12 +34,8 @@ class TodayAnalysis extends StatelessWidget {
         lineWidth: 13.0,
         animation: true,
         percent: p,
-        center: Text("${p*100}%"),
+        center: Text("${p * 100}%"),
         progressColor: Colors.green,
-        // footer: const Text(
-        //   "今日消费指标",
-        //   style: TextStyle(fontWeight: FontWeight.w100, fontSize: 14.0),
-        // ),
         circularStrokeCap: CircularStrokeCap.round,
       )),
       Expanded(

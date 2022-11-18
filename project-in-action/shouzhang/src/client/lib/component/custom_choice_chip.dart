@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-11-02 15:26:48
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-18 02:56:27
+ * @LastEditTime: 2022-11-18 14:43:05
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -15,11 +15,13 @@ class CustomChoiceChip extends StatefulWidget {
       required this.dataList,
       required this.onSelect,
       this.defaultSelect,
+      this.backgroundColor = Colors.lightBlue,
       required this.onLongPress});
 
   final List<String> dataList;
   final Function(int) onSelect;
   final Function(int) onLongPress;
+  Color backgroundColor = Colors.lightBlue;
   int? defaultSelect = 0;
 
   @override
@@ -46,14 +48,16 @@ class _CustomChoiceChipState extends State<CustomChoiceChip>
                       },
                       child: ChoiceChip(
                         backgroundColor: Colors.white,
-                        selectedColor: Colors.lightBlue,
+                        selectedColor: widget.backgroundColor,
                         padding: const EdgeInsets.all(2),
                         side: widget.defaultSelect == index
                             ? BorderSide(
-                                width: 0, color: Colors.lightBlue.shade300)
+                                width: 0, color: widget.backgroundColor)
                             : const BorderSide(width: 0, color: Colors.grey),
                         label: Text(widget.dataList[index]),
                         selected: widget.defaultSelect == index,
+                        labelStyle: widget.defaultSelect == index
+                            ? const TextStyle(color: Colors.white):const TextStyle(color: Colors.black),
                         onSelected: (bool selected) {
                           widget.onSelect(index);
                           setState(() {

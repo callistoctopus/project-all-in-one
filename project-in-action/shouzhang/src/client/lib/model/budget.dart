@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-11-04 02:25:21
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-07 10:02:35
+ * @LastEditTime: 2022-11-18 15:19:12
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -15,7 +15,7 @@ part 'budget.g.dart';
 @HiveType(typeId: 1)
 @JsonSerializable()
 class Budget extends HiveObject {
-  Budget(this.id, this.user, this.year, this.reason, this.type, this.budget,
+  Budget(this.id, this.user, this.year, this.reason, this.type, this.duration, this.budget,
       this.note, this.isDeleted, this.updateTime);
 
   @HiveField(0)
@@ -34,15 +34,18 @@ class Budget extends HiveObject {
   int type = 0;
 
   @HiveField(5)
-  double budget = 0;
+  int duration = 0;
 
   @HiveField(6)
-  String note = "";
+  double budget = 0;
 
   @HiveField(7)
-  int isDeleted = 0;
+  String note = "";
 
   @HiveField(8)
+  int isDeleted = 0;
+
+  @HiveField(9)
   DateTime updateTime;
 
   factory Budget.fromJson(Map<String, dynamic> json) => _$BudgetFromJson(json);

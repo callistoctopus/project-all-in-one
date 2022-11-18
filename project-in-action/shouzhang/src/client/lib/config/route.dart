@@ -11,7 +11,7 @@ import 'package:client/dao/setting_dao.dart';
 import 'package:client/develop/dev_sample_page.dart';
 import 'package:client/page/setting_page.dart';
 import 'package:client/page/account_page.dart';
-import 'package:client/page/add_page.dart';
+import 'package:client/page/edit_bill_page.dart';
 import 'package:client/page/home_page.dart';
 import 'package:client/page/bill_list_page.dart';
 import 'package:client/page/budget_page.dart';
