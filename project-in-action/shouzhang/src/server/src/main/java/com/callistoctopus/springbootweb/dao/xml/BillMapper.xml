@@ -39,12 +39,12 @@
             on
             au.account = au2.account
           where
-            au.user = #{user}) c 
+            au.user = #{arg0}) c 
               on
           b.user = c.user
         where 
-          b.update_time > #{startTime} 
-          <![CDATA[ and b.update_time < #{endTime} ]]>
+          b.update_time > #{arg1} 
+          <![CDATA[ and b.update_time < #{arg2} ]]>
         group by
           b.id
         

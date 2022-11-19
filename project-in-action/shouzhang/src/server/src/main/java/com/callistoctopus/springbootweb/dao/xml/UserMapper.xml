@@ -7,7 +7,7 @@
   </select>
 
   <select id="check" resultType="int">
-    select count(*) from user where user = #{user} and password = #{password}
+    select count(*) from user where user = #{arg0} and password = #{arg1}
   </select>
 
   <insert id="insert" parameterType="com.callistoctopus.springbootweb.dao.model.User">

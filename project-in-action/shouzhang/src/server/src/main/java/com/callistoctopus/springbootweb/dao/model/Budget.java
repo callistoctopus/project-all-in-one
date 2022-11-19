@@ -12,6 +12,7 @@ public class Budget {
     String year;
     String reason;
     int type;
+    int duration = 0;
     double budget;
     String note;
     int isDeleted;
@@ -58,6 +59,14 @@ public class Budget {
 
     public void setType(int type) {
         this.type = type;
+    }
+
+    public int getDuration() {
+        return duration;
+    }
+
+    public void setDuration(int duration) {
+        this.duration = duration;
     }
 
     public double getBudget() {
