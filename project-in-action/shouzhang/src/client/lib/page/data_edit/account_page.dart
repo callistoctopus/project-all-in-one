@@ -7,7 +7,7 @@
  * 
  * Copyright (c) 2022, All Rights Reserved. 
  */
-import 'package:client/component/custom_float_button.dart';
+import 'package:client/page/component/custom_float_button.dart';
 import 'package:client/dao/account_dao.dart';
 import 'package:client/dao/account_user_dao.dart';
 import 'package:client/dao/setting_dao.dart';

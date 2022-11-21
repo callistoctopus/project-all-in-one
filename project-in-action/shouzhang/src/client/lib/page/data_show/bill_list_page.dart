@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-29 01:37:32
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-18 14:16:10
+ * @LastEditTime: 2022-11-21 03:08:45
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -12,9 +12,9 @@ import 'dart:async';
 import 'package:client/config/route.dart';
 import 'package:client/dao/bill_dao.dart';
 import 'package:client/model/bill.dart';
-import 'package:client/page/ParamStore.dart';
+import 'package:client/page/data_model/ParamStore.dart';
 import 'package:flutter/material.dart';
-import 'package:client/component/custom_float_button.dart';
+import 'package:client/page/component/custom_float_button.dart';
 import 'package:go_router/go_router.dart';
 
 class BillListPage extends StatefulWidget {
@@ -42,7 +42,7 @@ class _BillListPageState extends State<BillListPage> {
       child: Scaffold(
           body: Padding(
               padding: EdgeInsets.only(
-                  left: 30, right: 20, top: widget.shortMode ? 5 : 20),
+                  left: widget.shortMode ? 2 : 30, right: widget.shortMode ? 2 : 20, top: widget.shortMode ? 5 : 20),
               child: FutureBuilder<List<Bill>>(
                   future: futureListBill,
                   builder: (context, snapshot) {
@@ -126,18 +126,33 @@ class BillRow extends StatelessWidget {
         child: Row(
           children: [
             Expanded(
-                flex: 1,
-                child: Text(bill.time.toString().substring(0, 10),
+                flex: 3,
+                child: Text(
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    bill.time.toString().substring(0, 10),
                     style: const TextStyle(color: Colors.black54))),
             Expanded(
-                flex: 1,
-                child: Text(bill.user,
+                flex: 3,
+                child: Text(
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    bill.user,
                     style: const TextStyle(color: Colors.black54))),
             Expanded(
-                flex: 1,
-                child: Text(bill.reason,
+                flex: 2,
+                child: Text(
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    bill.reason,
                     style: const TextStyle(color: Colors.black87))),
-            Expanded(flex: 1, child: Text(amount, style: ts)),
+            Expanded(
+                flex: 4,
+                child: Text(
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    amount,
+                    style: ts)),
           ],
         ));
   }

@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-11-17 08:06:58
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-20 14:15:37
+ * @LastEditTime: 2022-11-21 03:29:55
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -21,7 +21,6 @@ class TodayAnalysis extends StatelessWidget {
 
     await t.then((value) {
       p = (value / value).toDouble();
-      if (p == null) p = 0.0;
     });
     return p;
   }
@@ -37,8 +36,8 @@ class TodayAnalysis extends StatelessWidget {
                   p = value.data!;
                 }
                 return CircularPercentIndicator(
-                  radius: 45.0,
-                  lineWidth: 13.0,
+                  radius: 40.0,
+                  lineWidth: 11.0,
                   animation: true,
                   percent: p,
                   center: Text("${p * 100}%"),

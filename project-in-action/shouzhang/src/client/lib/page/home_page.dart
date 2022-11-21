@@ -2,14 +2,14 @@
  * @Author: gui-qi
  * @Date: 2022-10-29 01:37:32
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-21 02:36:10
+ * @LastEditTime: 2022-11-21 03:00:07
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
  */
-import 'package:client/page/analysis.dart';
-import 'package:client/page/budget.dart';
-import 'package:client/page/setting.dart';
+import 'package:client/page/home/analysis.dart';
+import 'package:client/page/home/budget.dart';
+import 'package:client/page/home/setting.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -47,6 +47,7 @@ class _HomePageState extends State<HomePage> {
         child: _widgetOptions.elementAt(_selectedIndex),
       ),
       bottomNavigationBar: BottomNavigationBar(
+        type:BottomNavigationBarType.fixed,
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
@@ -54,7 +55,7 @@ class _HomePageState extends State<HomePage> {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.business),
-            label: '预算与计划',
+            label: '预算与目标',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.school),
