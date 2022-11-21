@@ -2,25 +2,31 @@
  * @Author: gui-qi
  * @Date: 2022-10-29 01:37:32
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-21 10:19:48
+ * @LastEditTime: 2022-11-21 09:15:29
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
  */
-import 'package:client/page/analysis/grade.dart';
 import 'package:client/page/component/common_component.dart';
+import 'package:client/config/route.dart';
+import 'package:client/page/analysis/Week.dart';
+import 'package:client/page/analysis/month.dart';
+import 'package:client/page/analysis/today.dart';
+import 'package:client/page/data_show/bill_list_page.dart';
 import 'package:client/service/server_data_access_service.dart';
+import 'package:client/units/common_const.dart';
 import 'package:client/units/common_utils.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
-class AnalysisPage extends StatefulWidget {
-  const AnalysisPage({super.key});
+class ConsumePage extends StatefulWidget {
+  const ConsumePage({super.key});
 
   @override
-  State<AnalysisPage> createState() => _AnalysisPageState();
+  State<ConsumePage> createState() => _ConsumePageState();
 }
 
-class _AnalysisPageState extends State<AnalysisPage> {
+class _ConsumePageState extends State<ConsumePage> {
   bool selected = false;
   @override
   void initState() {
@@ -34,38 +40,34 @@ class _AnalysisPageState extends State<AnalysisPage> {
       body: Center(
         child: ListView(
           children: <Widget>[
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Text(CommonUtils.now().toString().substring(0, 10)),
-                _COMPONENT.verticalDivider(),
-                const Text(
-                  "资产:",
-                  style: TextStyle(color: Colors.grey),
-                ),
-                const Text("良好"),
-                _COMPONENT.verticalDivider(),
-                const Text("消费:", style: TextStyle(color: Colors.grey)),
-                const Text("良好"),
-                _COMPONENT.verticalDivider(),
-                const Text("风险:", style: TextStyle(color: Colors.grey)),
-                const Text("低"),
-              ],
-            ),
-            const Divider(
-              color: Colors.grey,
-              thickness: 0,
-              height: 1,
-            ),
-            COMMON_COMPONENT.chart("评分", "", () {}, Grade(),
+            COMMON_COMPONENT.chart("今日指标", "", () {}, TodayAnalysis(),
                 height: 115),
             const Divider(
               color: Colors.grey,
               thickness: 0,
               height: 1,
             ),
-            COMMON_COMPONENT.chart("消息", "更多", () {}, const SizedBox(),
-                height: 80),
+            COMMON_COMPONENT.chart(
+                "消费明细",
+                "详细",
+                () => context.go(ROUTE.BILLS),
+                BillListPage(
+                  shortMode: true,
+                ),
+                height: 90),
+            const Divider(
+              color: Colors.grey,
+              thickness: 0,
+              height: 1,
+            ),
+            COMMON_COMPONENT.chart("本周消费", "", () {}, const WeekAnalysis()),
+            const Divider(
+              color: Colors.grey,
+              thickness: 0,
+              height: 1,
+            ),
+            COMMON_COMPONENT.chart("${CommonUtils.now().month}月度消费趋势", "",
+                () {}, const MonthAnalysis()),
             const Divider(
               color: Colors.grey,
               thickness: 0,
@@ -102,20 +104,15 @@ class _AnalysisPageState extends State<AnalysisPage> {
           ],
         ),
       ),
+      floatingActionButton: FloatingActionButton(
+        shape: const CircleBorder(),
+        backgroundColor: Colors.white,
+        child: Text(
+          ICONS.ADD,
+          style: const TextStyle(color: Colors.black),
+        ),
+        onPressed: () => context.go(ROUTE.ADD_BILL),
+      ),
     );
-  }
-}
-
-class _COMPONENT {
-  static Widget verticalDivider() {
-    return const SizedBox(
-        height: 25,
-        child: VerticalDivider(
-          color: Colors.grey,
-          thickness: 1,
-          width: 1,
-          indent: 2,
-          endIndent: 2,
-        ));
   }
 }

@@ -2,19 +2,19 @@
  * @Author: gui-qi
  * @Date: 2022-11-09 12:54:29
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-18 03:24:43
+ * @LastEditTime: 2022-11-21 09:56:00
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
  */
 import 'package:client/dao/setting_dao.dart';
 import 'package:client/develop/dev_sample_page.dart';
+import 'package:client/page/data_edit/edit_budget_page.dart';
 import 'package:client/page/home/setting.dart';
 import 'package:client/page/data_edit/account_page.dart';
-import 'package:client/page/data_show/edit_bill_page.dart';
+import 'package:client/page/data_edit/edit_bill_page.dart';
 import 'package:client/page/home_page.dart';
 import 'package:client/page/data_show/bill_list_page.dart';
-import 'package:client/page/home/budget.dart';
 import 'package:client/page/login_page.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -26,14 +26,14 @@ class RouteConfig {
         GoRoute(
           path: ROUTE.HOME,
           builder: (BuildContext context, GoRouterState state) {
-            return const Scaffold(body: HomePage());
+            return Scaffold(body: HomePage());
           },
         ),
         GoRoute(
           path: ROUTE.LOGIN,
           builder: (BuildContext context, GoRouterState state) {
             if(SettingDao.isLogined() || SettingDao.isOfflineMode()){
-              return const Scaffold(body: HomePage());
+              return Scaffold(body: HomePage());
             }
             return Scaffold(body: LoginPage());
           },
@@ -59,7 +59,7 @@ class RouteConfig {
         GoRoute(
           path: ROUTE.DEBUG,
           builder: (BuildContext context, GoRouterState state) {
-            return DevSamplePage();
+            return const DevSamplePage();
           },
         ),
         GoRoute(

@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-29 01:37:32
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-18 06:59:21
+ * @LastEditTime: 2022-11-21 07:53:41
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -38,8 +38,6 @@ class _SettingPageState extends State<SettingPage> {
         const Divider(
           color: Colors.grey,
           thickness: 0,
-          indent: 20,
-          endIndent: 20,
           height: 1,
         ),
         SettingItem1(
@@ -54,8 +52,6 @@ class _SettingPageState extends State<SettingPage> {
         const Divider(
           color: Colors.grey,
           thickness: 0,
-          indent: 20,
-          endIndent: 20,
           height: 1,
         ),
         SettingItem2(
@@ -67,8 +63,6 @@ class _SettingPageState extends State<SettingPage> {
         const Divider(
           color: Colors.grey,
           thickness: 0,
-          indent: 20,
-          endIndent: 20,
           height: 1,
         ),
         SettingItem2(
@@ -81,8 +75,6 @@ class _SettingPageState extends State<SettingPage> {
         const Divider(
           color: Colors.grey,
           thickness: 0,
-          indent: 20,
-          endIndent: 20,
           height: 1,
         ),
         SettingItem2(
@@ -95,8 +87,6 @@ class _SettingPageState extends State<SettingPage> {
         const Divider(
           color: Colors.grey,
           thickness: 0,
-          indent: 20,
-          endIndent: 20,
           height: 1,
         ),
         SettingItem2(
@@ -115,8 +105,6 @@ class _SettingPageState extends State<SettingPage> {
         const Divider(
           color: Colors.grey,
           thickness: 0,
-          indent: 20,
-          endIndent: 20,
           height: 1,
         ),
       ],
@@ -148,8 +136,7 @@ class SettingItem1 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        padding: const EdgeInsets.only(left: 20),
+    return SizedBox(
         height: 50,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -163,7 +150,6 @@ class SettingItem1 extends StatelessWidget {
             Expanded(
                 flex: 1,
                 child: CupertinoSwitch(
-                  // This bool value toggles the switch.
                   value: initValue,
                   activeColor: CupertinoColors.activeBlue,
                   onChanged: (bool? value) {
@@ -184,8 +170,7 @@ class SettingItem2 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        padding: const EdgeInsets.only(left: 23),
+    return SizedBox(
         height: 50,
         child: GestureDetector(
             onTap: () {

@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-11-17 08:06:58
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-18 02:32:47
+ * @LastEditTime: 2022-11-21 08:44:40
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -60,7 +60,8 @@ class MonthAnalysis extends StatelessWidget {
   Widget build(BuildContext context) {
     const cutOffYValue = 5.0;
 
-    return AspectRatio(
+    return Center(
+        child: AspectRatio(
       aspectRatio: 2.6,
       child: Padding(
         padding: const EdgeInsets.only(left: 20, top: 8, bottom: 6),
@@ -162,6 +163,6 @@ class MonthAnalysis extends StatelessWidget {
           ),
         ),
       ),
-    );
+    ));
   }
 }

@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-11-17 08:06:58
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-21 03:29:55
+ * @LastEditTime: 2022-11-21 09:17:33
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -10,6 +10,7 @@
 import 'package:client/service/analysis_service.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
+import 'package:syncfusion_flutter_gauges/gauges.dart';
 
 class TodayAnalysis extends StatelessWidget {
   int i = 0;
@@ -27,8 +28,9 @@ class TodayAnalysis extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(children: [
+    return Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
       Expanded(
+          flex: 1,
           child: FutureBuilder(
               future: persent(),
               builder: (context, value) {
@@ -47,12 +49,13 @@ class TodayAnalysis extends StatelessWidget {
               })),
       Expanded(
           flex: 1,
-          child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+          child: Column(mainAxisAlignment: MainAxisAlignment.start, children: [
             FutureBuilder(
                 future: AnalysisService().getTodayTotalPay(),
                 builder: (context, value) {
                   if (value.hasData) {
-                    return Text("今日消费: ${value.data}");
+                    return Text("消费: ${value.data}",
+                        maxLines: 1, overflow: TextOverflow.ellipsis);
                   }
                   return const Text("无数据");
                 }),
@@ -60,11 +63,12 @@ class TodayAnalysis extends StatelessWidget {
                 future: AnalysisService().getTodayTotalPay(),
                 builder: (context, value) {
                   if (value.hasData) {
-                    return Text("今日预算: ${value.data}");
+                    return Text("预算: ${value.data}",
+                        maxLines: 1, overflow: TextOverflow.ellipsis);
                   }
                   return const Text("无数据");
                 }),
-          ]))
+          ])),
     ]);
   }
 }

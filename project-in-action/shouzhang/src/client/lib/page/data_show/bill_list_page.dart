@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-29 01:37:32
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-21 03:08:45
+ * @LastEditTime: 2022-11-21 08:55:10
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -79,7 +79,7 @@ class _BillListPageState extends State<BillListPage> {
                         },
                         separatorBuilder: (BuildContext context, int index) =>
                             Divider(
-                                height: widget.shortMode ? 8 : 17,
+                                height: widget.shortMode ? 5 : 17,
                                 color: widget.shortMode
                                     ? Colors.white38
                                     : Colors.grey,
@@ -131,21 +131,21 @@ class BillRow extends StatelessWidget {
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     bill.time.toString().substring(0, 10),
-                    style: const TextStyle(color: Colors.black54))),
+                    style: const TextStyle(color: Colors.black54,fontSize: 11))),
             Expanded(
                 flex: 3,
                 child: Text(
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     bill.user,
-                    style: const TextStyle(color: Colors.black54))),
+                    style: const TextStyle(color: Colors.black54,fontSize: 11))),
             Expanded(
                 flex: 2,
                 child: Text(
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     bill.reason,
-                    style: const TextStyle(color: Colors.black87))),
+                    style: const TextStyle(color: Colors.black87,fontSize: 11))),
             Expanded(
                 flex: 4,
                 child: Text(
