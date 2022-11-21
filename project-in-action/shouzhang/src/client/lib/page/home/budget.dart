@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-29 01:37:32
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-18 03:41:24
+ * @LastEditTime: 2022-11-21 02:53:19
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -12,8 +12,8 @@ import 'package:client/config/route.dart';
 import 'package:client/dao/budget_dao.dart';
 import 'package:client/dao/setting_dao.dart';
 import 'package:client/model/budget.dart';
-import 'package:client/page/ParamStore.dart';
-import 'package:client/page/edit_bill_page.dart';
+import 'package:client/page/data/ParamStore.dart';
+import 'package:client/page/data_show/edit_bill_page.dart';
 import 'package:client/component/custom_float_button.dart';
 import 'package:client/units/common_const.dart';
 import 'package:flutter/material.dart';
@@ -117,7 +117,7 @@ class _BudgetSettingPageState extends State<BudgetSettingPage> {
                       height: 20,
                       width: constraints.maxWidth / 2,
                       child: GestureDetector(
-                          onTap: () {}, child: const Text("支出 +")),
+                          onTap: () {}, child: const Text("支出")),
                     ),
                     const SizedBox(
                         height: 20,
@@ -133,7 +133,7 @@ class _BudgetSettingPageState extends State<BudgetSettingPage> {
                       height: 20,
                       width: constraints.maxWidth / 2,
                       child: GestureDetector(
-                          onTap: () {}, child: const Text("收入 +")),
+                          onTap: () {}, child: const Text("收入")),
                     )
                   ]),
               SizedBox(

@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-26 15:06:57
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-18 15:19:38
+ * @LastEditTime: 2022-11-21 02:46:53
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -176,7 +176,7 @@ class _AddBillViewState extends State<AddBillView> {
                           List<String> dataList =
                               snapshot.data!.map((e) => e.reason).toList();
                           dataList.add("+追加");
-                          if (dataList.length > 1) {
+                          if (dataList.length > 1 && widget.cpo.reason == "") {
                             widget.cpo.reason = dataList[0];
                           }
                           return CustomChoiceChip(
@@ -257,6 +257,7 @@ class _AddBillViewState extends State<AddBillView> {
                               setState(() {
                                 showAddReason = false;
                                 saveFinancialReason();
+                                widget.cpo.reason = reason;
                                 reason = "";
                                 controller.clear();
                               });
