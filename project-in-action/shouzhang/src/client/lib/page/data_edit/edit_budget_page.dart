@@ -2,12 +2,15 @@
  * @Author: gui-qi
  * @Date: 2022-10-29 01:37:32
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-21 09:54:42
+ * @LastEditTime: 2022-11-22 07:08:58
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
  */
+import 'dart:ui';
+
 import 'package:client/config/route.dart';
+import 'package:client/page/component/common_component.dart';
 import 'package:client/page/component/custom_snack_bar.dart';
 import 'package:client/dao/budget_dao.dart';
 import 'package:client/dao/setting_dao.dart';
@@ -51,17 +54,25 @@ class _BudgetSettingPageState extends State<BudgetSettingPage> {
     int year = SettingDao.budgetYear();
 
     return Scaffold(
-      body: LayoutBuilder(
-        builder: (BuildContext context, BoxConstraints constraints) {
-          return Column(children: [
-            SizedBox(
-                height: 40,
-                child: ListView.builder(
+      body: Padding(
+          padding: const EdgeInsets.only(left: 10, right: 20, top: 5),
+          child: ListView(children: [
+            COMMON_COMPONENT.chart("预算概览", "", () {}, SizedBox(), height: 100),
+            const Divider(
+              color: Colors.grey,
+              thickness: 0,
+              height: 5,
+            ),
+            COMMON_COMPONENT.chart(
+                "预算年度",
+                "",
+                () {},
+                ListView.builder(
                     scrollDirection: Axis.horizontal,
                     itemBuilder: (context, index) {
                       return Padding(
                           padding: const EdgeInsets.only(
-                              top: 5.0, right: 10.0, bottom: 5),
+                              top: 5.0, right: 5.0, bottom: 5),
                           child: ChoiceChip(
                             backgroundColor: Colors.white,
                             padding: const EdgeInsets.all(2),
@@ -74,117 +85,18 @@ class _BudgetSettingPageState extends State<BudgetSettingPage> {
                               setState(() {});
                             },
                           ));
-                    })),
+                    }),
+                height: 60),
             const Divider(
               color: Colors.grey,
               thickness: 0,
               height: 5,
             ),
-            Container(
-                alignment: Alignment.topCenter,
-                height: 100,
-                width: constraints.maxWidth,
-                child: const Text("概览")),
-            const Divider(
-              color: Colors.grey,
-              thickness: 0,
-              height: 5,
-            ),
-            Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: <Widget>[
-                  Container(
-                    alignment: Alignment.center,
-                    height: 20,
-                    width: constraints.maxWidth / 2,
-                    child:
-                        GestureDetector(onTap: () {}, child: const Text("支出")),
-                  ),
-                  const SizedBox(
-                      height: 20,
-                      child: VerticalDivider(
-                        color: Colors.grey,
-                        thickness: 1,
-                        width: 0,
-                        indent: 2,
-                        endIndent: 2,
-                      )),
-                  Container(
-                    alignment: Alignment.center,
-                    height: 20,
-                    width: constraints.maxWidth / 2,
-                    child:
-                        GestureDetector(onTap: () {}, child: const Text("收入")),
-                  )
-                ]),
-            SizedBox(
-                height: constraints.maxHeight - 190,
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 5),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: <Widget>[
-                      SizedBox(
-                          height: constraints.maxHeight,
-                          width: constraints.maxWidth / 2 - 20,
-                          child: ListView.separated(
-                            itemCount: widget.outList.length,
-                            itemBuilder: (context, i) {
-                              return InputWithTest(
-                                  budget: widget.outList[i],
-                                  oldBudget:
-                                      widget.outList[i].budget.toString(),
-                                  onSelected: (budget) {
-                                    BudgetDao.updateBudget(budget);
-                                    setState(() {});
-                                  },
-                                  onDeleted: (budget) {
-                                    BudgetDao.deleteBudget(budget);
-                                    setState(() {});
-                                  });
-                            },
-                            separatorBuilder:
-                                (BuildContext context, int index) => Divider(
-                              color: Theme.of(context).primaryColor,
-                            ),
-                          )),
-                      const SizedBox(
-                          child: VerticalDivider(
-                        color: Colors.grey,
-                        thickness: 1,
-                        width: 0,
-                        indent: 2,
-                        endIndent: 2,
-                      )),
-                      SizedBox(
-                          width: constraints.maxWidth / 2 - 20,
-                          child: ListView.separated(
-                            itemCount: widget.inList.length,
-                            itemBuilder: (context, i) {
-                              return InputWithTest(
-                                budget: widget.inList[i],
-                                oldBudget: widget.inList[i].budget.toString(),
-                                onSelected: (budget) {
-                                  BudgetDao.updateBudget(budget);
-                                  setState(() {});
-                                },
-                                onDeleted: (budget) {
-                                  BudgetDao.deleteBudget(budget);
-                                  setState(() {});
-                                },
-                              );
-                            },
-                            separatorBuilder:
-                                (BuildContext context, int index) => Divider(
-                              color: Theme.of(context).primaryColor,
-                            ),
-                          )),
-                    ],
-                  ),
-                ))
-          ]);
-        },
-      ),
+            COMMON_COMPONENT.chart("预算明细", "追加", () {
+              context.go(ROUTE.ADD_BUDGET);
+            }, ListView.builder(itemBuilder: (context, index) {}),
+                height: window.physicalSize.height - 175),
+          ])),
       floatingActionButton: FloatingActionButton(
         shape: const CircleBorder(),
         backgroundColor: Colors.white,

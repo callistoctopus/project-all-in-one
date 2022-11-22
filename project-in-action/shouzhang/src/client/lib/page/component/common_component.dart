@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-11-21 03:13:24
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-22 02:53:13
+ * @LastEditTime: 2022-11-22 08:25:52
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -30,7 +30,7 @@ class COMMON_COMPONENT {
                     ),
                     GestureDetector(
                         onTap: () => callback(),
-                        child: Text(link,
+                        child: Text(link != "" ? "$link >" : "",
                             style: const TextStyle(
                                 fontSize: 12, color: Colors.blueAccent)))
                   ])),

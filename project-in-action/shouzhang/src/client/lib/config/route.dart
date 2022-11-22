@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-11-09 12:54:29
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-21 09:56:00
+ * @LastEditTime: 2022-11-22 05:56:21
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -11,7 +11,7 @@ import 'package:client/dao/setting_dao.dart';
 import 'package:client/develop/dev_sample_page.dart';
 import 'package:client/page/data_edit/edit_budget_page.dart';
 import 'package:client/page/home/setting.dart';
-import 'package:client/page/data_edit/account_page.dart';
+import 'package:client/page/data_edit/edit_account_page.dart';
 import 'package:client/page/data_edit/edit_bill_page.dart';
 import 'package:client/page/home_page.dart';
 import 'package:client/page/data_show/bill_list_page.dart';

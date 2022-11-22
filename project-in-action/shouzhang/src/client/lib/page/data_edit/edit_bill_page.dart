@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-26 15:06:57
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-21 15:34:25
+ * @LastEditTime: 2022-11-22 08:57:01
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -303,6 +303,7 @@ class _AddBillViewState extends State<AddBillView> {
                     padding: const EdgeInsets.only(top: 0),
                     height: 60,
                     child: TextField(
+                      keyboardType: TextInputType.number,
                       controller: TextEditingController.fromValue(
                           TextEditingValue(
                               text: widget.cpo.amount == -1

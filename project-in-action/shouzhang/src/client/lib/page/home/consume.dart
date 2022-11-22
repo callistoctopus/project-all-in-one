@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-29 01:37:32
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-22 05:35:52
+ * @LastEditTime: 2022-11-22 08:25:17
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -50,7 +50,7 @@ class _ConsumePageState extends State<ConsumePage> {
             ),
             COMMON_COMPONENT.chart(
                 "消费明细",
-                "详细",
+                "明细",
                 () => context.go(ROUTE.BILLS),
                 BillListPage(
                   shortMode: true,

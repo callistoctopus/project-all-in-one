@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-29 01:37:32
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-22 05:39:45
+ * @LastEditTime: 2022-11-22 10:00:16
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -90,13 +90,13 @@ class _AnalysisPageState extends State<AnalysisPage> {
               thickness: 0,
               height: 1,
             ),
-            COMMON_COMPONENT.chart("消息", "更多", () {}, const SizedBox(),
-                height: 80),
-            const Divider(
-              color: Colors.grey,
-              thickness: 0,
-              height: 1,
-            ),
+            // COMMON_COMPONENT.chart("消息", "更多", () {}, const SizedBox(),
+            //     height: 80),
+            // const Divider(
+            //   color: Colors.grey,
+            //   thickness: 0,
+            //   height: 1,
+            // ),
           ],
         ),
       ),
