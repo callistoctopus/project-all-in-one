@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-29 01:37:32
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-22 02:46:12
+ * @LastEditTime: 2022-11-22 05:07:00
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -11,8 +11,8 @@ import 'package:client/page/home/analysis.dart';
 import 'package:client/page/home/asset.dart';
 import 'package:client/page/home/budget.dart';
 import 'package:client/page/home/consume.dart';
-import 'package:client/page/home/setting.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({super.key});

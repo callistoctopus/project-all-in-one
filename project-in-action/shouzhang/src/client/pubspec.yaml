@@ -50,6 +50,7 @@ dependencies:
   syncfusion_flutter_charts: ^20.3.57
   percent_indicator: ^4.2.2
   syncfusion_flutter_gauges: ^20.3.57
+  google_fonts: ^3.0.1
   # hive_generator: ^2.0.0
 
 dev_dependencies:
@@ -107,3 +108,10 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+  fonts:
+    - family: CangJiGaoDeGuoMiaoHei
+      fonts:
+        - asset: fonts/CangJiGaoDeGuoMiaoHeiCJgaodeguomh.ttf
+    - family: YangRenDongZhuShiTi-Light
+      fonts:
+        - asset: fonts/YangRenDongZhuShiTi-Light-2.ttf

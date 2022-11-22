@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-29 01:37:32
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-22 01:52:47
+ * @LastEditTime: 2022-11-22 05:40:07
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -27,7 +27,7 @@ class _SettingPageState extends State<SettingPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      // backgroundColor: Colors.white,
       body: Padding(
           padding: const EdgeInsets.only(left: 20, right: 20, top: 5),
           child: Column(

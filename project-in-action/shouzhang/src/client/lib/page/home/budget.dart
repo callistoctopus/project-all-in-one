@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-29 01:37:32
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-22 01:48:09
+ * @LastEditTime: 2022-11-22 05:40:01
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -23,7 +23,7 @@ class _BudgetState extends State<Budget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.white,
+        // backgroundColor: Colors.white,
         body: Center(
             child: ListView(children: <Widget>[
           COMMON_COMPONENT.chart("预算储备", "管理", () {

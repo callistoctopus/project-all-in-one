@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-11-21 05:28:46
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-22 01:48:22
+ * @LastEditTime: 2022-11-22 05:39:55
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -21,7 +21,7 @@ class _AssetsState extends State<Assets> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.white,
+        // backgroundColor: Colors.white,
         body: Center(
             child: ListView(children: <Widget>[
           COMMON_COMPONENT.chart("资产状态", "盘账", () {}, const SizedBox(),

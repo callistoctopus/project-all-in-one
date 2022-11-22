@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-29 03:31:37
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-21 06:12:19
+ * @LastEditTime: 2022-11-22 05:30:54
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -68,3 +68,5 @@ flutter pub add json_serializable --dev
 flutter packages pub run build_runner build --delete-conflicting-outputs
 
 flutter upgrade --force
+
+flutter pub get
