@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-29 01:37:32
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-21 10:00:49
+ * @LastEditTime: 2022-11-22 02:46:12
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -11,6 +11,7 @@ import 'package:client/page/home/analysis.dart';
 import 'package:client/page/home/asset.dart';
 import 'package:client/page/home/budget.dart';
 import 'package:client/page/home/consume.dart';
+import 'package:client/page/home/setting.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -21,7 +22,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-
   int _selectedIndex = 0;
 
   static final List<Widget> _widgetOptions = <Widget>[
@@ -40,17 +40,19 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: Center(
-        child:Padding(
-        padding: const EdgeInsets.only(left: 20,right: 20),
-        child: _widgetOptions.elementAt(_selectedIndex)),
+        child: Padding(
+            padding: const EdgeInsets.only(left: 20, right: 20, top: 5),
+            child: _widgetOptions.elementAt(_selectedIndex)),
       ),
       bottomNavigationBar: BottomNavigationBar(
-        type:BottomNavigationBarType.fixed,
+        backgroundColor: Colors.white,
+        type: BottomNavigationBarType.fixed,
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
-            label: '消费',
+            label: '收支',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.business),
@@ -67,7 +69,7 @@ class _HomePageState extends State<HomePage> {
         ],
         currentIndex: _selectedIndex,
         selectedItemColor: Colors.black,
-        unselectedItemColor: Colors.grey,
+        unselectedItemColor: Colors.black45,
         showUnselectedLabels: true,
         onTap: _onItemTapped,
       ),

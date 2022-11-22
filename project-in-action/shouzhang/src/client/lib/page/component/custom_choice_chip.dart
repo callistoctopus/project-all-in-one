@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-11-02 15:26:48
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-18 14:43:05
+ * @LastEditTime: 2022-11-21 15:28:09
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -48,8 +48,12 @@ class _CustomChoiceChipState extends State<CustomChoiceChip>
                       },
                       child: ChoiceChip(
                         backgroundColor: Colors.white,
+                        shadowColor: Colors.white,
+                        selectedShadowColor: widget.backgroundColor,
                         selectedColor: widget.backgroundColor,
-                        padding: const EdgeInsets.all(2),
+                        surfaceTintColor: widget.defaultSelect == index
+                            ? widget.backgroundColor
+                            : Colors.white,
                         side: widget.defaultSelect == index
                             ? BorderSide(
                                 width: 0, color: widget.backgroundColor)
@@ -57,7 +61,8 @@ class _CustomChoiceChipState extends State<CustomChoiceChip>
                         label: Text(widget.dataList[index]),
                         selected: widget.defaultSelect == index,
                         labelStyle: widget.defaultSelect == index
-                            ? const TextStyle(color: Colors.white):const TextStyle(color: Colors.black),
+                            ? const TextStyle(color: Colors.white)
+                            : const TextStyle(color: Colors.black),
                         onSelected: (bool selected) {
                           widget.onSelect(index);
                           setState(() {

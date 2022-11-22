@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-29 01:37:32
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-21 08:55:10
+ * @LastEditTime: 2022-11-22 01:47:47
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -40,9 +40,12 @@ class _BillListPageState extends State<BillListPage> {
     return PageWithFloatButton(
       showFloatBottom: widget.shortMode ? false : true,
       child: Scaffold(
+          backgroundColor: Colors.white,
           body: Padding(
               padding: EdgeInsets.only(
-                  left: widget.shortMode ? 2 : 30, right: widget.shortMode ? 2 : 20, top: widget.shortMode ? 5 : 20),
+                  left: widget.shortMode ? 2 : 30,
+                  right: widget.shortMode ? 2 : 20,
+                  top: widget.shortMode ? 5 : 20),
               child: FutureBuilder<List<Bill>>(
                   future: futureListBill,
                   builder: (context, snapshot) {
@@ -131,21 +134,24 @@ class BillRow extends StatelessWidget {
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     bill.time.toString().substring(0, 10),
-                    style: const TextStyle(color: Colors.black54,fontSize: 11))),
+                    style:
+                        const TextStyle(color: Colors.black54, fontSize: 11))),
             Expanded(
                 flex: 3,
                 child: Text(
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     bill.user,
-                    style: const TextStyle(color: Colors.black54,fontSize: 11))),
+                    style:
+                        const TextStyle(color: Colors.black54, fontSize: 11))),
             Expanded(
                 flex: 2,
                 child: Text(
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     bill.reason,
-                    style: const TextStyle(color: Colors.black87,fontSize: 11))),
+                    style:
+                        const TextStyle(color: Colors.black87, fontSize: 11))),
             Expanded(
                 flex: 4,
                 child: Text(

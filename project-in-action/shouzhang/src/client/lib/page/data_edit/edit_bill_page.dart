@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-26 15:06:57
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-21 02:46:53
+ * @LastEditTime: 2022-11-21 15:34:25
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -104,8 +104,6 @@ class _AddBillViewState extends State<AddBillView> {
   @override
   void initState() {
     super.initState();
-    rl1 = ReasonDao.fetchFinancialReasonOut();
-    rl2 = ReasonDao.fetchFinancialReasonIn();
   }
 
   TextEditingController controller = TextEditingController();
@@ -153,7 +151,7 @@ class _AddBillViewState extends State<AddBillView> {
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
               child: ListView(
                 children: <Widget>[
-                  const Text(style: TextStyle(fontSize: 12), "记一笔"),
+                  const Text(style: TextStyle(fontSize: 12), "收支类型"),
                   CustomChoiceChip(
                     dataList: kinds,
                     backgroundColor: Colors.red,
@@ -169,6 +167,7 @@ class _AddBillViewState extends State<AddBillView> {
                     thickness: 0,
                     height: 10,
                   ),
+                  const Text(style: TextStyle(fontSize: 12), "收支事项"),
                   FutureBuilder<List<FinancialReason>>(
                       future: widget.cpo.type == 0 ? rl1 : rl2,
                       builder: (context, snapshot) {
@@ -176,7 +175,7 @@ class _AddBillViewState extends State<AddBillView> {
                           List<String> dataList =
                               snapshot.data!.map((e) => e.reason).toList();
                           dataList.add("+追加");
-                          if (dataList.length > 1 && widget.cpo.reason == "") {
+                          if (dataList.length > 1 && !dataList.contains(widget.cpo.reason)) {
                             widget.cpo.reason = dataList[0];
                           }
                           return CustomChoiceChip(
@@ -273,28 +272,36 @@ class _AddBillViewState extends State<AddBillView> {
                             },
                             child: const Text("取消"))
                       ])),
+                  widget.cpo.dataType == 1
+                      ? const Divider(
+                          color: Colors.grey,
+                          thickness: 0,
+                          height: 12,
+                        )
+                      : const SizedBox(),
+                  widget.cpo.dataType == 1
+                      ? const Text(style: TextStyle(fontSize: 12), "预算周期")
+                      : const SizedBox(),
+                  widget.cpo.dataType == 1
+                      ? CustomChoiceChip(
+                          dataList: duration,
+                          onSelect: (i) {
+                            widget.cpo.duration = i;
+                            setState(() {});
+                          },
+                          defaultSelect: widget.cpo.duration,
+                          onLongPress: (index) {},
+                        )
+                      : const SizedBox(),
                   const Divider(
                     color: Colors.grey,
                     thickness: 0,
                     height: 12,
                   ),
-                  widget.cpo.dataType == 1 ? CustomChoiceChip(
-                    dataList: duration,
-                    onSelect: (i) {
-                      widget.cpo.duration = i;
-                      setState(() {});
-                    },
-                    defaultSelect: widget.cpo.duration,
-                    onLongPress: (index) {},
-                  ) : const SizedBox(),
-                  // const Divider(
-                  //   color: Colors.grey,
-                  //   thickness: 0,
-                  //   height: 16,
-                  // ),
+                  const Text(style: TextStyle(fontSize: 12), "收支金额"),
                   Container(
-                    padding: const EdgeInsets.only(top: 15),
-                    height: 70,
+                    padding: const EdgeInsets.only(top: 0),
+                    height: 60,
                     child: TextField(
                       controller: TextEditingController.fromValue(
                           TextEditingValue(
@@ -305,8 +312,10 @@ class _AddBillViewState extends State<AddBillView> {
                       textAlignVertical: TextAlignVertical.center,
                       cursorHeight: 25,
                       decoration: const InputDecoration(
+                        contentPadding:EdgeInsets.all(2),
+                        fillColor: Colors.grey,
                         prefixText: "￥",
-                        border: OutlineInputBorder(),
+                        border:InputBorder.none,
                         hintText: '金额',
                       ),
                       onChanged: (String text) {
@@ -314,6 +323,12 @@ class _AddBillViewState extends State<AddBillView> {
                       },
                     ),
                   ),
+                  const Divider(
+                    color: Colors.grey,
+                    thickness: 0,
+                    height: 12,
+                  ),
+                  const Text(style: TextStyle(fontSize: 12), "备注信息"),
                   SizedBox(
                     child: TextField(
                       decoration: const InputDecoration(

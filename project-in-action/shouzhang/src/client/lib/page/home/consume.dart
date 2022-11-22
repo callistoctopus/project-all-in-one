@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-29 01:37:32
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-21 09:15:29
+ * @LastEditTime: 2022-11-22 01:47:26
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -37,6 +37,7 @@ class _ConsumePageState extends State<ConsumePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: Center(
         child: ListView(
           children: <Widget>[

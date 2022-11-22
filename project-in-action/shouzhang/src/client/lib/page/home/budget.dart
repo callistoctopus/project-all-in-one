@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-29 01:37:32
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-21 09:37:51
+ * @LastEditTime: 2022-11-22 01:48:09
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -23,16 +23,17 @@ class _BudgetState extends State<Budget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: Colors.white,
         body: Center(
             child: ListView(children: <Widget>[
-      COMMON_COMPONENT.chart("预算储备", "管理", () {
-        context.go(ROUTE.BUDGET);
-      }, const SizedBox()),
-      const Divider(
-        color: Colors.grey,
-        thickness: 0,
-        height: 1,
-      ),
-    ])));
+          COMMON_COMPONENT.chart("预算储备", "管理", () {
+            context.go(ROUTE.BUDGET);
+          }, const SizedBox()),
+          const Divider(
+            color: Colors.grey,
+            thickness: 0,
+            height: 1,
+          ),
+        ])));
   }
 }
