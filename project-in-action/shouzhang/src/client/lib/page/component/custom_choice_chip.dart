@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-11-02 15:26:48
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-22 14:26:23
+ * @LastEditTime: 2022-11-23 11:55:50
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -44,7 +44,7 @@ class _CustomChoiceChipState extends State<CustomChoiceChip>
                   child: GestureDetector(
                       onLongPress: () {
                         widget.onLongPress(index);
-                        setState(() {});
+                        // setState(() {});
                       },
                       child: ChoiceChip(
                         backgroundColor: Colors.white,
@@ -64,10 +64,10 @@ class _CustomChoiceChipState extends State<CustomChoiceChip>
                             ? const TextStyle(color: Colors.white)
                             : const TextStyle(color: Colors.black),
                         onSelected: (bool selected) {
-                          widget.onSelect(index);
                           setState(() {
                             widget.defaultSelect = selected ? index : 0;
                           });
+                          widget.onSelect(index);
                         },
                       )));
             },

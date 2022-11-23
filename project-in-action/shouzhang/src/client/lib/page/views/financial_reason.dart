@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-11-22 15:08:02
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-23 11:20:34
+ * @LastEditTime: 2022-11-23 11:41:35
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -73,7 +73,8 @@ class _FinancialReasonViewState extends State<FinancialReasonView> {
                   }
                   context.read<GlobalDO>().reason = dataList[i];
                 },
-                defaultSelect: dataList.indexOf(context.read<GlobalDO>().reason),
+                defaultSelect:
+                    dataList.indexOf(context.read<GlobalDO>().reason),
                 onLongPress: (index) {
                   showDialog<void>(
                       context: context,
@@ -111,16 +112,22 @@ class _FinancialReasonViewState extends State<FinancialReasonView> {
             return const CircularProgressIndicator();
           }),
       AnimatedContainer(
-          height: showAddReason ? 70 : 0,
+          height: showAddReason ? 60 : 0,
           duration: const Duration(milliseconds: 400),
           child: Row(children: [
             Expanded(
                 flex: 1,
-                child: TextField(
+                child: SizedBox(
+                  height: 40,
+                    child: TextField(
+                      style:const TextStyle(fontSize: 20),
                   controller: controller,
                   decoration: InputDecoration(
+                    contentPadding: const EdgeInsets.only(left:10),
                     border: OutlineInputBorder(
                         gapPadding: 2,
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(18.0)),
                         borderSide: BorderSide(
                             width: 0,
                             color: showAddReason ? Colors.white : Colors.black,
@@ -129,7 +136,7 @@ class _FinancialReasonViewState extends State<FinancialReasonView> {
                   onChanged: (value) {
                     reason = value;
                   },
-                )),
+                ))),
             TextButton(
                 onPressed: () {
                   setState(() {
