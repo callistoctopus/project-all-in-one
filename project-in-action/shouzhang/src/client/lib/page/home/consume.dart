@@ -2,16 +2,16 @@
  * @Author: gui-qi
  * @Date: 2022-10-29 01:37:32
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-22 08:25:17
+ * @LastEditTime: 2022-11-22 15:03:08
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
  */
 import 'package:client/page/component/common_component.dart';
 import 'package:client/config/route.dart';
-import 'package:client/page/analysis/Week.dart';
-import 'package:client/page/analysis/month.dart';
-import 'package:client/page/analysis/today.dart';
+import 'package:client/page/views/analysis/Week.dart';
+import 'package:client/page/views/analysis/month.dart';
+import 'package:client/page/views/analysis/today.dart';
 import 'package:client/page/data_show/bill_list_page.dart';
 import 'package:client/service/server_data_access_service.dart';
 import 'package:client/units/common_const.dart';
@@ -37,38 +37,37 @@ class _ConsumePageState extends State<ConsumePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // backgroundColor: Colors.white,
       body: Center(
         child: ListView(
           children: <Widget>[
-            COMMON_COMPONENT.chart("今日指标", "", () {}, TodayAnalysis(),
-                height: 115),
+            CustomChart(title: "今日指标", height: 115, child: TodayAnalysis()),
             const Divider(
               color: Colors.grey,
               thickness: 0,
               height: 1,
             ),
-            COMMON_COMPONENT.chart(
-                "消费明细",
-                "明细",
-                () => context.go(ROUTE.BILLS),
-                BillListPage(
+            CustomChart(
+                title: "消费明细",
+                link: "明细",
+                callback: () => context.go(ROUTE.BILLS),
+                height: 90,
+                child: BillListPage(
                   shortMode: true,
-                ),
-                height: 90),
+                )),
             const Divider(
               color: Colors.grey,
               thickness: 0,
               height: 1,
             ),
-            COMMON_COMPONENT.chart("本周消费", "", () {}, const WeekAnalysis()),
+            CustomChart(title: "本周消费", child: const WeekAnalysis()),
             const Divider(
               color: Colors.grey,
               thickness: 0,
               height: 1,
             ),
-            COMMON_COMPONENT.chart("${CommonUtils.now().month}月度消费趋势", "",
-                () {}, const MonthAnalysis()),
+            CustomChart(
+                title: "${CommonUtils.now().month}月度消费趋势",
+                child: const MonthAnalysis()),
             const Divider(
               color: Colors.grey,
               thickness: 0,

@@ -1,183 +1,358 @@
 /*
  * @Author: gui-qi
- * @Date: 2022-10-29 01:37:32
+ * @Date: 2022-10-26 15:06:57
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-22 07:08:58
+ * @LastEditTime: 2022-11-22 15:51:11
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
  */
-import 'dart:ui';
-
-import 'package:client/config/route.dart';
-import 'package:client/page/component/common_component.dart';
+import 'package:client/page/component/custom_choice_chip.dart';
+import 'package:client/page/component/custom_float_button.dart';
 import 'package:client/page/component/custom_snack_bar.dart';
+import 'package:client/config/route.dart';
+import 'package:client/dao/bill_dao.dart';
 import 'package:client/dao/budget_dao.dart';
+import 'package:client/dao/reason_dao.dart';
 import 'package:client/dao/setting_dao.dart';
+import 'package:client/model/bill.dart';
 import 'package:client/model/budget.dart';
+import 'package:client/model/financial_reason.dart';
+import 'package:client/page/data_model/ParamStore.dart';
 import 'package:client/units/common_const.dart';
+import 'package:client/units/common_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:uuid/uuid.dart';
 
-class BudgetSettingPage extends StatefulWidget {
-  BudgetSettingPage({super.key});
+class AddBillView extends StatefulWidget {
+  AddBillView({super.key, required this.cpo});
 
-  List<Budget> outList = [];
-  List<Budget> inList = [];
+  CashInputVO cpo;
 
   @override
-  State<BudgetSettingPage> createState() => _BudgetSettingPageState();
+  State<AddBillView> createState() => _AddBillViewState();
 }
 
-class _BudgetSettingPageState extends State<BudgetSettingPage> {
-  List<Budget> fetchListBudget = [];
+class _AddBillViewState extends State<AddBillView> {
+  late Future<List<FinancialReason>> rl1;
+  late Future<List<FinancialReason>> rl2;
+  String reason = "";
+  bool showAddReason = false;
+
+  saveFinancialReason() {
+    FinancialReason fr = FinancialReason(
+        const Uuid().v1(),
+        SettingDao.currentUser(),
+        reason,
+        widget.cpo.type,
+        "",
+        0,
+        CommonUtils.now());
+
+    ReasonDao.saveFinancialReason(fr);
+  }
+
+  saveBill() {
+    late Bill bill;
+    if (widget.cpo.dataType == 0) {
+      if (widget.cpo.editType == 0) {
+        bill = Bill(
+          const Uuid().v1(),
+          SettingDao.currentUser(),
+          DateTime.now(),
+          widget.cpo.reason,
+          widget.cpo.type,
+          widget.cpo.amount,
+          widget.cpo.note,
+          DateTime.now(),
+        );
+      } else {
+        bill = PageParamStore.bill!;
+        bill.reason = widget.cpo.reason;
+        bill.type = widget.cpo.type;
+        bill.amount = widget.cpo.amount;
+        bill.note = widget.cpo.note;
+      }
+
+      BillDao.saveBill(bill);
+    } else {
+      late Budget b;
+      if (widget.cpo.editType == 0) {
+        b = Budget(
+            const Uuid().v1(),
+            SettingDao.currentUser(),
+            SettingDao.budgetYear().toString(),
+            widget.cpo.reason,
+            widget.cpo.type,
+            widget.cpo.duration,
+            widget.cpo.amount,
+            widget.cpo.note,
+            0,
+            DateTime.now());
+      } else {
+        b = PageParamStore.budget!;
+        b.reason = widget.cpo.reason;
+        b.type = widget.cpo.type;
+        b.budget = widget.cpo.amount;
+        b.note = widget.cpo.note;
+      }
+      BudgetDao.saveBudget(b);
+    }
+  }
 
   @override
   void initState() {
     super.initState();
   }
 
+  TextEditingController controller = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
-    widget.outList.clear();
-    widget.inList.clear();
-    fetchListBudget = BudgetDao.fetchListBudget();
-    fetchListBudget.forEach((budget) {
-      if (budget.type == 0 && !widget.outList.contains(budget)) {
-        widget.outList.add(budget);
+    rl1 = ReasonDao.fetchFinancialReasonOut();
+    rl2 = ReasonDao.fetchFinancialReasonIn();
+
+    if (widget.cpo.editType == 1) {
+      if (widget.cpo.dataType == 0) {
+        widget.cpo.type = PageParamStore.bill!.type;
+        widget.cpo.reason = PageParamStore.bill!.reason;
+        widget.cpo.amount = PageParamStore.bill!.amount;
+        widget.cpo.note = PageParamStore.bill!.note;
+      } else {
+        widget.cpo.type = PageParamStore.budget!.type;
+        widget.cpo.reason = PageParamStore.budget!.reason;
+        widget.cpo.amount = PageParamStore.budget!.budget;
+        widget.cpo.note = PageParamStore.budget!.note;
       }
-      if (budget.type == 1 && !widget.outList.contains(budget)) {
-        widget.inList.add(budget);
+    }
+
+    Map<dynamic, Function> para = {
+      ICONS.BACK: () {
+        context.go(ROUTE.HOME);
+      },
+      ICONS.SAVE: () {
+        if (widget.cpo.amount == -1) {
+          return CustomSnackBar().show(context, "请输入金额");
+        }
+
+        saveBill();
+        context.go(ROUTE.HOME);
       }
-    });
+    };
 
-    int year = SettingDao.budgetYear();
+    List<String> kinds = ['支出', '收入'];
+    List<String> duration = ['每天', '工作日', '每周', '每月', '每季度', '半年', '每年'];
 
-    return Scaffold(
-      body: Padding(
-          padding: const EdgeInsets.only(left: 10, right: 20, top: 5),
-          child: ListView(children: [
-            COMMON_COMPONENT.chart("预算概览", "", () {}, SizedBox(), height: 100),
-            const Divider(
-              color: Colors.grey,
-              thickness: 0,
-              height: 5,
-            ),
-            COMMON_COMPONENT.chart(
-                "预算年度",
-                "",
-                () {},
-                ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemBuilder: (context, index) {
-                      return Padding(
-                          padding: const EdgeInsets.only(
-                              top: 5.0, right: 5.0, bottom: 5),
-                          child: ChoiceChip(
-                            backgroundColor: Colors.white,
-                            padding: const EdgeInsets.all(2),
-                            side:
-                                const BorderSide(width: 0, color: Colors.grey),
-                            label: Text((2022 + index).toString()),
-                            selected: year == (index + 2022),
-                            onSelected: (bool selected) {
-                              SettingDao.setBudgetYear(index + 2022);
-                              setState(() {});
-                            },
-                          ));
-                    }),
-                height: 60),
-            const Divider(
-              color: Colors.grey,
-              thickness: 0,
-              height: 5,
-            ),
-            COMMON_COMPONENT.chart("预算明细", "追加", () {
-              context.go(ROUTE.ADD_BUDGET);
-            }, ListView.builder(itemBuilder: (context, index) {}),
-                height: window.physicalSize.height - 175),
-          ])),
-      floatingActionButton: FloatingActionButton(
-        shape: const CircleBorder(),
-        backgroundColor: Colors.white,
-        child: Text(
-          ICONS.BACK,
-          style: const TextStyle(color: Colors.black),
-        ),
-        onPressed: () => context.go(ROUTE.HOME),
-      ),
-    );
-  }
-}
-
-class InputWithTest extends StatefulWidget {
-  const InputWithTest(
-      {super.key,
-      required this.budget,
-      required this.oldBudget,
-      required this.onSelected,
-      required this.onDeleted});
-
-  final Budget budget;
-  final String oldBudget;
-  final Function(Budget) onSelected;
-  final Function(Budget) onDeleted;
-
-  @override
-  State<InputWithTest> createState() => _InputWithTestState();
-}
-
-class _InputWithTestState extends State<InputWithTest> {
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-        padding: const EdgeInsets.only(right: 15),
-        child: Row(
-          children: <Widget>[
-            Expanded(
-                flex: 1,
-                child: GestureDetector(
-                  child: const Icon(ICONS.DELETE),
-                  onTap: () {
-                    widget.onDeleted(widget.budget);
-                  },
-                )),
-            Expanded(
-                flex: 4,
-                child: Text(
-                    style: const TextStyle(fontSize: 16),
-                    textAlign: TextAlign.center,
-                    widget.budget.reason)),
-            Expanded(
-                flex: 5,
-                child: SizedBox(
-                  height: 40,
-                  child: TextField(
-                    strutStyle:
-                        const StrutStyle(height: 1.5, forceStrutHeight: true),
-                    cursorHeight: 25,
-                    decoration: InputDecoration(
-                      contentPadding: const EdgeInsets.only(
-                          left: 1, top: 1, right: 1, bottom: 1),
-                      prefixText: "￥",
-                      border: const OutlineInputBorder(
-                          borderSide: BorderSide(
-                              width: 1,
-                              style: BorderStyle.solid,
-                              color: Colors.white)),
-                      hintText: widget.oldBudget,
-                    ),
-                    onChanged: (String text) {
-                      if (double.tryParse(text) == null) {
-                        CustomSnackBar().show(context, "您输入的不是数字");
-                        return;
-                      }
-                      widget.budget.budget = double.tryParse(text) ?? 0;
-                      widget.onSelected(widget.budget);
+    return PageWithFloatButton(
+        funcIcon: para,
+        child: Scaffold(
+          body: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              child: ListView(
+                children: <Widget>[
+                  const Text(style: TextStyle(fontSize: 12), "收支类型"),
+                  CustomChoiceChip(
+                    dataList: kinds,
+                    backgroundColor: Colors.red,
+                    onSelect: (i) {
+                      widget.cpo.type = i;
+                      setState(() {});
                     },
+                    defaultSelect: widget.cpo.type,
+                    onLongPress: (index) {},
                   ),
-                )),
-          ],
+                  const Divider(
+                    color: Colors.grey,
+                    thickness: 0,
+                    height: 10,
+                  ),
+                  const Text(style: TextStyle(fontSize: 12), "收支事项"),
+                  FutureBuilder<List<FinancialReason>>(
+                      future: widget.cpo.type == 0 ? rl1 : rl2,
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+                          List<String> dataList =
+                              snapshot.data!.map((e) => e.reason).toList();
+                          dataList.add("+追加");
+                          if (dataList.length > 1 && !dataList.contains(widget.cpo.reason)) {
+                            widget.cpo.reason = dataList[0];
+                          }
+                          return CustomChoiceChip(
+                            backgroundColor: Colors.green,
+                            dataList: dataList,
+                            onSelect: (i) {
+                              if (i == (dataList.length - 1)) {
+                                setState(() {
+                                  showAddReason = true;
+                                });
+                              }
+                              widget.cpo.reason = dataList[i];
+                            },
+                            defaultSelect: dataList.indexOf(widget.cpo.reason),
+                            onLongPress: (index) {
+                              showDialog<void>(
+                                  context: context,
+                                  barrierDismissible: false,
+                                  builder: (BuildContext context) {
+                                    return AlertDialog(
+                                      title: const Text('确定删除？'),
+                                      actions: <Widget>[
+                                        TextButton(
+                                          child: const Text('确定'),
+                                          onPressed: () {
+                                            ReasonDao.deleteFinancialReason(
+                                                snapshot
+                                                    .data!
+                                                    .where((element) =>
+                                                        element.reason ==
+                                                        dataList[index])
+                                                    .toList()[0]);
+                                            Navigator.of(context).pop();
+                                            setState(() {});
+                                          },
+                                        ),
+                                        TextButton(
+                                          child: const Text('取消'),
+                                          onPressed: () {
+                                            Navigator.of(context).pop();
+                                          },
+                                        ),
+                                      ],
+                                    );
+                                  });
+                            },
+                          );
+                        } else if (snapshot.hasError) {
+                          return Text('${snapshot.error}');
+                        }
+
+                        return const CircularProgressIndicator();
+                      }),
+                  AnimatedContainer(
+                      height: showAddReason ? 70 : 0,
+                      duration: const Duration(milliseconds: 400),
+                      child: Row(children: [
+                        Expanded(
+                            flex: 1,
+                            child: TextField(
+                              controller: controller,
+                              decoration: InputDecoration(
+                                border: OutlineInputBorder(
+                                    gapPadding: 2,
+                                    borderSide: BorderSide(
+                                        width: 0,
+                                        color: showAddReason
+                                            ? Colors.white
+                                            : Colors.black,
+                                        style: BorderStyle.none)),
+                              ),
+                              onChanged: (value) {
+                                reason = value;
+                              },
+                            )),
+                        TextButton(
+                            onPressed: () {
+                              setState(() {
+                                showAddReason = false;
+                                saveFinancialReason();
+                                widget.cpo.reason = reason;
+                                reason = "";
+                                controller.clear();
+                              });
+                            },
+                            child: const Text("确定")),
+                        TextButton(
+                            onPressed: () {
+                              setState(() {
+                                reason = "";
+                                showAddReason = false;
+                                controller.clear();
+                              });
+                            },
+                            child: const Text("取消"))
+                      ])),
+                  widget.cpo.dataType == 1
+                      ? const Divider(
+                          color: Colors.grey,
+                          thickness: 0,
+                          height: 12,
+                        )
+                      : const SizedBox(),
+                  widget.cpo.dataType == 1
+                      ? const Text(style: TextStyle(fontSize: 12), "预算周期")
+                      : const SizedBox(),
+                  widget.cpo.dataType == 1
+                      ? CustomChoiceChip(
+                          dataList: duration,
+                          onSelect: (i) {
+                            widget.cpo.duration = i;
+                            setState(() {});
+                          },
+                          defaultSelect: widget.cpo.duration,
+                          onLongPress: (index) {},
+                        )
+                      : const SizedBox(),
+                  const Divider(
+                    color: Colors.grey,
+                    thickness: 0,
+                    height: 12,
+                  ),
+                  const Text(style: TextStyle(fontSize: 12), "收支金额"),
+                  Container(
+                    padding: const EdgeInsets.only(top: 0),
+                    height: 60,
+                    child: TextField(
+                      keyboardType: TextInputType.number,
+                      controller: TextEditingController.fromValue(
+                          TextEditingValue(
+                              text: widget.cpo.amount == -1
+                                  ? ""
+                                  : widget.cpo.amount.toString())),
+                      textAlign: TextAlign.justify,
+                      textAlignVertical: TextAlignVertical.center,
+                      cursorHeight: 25,
+                      decoration: const InputDecoration(
+                        contentPadding:EdgeInsets.all(2),
+                        fillColor: Colors.grey,
+                        prefixText: "￥",
+                        border:InputBorder.none,
+                        hintText: '金额',
+                      ),
+                      onChanged: (String text) {
+                        widget.cpo.amount = double.tryParse(text) ?? -1;
+                      },
+                    ),
+                  ),
+                  const Divider(
+                    color: Colors.grey,
+                    thickness: 0,
+                    height: 12,
+                  ),
+                  const Text(style: TextStyle(fontSize: 12), "备注信息"),
+                  SizedBox(
+                    child: TextField(
+                      decoration: const InputDecoration(
+                        border: UnderlineInputBorder(),
+                        hintText: '备注',
+                      ),
+                      onChanged: (String text) {
+                        widget.cpo.note = text;
+                      },
+                    ),
+                  ),
+                ],
+              )),
         ));
   }
+}
+
+class CashInputVO {
+  int editType = 0; //0:新增 1：编辑
+  int dataType = 0; //0:收支 1:预算
+  int type = 0;
+  String reason = "";
+  double amount = -1;
+  int duration = 0;
+  String note = "";
 }

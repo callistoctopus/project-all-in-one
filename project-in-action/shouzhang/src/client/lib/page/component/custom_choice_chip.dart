@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-11-02 15:26:48
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-21 15:28:09
+ * @LastEditTime: 2022-11-22 14:26:23
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -33,14 +33,14 @@ class _CustomChoiceChipState extends State<CustomChoiceChip>
   @override
   Widget build(BuildContext context) {
     return Padding(
-        padding: const EdgeInsets.only(left: 13, top: 8.0, bottom: 8),
+        padding: const EdgeInsets.only(left: 11, top: 8.0),
         child: Wrap(
           children: List<Widget>.generate(
             widget.dataList.length,
             (int index) {
               return Padding(
                   padding:
-                      const EdgeInsets.only(top: 5.0, right: 10.0, bottom: 5),
+                      const EdgeInsets.only(top: 2.0, right: 8.0, bottom: 6),
                   child: GestureDetector(
                       onLongPress: () {
                         widget.onLongPress(index);

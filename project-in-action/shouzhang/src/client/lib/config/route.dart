@@ -9,7 +9,7 @@
  */
 import 'package:client/dao/setting_dao.dart';
 import 'package:client/develop/dev_sample_page.dart';
-import 'package:client/page/data_edit/edit_budget_page.dart';
+import 'package:client/page/data_show/budget_list_page.dart';
 import 'package:client/page/home/setting.dart';
 import 'package:client/page/data_edit/edit_account_page.dart';
 import 'package:client/page/data_edit/edit_bill_page.dart';

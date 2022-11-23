@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-11-21 05:28:46
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-22 05:39:55
+ * @LastEditTime: 2022-11-22 15:00:20
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -21,16 +21,19 @@ class _AssetsState extends State<Assets> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        // backgroundColor: Colors.white,
         body: Center(
             child: ListView(children: <Widget>[
-          COMMON_COMPONENT.chart("资产状态", "盘账", () {}, const SizedBox(),
-              height: 120),
-          const Divider(
-            color: Colors.grey,
-            thickness: 0,
-            height: 1,
-          ),
-        ])));
+      CustomChart(
+          title: "资产状态",
+          link: "盘账",
+          callback: () {},
+          height: 120,
+          child: const SizedBox()),
+      const Divider(
+        color: Colors.grey,
+        thickness: 0,
+        height: 1,
+      ),
+    ])));
   }
 }
