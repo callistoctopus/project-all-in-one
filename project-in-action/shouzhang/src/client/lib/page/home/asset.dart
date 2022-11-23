@@ -2,12 +2,12 @@
  * @Author: gui-qi
  * @Date: 2022-11-21 05:28:46
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-22 15:00:20
+ * @LastEditTime: 2022-11-23 06:58:49
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
  */
-import 'package:client/page/component/common_component.dart';
+import 'package:client/page/component/custom_chart.dart';
 import 'package:flutter/material.dart';
 
 class Assets extends StatefulWidget {

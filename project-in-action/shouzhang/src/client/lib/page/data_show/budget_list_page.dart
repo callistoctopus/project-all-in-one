@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-29 01:37:32
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-22 14:58:26
+ * @LastEditTime: 2022-11-23 06:59:07
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -10,7 +10,7 @@
 import 'dart:ui';
 
 import 'package:client/config/route.dart';
-import 'package:client/page/component/common_component.dart';
+import 'package:client/page/component/custom_chart.dart';
 import 'package:client/page/component/custom_snack_bar.dart';
 import 'package:client/dao/budget_dao.dart';
 import 'package:client/dao/setting_dao.dart';

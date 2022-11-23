@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-11-09 12:54:29
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-22 05:56:21
+ * @LastEditTime: 2022-11-23 06:57:55
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -72,9 +72,7 @@ class RouteConfig {
           path: ROUTE.EDIT,
           builder: (BuildContext context, GoRouterState state) {
             return AddBillView(
-                cpo: CashInputVO()
-                  ..editType = int.parse(state.queryParams["editType"] ?? "0")
-                  ..dataType = int.parse(state.queryParams["dataType"] ?? "0"));
+                editType: int.parse(state.queryParams["editType"] ?? "0"));
           },
         ),
       ],

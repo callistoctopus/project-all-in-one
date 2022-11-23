@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-29 01:37:32
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-22 14:59:39
+ * @LastEditTime: 2022-11-23 06:58:32
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -10,8 +10,7 @@
 import 'package:client/config/route.dart';
 import 'package:client/dao/setting_dao.dart';
 import 'package:client/page/views/analysis/grade.dart';
-import 'package:client/page/component/common_component.dart';
-import 'package:client/page/data_edit/edit_account_page.dart';
+import 'package:client/page/component/custom_chart.dart';
 import 'package:client/service/local_database_service.dart';
 import 'package:client/service/server_data_access_service.dart';
 import 'package:client/units/common_utils.dart';

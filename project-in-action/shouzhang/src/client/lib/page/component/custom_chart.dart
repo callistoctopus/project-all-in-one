@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-11-21 03:13:24
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-23 00:40:28
+ * @LastEditTime: 2022-11-23 03:13:55
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -56,13 +56,14 @@ class _CustomChartState extends State<CustomChart> {
   }
 }
 
-class CustomChart2 extends StatefulWidget {
-  CustomChart2(
-      {super.key,
-      required this.title,
-      required this.child,
-      this.link = "",
-      this.callback,});
+class CustomChartDynamic extends StatefulWidget {
+  CustomChartDynamic({
+    super.key,
+    required this.title,
+    required this.child,
+    this.link = "",
+    this.callback,
+  });
 
   String title;
   Widget child;
@@ -70,14 +71,15 @@ class CustomChart2 extends StatefulWidget {
   void Function()? callback;
 
   @override
-  State<StatefulWidget> createState() => _CustomChartState2();
+  State<StatefulWidget> createState() => _CustomChartDynamicState();
 }
 
-class _CustomChartState2 extends State<CustomChart2> {
+class _CustomChartDynamicState extends State<CustomChartDynamic> {
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+    return ListView(
+        shrinkWrap: true,
+        children: [
           Container(
               alignment: Alignment.centerLeft,
               padding: const EdgeInsets.only(left: 2, top: 3, right: 2),
@@ -95,7 +97,7 @@ class _CustomChartState2 extends State<CustomChart2> {
                             style: const TextStyle(
                                 fontSize: 12, color: Colors.blueAccent)))
                   ])),
-          SizedBox(child: widget.child)
-        ]));
+          widget.child
+        ]);
   }
 }
