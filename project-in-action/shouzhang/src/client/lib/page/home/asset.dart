@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-11-21 05:28:46
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-23 06:58:49
+ * @LastEditTime: 2022-11-23 10:56:44
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -10,14 +10,14 @@
 import 'package:client/page/component/custom_chart.dart';
 import 'package:flutter/material.dart';
 
-class Assets extends StatefulWidget {
-  const Assets({super.key});
+class AssetsPage extends StatefulWidget {
+  const AssetsPage({super.key});
 
   @override
-  State<StatefulWidget> createState() => _AssetsState();
+  State<StatefulWidget> createState() => _AssetsPageState();
 }
 
-class _AssetsState extends State<Assets> {
+class _AssetsPageState extends State<AssetsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

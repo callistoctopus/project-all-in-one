@@ -2,15 +2,13 @@
  * @Author: gui-qi
  * @Date: 2022-10-29 01:37:32
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-23 08:35:59
+ * @LastEditTime: 2022-11-23 10:24:34
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
  */
 import 'package:client/page/component/custom_chart.dart';
 import 'package:client/config/route.dart';
-import 'package:client/page/data_edit/edit_bill_page.dart';
-import 'package:client/page/data_model/budget_vo.dart';
 import 'package:client/page/views/analysis/Week.dart';
 import 'package:client/page/views/analysis/month.dart';
 import 'package:client/page/views/analysis/today.dart';
@@ -20,7 +18,6 @@ import 'package:client/units/common_const.dart';
 import 'package:client/units/common_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:provider/provider.dart';
 
 class ConsumePage extends StatefulWidget {
   const ConsumePage({super.key});
@@ -31,7 +28,6 @@ class ConsumePage extends StatefulWidget {
 
 class _ConsumePageState extends State<ConsumePage> {
   bool selected = false;
-  // BillVO bvo = BillVO();
 
   @override
   void initState() {

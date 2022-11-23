@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-26 15:06:57
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-23 08:48:50
+ * @LastEditTime: 2022-11-23 11:18:17
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -13,6 +13,7 @@ import 'package:client/page/component/custom_snack_bar.dart';
 import 'package:client/config/route.dart';
 import 'package:client/dao/bill_dao.dart';
 import 'package:client/page/data_model/bill_vo.dart';
+import 'package:client/page/data_model/global_do.dart';
 import 'package:client/page/views/financial_amount.dart';
 import 'package:client/page/views/financial_note.dart';
 import 'package:client/page/views/financial_reason.dart';
@@ -33,7 +34,7 @@ class AddBillView extends StatefulWidget {
 
 class _AddBillViewState extends State<AddBillView> {
   saveBill() {
-    BillDao.saveBill(context.read<BillVO>().bill);
+    BillDao.saveBill(context.read<GlobalDO>().bill);
   }
 
   @override
@@ -44,7 +45,7 @@ class _AddBillViewState extends State<AddBillView> {
   @override
   Widget build(BuildContext context) {
     if (widget.editType == 0) {
-      context.read<BillVO>().reset();
+      context.read<GlobalDO>().bill = null;
     }
 
     Map<dynamic, Function> para = {
@@ -52,7 +53,7 @@ class _AddBillViewState extends State<AddBillView> {
         context.go(ROUTE.HOME);
       },
       ICONS.SAVE: () {
-        if (context.read<BillVO>().bill.amount == -1) {
+        if (context.read<GlobalDO>().amount == -1) {
           return CustomSnackBar().show(context, "请输入金额");
         }
 

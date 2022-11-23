@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-11-22 15:08:02
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-23 06:57:28
+ * @LastEditTime: 2022-11-23 11:20:34
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -11,7 +11,7 @@ import 'package:client/dao/reason_dao.dart';
 import 'package:client/dao/setting_dao.dart';
 import 'package:client/model/financial_reason.dart';
 import 'package:client/page/component/custom_choice_chip.dart';
-import 'package:client/page/data_model/bill_vo.dart';
+import 'package:client/page/data_model/global_do.dart';
 import 'package:client/units/common_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -34,7 +34,7 @@ class _FinancialReasonViewState extends State<FinancialReasonView> {
         const Uuid().v1(),
         SettingDao.currentUser(),
         reason,
-        context.read<BillVO>().bill.type,
+        context.read<GlobalDO>().type,
         "",
         0,
         CommonUtils.now());
@@ -44,7 +44,7 @@ class _FinancialReasonViewState extends State<FinancialReasonView> {
 
   @override
   Widget build(BuildContext context) {
-    reasons = context.watch<BillVO>().bill.type == 0
+    reasons = context.watch<GlobalDO>().type == 0
         ? ReasonDao.fetchFinancialReasonOut()
         : ReasonDao.fetchFinancialReasonIn();
 
@@ -59,8 +59,8 @@ class _FinancialReasonViewState extends State<FinancialReasonView> {
                   snapshot.data!.map((e) => e.reason).toList();
               dataList.add("+追加");
               if (dataList.length > 1 &&
-                  !dataList.contains(context.read<BillVO>().bill.reason)) {
-                context.read<BillVO>().bill.reason = dataList[0];
+                  !dataList.contains(context.read<GlobalDO>().reason)) {
+                context.read<GlobalDO>().reason = dataList[0];
               }
               return CustomChoiceChip(
                 backgroundColor: Colors.green,
@@ -71,9 +71,9 @@ class _FinancialReasonViewState extends State<FinancialReasonView> {
                       showAddReason = true;
                     });
                   }
-                  context.read<BillVO>().bill.reason = dataList[i];
+                  context.read<GlobalDO>().reason = dataList[i];
                 },
-                defaultSelect: dataList.indexOf(context.read<BillVO>().bill.reason),
+                defaultSelect: dataList.indexOf(context.read<GlobalDO>().reason),
                 onLongPress: (index) {
                   showDialog<void>(
                       context: context,
@@ -135,7 +135,7 @@ class _FinancialReasonViewState extends State<FinancialReasonView> {
                   setState(() {
                     showAddReason = false;
                     saveFinancialReason();
-                    context.read<BillVO>().bill.reason = reason;
+                    context.read<GlobalDO>().reason = reason;
                     reason = "";
                     controller.clear();
                   });

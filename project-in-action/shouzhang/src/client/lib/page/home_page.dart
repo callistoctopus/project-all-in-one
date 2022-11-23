@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-29 01:37:32
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-22 08:01:40
+ * @LastEditTime: 2022-11-23 10:56:49
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -26,8 +26,8 @@ class _HomePageState extends State<HomePage> {
 
   static final List<Widget> _widgetOptions = <Widget>[
     const ConsumePage(),
-    const Budget(),
-    const Assets(),
+    const BudgetPage(),
+    const AssetsPage(),
     const AnalysisPage(),
   ];
 

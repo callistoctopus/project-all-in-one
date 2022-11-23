@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-29 01:37:32
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-23 06:55:36
+ * @LastEditTime: 2022-11-23 10:57:27
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -12,8 +12,7 @@ import 'dart:async';
 import 'package:client/config/route.dart';
 import 'package:client/dao/bill_dao.dart';
 import 'package:client/model/bill.dart';
-import 'package:client/page/data_model/ParamStore.dart';
-import 'package:client/page/data_model/bill_vo.dart';
+import 'package:client/page/data_model/global_do.dart';
 import 'package:client/units/common_const.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -74,7 +73,7 @@ class _BillListPageState extends State<BillListPage> {
                               bill: snapshot.data![i],
                               onLongPress: (bill) {},
                               onTap: (bill) {
-                                context.read<BillVO>().bill = bill;
+                                context.read<GlobalDO>().bill = bill;
                                 context.go(ROUTE.EDIT_BILL);
                               },
                             ));

@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-29 01:37:32
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-23 06:59:00
+ * @LastEditTime: 2022-11-23 10:57:03
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -12,14 +12,14 @@ import 'package:client/config/route.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-class Budget extends StatefulWidget {
-  const Budget({super.key});
+class BudgetPage extends StatefulWidget {
+  const BudgetPage({super.key});
 
   @override
-  State<StatefulWidget> createState() => _BudgetState();
+  State<StatefulWidget> createState() => _BudgetPageState();
 }
 
-class _BudgetState extends State<Budget> {
+class _BudgetPageState extends State<BudgetPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
