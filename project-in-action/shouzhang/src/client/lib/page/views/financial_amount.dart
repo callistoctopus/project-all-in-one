@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-11-23 05:21:03
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-23 10:23:19
+ * @LastEditTime: 2022-11-23 14:21:52
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -21,21 +21,20 @@ class FinancialAmountView extends StatefulWidget {
 }
 
 class _FinancialAmountState extends State<FinancialAmountView> {
-  List<String> kinds = ['支出', '收入'];
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.only(top: 0),
-      height: 60,
+      height: 30,
       child: TextField(
+        autofocus: true,
+        style:const TextStyle(fontSize: 22),
         keyboardType: TextInputType.number,
         controller: TextEditingController.fromValue(TextEditingValue(
             text: context.read<GlobalDO>().amount == -1
                 ? ""
                 : context.read<GlobalDO>().amount.toString())),
-        textAlign: TextAlign.justify,
         textAlignVertical: TextAlignVertical.center,
-        cursorHeight: 25,
         decoration: const InputDecoration(
           contentPadding: EdgeInsets.all(2),
           fillColor: Colors.grey,

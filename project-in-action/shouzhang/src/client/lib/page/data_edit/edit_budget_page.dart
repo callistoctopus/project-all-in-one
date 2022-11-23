@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-26 15:06:57
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-23 11:12:32
+ * @LastEditTime: 2022-11-23 15:15:15
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -101,7 +101,7 @@ class _AddBudgetViewState extends State<AddBudgetView> {
                   ),
                   CustomChart(
                     title: "收支金额",
-                    height: 90,
+                    height: 70,
                     child: const FinancialAmountView(),
                   ),
                   const Divider(

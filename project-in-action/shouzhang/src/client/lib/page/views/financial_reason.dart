@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-11-22 15:08:02
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-23 11:41:35
+ * @LastEditTime: 2022-11-23 15:00:26
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -57,21 +57,21 @@ class _FinancialReasonViewState extends State<FinancialReasonView> {
             if (snapshot.hasData) {
               List<String> dataList =
                   snapshot.data!.map((e) => e.reason).toList();
-              dataList.add("+追加");
               if (dataList.length > 1 &&
                   !dataList.contains(context.read<GlobalDO>().reason)) {
                 context.read<GlobalDO>().reason = dataList[0];
               }
               return CustomChoiceChip(
+                enableAdd: true,
                 backgroundColor: Colors.green,
                 dataList: dataList,
                 onSelect: (i) {
-                  if (i == (dataList.length - 1)) {
-                    setState(() {
-                      showAddReason = true;
-                    });
-                  }
                   context.read<GlobalDO>().reason = dataList[i];
+                },
+                onAdd: () {
+                  setState(() {
+                    showAddReason = true;
+                  });
                 },
                 defaultSelect:
                     dataList.indexOf(context.read<GlobalDO>().reason),
@@ -111,53 +111,77 @@ class _FinancialReasonViewState extends State<FinancialReasonView> {
 
             return const CircularProgressIndicator();
           }),
-      AnimatedContainer(
-          height: showAddReason ? 60 : 0,
-          duration: const Duration(milliseconds: 400),
-          child: Row(children: [
-            Expanded(
-                flex: 1,
-                child: SizedBox(
-                  height: 40,
-                    child: TextField(
-                      style:const TextStyle(fontSize: 20),
-                  controller: controller,
-                  decoration: InputDecoration(
-                    contentPadding: const EdgeInsets.only(left:10),
-                    border: OutlineInputBorder(
-                        gapPadding: 2,
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(18.0)),
-                        borderSide: BorderSide(
-                            width: 0,
-                            color: showAddReason ? Colors.white : Colors.black,
-                            style: BorderStyle.none)),
-                  ),
-                  onChanged: (value) {
-                    reason = value;
-                  },
-                ))),
-            TextButton(
-                onPressed: () {
-                  setState(() {
-                    showAddReason = false;
-                    saveFinancialReason();
-                    context.read<GlobalDO>().reason = reason;
-                    reason = "";
-                    controller.clear();
-                  });
-                },
-                child: const Text("确定")),
-            TextButton(
-                onPressed: () {
-                  setState(() {
-                    reason = "";
-                    showAddReason = false;
-                    controller.clear();
-                  });
-                },
-                child: const Text("取消"))
-          ]))
+      Padding(
+          padding: const EdgeInsets.only(left: 8),
+          child: AnimatedContainer(
+              height: showAddReason ? 60 : 0,
+              duration: const Duration(milliseconds: 400),
+              child: Row(children: [
+                Expanded(
+                    flex: 5,
+                    child: SizedBox(
+                        height: 40,
+                        child: TextField(
+                          style: const TextStyle(fontSize: 20),
+                          controller: controller,
+                          decoration: InputDecoration(
+                            contentPadding: const EdgeInsets.only(left: 10),
+                            border: OutlineInputBorder(
+                                gapPadding: 2,
+                                borderRadius: const BorderRadius.all(
+                                    Radius.circular(18.0)),
+                                borderSide: BorderSide(
+                                    width: 0,
+                                    color: showAddReason
+                                        ? Colors.white
+                                        : Colors.black,
+                                    style: BorderStyle.none)),
+                          ),
+                          onChanged: (value) {
+                            reason = value;
+                          },
+                        ))),
+                Expanded(
+                    flex: 1,
+                    child: SizedBox(
+                        height: 40,
+                        child: TextButton(
+                            style: TextButton.styleFrom(
+                                shape: const CircleBorder(
+                                    side: BorderSide(color: Colors.grey))),
+                            onPressed: () {
+                              setState(() {
+                                showAddReason = false;
+                                saveFinancialReason();
+                                context.read<GlobalDO>().reason = reason;
+                                reason = "";
+                                controller.clear();
+                              });
+                            },
+                            child: const Text(
+                              "√",
+                              style:
+                                  TextStyle(fontSize: 28, color: Colors.black),
+                            )))),
+                Expanded(
+                    flex: 1,
+                    child: SizedBox(
+                        height: 40,
+                        child: TextButton(
+                            style: TextButton.styleFrom(
+                                shape: const CircleBorder(
+                                    side: BorderSide(color: Colors.grey))),
+                            onPressed: () {
+                              setState(() {
+                                reason = "";
+                                showAddReason = false;
+                                controller.clear();
+                              });
+                            },
+                            child: const Text("X",
+                                style: TextStyle(
+                                    fontSize: 28, color: Colors.black)))))
+              ])))
     ]);
   }
 }

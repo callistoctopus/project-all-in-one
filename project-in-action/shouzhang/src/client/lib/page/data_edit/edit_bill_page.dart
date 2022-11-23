@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-26 15:06:57
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-23 11:18:17
+ * @LastEditTime: 2022-11-23 14:19:02
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -12,7 +12,6 @@ import 'package:client/page/component/custom_float_button.dart';
 import 'package:client/page/component/custom_snack_bar.dart';
 import 'package:client/config/route.dart';
 import 'package:client/dao/bill_dao.dart';
-import 'package:client/page/data_model/bill_vo.dart';
 import 'package:client/page/data_model/global_do.dart';
 import 'package:client/page/views/financial_amount.dart';
 import 'package:client/page/views/financial_note.dart';
@@ -90,7 +89,7 @@ class _AddBillViewState extends State<AddBillView> {
                   ),
                   CustomChart(
                     title: "收支金额",
-                    height: 90,
+                    height: 70,
                     child: const FinancialAmountView(),
                   ),
                   const Divider(

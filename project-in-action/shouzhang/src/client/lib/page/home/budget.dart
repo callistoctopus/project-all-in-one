@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-29 01:37:32
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-23 10:57:03
+ * @LastEditTime: 2022-11-23 15:05:50
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -29,7 +29,7 @@ class _BudgetPageState extends State<BudgetPage> {
           title: "预算储备",
           link: "管理",
           callback: () {
-            context.go(ROUTE.BUDGET);
+            context.go(ROUTE.BUDGETS);
           },
           child: const SizedBox()),
       const Divider(

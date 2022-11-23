@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-11-23 05:21:03
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-23 10:21:40
+ * @LastEditTime: 2022-11-23 14:20:39
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -21,11 +21,11 @@ class FinancialNoteView extends StatefulWidget {
 }
 
 class _FinancialNoteViewState extends State<FinancialNoteView> {
-  List<String> kinds = ['支出', '收入'];
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       child: TextField(
+        style:const TextStyle(fontSize: 20),
         decoration: const InputDecoration(
           border: UnderlineInputBorder(),
           hintText: '备注',

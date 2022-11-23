@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-29 01:37:32
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-23 06:59:07
+ * @LastEditTime: 2022-11-23 15:49:44
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -18,6 +18,7 @@ import 'package:client/model/budget.dart';
 import 'package:client/units/common_const.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:percent_indicator/percent_indicator.dart';
 
 class BudgetSettingPage extends StatefulWidget {
   BudgetSettingPage({super.key});
@@ -42,14 +43,14 @@ class _BudgetSettingPageState extends State<BudgetSettingPage> {
     widget.outList.clear();
     widget.inList.clear();
     fetchListBudget = BudgetDao.fetchListBudget();
-    fetchListBudget.forEach((budget) {
-      if (budget.type == 0 && !widget.outList.contains(budget)) {
-        widget.outList.add(budget);
-      }
-      if (budget.type == 1 && !widget.outList.contains(budget)) {
-        widget.inList.add(budget);
-      }
-    });
+    // fetchListBudget.forEach((budget) {
+    //   if (budget.type == 0 && !widget.outList.contains(budget)) {
+    //     widget.outList.add(budget);
+    //   }
+    //   if (budget.type == 1 && !widget.outList.contains(budget)) {
+    //     widget.inList.add(budget);
+    //   }
+    // });
 
     int year = SettingDao.budgetYear();
 
@@ -66,7 +67,7 @@ class _BudgetSettingPageState extends State<BudgetSettingPage> {
             CustomChart(
                 title: "预算年度",
                 height: 60,
-                child:ListView.builder(
+                child: ListView.builder(
                     scrollDirection: Axis.horizontal,
                     itemBuilder: (context, index) {
                       return Padding(
@@ -97,9 +98,11 @@ class _BudgetSettingPageState extends State<BudgetSettingPage> {
                   context.go(ROUTE.ADD_BUDGET);
                 },
                 height: window.physicalSize.height - 175,
-                child: ListView.builder(itemBuilder: (context, index) {
-                  return null;
-                })),
+                child: ListView.builder(
+                    itemCount: fetchListBudget.length,
+                    itemBuilder: (context, index) {
+                      return _COMPONMENT.budgetView(fetchListBudget[index]);
+                    })),
           ])),
       floatingActionButton: FloatingActionButton(
         shape: const CircleBorder(),
@@ -111,6 +114,83 @@ class _BudgetSettingPageState extends State<BudgetSettingPage> {
         onPressed: () => context.go(ROUTE.HOME),
       ),
     );
+  }
+}
+
+class _COMPONMENT {
+  static Widget budgetView(Budget budget) {
+    return Padding(
+        padding: const EdgeInsets.only(top: 5),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Expanded(
+                flex: 1,
+                child: Padding(
+                    padding: const EdgeInsets.only(top: 15),
+                    child: CircleAvatar(
+                        radius: 13,
+                        backgroundColor:
+                            budget.type == 0 ? Colors.red : Colors.green,
+                        child: Text(
+                          budget.type == 0 ? "收" : "支",
+                          style: const TextStyle(fontSize: 18),
+                        )))),
+            Expanded(
+                flex: 1,
+                child: Padding(
+                    padding: const EdgeInsets.only(top: 15),
+                    child: Text(budget.reason))),
+            Expanded(
+              flex: 6,
+              child: Padding(
+                padding: const EdgeInsets.only(top: 0, bottom: 0),
+                child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const CircleAvatar(
+                                radius: 13,
+                                backgroundColor: Colors.white,
+                                child: Text(
+                                  "总",
+                                  style: TextStyle(fontSize: 12,color: Colors.black),
+                                )),
+                            Text(budget.budget.toString(),
+                                style: const TextStyle(fontSize: 12)),
+                          ]),
+                      LinearPercentIndicator(
+                        animation: true,
+                        lineHeight: 18.0,
+                        animationDuration: 2500,
+                        percent: 0.8,
+                        center: const Text("80.0%"),
+                        barRadius: const Radius.circular(10),
+                        progressColor: Colors.green,
+                      )
+                    ]),
+              ),
+            ),
+            const Expanded(
+                flex: 1,
+                child: Padding(
+                    padding: EdgeInsets.only(top: 15),
+                    child: CircleAvatar(
+                        radius: 13,
+                        backgroundColor: Colors.white,
+                        child: Text(
+                          "余",
+                          style: TextStyle(fontSize: 18,color: Colors.black),
+                        )))),
+            Expanded(
+                flex: 1,
+                child: Padding(
+                    padding: const EdgeInsets.only(top: 15),
+                    child: Text(budget.budget.toString()))),
+          ],
+        ));
   }
 }
 
