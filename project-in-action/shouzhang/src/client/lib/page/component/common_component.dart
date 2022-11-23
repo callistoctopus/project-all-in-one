@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-11-21 03:13:24
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-22 16:04:49
+ * @LastEditTime: 2022-11-23 00:40:28
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -47,7 +47,7 @@ class _CustomChartState extends State<CustomChart> {
                     ),
                     GestureDetector(
                         onTap: widget.callback ?? () {},
-                        child: Text(widget.link != "" ? "$widget.link >" : "",
+                        child: Text(widget.link != "" ? "${widget.link} >" : "",
                             style: const TextStyle(
                                 fontSize: 12, color: Colors.blueAccent)))
                   ])),

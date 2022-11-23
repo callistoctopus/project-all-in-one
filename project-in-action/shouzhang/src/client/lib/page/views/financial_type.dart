@@ -2,13 +2,15 @@
  * @Author: gui-qi
  * @Date: 2022-11-22 15:44:20
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-22 16:27:07
+ * @LastEditTime: 2022-11-23 02:37:38
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
  */
 import 'package:client/page/component/custom_choice_chip.dart';
+import 'package:client/page/data_model/financial_type.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class FinancialTypeView extends StatefulWidget {
   FinancialTypeView({super.key, required this.callback});
@@ -30,6 +32,7 @@ class _FinancialTypeViewState extends State<FinancialTypeView> {
       onSelect: (i) {
         widget.type = i;
         widget.callback(i);
+        context.read<FinancialType>().curFinancialType = i;
         setState(() {});
       },
       defaultSelect: widget.type,

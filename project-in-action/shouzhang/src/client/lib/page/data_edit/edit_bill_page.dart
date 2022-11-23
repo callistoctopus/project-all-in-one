@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-26 15:06:57
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-22 16:27:32
+ * @LastEditTime: 2022-11-23 02:41:45
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -20,12 +20,14 @@ import 'package:client/model/bill.dart';
 import 'package:client/model/budget.dart';
 import 'package:client/model/financial_reason.dart';
 import 'package:client/page/data_model/ParamStore.dart';
+import 'package:client/page/data_model/financial_type.dart';
 import 'package:client/page/views/financial_reason.dart';
 import 'package:client/page/views/financial_type.dart';
 import 'package:client/units/common_const.dart';
 import 'package:client/units/common_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
 import 'package:uuid/uuid.dart';
 
 class AddBillView extends StatefulWidget {
@@ -121,32 +123,23 @@ class _AddBillViewState extends State<AddBillView> {
       }
     };
 
-    FinancialTypeView financialType = FinancialTypeView(
-      callback: (value) {
-        widget.cpo.type = value;
-        setState(() {});
-      },
-    );
-
-    FinancialReasonView financialReasonView = FinancialReasonView(
-      callback: (reason) {
-        widget.cpo.reason = reason;
-        setState(() {});
-      },
-      reasonType: financialType.type,
-    );
-
     return PageWithFloatButton(
         funcIcon: para,
         child: Scaffold(
-          body: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            body: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+          child: MultiProvider(
+              providers: [
+                ChangeNotifierProvider<FinancialType>(create: (_) => FinancialType()),
+              ],
               child: ListView(
                 children: <Widget>[
                   CustomChart(
                     title: "收支类型",
                     height: 70,
-                    child: financialType,
+                    child: FinancialTypeView(
+                      callback: (int value) {},
+                    ),
                   ),
                   const Divider(
                     color: Colors.grey,
@@ -156,7 +149,12 @@ class _AddBillViewState extends State<AddBillView> {
                   CustomChart(
                     title: "收支事项",
                     height: 80,
-                    child: financialReasonView,
+                    child: FinancialReasonView(
+                      callback: (reason) {
+                        widget.cpo.reason = reason;
+                      },
+                      reasonType: 0,
+                    ),
                   ),
                   const Divider(
                     color: Colors.grey,
@@ -213,7 +211,7 @@ class _AddBillViewState extends State<AddBillView> {
                   )
                 ],
               )),
-        ));
+        )));
   }
 }
 

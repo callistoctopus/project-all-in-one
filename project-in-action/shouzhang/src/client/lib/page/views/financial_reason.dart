@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-11-22 15:08:02
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-22 16:28:01
+ * @LastEditTime: 2022-11-23 02:38:37
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -11,8 +11,10 @@ import 'package:client/dao/reason_dao.dart';
 import 'package:client/dao/setting_dao.dart';
 import 'package:client/model/financial_reason.dart';
 import 'package:client/page/component/custom_choice_chip.dart';
+import 'package:client/page/data_model/financial_type.dart';
 import 'package:client/units/common_utils.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:uuid/uuid.dart';
 
 class FinancialReasonView extends StatefulWidget {
@@ -47,7 +49,7 @@ class _FinancialReasonViewState extends State<FinancialReasonView> {
 
   @override
   Widget build(BuildContext context) {
-    reasons = widget.reasonType == 0
+    reasons = context.watch<FinancialType>().curFinancialType == 0
         ? ReasonDao.fetchFinancialReasonOut()
         : ReasonDao.fetchFinancialReasonIn();
 

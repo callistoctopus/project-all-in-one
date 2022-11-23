@@ -51,6 +51,7 @@ dependencies:
   percent_indicator: ^4.2.2
   syncfusion_flutter_gauges: ^20.3.57
   google_fonts: ^3.0.1
+  provider: ^6.0.4
   # hive_generator: ^2.0.0
 
 dev_dependencies:

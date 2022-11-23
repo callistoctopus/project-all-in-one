@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-29 01:37:32
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-22 01:47:47
+ * @LastEditTime: 2022-11-23 00:46:17
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -13,6 +13,7 @@ import 'package:client/config/route.dart';
 import 'package:client/dao/bill_dao.dart';
 import 'package:client/model/bill.dart';
 import 'package:client/page/data_model/ParamStore.dart';
+import 'package:client/units/common_const.dart';
 import 'package:flutter/material.dart';
 import 'package:client/page/component/custom_float_button.dart';
 import 'package:go_router/go_router.dart';
@@ -37,62 +38,70 @@ class _BillListPageState extends State<BillListPage> {
 
   @override
   Widget build(BuildContext context) {
-    return PageWithFloatButton(
-      showFloatBottom: widget.shortMode ? false : true,
-      child: Scaffold(
-          backgroundColor: Colors.white,
-          body: Padding(
-              padding: EdgeInsets.only(
-                  left: widget.shortMode ? 2 : 30,
-                  right: widget.shortMode ? 2 : 20,
-                  top: widget.shortMode ? 5 : 20),
-              child: FutureBuilder<List<Bill>>(
-                  future: futureListBill,
-                  builder: (context, snapshot) {
-                    if (snapshot.hasData) {
-                      return ListView.separated(
-                        itemCount: widget.shortMode ? 3 : 100,
-                        itemBuilder: (context, i) {
-                          if (i >= snapshot.data!.length) {
-                            return Row(
-                              children: const [
-                                Padding(
-                                    padding: EdgeInsets.only(left: 35),
-                                    child: Text("")),
-                              ],
-                            );
-                          } else {
-                            return Dismissible(
-                                key: ValueKey<Bill>(snapshot.data![i]),
-                                onDismissed: (DismissDirection direction) {
-                                  setState(() {
-                                    BillDao.deleteBill(snapshot.data![i]);
-                                    snapshot.data!.removeAt(i);
-                                  });
-                                },
-                                child: BillRow(
-                                  bill: snapshot.data![i],
-                                  onLongPress: (bill) {},
-                                  onTap: (bill) {
-                                    PageParamStore.bill = bill;
-                                    context.go(ROUTE.EDIT_BILL);
-                                  },
-                                ));
-                          }
-                        },
-                        separatorBuilder: (BuildContext context, int index) =>
-                            Divider(
-                                height: widget.shortMode ? 5 : 17,
-                                color: widget.shortMode
-                                    ? Colors.white38
-                                    : Colors.grey,
-                                thickness: 0),
-                      );
-                    } else if (snapshot.hasError) {
-                      return Text('${snapshot.error}');
-                    }
-                    return const CircularProgressIndicator();
-                  }))),
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: Padding(
+          padding: EdgeInsets.only(
+              left: widget.shortMode ? 2 : 30,
+              right: widget.shortMode ? 2 : 20,
+              top: widget.shortMode ? 5 : 20),
+          child: FutureBuilder<List<Bill>>(
+              future: futureListBill,
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  return ListView.separated(
+                    itemCount: widget.shortMode ? 3 : 100,
+                    itemBuilder: (context, i) {
+                      if (i >= snapshot.data!.length) {
+                        return Row(
+                          children: const [
+                            Padding(
+                                padding: EdgeInsets.only(left: 35),
+                                child: Text("")),
+                          ],
+                        );
+                      } else {
+                        return Dismissible(
+                            key: ValueKey<Bill>(snapshot.data![i]),
+                            onDismissed: (DismissDirection direction) {
+                              setState(() {
+                                BillDao.deleteBill(snapshot.data![i]);
+                                snapshot.data!.removeAt(i);
+                              });
+                            },
+                            child: BillRow(
+                              bill: snapshot.data![i],
+                              onLongPress: (bill) {},
+                              onTap: (bill) {
+                                PageParamStore.bill = bill;
+                                context.go(ROUTE.EDIT_BILL);
+                              },
+                            ));
+                      }
+                    },
+                    separatorBuilder: (BuildContext context, int index) =>
+                        Divider(
+                            height: widget.shortMode ? 5 : 17,
+                            color:
+                                widget.shortMode ? Colors.white38 : Colors.grey,
+                            thickness: 0),
+                  );
+                } else if (snapshot.hasError) {
+                  return Text('${snapshot.error}');
+                }
+                return const CircularProgressIndicator();
+              })),
+      floatingActionButton: widget.shortMode
+          ? const SizedBox()
+          : FloatingActionButton(
+              shape: const CircleBorder(),
+              backgroundColor: Colors.white,
+              child: Text(
+                ICONS.BACK,
+                style: const TextStyle(color: Colors.black),
+              ),
+              onPressed: () => context.go(ROUTE.HOME),
+            ),
     );
   }
 }
