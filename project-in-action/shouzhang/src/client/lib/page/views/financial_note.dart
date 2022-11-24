@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-11-23 05:21:03
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-23 14:20:39
+ * @LastEditTime: 2022-11-24 09:50:49
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -25,6 +25,7 @@ class _FinancialNoteViewState extends State<FinancialNoteView> {
   Widget build(BuildContext context) {
     return SizedBox(
       child: TextField(
+        autofocus: false,
         style:const TextStyle(fontSize: 20),
         decoration: const InputDecoration(
           border: UnderlineInputBorder(),

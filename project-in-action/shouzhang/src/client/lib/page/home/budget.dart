@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-29 01:37:32
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-23 15:05:50
+ * @LastEditTime: 2022-11-24 12:28:34
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -30,6 +30,18 @@ class _BudgetPageState extends State<BudgetPage> {
           link: "管理",
           callback: () {
             context.go(ROUTE.BUDGETS);
+          },
+          child: const SizedBox()),
+      const Divider(
+        color: Colors.grey,
+        thickness: 0,
+        height: 1,
+      ),
+      CustomChart(
+          title: "理财目标",
+          link: "管理",
+          callback: () {
+            context.go(ROUTE.TARGET);
           },
           child: const SizedBox()),
       const Divider(

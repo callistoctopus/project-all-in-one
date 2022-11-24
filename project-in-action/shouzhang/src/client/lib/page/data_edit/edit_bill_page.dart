@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-26 15:06:57
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-23 14:19:02
+ * @LastEditTime: 2022-11-24 10:37:44
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -61,48 +61,53 @@ class _AddBillViewState extends State<AddBillView> {
       }
     };
 
-    return PageWithFloatButton(
-        funcIcon: para,
-        child: Scaffold(
-          body: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-              child: ListView(
-                children: <Widget>[
-                  CustomChart(
-                    title: "收支类型",
-                    height: 70,
-                    child: const FinancialTypeView(),
-                  ),
-                  const Divider(
-                    color: Colors.grey,
-                    thickness: 0,
-                    height: 10,
-                  ),
-                  CustomChartDynamic(
-                    title: "收支事项",
-                    child: const FinancialReasonView(),
-                  ),
-                  const Divider(
-                    color: Colors.grey,
-                    thickness: 0,
-                    height: 12,
-                  ),
-                  CustomChart(
-                    title: "收支金额",
-                    height: 70,
-                    child: const FinancialAmountView(),
-                  ),
-                  const Divider(
-                    color: Colors.grey,
-                    thickness: 0,
-                    height: 12,
-                  ),
-                  CustomChart(
-                    title: "备注信息",
-                    child: const FinancialNoteView(),
-                  )
-                ],
-              )),
-        ));
+    return
+        PageWithFloatButton(
+            funcIcon: para,
+            child:
+        Scaffold(
+      body: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+          child: ListView(
+            children: <Widget>[
+              CustomChart(
+                title: "收支类型",
+                height: 70,
+                child: const FinancialTypeView(),
+              ),
+              const Divider(
+                color: Colors.grey,
+                thickness: 0,
+                height: 10,
+              ),
+              CustomChartDynamic(
+              // CustomChart(
+                title: "收支事项",
+                // height: 1000,
+                child: const FinancialReasonView(),
+              ),
+              const Divider(
+                color: Colors.grey,
+                thickness: 0,
+                height: 12,
+              ),
+              CustomChart(
+                title: "收支金额",
+                height: 70,
+                child: const FinancialAmountView(),
+              ),
+              const Divider(
+                color: Colors.grey,
+                thickness: 0,
+                height: 12,
+              ),
+              CustomChart(
+                title: "备注信息",
+                child: const FinancialNoteView(),
+              )
+            ],
+          )),
+      )
+    );
   }
 }

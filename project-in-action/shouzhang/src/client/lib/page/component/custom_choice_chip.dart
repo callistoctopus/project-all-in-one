@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-11-02 15:26:48
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-23 15:03:07
+ * @LastEditTime: 2022-11-24 12:44:23
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -36,7 +36,7 @@ class _CustomChoiceChipState extends State<CustomChoiceChip>
     with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
-    if (widget.enableAdd) {
+    if (widget.enableAdd && widget.dataList.last != "+") {
       widget.dataList.add("+");
     }
     return Padding(

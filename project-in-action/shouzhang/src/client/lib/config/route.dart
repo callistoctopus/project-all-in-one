@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-11-09 12:54:29
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-23 15:04:52
+ * @LastEditTime: 2022-11-24 12:26:46
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -11,6 +11,7 @@ import 'package:client/dao/setting_dao.dart';
 import 'package:client/develop/dev_sample_page.dart';
 import 'package:client/page/data_edit/edit_budget_page.dart';
 import 'package:client/page/data_show/budget_list_page.dart';
+import 'package:client/page/data_show/target_list_page.dart';
 import 'package:client/page/home/setting.dart';
 import 'package:client/page/data_edit/edit_account_page.dart';
 import 'package:client/page/data_edit/edit_bill_page.dart';
@@ -58,6 +59,12 @@ class RouteConfig {
           },
         ),
         GoRoute(
+          path: ROUTE.TARGET,
+          builder: (BuildContext context, GoRouterState state) {
+            return Scaffold(body: TargetListPage());
+          },
+        ),
+        GoRoute(
           path: ROUTE.ACCOUNT,
           builder: (BuildContext context, GoRouterState state) {
             return const Scaffold(body: AccountPage());
@@ -100,6 +107,7 @@ class ROUTE {
   static const String ADD_REASON = '/add_reason';
   static const String LOGIN = '/login';
   static const String BUDGET = '/budget';
+  static const String TARGET = '/target';
   static const String BUDGETS = '/budgets';
   static const String ACCOUNT = '/account';
   static const String DEBUG = '/debig';

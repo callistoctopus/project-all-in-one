@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-11-22 15:08:02
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-24 01:16:32
+ * @LastEditTime: 2022-11-24 12:50:09
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -11,6 +11,7 @@ import 'package:client/dao/reason_dao.dart';
 import 'package:client/dao/setting_dao.dart';
 import 'package:client/model/financial_reason.dart';
 import 'package:client/page/component/custom_choice_chip.dart';
+import 'package:client/page/component/custom_snack_bar.dart';
 import 'package:client/page/data_model/global_do.dart';
 import 'package:client/units/common_utils.dart';
 import 'package:flutter/material.dart';
@@ -121,7 +122,7 @@ class _FinancialReasonViewState extends State<FinancialReasonView> {
                     flex: 4,
                     child: Container(
                         padding: const EdgeInsets.only(right: 8),
-                        height: 40,
+                        height: showAddReason ? 40 : 0,
                         child: TextField(
                           style: const TextStyle(fontSize: 20),
                           controller: controller,
@@ -145,12 +146,15 @@ class _FinancialReasonViewState extends State<FinancialReasonView> {
                 Expanded(
                     flex: 1,
                     child: SizedBox(
-                        height: 40,
+                        height: showAddReason ? 40 : 0,
                         child: TextButton(
-                            style: TextButton.styleFrom(
-                                shape: const CircleBorder(
-                                    side: BorderSide(color: Colors.grey))),
+                            // style: TextButton.styleFrom(
+                            //     shape: const CircleBorder(
+                            //         side: BorderSide(color: Colors.grey))),
                             onPressed: () {
+                              if(reason == ""){
+                                  CustomSnackBar().show(context, "您还没有输入");
+                              }
                               setState(() {
                                 showAddReason = false;
                                 saveFinancialReason();
@@ -167,11 +171,11 @@ class _FinancialReasonViewState extends State<FinancialReasonView> {
                 Expanded(
                     flex: 1,
                     child: SizedBox(
-                        height: 40,
+                        height: showAddReason ? 40 : 0,
                         child: TextButton(
-                            style: TextButton.styleFrom(
-                                shape: const CircleBorder(
-                                    side: BorderSide(color: Colors.grey))),
+                            // style: TextButton.styleFrom(
+                            //     shape: const CircleBorder(
+                            //         side: BorderSide(color: Colors.grey))),
                             onPressed: () {
                               setState(() {
                                 reason = "";

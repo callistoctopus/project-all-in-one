@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-29 01:37:32
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-24 10:03:11
+ * @LastEditTime: 2022-11-24 12:32:07
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -20,17 +20,17 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 
-class BudgetSettingPage extends StatefulWidget {
-  BudgetSettingPage({super.key});
+class TargetListPage extends StatefulWidget {
+  TargetListPage({super.key});
 
   List<Budget> outList = [];
   List<Budget> inList = [];
 
   @override
-  State<BudgetSettingPage> createState() => _BudgetSettingPageState();
+  State<TargetListPage> createState() => _TargetListPageState();
 }
 
-class _BudgetSettingPageState extends State<BudgetSettingPage> {
+class _TargetListPageState extends State<TargetListPage> {
   List<Budget> fetchListBudget = [];
 
   @override
@@ -51,14 +51,14 @@ class _BudgetSettingPageState extends State<BudgetSettingPage> {
       body: Padding(
           padding: const EdgeInsets.only(left: 10, right: 20, top: 5),
           child: ListView(children: [
-            CustomChart(title: "预算概览", height: 100, child: const SizedBox()),
+            CustomChart(title: "小目标", height: 100, child: const SizedBox()),
             const Divider(
               color: Colors.grey,
               thickness: 0,
               height: 5,
             ),
             CustomChart(
-                title: "预算年度",
+                title: "年度目标",
                 height: 60,
                 child: ListView.builder(
                     scrollDirection: Axis.horizontal,
@@ -126,7 +126,7 @@ class _COMPONMENT {
                         backgroundColor:
                             budget.type == 0 ? Colors.red : Colors.green,
                         child: Text(
-                          budget.type == 0 ? "收" : "支",
+                          budget.type == 0 ? "攒" : "投",
                           style: const TextStyle(fontSize: 18),
                         )))),
             Expanded(
@@ -160,10 +160,10 @@ class _COMPONMENT {
               ),
             ),
             Expanded(
-                flex: 2,
+                flex: 3,
                 child: Padding(
                     padding: const EdgeInsets.only(top: 15),
-                    child: Text("余 ${budget.budget}",maxLines: 1,))),
+                    child: Text("达成 ${budget.budget}",maxLines: 1,))),
           ],
         ));
   }
