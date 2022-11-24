@@ -2,16 +2,18 @@
  * @Author: gui-qi
  * @Date: 2022-10-29 01:37:32
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-24 01:08:26
+ * @LastEditTime: 2022-11-24 14:34:43
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
  */
+import 'package:client/page/data_model/global_do.dart';
 import 'package:client/page/home/analysis.dart';
 import 'package:client/page/home/asset.dart';
 import 'package:client/page/home/budget.dart';
 import 'package:client/page/home/consume.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -21,7 +23,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  int _selectedIndex = 0;
 
   static final List<Widget> _widgetOptions = <Widget>[
     const ConsumePage(),
@@ -32,7 +33,7 @@ class _HomePageState extends State<HomePage> {
 
   void _onItemTapped(int index) {
     setState(() {
-      _selectedIndex = index;
+      context.read<GlobalDO>().homePageIndes = index;
     });
   }
 
@@ -43,7 +44,7 @@ class _HomePageState extends State<HomePage> {
       body: Center(
         child: Padding(
             padding: const EdgeInsets.only(left: 20, right: 20, top: 5),
-            child: _widgetOptions.elementAt(_selectedIndex)),
+            child: _widgetOptions.elementAt(context.read<GlobalDO>().homePageIndes)),
       ),
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Colors.white,
@@ -66,7 +67,7 @@ class _HomePageState extends State<HomePage> {
             label: '我的',
           ),
         ],
-        currentIndex: _selectedIndex,
+        currentIndex: context.read<GlobalDO>().homePageIndes,
         selectedItemColor: Colors.black,
         unselectedItemColor: Colors.black45,
         showUnselectedLabels: true,

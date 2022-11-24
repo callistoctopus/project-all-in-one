@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-11-22 15:08:02
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-24 12:50:09
+ * @LastEditTime: 2022-11-24 15:45:07
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -45,9 +45,7 @@ class _FinancialReasonViewState extends State<FinancialReasonView> {
 
   @override
   Widget build(BuildContext context) {
-    reasons = context.watch<GlobalDO>().type == 0
-        ? ReasonDao.fetchFinancialReasonOut()
-        : ReasonDao.fetchFinancialReasonIn();
+    reasons = ReasonDao.fetchFinancialReason(context.read<GlobalDO>().type != context.watch<GlobalDO>().type ? context.read<GlobalDO>().type:context.watch<GlobalDO>().type);
 
     TextEditingController controller = TextEditingController();
 

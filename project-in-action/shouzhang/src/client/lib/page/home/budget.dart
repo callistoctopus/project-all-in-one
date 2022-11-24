@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-29 01:37:32
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-24 12:28:34
+ * @LastEditTime: 2022-11-24 15:03:18
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -41,7 +41,7 @@ class _BudgetPageState extends State<BudgetPage> {
           title: "理财目标",
           link: "管理",
           callback: () {
-            context.go(ROUTE.TARGET);
+            context.go(ROUTE.TARGETS);
           },
           child: const SizedBox()),
       const Divider(

@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-11-02 15:26:48
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-24 12:44:23
+ * @LastEditTime: 2022-11-24 15:54:12
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -36,7 +36,7 @@ class _CustomChoiceChipState extends State<CustomChoiceChip>
     with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
-    if (widget.enableAdd && widget.dataList.last != "+") {
+    if (widget.enableAdd && (widget.dataList.isEmpty || widget.dataList.last != "+")) {
       widget.dataList.add("+");
     }
     return Padding(
@@ -61,18 +61,26 @@ class _CustomChoiceChipState extends State<CustomChoiceChip>
                         surfaceTintColor: widget.defaultSelect == index
                             ? widget.backgroundColor
                             : Colors.white,
-                        side: widget.defaultSelect == index
-                            ? BorderSide(
-                                width: 0, color: widget.backgroundColor)
-                            : const BorderSide(width: 0, color: Colors.grey),
+                        side: index == widget.dataList.length - 1 &&
+                                widget.enableAdd
+                            ? const BorderSide(
+                                width: 0, color: Colors.blueAccent)
+                            : widget.defaultSelect == index
+                                ? BorderSide(
+                                    width: 0, color: widget.backgroundColor)
+                                : const BorderSide(
+                                    width: 0, color: Colors.grey),
                         label: Text(
                           widget.dataList[index],
                           style: const TextStyle(fontSize: 16),
                         ),
                         selected: widget.defaultSelect == index,
-                        labelStyle: widget.defaultSelect == index
-                            ? const TextStyle(color: Colors.white)
-                            : const TextStyle(color: Colors.black),
+                        labelStyle: index == widget.dataList.length - 1 &&
+                                widget.enableAdd
+                            ? const TextStyle(color: Colors.blueAccent)
+                            : widget.defaultSelect == index
+                                ? const TextStyle(color: Colors.white)
+                                : const TextStyle(color: Colors.black),
                         onSelected: (bool selected) {
                           if (widget.enableAdd &&
                               index == (widget.dataList.length - 1) &&

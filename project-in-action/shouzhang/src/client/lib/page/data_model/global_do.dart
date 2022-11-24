@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-11-23 09:59:07
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-23 11:23:49
+ * @LastEditTime: 2022-11-24 15:19:40
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -19,6 +19,9 @@ class GlobalDO extends ChangeNotifier {
   Budget _budget = Budget(const Uuid().v1(), SettingDao.currentUser(),
       DateTime.now().year.toString(), "", 0, 0, -1, "", 0, DateTime.now());
 
+
+  int homePageIndes = 0;
+  
   int _type = 0;
   String _reason = "";
   double _amount = -1;
@@ -28,6 +31,10 @@ class GlobalDO extends ChangeNotifier {
   set type(int type) {
     _type = type;
     notifyListeners();
+  }
+
+  set type_(int type) {
+    _type = type;
   }
 
   int get type {

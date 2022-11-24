@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-29 01:37:32
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-24 10:03:11
+ * @LastEditTime: 2022-11-24 15:39:46
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -15,16 +15,15 @@ import 'package:client/page/component/custom_snack_bar.dart';
 import 'package:client/dao/budget_dao.dart';
 import 'package:client/dao/setting_dao.dart';
 import 'package:client/model/budget.dart';
+import 'package:client/page/data_model/global_do.dart';
 import 'package:client/units/common_const.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:percent_indicator/percent_indicator.dart';
+import 'package:provider/provider.dart';
 
 class BudgetSettingPage extends StatefulWidget {
   BudgetSettingPage({super.key});
-
-  List<Budget> outList = [];
-  List<Budget> inList = [];
 
   @override
   State<BudgetSettingPage> createState() => _BudgetSettingPageState();
@@ -40,8 +39,6 @@ class _BudgetSettingPageState extends State<BudgetSettingPage> {
 
   @override
   Widget build(BuildContext context) {
-    widget.outList.clear();
-    widget.inList.clear();
     fetchListBudget = BudgetDao.fetchListBudget();
     fetchListBudget.sort((a,b){ return a.type > b.type ? 0 : 1;});
 
