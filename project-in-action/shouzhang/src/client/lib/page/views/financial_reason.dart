@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-11-22 15:08:02
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-23 15:00:26
+ * @LastEditTime: 2022-11-24 01:16:32
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -118,8 +118,9 @@ class _FinancialReasonViewState extends State<FinancialReasonView> {
               duration: const Duration(milliseconds: 400),
               child: Row(children: [
                 Expanded(
-                    flex: 5,
-                    child: SizedBox(
+                    flex: 4,
+                    child: Container(
+                        padding: const EdgeInsets.only(right: 8),
                         height: 40,
                         child: TextField(
                           style: const TextStyle(fontSize: 20),

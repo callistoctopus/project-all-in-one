@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-29 01:37:32
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-23 06:58:32
+ * @LastEditTime: 2022-11-24 00:51:11
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -33,7 +33,6 @@ class _AnalysisPageState extends State<AnalysisPage> {
   @override
   void initState() {
     super.initState();
-    DataAccessService.syncData();
   }
 
   @override
@@ -53,7 +52,7 @@ class _AnalysisPageState extends State<AnalysisPage> {
                         iconSize: 14,
                         onSelected: (Menu item) {
                           setState(() {
-                            // _selectedMenu = item.name;
+                            DataAccessService.syncData();
                           });
                         },
                         itemBuilder: (BuildContext context) =>

@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-11-23 05:21:03
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-23 10:22:52
+ * @LastEditTime: 2022-11-24 01:08:03
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -25,7 +25,6 @@ class FinancialDurationView extends StatefulWidget {
 List<String> duration = ['每天', '工作日', '每周', '每月', '每季度', '半年', '每年'];
     
 class _FinancialDurationState extends State<FinancialDurationView> {
-  List<String> kinds = ['支出', '收入'];
   @override
   Widget build(BuildContext context) {
     return CustomChoiceChip(

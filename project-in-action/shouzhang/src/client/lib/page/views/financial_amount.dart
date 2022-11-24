@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-11-23 05:21:03
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-23 14:21:52
+ * @LastEditTime: 2022-11-24 00:50:19
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -27,7 +27,6 @@ class _FinancialAmountState extends State<FinancialAmountView> {
       padding: const EdgeInsets.only(top: 0),
       height: 30,
       child: TextField(
-        autofocus: true,
         style:const TextStyle(fontSize: 22),
         keyboardType: TextInputType.number,
         controller: TextEditingController.fromValue(TextEditingValue(

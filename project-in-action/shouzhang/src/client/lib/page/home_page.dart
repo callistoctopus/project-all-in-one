@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-29 01:37:32
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-23 10:56:49
+ * @LastEditTime: 2022-11-24 01:08:26
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -12,10 +12,9 @@ import 'package:client/page/home/asset.dart';
 import 'package:client/page/home/budget.dart';
 import 'package:client/page/home/consume.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class HomePage extends StatefulWidget {
-  HomePage({super.key});
+  const HomePage({super.key});
 
   @override
   State<HomePage> createState() => _HomePageState();

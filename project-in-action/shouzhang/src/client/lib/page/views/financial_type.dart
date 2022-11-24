@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-11-22 15:44:20
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-23 10:15:39
+ * @LastEditTime: 2022-11-24 01:08:16
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -24,7 +24,6 @@ class _FinancialTypeViewState extends State<FinancialTypeView> {
   
   @override
   Widget build(BuildContext context) {
-    ;
     return CustomChoiceChip(
       dataList: kinds,
       backgroundColor: Colors.red,
