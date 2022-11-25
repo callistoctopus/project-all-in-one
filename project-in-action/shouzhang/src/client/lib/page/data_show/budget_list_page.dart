@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-29 01:37:32
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-24 15:39:46
+ * @LastEditTime: 2022-11-25 08:17:59
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -12,18 +12,16 @@ import 'dart:ui';
 import 'package:client/config/route.dart';
 import 'package:client/page/component/custom_chart.dart';
 import 'package:client/page/component/custom_snack_bar.dart';
-import 'package:client/dao/budget_dao.dart';
-import 'package:client/dao/setting_dao.dart';
-import 'package:client/model/budget.dart';
-import 'package:client/page/data_model/global_do.dart';
+import 'package:client/data/dao/budget_dao.dart';
+import 'package:client/data/dao/setting_dao.dart';
+import 'package:client/data/model/budget.dart';
 import 'package:client/units/common_const.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:percent_indicator/percent_indicator.dart';
-import 'package:provider/provider.dart';
 
 class BudgetSettingPage extends StatefulWidget {
-  BudgetSettingPage({super.key});
+  const BudgetSettingPage({super.key});
 
   @override
   State<BudgetSettingPage> createState() => _BudgetSettingPageState();

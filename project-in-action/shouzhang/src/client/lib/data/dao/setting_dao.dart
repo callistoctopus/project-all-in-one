@@ -2,12 +2,12 @@
  * @Author: gui-qi
  * @Date: 2022-11-14 14:29:47
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-14 14:30:59
+ * @LastEditTime: 2022-11-25 08:08:57
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
  */
-import 'package:client/units/common_const.dart';
+import 'package:client/data/db.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 class SettingDao{

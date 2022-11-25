@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-29 01:37:32
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-24 15:40:13
+ * @LastEditTime: 2022-11-25 08:18:13
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -10,8 +10,8 @@
 import 'dart:async';
 
 import 'package:client/config/route.dart';
-import 'package:client/dao/bill_dao.dart';
-import 'package:client/model/bill.dart';
+import 'package:client/data/dao/bill_dao.dart';
+import 'package:client/data/model/bill.dart';
 import 'package:client/page/data_model/global_do.dart';
 import 'package:client/units/common_const.dart';
 import 'package:flutter/material.dart';
@@ -19,9 +19,9 @@ import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 class BillListPage extends StatefulWidget {
-  BillListPage({super.key, this.shortMode = false});
+  const BillListPage({super.key, this.shortMode = false});
 
-  bool shortMode;
+  final bool shortMode;
 
   @override
   State<BillListPage> createState() => _BillListPageState();

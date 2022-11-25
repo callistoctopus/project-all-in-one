@@ -2,12 +2,12 @@
  * @Author: gui-qi
  * @Date: 2022-11-04 15:49:28
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-18 08:24:02
+ * @LastEditTime: 2022-11-25 08:09:38
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
  */
-import 'package:client/dao/setting_dao.dart';
+import 'package:client/data/dao/setting_dao.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 
@@ -30,25 +30,4 @@ class ICONS {
   static const dynamic USER = Iconsax.user;
   static const dynamic PASSWORD = Iconsax.password_check;
   static const dynamic DELETE = Iconsax.profile_delete;
-}
-
-class TABLE {
-  static const String setting = 'setting';
-  static const String financialReason = 'financialReason';
-  static const String budget = 'budget';
-  static const String bill = 'bill';
-  static const String account = 'account';
-  static const String accountUser = 'accountUser';
-}
-
-class KEY {
-  static const String isLogined = 'isLogined';
-  static const String isAutoLogin = 'isAutoLogin';
-  static const String user = 'user';
-  static const String account = 'account';
-  static const String accountUsers = 'accountUsers';
-  static const String lastSyncTime = 'lastSyncTime';
-  static const String budgetYear = 'budgetYear';
-  static const String devMode = 'devMode';
-  static const String offlineMode = 'offlineMode';
 }
