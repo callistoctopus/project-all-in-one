@@ -2,11 +2,12 @@
  * @Author: gui-qi
  * @Date: 2022-11-04 02:25:21
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-18 15:19:12
+ * @LastEditTime: 2022-11-25 10:06:51
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
  */
+import 'package:client/data/model/model.dart';
 import 'package:hive/hive.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -14,7 +15,7 @@ part 'budget.g.dart';
 
 @HiveType(typeId: 1)
 @JsonSerializable()
-class Budget extends HiveObject {
+class Budget extends HiveObject  implements Base{
   Budget(this.id, this.user, this.year, this.reason, this.type, this.duration, this.budget,
       this.note, this.isDeleted, this.updateTime);
 

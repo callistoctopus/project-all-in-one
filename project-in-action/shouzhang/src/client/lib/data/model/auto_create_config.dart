@@ -2,11 +2,12 @@
  * @Author: gui-qi
  * @Date: 2022-11-04 02:25:21
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-25 01:17:19
+ * @LastEditTime: 2022-11-25 10:06:35
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
  */
+import 'package:client/data/model/model.dart';
 import 'package:hive/hive.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -14,7 +15,7 @@ part 'auto_create_config.g.dart';
 
 @HiveType(typeId: 5)
 @JsonSerializable()
-class AutoCreateConfig extends HiveObject {
+class AutoCreateConfig extends HiveObject  implements Base{
   AutoCreateConfig(this.id, this.user, this.year, this.reason, this.type, this.duration, this.budget,
       this.note, this.isDeleted, this.updateTime);
 

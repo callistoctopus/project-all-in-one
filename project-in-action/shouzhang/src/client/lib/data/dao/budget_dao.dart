@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-11-14 14:25:28
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-25 08:08:21
+ * @LastEditTime: 2022-11-25 10:15:52
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -53,38 +53,6 @@ class BudgetDao {
         Hive.box<Budget>(TABLE.budget).add(element);
       }
     }
-
-    return true;
-  }
-
-  static Future<bool> saveBudget(Budget budget) async {
-    budget.user = SettingDao.currentUser();
-    budget.updateTime = CommonUtils.now();
-    if (budget.isInBox) {
-      budget.save();
-    } else {
-      budget.id = const Uuid().v1();
-      Hive.box<Budget>(TABLE.budget).add(budget);
-    }
-
-    return true;
-  }
-
-  static Future<bool> deleteBudget(Budget budget) async {
-    budget.isDeleted = 1;
-    budget.updateTime = CommonUtils.now();
-    if (budget.isInBox) {
-      budget.save();
-    } 
-
-    return true;
-  }
-
-  static Future<bool> updateBudget(Budget budget) async {
-    budget.updateTime = CommonUtils.now();
-    if (budget.isInBox) {
-      budget.save();
-    } 
 
     return true;
   }
