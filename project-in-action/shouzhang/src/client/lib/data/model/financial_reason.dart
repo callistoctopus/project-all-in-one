@@ -2,12 +2,13 @@
  * @Author: gui-qi
  * @Date: 2022-11-04 02:31:52
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-07 08:50:01
+ * @LastEditTime: 2022-11-25 10:04:13
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
  */
 
+import 'package:client/data/model/model.dart';
 import 'package:hive/hive.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -15,7 +16,7 @@ part 'financial_reason.g.dart';
 
 @HiveType(typeId: 0)
 @JsonSerializable()
-class FinancialReason extends HiveObject {
+class FinancialReason extends HiveObject implements Base {
   FinancialReason(this.id, this.user, this.reason, this.type, this.note,
       this.isDeleted, this.updateTime);
 

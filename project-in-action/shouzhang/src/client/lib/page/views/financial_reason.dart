@@ -2,13 +2,15 @@
  * @Author: gui-qi
  * @Date: 2022-11-22 15:08:02
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-25 08:18:25
+ * @LastEditTime: 2022-11-25 10:17:16
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
  */
+import 'package:client/data/dao/dao.dart';
 import 'package:client/data/dao/reason_dao.dart';
 import 'package:client/data/dao/setting_dao.dart';
+import 'package:client/data/db.dart';
 import 'package:client/data/model/financial_reason.dart';
 import 'package:client/page/component/custom_choice_chip.dart';
 import 'package:client/page/component/custom_snack_bar.dart';
@@ -40,7 +42,7 @@ class _FinancialReasonViewState extends State<FinancialReasonView> {
         0,
         CommonUtils.now());
 
-    ReasonDao.saveFinancialReason(fr);
+    Dao.upsert<FinancialReason>(fr,TABLE.financialReason);
   }
 
   @override
@@ -85,7 +87,7 @@ class _FinancialReasonViewState extends State<FinancialReasonView> {
                             TextButton(
                               child: const Text('确定'),
                               onPressed: () {
-                                ReasonDao.deleteFinancialReason(snapshot.data!
+                                Dao.delete<FinancialReason>(snapshot.data!
                                     .where((element) =>
                                         element.reason == dataList[index])
                                     .toList()[0]);

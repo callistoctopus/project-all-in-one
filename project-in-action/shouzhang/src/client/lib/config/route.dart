@@ -2,12 +2,12 @@
  * @Author: gui-qi
  * @Date: 2022-11-09 12:54:29
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-24 15:02:21
+ * @LastEditTime: 2022-11-25 08:53:05
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
  */
-import 'package:client/dao/setting_dao.dart';
+import 'package:client/data/dao/setting_dao.dart';
 import 'package:client/develop/dev_sample_page.dart';
 import 'package:client/page/data_edit/edit_budget_page.dart';
 import 'package:client/page/data_edit/edit_target_page.dart';

@@ -2,12 +2,12 @@
  * @Author: gui-qi
  * @Date: 2022-11-02 15:26:48
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-18 08:37:35
+ * @LastEditTime: 2022-11-25 08:52:21
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
  */
-import 'package:client/dao/setting_dao.dart';
+import 'package:client/data/dao/setting_dao.dart';
 import 'package:client/units/common_const.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';

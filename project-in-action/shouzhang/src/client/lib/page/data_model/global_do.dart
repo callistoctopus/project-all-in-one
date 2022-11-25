@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-11-23 09:59:07
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-25 08:10:11
+ * @LastEditTime: 2022-11-25 09:49:19
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -10,14 +10,15 @@
 import 'package:client/data/dao/setting_dao.dart';
 import 'package:client/data/model/bill.dart';
 import 'package:client/data/model/budget.dart';
+import 'package:client/units/common_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
 
 class GlobalDO extends ChangeNotifier {
-  Bill _bill = Bill(const Uuid().v1(), SettingDao.currentUser(), DateTime.now(),
-      "", 0, -1, "", DateTime.now());
+  Bill _bill = Bill(const Uuid().v1(), SettingDao.currentUser(), CommonUtils.now(),
+      "", 0, -1, "", CommonUtils.now());
   Budget _budget = Budget(const Uuid().v1(), SettingDao.currentUser(),
-      DateTime.now().year.toString(), "", 0, 0, -1, "", 0, DateTime.now());
+      CommonUtils.now().year.toString(), "", 0, 0, -1, "", 0, CommonUtils.now());
 
 
   int homePageIndes = 0;
@@ -78,8 +79,8 @@ class GlobalDO extends ChangeNotifier {
   }
 
   set bill(Bill? bill) {
-    _bill = bill ?? Bill(const Uuid().v1(), SettingDao.currentUser(), DateTime.now(), "",
-        0, -1, "", DateTime.now());
+    _bill = bill ?? Bill(const Uuid().v1(), SettingDao.currentUser(), CommonUtils.now(), "",
+        0, -1, "", CommonUtils.now());
     _type = _bill.type;
     _amount = _bill.amount;
     _reason = _bill.reason;
@@ -87,6 +88,7 @@ class GlobalDO extends ChangeNotifier {
   }
 
   Bill get bill{
+    _bill.time = CommonUtils.now();
     _bill.amount = _amount;
     _bill.type = _type;
     _bill.reason = _reason;
@@ -96,7 +98,7 @@ class GlobalDO extends ChangeNotifier {
 
   set budget(Budget? budget) {
     _budget = budget ?? Budget(const Uuid().v1(), SettingDao.currentUser(),
-      DateTime.now().year.toString(), "", 0, 0, -1, "", 0, DateTime.now());
+      CommonUtils.now().year.toString(), "", 0, 0, -1, "", 0, CommonUtils.now());
     _type = _budget.type;
     _amount = _budget.budget;
     _reason = _budget.reason;

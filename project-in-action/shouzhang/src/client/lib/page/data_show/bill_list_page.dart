@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-29 01:37:32
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-25 08:18:13
+ * @LastEditTime: 2022-11-25 09:53:11
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -11,6 +11,7 @@ import 'dart:async';
 
 import 'package:client/config/route.dart';
 import 'package:client/data/dao/bill_dao.dart';
+import 'package:client/data/dao/dao.dart';
 import 'package:client/data/model/bill.dart';
 import 'package:client/page/data_model/global_do.dart';
 import 'package:client/units/common_const.dart';
@@ -65,7 +66,8 @@ class _BillListPageState extends State<BillListPage> {
                             key: ValueKey<Bill>(snapshot.data![i]),
                             onDismissed: (DismissDirection direction) {
                               setState(() {
-                                BillDao.deleteBill(snapshot.data![i]);
+                                // BillDao.deleteBill(snapshot.data![i]);
+                                Dao.delete(snapshot.data![i]);
                                 snapshot.data!.removeAt(i);
                               });
                             },

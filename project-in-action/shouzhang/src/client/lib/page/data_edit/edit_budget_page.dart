@@ -2,16 +2,18 @@
  * @Author: gui-qi
  * @Date: 2022-10-26 15:06:57
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-23 15:15:15
+ * @LastEditTime: 2022-11-25 10:15:07
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
  */
+import 'package:client/data/dao/dao.dart';
+import 'package:client/data/db.dart';
+import 'package:client/data/model/budget.dart';
 import 'package:client/page/component/custom_chart.dart';
 import 'package:client/page/component/custom_float_button.dart';
 import 'package:client/page/component/custom_snack_bar.dart';
 import 'package:client/config/route.dart';
-import 'package:client/dao/budget_dao.dart';
 import 'package:client/page/data_model/global_do.dart';
 import 'package:client/page/views/financial_amount.dart';
 import 'package:client/page/views/financial_duration.dart';
@@ -34,7 +36,7 @@ class AddBudgetView extends StatefulWidget {
 
 class _AddBudgetViewState extends State<AddBudgetView> {
   saveBudget() {
-    BudgetDao.saveBudget(context.read<GlobalDO>().budget);
+    Dao.upsert<Budget>(context.read<GlobalDO>().budget, TABLE.budget);
   }
 
   @override

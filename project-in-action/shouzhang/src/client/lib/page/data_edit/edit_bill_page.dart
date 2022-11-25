@@ -2,16 +2,18 @@
  * @Author: gui-qi
  * @Date: 2022-10-26 15:06:57
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-24 10:37:44
+ * @LastEditTime: 2022-11-25 09:56:28
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
  */
+import 'package:client/data/dao/dao.dart';
+import 'package:client/data/db.dart';
+import 'package:client/data/model/bill.dart';
 import 'package:client/page/component/custom_chart.dart';
 import 'package:client/page/component/custom_float_button.dart';
 import 'package:client/page/component/custom_snack_bar.dart';
 import 'package:client/config/route.dart';
-import 'package:client/dao/bill_dao.dart';
 import 'package:client/page/data_model/global_do.dart';
 import 'package:client/page/views/financial_amount.dart';
 import 'package:client/page/views/financial_note.dart';
@@ -33,7 +35,7 @@ class AddBillView extends StatefulWidget {
 
 class _AddBillViewState extends State<AddBillView> {
   saveBill() {
-    BillDao.saveBill(context.read<GlobalDO>().bill);
+    Dao.upsert<Bill>(context.read<GlobalDO>().bill, TABLE.bill);
   }
 
   @override
