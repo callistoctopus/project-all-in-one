@@ -15,6 +15,11 @@ class CommonUtils {
         .parse(DateFormat('yyyy-MM-dd hh:mm:ss').format(DateTime.now()));
   }
 
+    static DateTime nowWithoutTime() {
+    return DateFormat('yyyy-MM-dd')
+        .parse(DateFormat('yyyy-MM-dd').format(DateTime.now()));
+  }
+
   static DateTime format(DateTime dateTime) {
     return DateFormat('yyyy-MM-dd hh:mm:ss')
         .parse(DateFormat('yyyy-MM-dd hh:mm:ss').format(dateTime));

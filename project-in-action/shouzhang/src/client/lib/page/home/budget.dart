@@ -8,7 +8,7 @@
  * Copyright (c) 2022, All Rights Reserved. 
  */
 import 'package:client/page/component/custom_chart.dart';
-import 'package:client/config/route.dart';
+import 'package:client/page/config/route.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 

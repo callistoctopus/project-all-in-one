@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-29 03:31:37
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-23 02:25:35
+ * @LastEditTime: 2022-11-26 14:57:19
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -47,7 +47,6 @@ docker run -itd \
 flutter pub add english_words
 flutter pub add iconsax
 
-flutter pub add fl_chart
 flutter pub add intl
 flutter pub add http
 flutter pub add uuid

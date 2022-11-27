@@ -13,7 +13,7 @@ import 'package:client/data/model/bill.dart';
 import 'package:client/page/component/custom_chart.dart';
 import 'package:client/page/component/custom_float_button.dart';
 import 'package:client/page/component/custom_snack_bar.dart';
-import 'package:client/config/route.dart';
+import 'package:client/page/config/route.dart';
 import 'package:client/page/data_model/global_do.dart';
 import 'package:client/page/views/financial_amount.dart';
 import 'package:client/page/views/financial_note.dart';

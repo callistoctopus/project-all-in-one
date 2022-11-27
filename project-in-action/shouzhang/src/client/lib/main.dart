@@ -2,12 +2,12 @@
  * @Author: gui-qi
  * @Date: 2022-10-26 08:18:13
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-25 08:56:25
+ * @LastEditTime: 2022-11-26 04:39:02
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
  */
-import 'package:client/config/route.dart';
+import 'package:client/page/config/route.dart';
 import 'package:client/page/data_model/global_do.dart';
 import 'package:client/data/db.dart';
 import 'package:flutter/material.dart';
@@ -24,7 +24,7 @@ Future<void> main() async {
         theme: ThemeData(
             primaryColor: Colors.white,
             scaffoldBackgroundColor: Colors.white,
-            fontFamily: "YangRenDongZhuShiTi-Light"),
+            fontFamily: "YangRenDongZhuShiTi-Regular"),
         routerConfig: RouteConfig.routeConfig(),
       )));
 }

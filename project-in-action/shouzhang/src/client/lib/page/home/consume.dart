@@ -2,18 +2,20 @@
  * @Author: gui-qi
  * @Date: 2022-10-29 01:37:32
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-23 10:24:34
+ * @LastEditTime: 2022-11-26 15:04:05
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
  */
 import 'package:client/page/component/custom_chart.dart';
-import 'package:client/config/route.dart';
-import 'package:client/page/views/analysis/Week.dart';
-import 'package:client/page/views/analysis/month.dart';
-import 'package:client/page/views/analysis/today.dart';
+import 'package:client/page/config/route.dart';
+import 'package:client/page/views/analysis/consume_analysis_by_reason.dart';
+import 'package:client/page/views/analysis/consume_analysis_by_user.dart';
+import 'package:client/page/views/analysis/consume_analysis_week.dart';
+import 'package:client/page/views/analysis/consume_analysis_month.dart';
+import 'package:client/page/views/analysis/consume_analysis_today.dart';
 import 'package:client/page/data_show/bill_list_page.dart';
-import 'package:client/service/server_data_access_service.dart';
+import 'package:client/data/service/server_data_access_service.dart';
 import 'package:client/units/common_const.dart';
 import 'package:client/units/common_utils.dart';
 import 'package:flutter/material.dart';
@@ -52,7 +54,7 @@ class _ConsumePageState extends State<ConsumePage> {
                     link: "明细",
                     callback: () => context.go(ROUTE.BILLS),
                     height: 90,
-                    child: BillListPage(
+                    child: const BillListPage(
                       shortMode: true,
                     )),
                 const Divider(
@@ -68,7 +70,23 @@ class _ConsumePageState extends State<ConsumePage> {
                 ),
                 CustomChart(
                     title: "${CommonUtils.now().month}月度消费趋势",
-                    child: const MonthAnalysis()),
+                    child: MonthAnalysis()),
+                const Divider(
+                  color: Colors.grey,
+                  thickness: 0,
+                  height: 1,
+                ),
+                CustomChart(
+                    title: "月度消费统计(用户)",
+                    child: const PieChartSample2()),
+                const Divider(
+                  color: Colors.grey,
+                  thickness: 0,
+                  height: 1,
+                ),
+                CustomChart(
+                    title: "月度消费统计(消费种类)",
+                    child: ChartApp()),
                 const Divider(
                   color: Colors.grey,
                   thickness: 0,

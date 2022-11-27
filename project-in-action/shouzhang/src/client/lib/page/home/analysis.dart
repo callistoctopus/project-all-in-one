@@ -7,12 +7,12 @@
  * 
  * Copyright (c) 2022, All Rights Reserved. 
  */
-import 'package:client/config/route.dart';
+import 'package:client/page/config/route.dart';
 import 'package:client/data/dao/setting_dao.dart';
-import 'package:client/page/views/analysis/grade.dart';
+import 'package:client/page/views/analysis/asset_analusis.dart';
 import 'package:client/page/component/custom_chart.dart';
 import 'package:client/data/db.dart';
-import 'package:client/service/server_data_access_service.dart';
+import 'package:client/data/service/server_data_access_service.dart';
 import 'package:client/units/common_utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

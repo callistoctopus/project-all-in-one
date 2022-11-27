@@ -8,9 +8,9 @@
  * Copyright (c) 2022, All Rights Reserved. 
  */
 import 'package:client/page/component/custom_snack_bar.dart';
-import 'package:client/config/route.dart';
+import 'package:client/page/config/route.dart';
 import 'package:client/data/dao/setting_dao.dart';
-import 'package:client/service/server_data_access_service.dart';
+import 'package:client/data/service/server_data_access_service.dart';
 import 'package:client/units/common_const.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';

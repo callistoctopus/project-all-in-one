@@ -42,12 +42,15 @@ class _FinancialReasonViewState extends State<FinancialReasonView> {
         0,
         CommonUtils.now());
 
-    Dao.upsert<FinancialReason>(fr,TABLE.financialReason);
+    Dao.upsert<FinancialReason>(fr, TABLE.financialReason);
   }
 
   @override
   Widget build(BuildContext context) {
-    reasons = ReasonDao.fetchFinancialReason(context.read<GlobalDO>().type != context.watch<GlobalDO>().type ? context.read<GlobalDO>().type:context.watch<GlobalDO>().type);
+    reasons = ReasonDao.fetchFinancialReason(
+        context.read<GlobalDO>().type != context.watch<GlobalDO>().type
+            ? context.read<GlobalDO>().type
+            : context.watch<GlobalDO>().type);
 
     TextEditingController controller = TextEditingController();
 
@@ -152,8 +155,8 @@ class _FinancialReasonViewState extends State<FinancialReasonView> {
                             //     shape: const CircleBorder(
                             //         side: BorderSide(color: Colors.grey))),
                             onPressed: () {
-                              if(reason == ""){
-                                  CustomSnackBar().show(context, "您还没有输入");
+                              if (reason == "") {
+                                CustomSnackBar().show(context, "您还没有输入");
                               }
                               setState(() {
                                 showAddReason = false;

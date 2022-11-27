@@ -116,3 +116,9 @@ flutter:
     - family: YangRenDongZhuShiTi-Light
       fonts:
         - asset: fonts/YangRenDongZhuShiTi-Light-2.ttf
+    - family: YangRenDongZhuShiTi-Regular
+      fonts:
+        - asset: fonts/YangRenDongZhuShiTi-Regular-2.ttf
+    - family: YangRenDongZhuShiTi-Bold
+      fonts:
+        - asset: fonts/YangRenDongZhuShiTi-Bold-2.ttf

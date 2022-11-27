@@ -7,7 +7,7 @@
  * 
  * Copyright (c) 2022, All Rights Reserved. 
  */
-import 'package:client/config/route.dart';
+import 'package:client/page/config/route.dart';
 import 'package:client/data/dao/setting_dao.dart';
 import 'package:client/data/db.dart';
 import 'package:client/units/common_const.dart';
