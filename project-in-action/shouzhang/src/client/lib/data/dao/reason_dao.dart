@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-11-14 14:23:27
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-25 10:17:53
+ * @LastEditTime: 2022-11-27 11:57:31
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -16,13 +16,15 @@ class ReasonDao {
   static Future<List<FinancialReason>> fetchFinancialReason(int type) async {
     List<FinancialReason> list = [];
     List<String?> userList = AccountUserDao.getSharedUser();
-    Hive.box<FinancialReason>(TABLE.financialReason).values.forEach((element) {
-      if (element.type == type &&
-          userList.contains(element.user) &&
-          element.isDeleted == 0) {
-        list.add(element);
-      }
-    });
+    Future(() => Hive.box<FinancialReason>(TABLE.financialReason)
+            .values
+            .forEach((element) {
+          if (element.type == type &&
+              userList.contains(element.user) &&
+              element.isDeleted == 0) {
+            list.add(element);
+          }
+        }));
     return list;
   }
 }

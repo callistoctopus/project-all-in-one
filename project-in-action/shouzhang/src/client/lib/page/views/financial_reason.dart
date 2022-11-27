@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-11-22 15:08:02
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-25 10:17:16
+ * @LastEditTime: 2022-11-27 12:17:54
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -28,7 +28,7 @@ class FinancialReasonView extends StatefulWidget {
 }
 
 class _FinancialReasonViewState extends State<FinancialReasonView> {
-  late Future<List<FinancialReason>> reasons;
+  Future<List<FinancialReason>> reasons = ReasonDao.fetchFinancialReason(0);
   bool showAddReason = false;
   String reason = "";
 
@@ -47,6 +47,8 @@ class _FinancialReasonViewState extends State<FinancialReasonView> {
 
   @override
   Widget build(BuildContext context) {
+    String selectedReason = context.read<GlobalDO>().reason;
+
     reasons = ReasonDao.fetchFinancialReason(
         context.read<GlobalDO>().type != context.watch<GlobalDO>().type
             ? context.read<GlobalDO>().type
@@ -61,10 +63,9 @@ class _FinancialReasonViewState extends State<FinancialReasonView> {
             if (snapshot.hasData) {
               List<String> dataList =
                   snapshot.data!.map((e) => e.reason).toList();
-              if (dataList.length > 1 &&
-                  !dataList.contains(context.read<GlobalDO>().reason)) {
-                context.read<GlobalDO>().reason = dataList[0];
-              }
+              // if (dataList.length > 1 && !dataList.contains(selectedReason)) {
+              //   selectedReason = dataList[0];
+              // }
               return CustomChoiceChip(
                 enableAdd: true,
                 backgroundColor: Colors.green,
@@ -78,7 +79,7 @@ class _FinancialReasonViewState extends State<FinancialReasonView> {
                   });
                 },
                 defaultSelect:
-                    dataList.indexOf(context.read<GlobalDO>().reason),
+                    dataList.indexOf(selectedReason),
                 onLongPress: (index) {
                   showDialog<void>(
                       context: context,
@@ -158,10 +159,11 @@ class _FinancialReasonViewState extends State<FinancialReasonView> {
                               if (reason == "") {
                                 CustomSnackBar().show(context, "您还没有输入");
                               }
+
+                              saveFinancialReason();
+                              context.read<GlobalDO>().reason = reason;
                               setState(() {
                                 showAddReason = false;
-                                saveFinancialReason();
-                                context.read<GlobalDO>().reason = reason;
                                 reason = "";
                                 controller.clear();
                               });
