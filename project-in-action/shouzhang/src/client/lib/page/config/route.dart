@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-11-09 12:54:29
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-25 08:53:05
+ * @LastEditTime: 2022-11-27 05:53:20
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -58,13 +58,13 @@ class RouteConfig {
         GoRoute(
           path: ROUTE.BUDGETS,
           builder: (BuildContext context, GoRouterState state) {
-            return Scaffold(body: BudgetSettingPage());
+            return const Scaffold(body: BudgetSettingPage());
           },
         ),
         GoRoute(
           path: ROUTE.TARGETS,
           builder: (BuildContext context, GoRouterState state) {
-            return Scaffold(body: TargetListPage());
+            return const Scaffold(body: TargetListPage());
           },
         ),
         GoRoute(

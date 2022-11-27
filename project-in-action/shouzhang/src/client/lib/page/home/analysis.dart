@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-29 01:37:32
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-25 08:52:42
+ * @LastEditTime: 2022-11-27 06:49:14
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -47,33 +47,33 @@ class _AnalysisPageState extends State<AnalysisPage> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(CommonUtils.now().toString().substring(0, 10)),
-                    PopupMenuButton<Menu>(
-                        padding: const EdgeInsets.all(1),
-                        iconSize: 14,
-                        onSelected: (Menu item) {
-                          setState(() {
-                            DataAccessService.syncData();
-                          });
-                        },
-                        itemBuilder: (BuildContext context) =>
-                            <PopupMenuEntry<Menu>>[
-                              const PopupMenuItem<Menu>(
-                                value: Menu.itemOne,
-                                child: Text('账号'),
-                              ),
-                              const PopupMenuItem<Menu>(
-                                value: Menu.itemTwo,
-                                child: Text('设置'),
-                              ),
-                              const PopupMenuItem<Menu>(
-                                value: Menu.itemThree,
-                                child: Text('退出'),
-                              ),
-                              const PopupMenuItem<Menu>(
-                                value: Menu.itemFour,
-                                child: Text('关于'),
-                              ),
-                            ]),
+                    // PopupMenuButton<Menu>(
+                    //     padding: const EdgeInsets.all(1),
+                    //     iconSize: 14,
+                    //     onSelected: (Menu item) {
+                    //       setState(() {
+                    //         DataAccessService.syncData();
+                    //       });
+                    //     },
+                    //     itemBuilder: (BuildContext context) =>
+                    //         <PopupMenuEntry<Menu>>[
+                    //           const PopupMenuItem<Menu>(
+                    //             value: Menu.itemOne,
+                    //             child: Text('账号'),
+                    //           ),
+                    //           const PopupMenuItem<Menu>(
+                    //             value: Menu.itemTwo,
+                    //             child: Text('设置'),
+                    //           ),
+                    //           const PopupMenuItem<Menu>(
+                    //             value: Menu.itemThree,
+                    //             child: Text('退出'),
+                    //           ),
+                    //           const PopupMenuItem<Menu>(
+                    //             value: Menu.itemFour,
+                    //             child: Text('关于'),
+                    //           ),
+                    //         ]),
                   ],
                 )),
             const Divider(

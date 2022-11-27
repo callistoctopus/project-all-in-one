@@ -2,15 +2,14 @@
  * @Author: gui-qi
  * @Date: 2022-10-29 01:37:32
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-24 15:03:18
+ * @LastEditTime: 2022-11-27 11:15:18
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
  */
-import 'package:client/page/component/custom_chart.dart';
-import 'package:client/page/config/route.dart';
+import 'package:client/page/data_show/budget_list_page.dart';
+import 'package:client/page/data_show/target_list_page.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 
 class BudgetPage extends StatefulWidget {
   const BudgetPage({super.key});
@@ -22,33 +21,33 @@ class BudgetPage extends StatefulWidget {
 class _BudgetPageState extends State<BudgetPage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: Center(
-            child: ListView(children: <Widget>[
-      CustomChart(
-          title: "预算储备",
-          link: "管理",
-          callback: () {
-            context.go(ROUTE.BUDGETS);
-          },
-          child: const SizedBox()),
-      const Divider(
-        color: Colors.grey,
-        thickness: 0,
-        height: 1,
-      ),
-      CustomChart(
-          title: "理财目标",
-          link: "管理",
-          callback: () {
-            context.go(ROUTE.TARGETS);
-          },
-          child: const SizedBox()),
-      const Divider(
-        color: Colors.grey,
-        thickness: 0,
-        height: 1,
-      ),
-    ])));
+    return DefaultTabController(
+        initialIndex: 0,
+        length: 2,
+        child: Scaffold(
+          appBar: AppBar(
+            toolbarHeight: 0,
+            bottom: const TabBar(
+              tabs: <Widget>[
+                Tab(
+                  child: Text("预算"),
+                ),
+                Tab(
+                  child: Text("目标"),
+                ),
+              ],
+            ),
+          ),
+          body: const TabBarView(
+            children: <Widget>[
+              Center(
+                child: BudgetSettingPage(),
+              ),
+              Center(
+                child: TargetListPage(),
+              ),
+            ],
+          ),
+        ));
   }
 }
