@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-29 01:37:32
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-26 15:04:05
+ * @LastEditTime: 2022-11-28 03:19:46
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -92,13 +92,6 @@ class _ConsumePageState extends State<ConsumePage> {
                   thickness: 0,
                   height: 1,
                 ),
-                //   '日别，月别，周别，年别，消费分析，建议，警告',
-                //   '日别，月别，周别，年别，预算分析，建议，警告',
-                //   '资产管理，资产类型，盘账',
-                //   '消费目标，预计达成时间',
-                //   '预算，周期，年度，',
-                //   '自动扣费',
-                //   '设置背景图',
               ],
             ),
           ),

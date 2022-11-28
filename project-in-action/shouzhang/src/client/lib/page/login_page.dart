@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-26 15:06:57
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-25 08:52:00
+ * @LastEditTime: 2022-11-28 10:49:28
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -33,6 +33,8 @@ class _LoginPageState extends State<LoginPage> {
         child: Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
+        const Text("丫蛋"),
+        const SizedBox(height: 20,),
         _VIEW().user((text) {
           widget.user = text;
         }),
@@ -120,6 +122,8 @@ class _VIEW {
         textAlign: TextAlign.justify,
         textAlignVertical: TextAlignVertical.center,
         cursorHeight: 25,
+        keyboardType: TextInputType.visiblePassword,
+        obscureText: true,
         decoration: const InputDecoration(
           prefixIcon: Icon(ICONS.PASSWORD),
           border: OutlineInputBorder(),
@@ -212,7 +216,7 @@ class _VIEW {
             onPressed: () {
               callback();
             },
-            child: const Text("注册")));
+            child: const Text("立即注册")));
   }
 
   Widget siginBtn(Function callback) {
