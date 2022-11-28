@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-11-17 08:06:58
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-26 15:09:17
+ * @LastEditTime: 2022-11-28 14:59:02
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -10,22 +10,7 @@
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
-// void main() {
-//   return runApp(_ChartApp());
-// }
-
-// class ChartApp extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       theme: ThemeData(primarySwatch: Colors.blue),
-//       home: _MyHomePage(),
-//     );
-//   }
-// }
-
 class ChartApp extends StatefulWidget {
-  // ignore: prefer_const_constructors_in_immutables
   ChartApp({Key? key}) : super(key: key);
 
   @override
@@ -39,11 +24,8 @@ class _MyHomePageState extends State<ChartApp> {
   @override
   void initState() {
     data = [
-      _ChartData('买菜', 12),
-      _ChartData('衣服', 15),
-      _ChartData('交通', 30),
-      _ChartData('餐饮', 6.4),
-      _ChartData('日常', 14)
+      _ChartData('奇', 12),
+      _ChartData('宝', 19),
     ];
     data.sort((a,b)=>a.y > b.y ? 1 : 0);
     _tooltip = TooltipBehavior(enable: true);
@@ -62,8 +44,9 @@ class _MyHomePageState extends State<ChartApp> {
                   dataSource: data,
                   xValueMapper: (_ChartData data, _) => data.x,
                   yValueMapper: (_ChartData data, _) => data.y,
-                  name: 'Gold',
-                  color: Color.fromRGBO(8, 142, 255, 1))
+                  dataLabelMapper:(_ChartData data, _) => data.y.toString(),
+                  name: '消费',
+                  color: const Color.fromRGBO(8, 142, 255, 1))
             ]));
   }
 }

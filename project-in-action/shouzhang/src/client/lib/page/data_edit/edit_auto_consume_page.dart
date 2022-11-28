@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-26 15:06:57
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-28 15:07:44
+ * @LastEditTime: 2022-11-28 15:02:56
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -24,16 +24,16 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
-class EditBillPage extends StatefulWidget {
-  const EditBillPage({super.key, required this.editType});
+class EditAutoConsumePage extends StatefulWidget {
+  const EditAutoConsumePage({super.key, required this.editType});
 
   final int editType;
 
   @override
-  State<EditBillPage> createState() => _EditBillPageState();
+  State<EditAutoConsumePage> createState() => _EditAutoConsumePageState();
 }
 
-class _EditBillPageState extends State<EditBillPage> {
+class _EditAutoConsumePageState extends State<EditAutoConsumePage> {
   saveBill() {
     Dao.upsert<Bill>(context.read<GlobalDO>().bill, TABLE.bill);
   }
@@ -76,7 +76,7 @@ class _EditBillPageState extends State<EditBillPage> {
                 title: "收支类型",
                 height: 70,
                 link: "设置自动扣费",
-                callback: (){context.go(ROUTE.AUTOCOMSUMES);},
+                callback: (){},
                 child: const FinancialTypeView(),
               ),
               const Divider(

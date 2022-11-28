@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-29 03:31:37
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-28 10:41:55
+ * @LastEditTime: 2022-11-28 13:44:01
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -72,10 +72,11 @@ flutter upgrade --force
 flutter pub get
 
 # 待做
-// 输入密码时不可见
 // 设置自动扣费
 // 自动生成预算
 // 年度选择使用下拉框
+// 月度消费统计（用户）
+// 月度消费统计（种类）
 // 设置背景图
 // 消费结构分析：食品烟酒，衣着消费，居住，生活用品及服务，交通通信，教育文化娱乐，医疗保健，其他用品及服务
 // 日别，月别，周别，年别，消费分析，建议，警告 
@@ -86,3 +87,4 @@ flutter pub get
 // 会员
 
 # 已做
+// 输入密码时不可见

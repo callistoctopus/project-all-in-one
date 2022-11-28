@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-26 15:06:57
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-28 10:49:28
+ * @LastEditTime: 2022-11-28 13:42:06
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -33,7 +33,7 @@ class _LoginPageState extends State<LoginPage> {
         child: Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        const Text("丫蛋"),
+        const Text("丫丫记账", style: TextStyle(fontSize: 55),),
         const SizedBox(height: 20,),
         _VIEW().user((text) {
           widget.user = text;

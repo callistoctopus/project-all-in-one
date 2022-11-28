@@ -1,5 +1,5 @@
 
-import 'package:client/develop/pie_chart/samples/indicator.dart';
+import 'package:client/page/component/indicator.dart';
 import 'package:client/develop/utils/color_extensions.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';

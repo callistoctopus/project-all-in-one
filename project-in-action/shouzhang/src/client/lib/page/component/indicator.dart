@@ -1,3 +1,12 @@
+/*
+ * @Author: gui-qi
+ * @Date: 2022-11-14 05:48:52
+ * @LastEditors: gui-qi
+ * @LastEditTime: 2022-11-28 14:14:47
+ * @Description: 
+ * 
+ * Copyright (c) 2022, All Rights Reserved. 
+ */
 import 'package:flutter/material.dart';
 
 class Indicator extends StatelessWidget {
@@ -34,7 +43,7 @@ class Indicator extends StatelessWidget {
           text,
           style: TextStyle(
             fontSize: 16,
-            fontWeight: FontWeight.bold,
+            fontWeight: FontWeight.normal,
             color: textColor,
           ),
         )

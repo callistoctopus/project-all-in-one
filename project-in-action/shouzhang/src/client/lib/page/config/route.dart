@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-11-09 12:54:29
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-28 02:47:03
+ * @LastEditTime: 2022-11-28 15:05:43
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -10,8 +10,10 @@
 import 'package:client/data/dao/setting_dao.dart';
 import 'package:client/develop/dev_sample_page.dart';
 import 'package:client/page/data_edit/edit_asset_page.dart';
+import 'package:client/page/data_edit/edit_auto_consume_page.dart';
 import 'package:client/page/data_edit/edit_budget_page.dart';
 import 'package:client/page/data_edit/edit_target_page.dart';
+import 'package:client/page/data_show/auto_consume_list_page.dart';
 import 'package:client/page/data_show/budget_list_page.dart';
 import 'package:client/page/data_show/target_list_page.dart';
 import 'package:client/page/data_edit/edit_account_page.dart';
@@ -106,6 +108,21 @@ class RouteConfig {
                 editType: int.parse(state.queryParams["editType"] ?? "0"));
           },
         ),
+
+        GoRoute(
+          path: ROUTE.AUTOCOMSUME,
+          builder: (BuildContext context, GoRouterState state) {
+            return Scaffold(
+                body: EditAutoConsumePage(
+                    editType: int.parse(state.queryParams["editType"] ?? "0")));
+          },
+        ),
+        GoRoute(
+          path: ROUTE.AUTOCOMSUMES,
+          builder: (BuildContext context, GoRouterState state) {
+            return const Scaffold(body: AutoConsumeListPage());
+          },
+        ),
       ],
       redirect: (context, state) {
         if (SettingDao.isLogined() || SettingDao.isOfflineMode()) {
@@ -142,4 +159,9 @@ class ROUTE {
   static const String ASSET = '/asset';
   static const String ADD_ASSET = '$ASSET?editType=0';
   static const String EDIT_ASSET = '$ASSET?editType=1';
+
+  static const String AUTOCOMSUMES = '/autoconsumes';
+  static const String AUTOCOMSUME = '/autoconsume';
+  static const String ADD_AUTOCOMSUME = '$AUTOCOMSUME?editType=0';
+  static const String EDIT_AUTOCOMSUME = '$AUTOCOMSUME?editType=1';
 }
