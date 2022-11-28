@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-11-17 08:06:58
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-26 14:24:08
+ * @LastEditTime: 2022-11-27 15:05:35
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -170,5 +170,21 @@ class PieChart2State extends State {
           throw Error();
       }
     });
+  }
+}
+
+class _CONPOMENT {
+  static PieChartSectionData geta(value, title, radius, fontSize){
+    return PieChartSectionData(
+            color: const Color(0xff13d38e),
+            value: 15,
+            title: '15%',
+            radius: radius,
+            titleStyle: TextStyle(
+              fontSize: fontSize,
+              fontWeight: FontWeight.bold,
+              color: const Color(0xffffffff),
+            ),
+          );
   }
 }
