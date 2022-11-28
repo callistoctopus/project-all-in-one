@@ -2,18 +2,18 @@
  * @Author: gui-qi
  * @Date: 2022-11-09 12:54:29
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-27 05:53:20
+ * @LastEditTime: 2022-11-28 02:47:03
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
  */
 import 'package:client/data/dao/setting_dao.dart';
 import 'package:client/develop/dev_sample_page.dart';
+import 'package:client/page/data_edit/edit_asset_page.dart';
 import 'package:client/page/data_edit/edit_budget_page.dart';
 import 'package:client/page/data_edit/edit_target_page.dart';
 import 'package:client/page/data_show/budget_list_page.dart';
 import 'package:client/page/data_show/target_list_page.dart';
-import 'package:client/page/home/setting.dart';
 import 'package:client/page/data_edit/edit_account_page.dart';
 import 'package:client/page/data_edit/edit_bill_page.dart';
 import 'package:client/page/home_page.dart';
@@ -29,14 +29,14 @@ class RouteConfig {
         GoRoute(
           path: ROUTE.HOME,
           builder: (BuildContext context, GoRouterState state) {
-            return Scaffold(body: HomePage());
+            return const Scaffold(body: HomePage());
           },
         ),
         GoRoute(
           path: ROUTE.LOGIN,
           builder: (BuildContext context, GoRouterState state) {
             if (SettingDao.isLogined() || SettingDao.isOfflineMode()) {
-              return Scaffold(body: HomePage());
+              return const Scaffold(body: HomePage());
             }
             return Scaffold(body: LoginPage());
           },
@@ -44,14 +44,14 @@ class RouteConfig {
         GoRoute(
           path: ROUTE.BILLS,
           builder: (BuildContext context, GoRouterState state) {
-            return Scaffold(body: BillListPage());
+            return const Scaffold(body: BillListPage());
           },
         ),
         GoRoute(
           path: ROUTE.BUDGET,
           builder: (BuildContext context, GoRouterState state) {
             return Scaffold(
-                body: AddBudgetView(
+                body: EditBudgetPage(
                     editType: int.parse(state.queryParams["editType"] ?? "0")));
           },
         ),
@@ -70,7 +70,7 @@ class RouteConfig {
         GoRoute(
           path: ROUTE.ACCOUNT,
           builder: (BuildContext context, GoRouterState state) {
-            return const Scaffold(body: AccountPage());
+            return const Scaffold(body: EditAccountPage());
           },
         ),
         GoRoute(
@@ -88,7 +88,7 @@ class RouteConfig {
         GoRoute(
           path: ROUTE.BILL,
           builder: (BuildContext context, GoRouterState state) {
-            return AddBillView(
+            return EditBillPage(
                 editType: int.parse(state.queryParams["editType"] ?? "0"));
           },
         ),
@@ -96,6 +96,13 @@ class RouteConfig {
           path: ROUTE.TARGET,
           builder: (BuildContext context, GoRouterState state) {
             return EditTargetPage(
+                editType: int.parse(state.queryParams["editType"] ?? "0"));
+          },
+        ),
+        GoRoute(
+          path: ROUTE.ASSET,
+          builder: (BuildContext context, GoRouterState state) {
+            return EditAssetPage(
                 editType: int.parse(state.queryParams["editType"] ?? "0"));
           },
         ),
@@ -114,13 +121,13 @@ class ROUTE {
   static const String HOME = '/';
   static const String LOGIN = '/login';
   static const String ACCOUNT = '/account';
+  static const String DEBUG = '/debug';
 
   static const String BILLS = '/bills';
   static const String BILL = '/bill';
   static const String ADD_BILL = '$BILL?editType=0';
   static const String EDIT_BILL = '$BILL?editType=1';
 
-  // static const String ADD_REASON = '/add_reason';
   static const String BUDGETS = '/budgets';
   static const String BUDGET = '/budget';
   static const String ADD_BUDGET = '$BUDGET?editType=0';
@@ -131,6 +138,8 @@ class ROUTE {
   static const String ADD_TARGET = '$TARGET?editType=0';
   static const String EDIT_TARGET = '$TARGET?editType=1';
 
-  static const String DEBUG = '/debug';
-  // static const String SETTING = '/setting';
+  static const String ASSETS = '/assets';
+  static const String ASSET = '/asset';
+  static const String ADD_ASSET = '$ASSET?editType=0';
+  static const String EDIT_ASSET = '$ASSET?editType=1';
 }

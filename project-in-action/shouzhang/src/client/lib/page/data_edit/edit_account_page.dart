@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-26 15:06:57
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-25 08:10:04
+ * @LastEditTime: 2022-11-28 01:00:15
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -17,14 +17,14 @@ import 'package:client/units/common_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
 
-class AccountPage extends StatefulWidget {
-  const AccountPage({super.key});
+class EditAccountPage extends StatefulWidget {
+  const EditAccountPage({super.key});
 
   @override
-  State<AccountPage> createState() => _AccountPageState();
+  State<EditAccountPage> createState() => _EditAccountPageState();
 }
 
-class _AccountPageState extends State<AccountPage> {
+class _EditAccountPageState extends State<EditAccountPage> {
   List<AccountUser> user = AccountUserDao.getSharedAccountUser();
   List<Account> account = AccountDao.allAccounts();
   bool showInvite = false;

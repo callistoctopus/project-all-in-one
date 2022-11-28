@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-26 15:06:57
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-28 01:12:22
+ * @LastEditTime: 2022-11-28 02:46:32
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -25,16 +25,16 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
-class EditBudgetPage extends StatefulWidget {
-  const EditBudgetPage({super.key, required this.editType});
+class EditAssetPage extends StatefulWidget {
+  const EditAssetPage({super.key, required this.editType});
 
   final int editType;
 
   @override
-  State<EditBudgetPage> createState() => _EditBudgetPageState();
+  State<EditAssetPage> createState() => _EditAssetPageState();
 }
 
-class _EditBudgetPageState extends State<EditBudgetPage> {
+class _EditAssetPageState extends State<EditAssetPage> {
   saveBudget() {
     Dao.upsert<Budget>(context.read<GlobalDO>().budget, TABLE.budget);
   }

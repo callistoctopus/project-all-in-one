@@ -2,13 +2,15 @@
  * @Author: gui-qi
  * @Date: 2022-11-21 05:28:46
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-27 06:35:44
+ * @LastEditTime: 2022-11-28 01:15:04
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
  */
 import 'package:client/page/component/custom_chart.dart';
+import 'package:client/page/config/route.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class AssetsPage extends StatefulWidget {
   const AssetsPage({super.key});
@@ -32,7 +34,9 @@ class _AssetsPageState extends State<AssetsPage> {
       CustomChartDynamic(
           title: "资产一览",
           link: "追加",
-          callback: () {},
+          callback: () {
+            context.go(ROUTE.EDIT_ASSET);
+          },
           child: Column(
               children: List.generate(5, (index) => _COMPONMENT.assetCart()))),
     ])));

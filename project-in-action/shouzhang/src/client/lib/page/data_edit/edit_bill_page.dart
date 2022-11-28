@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-26 15:06:57
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-25 09:56:28
+ * @LastEditTime: 2022-11-28 01:11:56
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -24,16 +24,16 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
-class AddBillView extends StatefulWidget {
-  const AddBillView({super.key, required this.editType});
+class EditBillPage extends StatefulWidget {
+  const EditBillPage({super.key, required this.editType});
 
   final int editType;
 
   @override
-  State<AddBillView> createState() => _AddBillViewState();
+  State<EditBillPage> createState() => _EditBillPageState();
 }
 
-class _AddBillViewState extends State<AddBillView> {
+class _EditBillPageState extends State<EditBillPage> {
   saveBill() {
     Dao.upsert<Bill>(context.read<GlobalDO>().bill, TABLE.bill);
   }
