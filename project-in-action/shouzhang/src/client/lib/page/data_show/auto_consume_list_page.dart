@@ -2,16 +2,17 @@
  * @Author: gui-qi
  * @Date: 2022-10-29 01:37:32
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-28 15:13:04
+ * @LastEditTime: 2022-11-29 14:32:24
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
  */
 import 'dart:async';
 
+import 'package:client/data/dao/auto_consume_dao.dart';
+import 'package:client/data/model/auto_consume.dart';
 import 'package:client/page/component/custom_chart.dart';
 import 'package:client/page/config/route.dart';
-import 'package:client/data/dao/bill_dao.dart';
 import 'package:client/data/dao/dao.dart';
 import 'package:client/data/model/bill.dart';
 import 'package:client/page/data_model/global_do.dart';
@@ -30,12 +31,12 @@ class AutoConsumeListPage extends StatefulWidget {
 }
 
 class _AutoConsumeListPageState extends State<AutoConsumeListPage> {
-  late Future<List<Bill>> futureListBill;
+  late Future<List<AutoConsume>> autoConsumeList;
 
   @override
   void initState() {
     super.initState();
-    futureListBill = BillDao.futureListBill();
+    autoConsumeList = AutoConsumeDao.fetchListAutoConsume();
   }
 
   @override
@@ -54,8 +55,8 @@ class _AutoConsumeListPageState extends State<AutoConsumeListPage> {
                   left: widget.shortMode ? 2 : 30,
                   right: widget.shortMode ? 2 : 20,
                   top: widget.shortMode ? 5 : 20),
-              child: FutureBuilder<List<Bill>>(
-                  future: futureListBill,
+              child: FutureBuilder<List<AutoConsume>>(
+                  future: autoConsumeList,
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
                       return ListView.separated(
@@ -71,7 +72,7 @@ class _AutoConsumeListPageState extends State<AutoConsumeListPage> {
                             );
                           } else {
                             return Dismissible(
-                                key: ValueKey<Bill>(snapshot.data![i]),
+                                key: ValueKey<AutoConsume>(snapshot.data![i]),
                                 onDismissed: (DismissDirection direction) {
                                   setState(() {
                                     // BillDao.deleteBill(snapshot.data![i]);
@@ -79,12 +80,12 @@ class _AutoConsumeListPageState extends State<AutoConsumeListPage> {
                                     snapshot.data!.removeAt(i);
                                   });
                                 },
-                                child: BillRow(
+                                child: AutoConsumeRow(
                                   bill: snapshot.data![i],
-                                  onLongPress: (bill) {},
-                                  onTap: (bill) {
-                                    context.read<GlobalDO>().bill = bill;
-                                    context.go(ROUTE.EDIT_BILL);
+                                  onLongPress: (autoConsume) {},
+                                  onTap: (autoConsume) {
+                                    context.read<GlobalDO>().autoConsume = autoConsume;
+                                    context.go(ROUTE.EDIT_AUTOCOMSUME);
                                   },
                                 ));
                           }
@@ -117,16 +118,16 @@ class _AutoConsumeListPageState extends State<AutoConsumeListPage> {
   }
 }
 
-class BillRow extends StatelessWidget {
-  const BillRow(
+class AutoConsumeRow extends StatelessWidget {
+  const AutoConsumeRow(
       {super.key,
       required this.bill,
       required this.onTap,
       required this.onLongPress});
 
-  final Bill bill;
-  final Function(Bill) onTap;
-  final Function(Bill) onLongPress;
+  final AutoConsume bill;
+  final Function(AutoConsume) onTap;
+  final Function(AutoConsume) onLongPress;
 
   @override
   Widget build(BuildContext context) {
@@ -153,7 +154,7 @@ class BillRow extends StatelessWidget {
                 child: Text(
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
-                    bill.time.toString().substring(0, 10),
+                    bill.duration.toString(),
                     style:
                         const TextStyle(color: Colors.black54, fontSize: 11))),
             Expanded(

@@ -2,12 +2,13 @@
  * @Author: gui-qi
  * @Date: 2022-11-23 09:59:07
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-25 09:49:19
+ * @LastEditTime: 2022-11-29 14:34:13
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
  */
 import 'package:client/data/dao/setting_dao.dart';
+import 'package:client/data/model/auto_consume.dart';
 import 'package:client/data/model/bill.dart';
 import 'package:client/data/model/budget.dart';
 import 'package:client/units/common_utils.dart';
@@ -15,14 +16,24 @@ import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
 
 class GlobalDO extends ChangeNotifier {
-  Bill _bill = Bill(const Uuid().v1(), SettingDao.currentUser(), CommonUtils.now(),
-      "", 0, -1, "", CommonUtils.now());
-  Budget _budget = Budget(const Uuid().v1(), SettingDao.currentUser(),
-      CommonUtils.now().year.toString(), "", 0, 0, -1, "", 0, CommonUtils.now());
-
+  Bill _bill = Bill(const Uuid().v1(), SettingDao.currentUser(),
+      CommonUtils.now(), "", 0, -1, "", CommonUtils.now());
+  Budget _budget = Budget(
+      const Uuid().v1(),
+      SettingDao.currentUser(),
+      CommonUtils.now().year.toString(),
+      "",
+      0,
+      0,
+      -1,
+      "",
+      0,
+      CommonUtils.now());
+  AutoConsume _autoConsume = AutoConsume(const Uuid().v1(),
+      SettingDao.currentUser(), 0, "", 0, -1, CommonUtils.now());
 
   int homePageIndes = 0;
-  
+
   int _type = 0;
   String _reason = "";
   double _amount = -1;
@@ -79,15 +90,16 @@ class GlobalDO extends ChangeNotifier {
   }
 
   set bill(Bill? bill) {
-    _bill = bill ?? Bill(const Uuid().v1(), SettingDao.currentUser(), CommonUtils.now(), "",
-        0, -1, "", CommonUtils.now());
+    _bill = bill ??
+        Bill(const Uuid().v1(), SettingDao.currentUser(), CommonUtils.now(), "",
+            0, -1, "", CommonUtils.now());
     _type = _bill.type;
     _amount = _bill.amount;
     _reason = _bill.reason;
     _note = _bill.note;
   }
 
-  Bill get bill{
+  Bill get bill {
     _bill.time = CommonUtils.now();
     _bill.amount = _amount;
     _bill.type = _type;
@@ -97,19 +109,39 @@ class GlobalDO extends ChangeNotifier {
   }
 
   set budget(Budget? budget) {
-    _budget = budget ?? Budget(const Uuid().v1(), SettingDao.currentUser(),
-      CommonUtils.now().year.toString(), "", 0, 0, -1, "", 0, CommonUtils.now());
+    _budget = budget ??
+        Budget(
+            const Uuid().v1(),
+            SettingDao.currentUser(),
+            CommonUtils.now().year.toString(),
+            "",
+            0,
+            0,
+            -1,
+            "",
+            0,
+            CommonUtils.now());
     _type = _budget.type;
     _amount = _budget.budget;
     _reason = _budget.reason;
     _note = _budget.note;
   }
 
-  Budget get budget{
+  Budget get budget {
     _budget.budget = _amount;
     _budget.type = _type;
     _budget.reason = _reason;
     _budget.note = _reason;
     return _budget;
+  }
+
+  set autoConsume(AutoConsume? autoConsume) {
+    _autoConsume = autoConsume ??
+        AutoConsume(const Uuid().v1(), SettingDao.currentUser(), 0, "", 0, -1,
+            CommonUtils.now());
+  }
+
+  AutoConsume get autoConsume {
+    return _autoConsume;
   }
 }
