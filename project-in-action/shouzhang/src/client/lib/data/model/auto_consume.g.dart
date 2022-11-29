@@ -1,58 +1,51 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'auto_create_config.dart';
+part of 'auto_consume.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
 // **************************************************************************
 
-class AutoCreateConfigAdapter extends TypeAdapter<AutoCreateConfig> {
+class AutoConsumeAdapter extends TypeAdapter<AutoConsume> {
   @override
-  final int typeId = 5;
+  final int typeId = 8;
 
   @override
-  AutoCreateConfig read(BinaryReader reader) {
+  AutoConsume read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return AutoCreateConfig(
+    return AutoConsume(
       fields[0] as String,
       fields[1] as String,
-      fields[2] as String,
+      fields[2] as int,
       fields[3] as String,
       fields[4] as int,
-      fields[5] as int,
-      fields[6] as double,
-      fields[7] as String,
-      fields[8] as int,
-      fields[9] as DateTime,
-    );
+      fields[5] as double,
+      fields[7] as DateTime,
+    )..isDeleted = fields[6] as int;
   }
 
   @override
-  void write(BinaryWriter writer, AutoCreateConfig obj) {
+  void write(BinaryWriter writer, AutoConsume obj) {
     writer
-      ..writeByte(10)
+      ..writeByte(8)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
       ..write(obj.user)
       ..writeByte(2)
-      ..write(obj.year)
+      ..write(obj.duration)
       ..writeByte(3)
       ..write(obj.reason)
       ..writeByte(4)
       ..write(obj.type)
       ..writeByte(5)
-      ..write(obj.duration)
+      ..write(obj.amount)
       ..writeByte(6)
-      ..write(obj.budget)
-      ..writeByte(7)
-      ..write(obj.note)
-      ..writeByte(8)
       ..write(obj.isDeleted)
-      ..writeByte(9)
+      ..writeByte(7)
       ..write(obj.updateTime);
   }
 
@@ -62,7 +55,7 @@ class AutoCreateConfigAdapter extends TypeAdapter<AutoCreateConfig> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is AutoCreateConfigAdapter &&
+      other is AutoConsumeAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }
@@ -71,30 +64,24 @@ class AutoCreateConfigAdapter extends TypeAdapter<AutoCreateConfig> {
 // JsonSerializableGenerator
 // **************************************************************************
 
-AutoCreateConfig _$AutoCreateConfigFromJson(Map<String, dynamic> json) =>
-    AutoCreateConfig(
+AutoConsume _$AutoConsumeFromJson(Map<String, dynamic> json) => AutoConsume(
       json['id'] as String,
       json['user'] as String,
-      json['year'] as String,
+      json['duration'] as int,
       json['reason'] as String,
       json['type'] as int,
-      json['duration'] as int,
-      (json['budget'] as num).toDouble(),
-      json['note'] as String,
-      json['isDeleted'] as int,
+      (json['amount'] as num).toDouble(),
       DateTime.parse(json['updateTime'] as String),
-    );
+    )..isDeleted = json['isDeleted'] as int;
 
-Map<String, dynamic> _$AutoCreateConfigToJson(AutoCreateConfig instance) =>
+Map<String, dynamic> _$AutoConsumeToJson(AutoConsume instance) =>
     <String, dynamic>{
       'id': instance.id,
       'user': instance.user,
-      'year': instance.year,
+      'duration': instance.duration,
       'reason': instance.reason,
       'type': instance.type,
-      'duration': instance.duration,
-      'budget': instance.budget,
-      'note': instance.note,
+      'amount': instance.amount,
       'isDeleted': instance.isDeleted,
       'updateTime': instance.updateTime.toIso8601String(),
     };

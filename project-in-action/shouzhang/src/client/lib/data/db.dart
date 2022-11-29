@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-11-09 12:50:18
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-25 08:06:58
+ * @LastEditTime: 2022-11-29 14:15:45
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -10,7 +10,7 @@
 import 'dart:io';
 import 'package:client/data/model/account.dart';
 import 'package:client/data/model/account_user.dart';
-import 'package:client/data/model/auto_create_config.dart';
+import 'package:client/data/model/auto_consume.dart';
 import 'package:client/data/model/bill.dart';
 import 'package:client/data/model/budget.dart';
 import 'package:client/data/model/financial_reason.dart';
@@ -32,14 +32,14 @@ class DB {
       Hive.registerAdapter(BudgetAdapter());
       Hive.registerAdapter(AccountAdapter());
       Hive.registerAdapter(AccountUserAdapter());
-      Hive.registerAdapter(AutoCreateConfigAdapter());
+      Hive.registerAdapter(AutoConsumeAdapter());
       await Hive.openBox(TABLE.setting);
       await Hive.openBox<FinancialReason>(TABLE.financialReason);
       await Hive.openBox<Budget>(TABLE.budget);
       await Hive.openBox<Bill>(TABLE.bill);
       await Hive.openBox<Account>(TABLE.account);
       await Hive.openBox<AccountUser>(TABLE.accountUser);
-      await Hive.openBox<AutoCreateConfig>(TABLE.autoCreateConfig);
+      await Hive.openBox<AutoConsume>(TABLE.autoConsume);
     } catch (e) {
       Hive.deleteFromDisk();
     }
@@ -63,7 +63,7 @@ class TABLE {
   static const String bill = 'bill';
   static const String account = 'account';
   static const String accountUser = 'accountUser';
-  static const String autoCreateConfig = 'autoCreateConfig';
+  static const String autoConsume = 'uutoConsume';
 }
 
 class KEY {
