@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-29 03:31:37
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-28 13:44:01
+ * @LastEditTime: 2022-11-29 00:42:52
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -72,6 +72,7 @@ flutter upgrade --force
 flutter pub get
 
 # 待做
+// 更换评分控件
 // 设置自动扣费
 // 自动生成预算
 // 年度选择使用下拉框
