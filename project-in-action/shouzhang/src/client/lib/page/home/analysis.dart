@@ -9,7 +9,7 @@
  */
 import 'package:client/page/config/route.dart';
 import 'package:client/data/dao/setting_dao.dart';
-import 'package:client/page/views/analysis/asset_analusis.dart';
+import 'package:client/page/views/analysis/asset_analysis.dart';
 import 'package:client/page/component/custom_chart.dart';
 import 'package:client/data/db.dart';
 import 'package:client/data/service/server_data_access_service.dart';

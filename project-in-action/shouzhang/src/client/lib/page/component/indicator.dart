@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-11-14 05:48:52
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-28 14:14:47
+ * @LastEditTime: 2022-11-30 10:05:04
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -15,7 +15,7 @@ class Indicator extends StatelessWidget {
     required this.color,
     required this.text,
     required this.isSquare,
-    this.size = 16,
+    this.size = 14,
     this.textColor = const Color(0xff505050),
   });
   final Color color;
@@ -42,7 +42,7 @@ class Indicator extends StatelessWidget {
         Text(
           text,
           style: TextStyle(
-            fontSize: 16,
+            fontSize: size,
             fontWeight: FontWeight.normal,
             color: textColor,
           ),

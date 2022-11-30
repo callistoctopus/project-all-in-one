@@ -2,13 +2,14 @@
  * @Author: gui-qi
  * @Date: 2022-10-29 01:37:32
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-25 08:17:59
+ * @LastEditTime: 2022-11-30 14:15:34
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
  */
 import 'dart:ui';
 
+import 'package:client/data/dao/bill_dao.dart';
 import 'package:client/page/config/route.dart';
 import 'package:client/page/component/custom_chart.dart';
 import 'package:client/page/component/custom_snack_bar.dart';
@@ -38,7 +39,9 @@ class _BudgetSettingPageState extends State<BudgetSettingPage> {
   @override
   Widget build(BuildContext context) {
     fetchListBudget = BudgetDao.fetchListBudget();
-    fetchListBudget.sort((a,b){ return a.type > b.type ? 0 : 1;});
+    fetchListBudget.sort((a, b) {
+      return a.type > b.type ? 0 : 1;
+    });
 
     int year = SettingDao.budgetYear();
 
@@ -107,60 +110,75 @@ class _BudgetSettingPageState extends State<BudgetSettingPage> {
 
 class _COMPONMENT {
   static Widget budgetView(Budget budget) {
+    Future<double> total = ConsumeDao.getTotalByYearAndReason(
+        int.tryParse(budget.year) ?? 0, budget.reason);
     return Padding(
         padding: const EdgeInsets.only(top: 5),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Expanded(
-                flex: 1,
-                child: Padding(
-                    padding: const EdgeInsets.only(top: 15),
-                    child: CircleAvatar(
-                        radius: 13,
-                        backgroundColor:
-                            budget.type == 0 ? Colors.red : Colors.green,
-                        child: Text(
-                          budget.type == 0 ? "收" : "支",
-                          style: const TextStyle(fontSize: 18),
-                        )))),
-            Expanded(
-                flex: 1,
-                child: Padding(
-                    padding: const EdgeInsets.only(top: 15),
-                    child: Text(budget.reason))),
-            Expanded(
-              flex: 6,
-              child: Padding(
-                padding: const EdgeInsets.only(top: 0, bottom: 0),
-                child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Row(
+        child: FutureBuilder(
+            future: total,
+            builder: (context, snapshot) {
+              double d = 0.0;
+              if (snapshot.hasData) {
+                d = snapshot.data!;
+              }
+
+              return Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Expanded(
+                      flex: 1,
+                      child: Padding(
+                          padding: const EdgeInsets.only(top: 15),
+                          child: CircleAvatar(
+                              radius: 13,
+                              backgroundColor:
+                                  budget.type == 0 ? Colors.red : Colors.green,
+                              child: Text(
+                                budget.type == 0 ? "收" : "支",
+                                style: const TextStyle(fontSize: 18),
+                              )))),
+                  Expanded(
+                      flex: 1,
+                      child: Padding(
+                          padding: const EdgeInsets.only(top: 15),
+                          child: Text(budget.reason))),
+                  Expanded(
+                    flex: 6,
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 0, bottom: 0),
+                      child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text("总 ${budget.budget}",
-                                style: const TextStyle(fontSize: 12)),
+                            Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text("总 ${budget.budget}",
+                                      style: const TextStyle(fontSize: 12)),
+                                ]),
+                            LinearPercentIndicator(
+                              animation: true,
+                              lineHeight: 18.0,
+                              animationDuration: 800,
+                              percent: (budget.budget - d) / budget.budget,
+                              center: Text(
+                                  "${(budget.budget - d) / budget.budget * 100}%"),
+                              barRadius: const Radius.circular(10),
+                              progressColor: Colors.green,
+                            )
                           ]),
-                      LinearPercentIndicator(
-                        animation: true,
-                        lineHeight: 18.0,
-                        animationDuration: 800,
-                        percent: (budget.budget - 0)/budget.budget,
-                        center: Text("${(budget.budget - 0)/budget.budget*100}%"),
-                        barRadius: const Radius.circular(10),
-                        progressColor: Colors.green,
-                      )
-                    ]),
-              ),
-            ),
-            Expanded(
-                flex: 2,
-                child: Padding(
-                    padding: const EdgeInsets.only(top: 15),
-                    child: Text("余 ${budget.budget}",maxLines: 1,))),
-          ],
-        ));
+                    ),
+                  ),
+                  Expanded(
+                      flex: 2,
+                      child: Padding(
+                          padding: const EdgeInsets.only(top: 15),
+                          child: Text(
+                            "余 ${budget.budget - d}",
+                            maxLines: 1,
+                          ))),
+                ],
+              );
+            }));
   }
 }
 

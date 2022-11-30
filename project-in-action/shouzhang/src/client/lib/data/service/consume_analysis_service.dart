@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-11-26 04:42:27
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-26 07:18:19
+ * @LastEditTime: 2022-11-30 14:05:21
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -16,7 +16,7 @@ import 'package:client/units/common_utils.dart';
 class ConsumeAnalysisService {
   Future<double> getTodayTotalCunsume() async {
     double ret = 0.0;
-    Future<List<Bill>> billList = BillDao.futureListBill();
+    Future<List<Bill>> billList = ConsumeDao.futureListBill();
     await billList.then((value) {
       for (Bill bill in value) {
         if (bill.type == 0 &&
@@ -33,7 +33,7 @@ class ConsumeAnalysisService {
 
   Future<List<double>> getCurrentMonthEveryDayCunsume() async {
     List<double> ret = [];
-    Future<List<Bill>> billList = BillDao.futureListBill();
+    Future<List<Bill>> billList = ConsumeDao.futureListBill();
     for (int i = 0; i <= 30; i++) {
       ret.add(0.0);
     }
@@ -53,7 +53,7 @@ class ConsumeAnalysisService {
 
   Future<List<double>> getLastWeekEveryDayCunsume() async {
     List<double> ret = [];
-    Future<List<Bill>> billList = BillDao.futureListBill();
+    Future<List<Bill>> billList = ConsumeDao.futureListBill();
     for (int i = 0; i <= 6; i++) {
       ret.add(0.0);
     }

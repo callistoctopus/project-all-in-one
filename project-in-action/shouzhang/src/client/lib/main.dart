@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-26 08:18:13
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-27 05:56:53
+ * @LastEditTime: 2022-11-30 13:36:05
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -25,7 +25,8 @@ Future<void> main() async {
           appBarTheme: const AppBarTheme(backgroundColor: Colors.white),
             primaryColor: Colors.white,
             scaffoldBackgroundColor: Colors.white,
-            fontFamily: "YangRenDongZhuShiTi-Regular"),
+            // fontFamily: "YangRenDongZhuShiTi-Regular"
+            ),
         routerConfig: RouteConfig.routeConfig(),
       )));
 }

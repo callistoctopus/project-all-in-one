@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-29 01:37:32
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-25 09:53:11
+ * @LastEditTime: 2022-11-30 14:05:36
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -34,7 +34,7 @@ class _BillListPageState extends State<BillListPage> {
   @override
   void initState() {
     super.initState();
-    futureListBill = BillDao.futureListBill();
+    futureListBill = ConsumeDao.futureListBill();
   }
 
   @override

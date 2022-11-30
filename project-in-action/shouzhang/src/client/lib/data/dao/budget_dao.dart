@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-11-14 14:25:28
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-25 10:15:52
+ * @LastEditTime: 2022-11-30 14:40:47
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -21,7 +21,8 @@ class BudgetDao {
     List<String?> userList = AccountUserDao.getSharedUser();
     Hive.box<Budget>(TABLE.budget).values.forEach((element) {
       if (userList.contains(element.user) &&
-          element.year == SettingDao.budgetYear().toString() && element.isDeleted == 0) {
+          element.year == SettingDao.budgetYear().toString() &&
+          element.isDeleted == 0) {
         list.add(element);
       }
     });
@@ -29,12 +30,13 @@ class BudgetDao {
     return list;
   }
 
-  static Future<List<Budget>> fetchListBudgetFuture() async{
+  static Future<List<Budget>> fetchListBudgetFuture() async {
     List<Budget> list = [];
     List<String?> userList = AccountUserDao.getSharedUser();
     Hive.box<Budget>(TABLE.budget).values.forEach((element) {
       if (userList.contains(element.user) &&
-          element.year == SettingDao.budgetYear().toString() && element.isDeleted == 0) {
+          element.year == SettingDao.budgetYear().toString() &&
+          element.isDeleted == 0) {
         list.add(element);
       }
     });
@@ -55,5 +57,23 @@ class BudgetDao {
     }
 
     return true;
+  }
+
+  static Future<double> getTodayBudget() async {
+    double todayTotalBudget = 0.0;
+    List<String?> userList = AccountUserDao.getSharedUser();
+    Hive.box<Budget>(TABLE.budget).values.forEach((element) {
+      if (userList.contains(element.user) &&
+          element.year == SettingDao.budgetYear().toString() &&
+          element.isDeleted == 0) {
+        double todayBudget = 0.0;
+        if (element.duration == 0) {
+          todayBudget = element.budget / 356;
+        }
+        todayTotalBudget += todayBudget;
+      }
+    });
+
+    return todayTotalBudget;
   }
 }
