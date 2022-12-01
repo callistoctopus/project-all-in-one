@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-11-04 02:15:05
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-25 08:09:27
+ * @LastEditTime: 2022-12-01 06:42:35
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -202,7 +202,8 @@ class DataAccessService {
           });
 
           sysnTime = DateTime.parse(data['latestSyncTime']);
-          Hive.box("setting").put('lastSyncTime${SettingDao.currentUser()}', sysnTime);
+          Hive.box("setting")
+              .put('lastSyncTime${SettingDao.currentUser()}', sysnTime);
 
           if (SettingDao.currentAccount() != SettingDao.currentUser()) {
             String account = "";
@@ -269,4 +270,46 @@ class DataAccessService {
       print(e);
     }
   }
+
+  static Future log(LogLevel level, String msg) async {
+    DebugMsgStore.log(msg);
+
+    if (level == LogLevel.warning || level == LogLevel.error) {
+      Hive.box("log").add(msg);
+    }
+
+    if (level == LogLevel.error) {
+      final response = await http.post(
+        Uri.parse('http://139.224.11.164:8080/api/log'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode({'msg': msg}),
+      );
+
+      if (response.statusCode == 200) {
+        var jsonBody = jsonDecode(utf8.decode(response.bodyBytes));
+        if (jsonBody != null) {
+          bool result = jsonBody['result'];
+          if (result == false) {
+            // log(LogLevel.info, "[异常日志写入]");
+          }
+        }
+      }
+    }
+  }
+}
+
+class DebugMsgStore {
+  static List<String> msgList = [];
+  static void log(String msg) {
+    msgList.add(msg);
+  }
+}
+
+enum LogLevel {
+  debug,
+  info,
+  warning,
+  error,
 }

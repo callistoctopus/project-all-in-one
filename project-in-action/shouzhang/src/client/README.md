@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-29 03:31:37
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-29 02:46:26
+ * @LastEditTime: 2022-12-01 06:49:02
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -60,6 +60,7 @@ flutter pub add fl_chart
 flutter pub add syncfusion_flutter_charts
 flutter pub add syncfusion_flutter_gauges
 flutter pub add percent_indicator
+flutter pub add flutter_svg
 
 flutter pub add hive_generator --dev
 flutter pub add build_runner --dev
@@ -71,7 +72,11 @@ flutter upgrade --force
 
 flutter pub get
 
+start ms-settings:developers
+
 # 待做
+// 使用Hive监听数据变化
+// 日志功能
 // 更换评分控件
 // 设置自动扣费
 // 自动生成预算
