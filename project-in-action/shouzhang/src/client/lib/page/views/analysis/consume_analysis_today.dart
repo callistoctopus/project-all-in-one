@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-11-17 08:06:58
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-30 14:53:54
+ * @LastEditTime: 2022-12-01 00:50:39
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -56,7 +56,7 @@ class TodayAnalysis extends StatelessWidget {
                     lineWidth: 11.0,
                     animation: true,
                     percent: value.data! > 1 ? 1 : value.data!,
-                    center: Text("${value.data! * 100}%"),
+                    center: Text("${CommonUtils.formatNum(value.data as num, 2) * 100}%"),
                     progressColor: value.data! <= 1 ? Colors.green : Colors.red,
                     circularStrokeCap: CircularStrokeCap.round,
                   );

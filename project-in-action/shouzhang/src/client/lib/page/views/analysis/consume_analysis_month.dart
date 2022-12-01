@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-11-17 08:06:58
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-30 14:37:02
+ * @LastEditTime: 2022-12-01 01:05:21
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -62,8 +62,6 @@ class MonthAnalysis extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const cutOffYValue = 5.0;
-
     return Center(
         child: AspectRatio(
       aspectRatio: 2.6,
@@ -77,7 +75,7 @@ class MonthAnalysis extends StatelessWidget {
                 snapData.data!.forEach((element) {
                   if (element > interval) interval = element;
                 });
-                interval = interval / 5;
+                interval = interval > 0 ? interval / 5 : 10;
                 return LineChart(LineChartData(
                   borderData: FlBorderData(
                     show: false,
@@ -120,6 +118,9 @@ class MonthAnalysis extends StatelessWidget {
                         FlSpot(30, snapData.data![30]),
                       ],
                       isCurved: true,
+                      curveSmoothness: 0.4,
+                      preventCurveOverShooting: true,
+                      preventCurveOvershootingThreshold: 0.3,
                       barWidth: 2,
                       color: Colors.blueAccent,
                       dotData: FlDotData(

@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-11-26 04:42:27
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-30 14:05:21
+ * @LastEditTime: 2022-12-01 01:04:43
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -43,7 +43,7 @@ class ConsumeAnalysisService {
         if (bill.type == 0 &&
             bill.time.year == (CommonUtils.now().year) &&
             bill.time.month == (CommonUtils.now().month)) {
-          ret[bill.time.day] += bill.amount;
+          ret[bill.time.day-1] += bill.amount;
         }
       }
     });
