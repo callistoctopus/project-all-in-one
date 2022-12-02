@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-11-22 15:08:02
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-12-01 14:19:03
+ * @LastEditTime: 2022-12-02 03:22:33
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -64,12 +64,9 @@ class _FinancialReasonViewState extends State<FinancialReasonView> {
             if (snapshot.hasData) {
               List<String> dataList =
                   snapshot.data!.map((e) => e.reason).toList();
-              // if (dataList.length > 1 && !dataList.contains(selectedReason)) {
-              //   selectedReason = dataList[0];
-              // }
               return CustomChoiceChip(
                 enableAdd: true,
-                backgroundColor: Colors.green,
+                backgroundColor: const Color(0xFF336699),
                 dataList: dataList,
                 onSelect: (i) {
                   context.read<GlobalDO>().reason = dataList[i];
@@ -153,9 +150,6 @@ class _FinancialReasonViewState extends State<FinancialReasonView> {
                     child: SizedBox(
                         height: showAddReason ? 40 : 0,
                         child: TextButton(
-                            // style: TextButton.styleFrom(
-                            //     shape: const CircleBorder(
-                            //         side: BorderSide(color: Colors.grey))),
                             onPressed: () {
                               if (reason == "") {
                                 CustomSnackBar().show(context, "您还没有输入");
