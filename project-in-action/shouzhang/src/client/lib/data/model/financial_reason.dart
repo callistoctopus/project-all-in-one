@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-11-04 02:31:52
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-25 10:04:13
+ * @LastEditTime: 2022-12-01 14:18:01
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -17,7 +17,7 @@ part 'financial_reason.g.dart';
 @HiveType(typeId: 0)
 @JsonSerializable()
 class FinancialReason extends HiveObject implements Base {
-  FinancialReason(this.id, this.user, this.reason, this.type, this.note,
+  FinancialReason(this.id, this.user, this.reason, this.type, this.note, this.category, 
       this.isDeleted, this.updateTime);
 
   @HiveField(0)
@@ -36,9 +36,12 @@ class FinancialReason extends HiveObject implements Base {
   String note;
 
   @HiveField(5)
-  int isDeleted = 0;
+  int category;
 
   @HiveField(6)
+  int isDeleted = 0;
+
+  @HiveField(7)
   DateTime updateTime;
 
   factory FinancialReason.fromJson(Map<String, dynamic> json) =>
@@ -46,25 +49,3 @@ class FinancialReason extends HiveObject implements Base {
 
   Map<String, dynamic> toJson() => _$FinancialReasonToJson(this);
 }
-
-// class FinancialReasonParser {
-//   static List<FinancialReason> fromMap(Map<String, dynamic> json) {
-//     List<FinancialReason> ret = [];
-//     json['data'].forEach((value) {
-//       FinancialReason fr = FinancialReason();
-//       fr.id = value["id"] ?? "";
-//       fr.user = value['user'] ?? "";
-//       fr.type = value['type'] ?? 0;
-//       fr.reason = value['reason'] ?? "";
-//       fr.note = value['note'] ?? "";
-//       ret.add(fr);
-//     });
-//     return ret;
-//   }
-
-//   static Map<String, dynamic> toMap(FinancialReason bill) {
-//     Map<String, dynamic> ret = {};
-
-//     return ret;
-//   }
-// }

@@ -10,7 +10,7 @@
 import 'dart:async';
 
 import 'package:client/page/config/route.dart';
-import 'package:client/data/dao/bill_dao.dart';
+import 'package:client/data/dao/consume_dao.dart';
 import 'package:client/data/dao/dao.dart';
 import 'package:client/data/model/bill.dart';
 import 'package:client/page/data_model/global_do.dart';

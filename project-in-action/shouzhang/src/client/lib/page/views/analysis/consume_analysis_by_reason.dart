@@ -2,12 +2,14 @@
  * @Author: gui-qi
  * @Date: 2022-11-17 08:06:58
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-29 03:22:41
+ * @LastEditTime: 2022-12-02 02:21:33
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
  */
+import 'package:client/data/dao/consume_dao.dart';
 import 'package:client/page/component/indicator.dart';
+import 'package:client/units/common_utils.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
@@ -42,11 +44,10 @@ List<String> types = const [
 
 class PieChart2State extends State {
   int touchedIndex = -1;
+  Future fdata = ConsumeDao.getTotalByYearAndCategory(CommonUtils.now().year);
 
   @override
   Widget build(BuildContext context) {
-    List<double> data = [40.0, 15.5, 15.0, 30.0];
-
     return AspectRatio(
       aspectRatio: 9,
       child: Row(
@@ -58,33 +59,43 @@ class PieChart2State extends State {
           ),
           Expanded(
             flex: 1,
-            child: AspectRatio(
-              aspectRatio: 1,
-              child: PieChart(
-                PieChartData(
-                  pieTouchData: PieTouchData(
-                    touchCallback: (FlTouchEvent event, pieTouchResponse) {
-                      setState(() {
-                        if (!event.isInterestedForInteractions ||
-                            pieTouchResponse == null ||
-                            pieTouchResponse.touchedSection == null) {
-                          touchedIndex = -1;
-                          return;
-                        }
-                        touchedIndex = pieTouchResponse
-                            .touchedSection!.touchedSectionIndex;
-                      });
-                    },
-                  ),
-                  borderData: FlBorderData(
-                    show: false,
-                  ),
-                  sectionsSpace: 0,
-                  centerSpaceRadius: 25,
-                  sections: showingSections(data),
-                ),
-              ),
-            ),
+            child: FutureBuilder(
+                future: fdata,
+                builder: (context, snapshot) {
+                  List<double> data = [0, 0, 0, 0, 0, 0, 0, 100];
+                  if (snapshot.hasData) {
+                    data = snapshot.data!;
+                    return AspectRatio(
+                      aspectRatio: 1,
+                      child: PieChart(
+                        PieChartData(
+                          pieTouchData: PieTouchData(
+                            touchCallback:
+                                (FlTouchEvent event, pieTouchResponse) {
+                              setState(() {
+                                if (!event.isInterestedForInteractions ||
+                                    pieTouchResponse == null ||
+                                    pieTouchResponse.touchedSection == null) {
+                                  touchedIndex = -1;
+                                  return;
+                                }
+                                touchedIndex = pieTouchResponse
+                                    .touchedSection!.touchedSectionIndex;
+                              });
+                            },
+                          ),
+                          borderData: FlBorderData(
+                            show: false,
+                          ),
+                          sectionsSpace: 0,
+                          centerSpaceRadius: 25,
+                          sections: showingSections(data),
+                        ),
+                      ),
+                    );
+                  }
+                  return const Text("无数据");
+                }),
           ),
           Expanded(
               flex: 1,
@@ -120,7 +131,7 @@ class PieChart2State extends State {
         titleStyle: TextStyle(
           fontSize: fontSize,
           fontWeight: FontWeight.bold,
-          color:  Colors.black,
+          color: Colors.black,
         ),
       );
     });

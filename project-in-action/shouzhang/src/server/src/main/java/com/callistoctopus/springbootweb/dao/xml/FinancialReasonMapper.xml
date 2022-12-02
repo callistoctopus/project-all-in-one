@@ -18,6 +18,7 @@
       f.reason,
       f.type,
       f.note,
+      0 as category,
       f.is_deleted as isDeleted,
       f.update_time as updateTime
     from

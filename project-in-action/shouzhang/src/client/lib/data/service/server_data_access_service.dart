@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-11-04 02:15:05
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-12-01 06:42:35
+ * @LastEditTime: 2022-12-01 13:36:05
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -275,7 +275,7 @@ class DataAccessService {
     DebugMsgStore.log(msg);
 
     if (level == LogLevel.warning || level == LogLevel.error) {
-      Hive.box("log").add(msg);
+      // Hive.box("log").add(msg);
     }
 
     if (level == LogLevel.error) {

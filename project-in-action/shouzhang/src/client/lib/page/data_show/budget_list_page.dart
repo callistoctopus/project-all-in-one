@@ -9,7 +9,7 @@
  */
 import 'dart:ui';
 
-import 'package:client/data/dao/bill_dao.dart';
+import 'package:client/data/dao/consume_dao.dart';
 import 'package:client/page/config/route.dart';
 import 'package:client/page/component/custom_chart.dart';
 import 'package:client/page/component/custom_snack_bar.dart';

@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-11-23 09:59:07
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-29 14:34:13
+ * @LastEditTime: 2022-12-01 13:11:58
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -18,6 +18,7 @@ import 'package:uuid/uuid.dart';
 class GlobalDO extends ChangeNotifier {
   Bill _bill = Bill(const Uuid().v1(), SettingDao.currentUser(),
       CommonUtils.now(), "", 0, -1, "", CommonUtils.now());
+
   Budget _budget = Budget(
       const Uuid().v1(),
       SettingDao.currentUser(),
@@ -29,6 +30,7 @@ class GlobalDO extends ChangeNotifier {
       "",
       0,
       CommonUtils.now());
+      
   AutoConsume _autoConsume = AutoConsume(const Uuid().v1(),
       SettingDao.currentUser(), 0, "", 0, -1, CommonUtils.now());
 

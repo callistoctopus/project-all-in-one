@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-11-22 15:08:02
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-27 12:17:54
+ * @LastEditTime: 2022-12-01 14:19:03
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -39,6 +39,7 @@ class _FinancialReasonViewState extends State<FinancialReasonView> {
         reason,
         context.read<GlobalDO>().type,
         "",
+        0,
         0,
         CommonUtils.now());
 
@@ -158,6 +159,7 @@ class _FinancialReasonViewState extends State<FinancialReasonView> {
                             onPressed: () {
                               if (reason == "") {
                                 CustomSnackBar().show(context, "您还没有输入");
+                                return;
                               }
 
                               saveFinancialReason();

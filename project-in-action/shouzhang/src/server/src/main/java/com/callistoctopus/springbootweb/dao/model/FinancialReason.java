@@ -9,6 +9,7 @@ public class FinancialReason {
     int type;
     String reason;
     String note;
+    int category;
     int isDeleted;
 
     Date updateTime;
@@ -23,6 +24,14 @@ public class FinancialReason {
 
     public String getUser() {
         return user;
+    }
+
+    public int getCategory() {
+        return category;
+    }
+
+    public void setCategory(int category) {
+        this.category = category;
     }
 
     public void setUser(String user) {

@@ -23,14 +23,15 @@ class FinancialReasonAdapter extends TypeAdapter<FinancialReason> {
       fields[3] as int,
       fields[4] as String,
       fields[5] as int,
-      fields[6] as DateTime,
+      fields[6] as int,
+      fields[7] as DateTime,
     );
   }
 
   @override
   void write(BinaryWriter writer, FinancialReason obj) {
     writer
-      ..writeByte(7)
+      ..writeByte(8)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -42,8 +43,10 @@ class FinancialReasonAdapter extends TypeAdapter<FinancialReason> {
       ..writeByte(4)
       ..write(obj.note)
       ..writeByte(5)
-      ..write(obj.isDeleted)
+      ..write(obj.category)
       ..writeByte(6)
+      ..write(obj.isDeleted)
+      ..writeByte(7)
       ..write(obj.updateTime);
   }
 
@@ -69,6 +72,7 @@ FinancialReason _$FinancialReasonFromJson(Map<String, dynamic> json) =>
       json['reason'] as String,
       json['type'] as int,
       json['note'] as String,
+      json['category'] as int,
       json['isDeleted'] as int,
       DateTime.parse(json['updateTime'] as String),
     );
@@ -80,6 +84,7 @@ Map<String, dynamic> _$FinancialReasonToJson(FinancialReason instance) =>
       'reason': instance.reason,
       'type': instance.type,
       'note': instance.note,
+      'category': instance.category,
       'isDeleted': instance.isDeleted,
       'updateTime': instance.updateTime.toIso8601String(),
     };

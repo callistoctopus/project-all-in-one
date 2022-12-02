@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-11-11 05:08:14
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-11 05:10:40
+ * @LastEditTime: 2022-12-01 14:00:35
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -20,7 +20,7 @@ class CustomSnackBar{
                   left: 15, top: 15, right: 15, bottom: 15),
               content: Text(
                 message,
-                style: TextStyle(color: Theme.of(context).canvasColor),
+                style: const TextStyle(color: Colors.black),
                 textAlign: TextAlign.center,
               ),
               behavior: SnackBarBehavior.floating,

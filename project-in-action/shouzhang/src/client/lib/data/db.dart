@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-11-09 12:50:18
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-29 14:15:45
+ * @LastEditTime: 2022-12-01 14:06:40
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -63,7 +63,7 @@ class TABLE {
   static const String bill = 'bill';
   static const String account = 'account';
   static const String accountUser = 'accountUser';
-  static const String autoConsume = 'uutoConsume';
+  static const String autoConsume = 'autoConsume';
 }
 
 class KEY {

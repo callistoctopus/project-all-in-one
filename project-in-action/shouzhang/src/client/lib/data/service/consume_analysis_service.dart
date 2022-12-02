@@ -9,7 +9,7 @@
  */
 import 'dart:async';
 
-import 'package:client/data/dao/bill_dao.dart';
+import 'package:client/data/dao/consume_dao.dart';
 import 'package:client/data/model/bill.dart';
 import 'package:client/units/common_utils.dart';
 
