@@ -7,8 +7,8 @@
  * 
  * Copyright (c) 2022, All Rights Reserved. 
  */
-import 'package:client/page/home/data_show/budget_list_page.dart';
-import 'package:client/page/home/data_show/target_list_page.dart';
+import 'package:client/page/view/show/budget_list_page.dart';
+import 'package:client/page/view/show/target_list_page.dart';
 import 'package:flutter/material.dart';
 
 class BudgetPage extends StatefulWidget {

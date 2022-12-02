@@ -2,17 +2,17 @@
  * @Author: gui-qi
  * @Date: 2022-10-29 01:37:32
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-27 06:49:14
+ * @LastEditTime: 2022-12-02 03:41:30
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
  */
 import 'package:client/page/config/route.dart';
 import 'package:client/data/dao/setting_dao.dart';
-import 'package:client/page/home/views/analysis/asset_analysis.dart';
+import 'package:client/page/module/analysis/asset_analysis.dart';
 import 'package:client/page/component/custom_chart.dart';
 import 'package:client/data/db.dart';
-import 'package:client/data/service/server_data_access_service.dart';
+import 'package:client/data/service/http_service.dart';
 import 'package:client/units/common_utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -47,33 +47,6 @@ class _AnalysisPageState extends State<AnalysisPage> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(CommonUtils.now().toString().substring(0, 10)),
-                    // PopupMenuButton<Menu>(
-                    //     padding: const EdgeInsets.all(1),
-                    //     iconSize: 14,
-                    //     onSelected: (Menu item) {
-                    //       setState(() {
-                    //         DataAccessService.syncData();
-                    //       });
-                    //     },
-                    //     itemBuilder: (BuildContext context) =>
-                    //         <PopupMenuEntry<Menu>>[
-                    //           const PopupMenuItem<Menu>(
-                    //             value: Menu.itemOne,
-                    //             child: Text('账号'),
-                    //           ),
-                    //           const PopupMenuItem<Menu>(
-                    //             value: Menu.itemTwo,
-                    //             child: Text('设置'),
-                    //           ),
-                    //           const PopupMenuItem<Menu>(
-                    //             value: Menu.itemThree,
-                    //             child: Text('退出'),
-                    //           ),
-                    //           const PopupMenuItem<Menu>(
-                    //             value: Menu.itemFour,
-                    //             child: Text('关于'),
-                    //           ),
-                    //         ]),
                   ],
                 )),
             const Divider(

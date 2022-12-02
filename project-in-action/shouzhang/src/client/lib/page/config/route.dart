@@ -9,17 +9,17 @@
  */
 import 'package:client/data/dao/setting_dao.dart';
 import 'package:client/develop/dev_sample_page.dart';
-import 'package:client/page/home/data_edit/edit_asset_page.dart';
-import 'package:client/page/home/data_edit/edit_auto_consume_page.dart';
-import 'package:client/page/home/data_edit/edit_budget_page.dart';
-import 'package:client/page/home/data_edit/edit_target_page.dart';
-import 'package:client/page/home/data_show/auto_consume_list_page.dart';
-import 'package:client/page/home/data_show/budget_list_page.dart';
-import 'package:client/page/home/data_show/target_list_page.dart';
-import 'package:client/page/home/data_edit/edit_account_page.dart';
-import 'package:client/page/home/data_edit/edit_bill_page.dart';
+import 'package:client/page/view/edit/edit_asset_page.dart';
+import 'package:client/page/view/edit/edit_auto_consume_page.dart';
+import 'package:client/page/view/edit/edit_budget_page.dart';
+import 'package:client/page/view/edit/edit_target_page.dart';
+import 'package:client/page/view/show/auto_consume_list_page.dart';
+import 'package:client/page/view/show/budget_list_page.dart';
+import 'package:client/page/view/show/target_list_page.dart';
+import 'package:client/page/view/edit/edit_account_page.dart';
+import 'package:client/page/view/edit/edit_bill_page.dart';
 import 'package:client/page/home_page.dart';
-import 'package:client/page/home/data_show/bill_list_page.dart';
+import 'package:client/page/view/show/bill_list_page.dart';
 import 'package:client/page/login_page.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';

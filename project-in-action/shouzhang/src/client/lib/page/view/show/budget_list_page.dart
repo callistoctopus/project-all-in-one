@@ -16,7 +16,7 @@ import 'package:client/page/component/custom_snack_bar.dart';
 import 'package:client/data/dao/budget_dao.dart';
 import 'package:client/data/dao/setting_dao.dart';
 import 'package:client/data/model/budget.dart';
-import 'package:client/page/home/views/analysis/consume_analysis_by_reason.dart';
+import 'package:client/page/module/analysis/consume_analysis_by_reason.dart';
 import 'package:client/units/common_const.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';

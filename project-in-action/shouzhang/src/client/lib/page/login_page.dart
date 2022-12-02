@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-26 15:06:57
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-28 13:42:06
+ * @LastEditTime: 2022-12-02 03:36:19
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -10,7 +10,7 @@
 import 'package:client/page/component/custom_snack_bar.dart';
 import 'package:client/page/config/route.dart';
 import 'package:client/data/dao/setting_dao.dart';
-import 'package:client/data/service/server_data_access_service.dart';
+import 'package:client/data/service/http_service.dart';
 import 'package:client/units/common_const.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -52,9 +52,9 @@ class _LoginPageState extends State<LoginPage> {
         if (widget.isLoginPage)
           _VIEW().login(() async {
             SettingDao.setOfflineMode(false);
-            await DataAccessService.login(widget.user, widget.password);
+            await HttpService.login(widget.user, widget.password);
             if (SettingDao.isLogined()) {
-              DataAccessService.syncData();
+              HttpService.syncData();
               context.go(ROUTE.HOME);
             } else {
               SettingDao.setOfflineMode(true);
@@ -74,7 +74,7 @@ class _LoginPageState extends State<LoginPage> {
         if (!widget.isLoginPage)
           _VIEW().signin(() async {
             SettingDao.setOfflineMode(false);
-            await DataAccessService.sigin(widget.user, widget.password);
+            await HttpService.sigin(widget.user, widget.password);
             if (SettingDao.isLogined()) {
               context.go(ROUTE.HOME);
             } else {

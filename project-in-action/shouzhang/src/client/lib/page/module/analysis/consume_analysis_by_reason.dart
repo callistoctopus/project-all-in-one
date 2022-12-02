@@ -8,7 +8,7 @@
  * Copyright (c) 2022, All Rights Reserved. 
  */
 import 'package:client/data/dao/consume_dao.dart';
-import 'package:client/page/component/indicator.dart';
+import 'package:client/page/component/custom_indicator.dart';
 import 'package:client/units/common_utils.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';

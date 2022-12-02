@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-11-04 02:15:05
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-12-01 13:36:05
+ * @LastEditTime: 2022-12-02 03:36:08
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -19,7 +19,7 @@ import 'package:client/units/common_utils.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:http/http.dart' as http;
 
-class DataAccessService {
+class HttpService {
   static Future<bool> syncData() async {
     if (SettingDao.isOfflineMode()) {
       return true;
