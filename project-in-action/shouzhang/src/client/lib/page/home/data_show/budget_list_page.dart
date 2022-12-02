@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-29 01:37:32
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-30 14:15:34
+ * @LastEditTime: 2022-12-02 02:44:32
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -16,6 +16,7 @@ import 'package:client/page/component/custom_snack_bar.dart';
 import 'package:client/data/dao/budget_dao.dart';
 import 'package:client/data/dao/setting_dao.dart';
 import 'package:client/data/model/budget.dart';
+import 'package:client/page/home/views/analysis/consume_analysis_by_reason.dart';
 import 'package:client/units/common_const.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -46,10 +47,12 @@ class _BudgetSettingPageState extends State<BudgetSettingPage> {
     int year = SettingDao.budgetYear();
 
     return Scaffold(
-      body: Padding(
-          padding: const EdgeInsets.only(left: 10, right: 20, top: 5),
+      body: 
+      Center(child:
+      Padding(
+          padding: const EdgeInsets.only(left: 0, right: 0, top: 5),
           child: ListView(children: [
-            CustomChart(title: "预算概览", height: 100, child: const SizedBox()),
+            CustomChart(title: "预算概览", child: const PieChartSample2()),
             const Divider(
               color: Colors.grey,
               thickness: 0,
@@ -94,7 +97,7 @@ class _BudgetSettingPageState extends State<BudgetSettingPage> {
                     itemBuilder: (context, index) {
                       return _COMPONMENT.budgetView(fetchListBudget[index]);
                     })),
-          ])),
+          ]))),
       floatingActionButton: FloatingActionButton(
         shape: const CircleBorder(),
         backgroundColor: Colors.white,

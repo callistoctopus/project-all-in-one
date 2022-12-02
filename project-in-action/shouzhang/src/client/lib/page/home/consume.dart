@@ -9,12 +9,12 @@
  */
 import 'package:client/page/component/custom_chart.dart';
 import 'package:client/page/config/route.dart';
-import 'package:client/page/views/analysis/consume_analysis_by_consumer.dart';
-import 'package:client/page/views/analysis/consume_analysis_by_reason.dart';
-import 'package:client/page/views/analysis/consume_analysis_week.dart';
-import 'package:client/page/views/analysis/consume_analysis_month.dart';
-import 'package:client/page/views/analysis/consume_analysis_today.dart';
-import 'package:client/page/data_show/bill_list_page.dart';
+import 'package:client/page/home/views/analysis/consume_analysis_by_consumer.dart';
+import 'package:client/page/home/views/analysis/consume_analysis_by_reason.dart';
+import 'package:client/page/home/views/analysis/consume_analysis_week.dart';
+import 'package:client/page/home/views/analysis/consume_analysis_month.dart';
+import 'package:client/page/home/views/analysis/consume_analysis_today.dart';
+import 'package:client/page/home/data_show/bill_list_page.dart';
 import 'package:client/data/service/server_data_access_service.dart';
 import 'package:client/units/common_const.dart';
 import 'package:client/units/common_utils.dart';

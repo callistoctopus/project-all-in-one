@@ -7,7 +7,7 @@
  * 
  * Copyright (c) 2022, All Rights Reserved. 
  */
-import 'package:client/page/data_model/global_do.dart';
+import 'package:client/data/listenable/global_do.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

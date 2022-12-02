@@ -2,12 +2,12 @@
  * @Author: gui-qi
  * @Date: 2022-10-29 01:37:32
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-24 14:34:43
+ * @LastEditTime: 2022-12-02 03:00:34
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
  */
-import 'package:client/page/data_model/global_do.dart';
+import 'package:client/data/listenable/global_do.dart';
 import 'package:client/page/home/analysis.dart';
 import 'package:client/page/home/asset.dart';
 import 'package:client/page/home/budget.dart';
@@ -23,7 +23,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-
   static final List<Widget> _widgetOptions = <Widget>[
     const ConsumePage(),
     const BudgetPage(),
@@ -42,10 +41,8 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       backgroundColor: Colors.white,
       body: Center(
-        child: Padding(
-            padding: const EdgeInsets.only(left: 20, right: 20, top: 5),
-            child: _widgetOptions.elementAt(context.read<GlobalDO>().homePageIndes)),
-      ),
+          child:
+              _widgetOptions.elementAt(context.read<GlobalDO>().homePageIndes)),
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Colors.white,
         type: BottomNavigationBarType.fixed,

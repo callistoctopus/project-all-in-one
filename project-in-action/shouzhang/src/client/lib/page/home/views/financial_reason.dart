@@ -14,7 +14,7 @@ import 'package:client/data/db.dart';
 import 'package:client/data/model/financial_reason.dart';
 import 'package:client/page/component/custom_choice_chip.dart';
 import 'package:client/page/component/custom_snack_bar.dart';
-import 'package:client/page/data_model/global_do.dart';
+import 'package:client/data/listenable/global_do.dart';
 import 'package:client/units/common_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

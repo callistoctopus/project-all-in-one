@@ -2,52 +2,52 @@
  * @Author: gui-qi
  * @Date: 2022-10-26 15:06:57
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-28 02:46:32
+ * @LastEditTime: 2022-12-01 13:11:20
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
  */
-import 'package:client/data/dao/dao.dart';
-import 'package:client/data/db.dart';
-import 'package:client/data/model/budget.dart';
 import 'package:client/page/component/custom_chart.dart';
 import 'package:client/page/component/custom_float_button.dart';
 import 'package:client/page/component/custom_snack_bar.dart';
 import 'package:client/page/config/route.dart';
-import 'package:client/page/data_model/global_do.dart';
-import 'package:client/page/views/financial_amount.dart';
-import 'package:client/page/views/financial_duration.dart';
-import 'package:client/page/views/financial_note.dart';
-import 'package:client/page/views/financial_reason.dart';
-import 'package:client/page/views/financial_type.dart';
+import 'package:client/data/listenable/global_do.dart';
+import 'package:client/page/home/views/financial_amount.dart';
+import 'package:client/page/home/views/financial_duration.dart';
+import 'package:client/page/home/views/financial_note.dart';
+import 'package:client/page/home/views/financial_reason.dart';
 import 'package:client/units/common_const.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
-class EditAssetPage extends StatefulWidget {
-  const EditAssetPage({super.key, required this.editType});
+class EditTargetPage extends StatefulWidget {
+  const EditTargetPage({super.key, required this.editType});
 
   final int editType;
 
   @override
-  State<EditAssetPage> createState() => _EditAssetPageState();
+  State<EditTargetPage> createState() => _EditTargetPageState();
 }
 
-class _EditAssetPageState extends State<EditAssetPage> {
+class _EditTargetPageState extends State<EditTargetPage> {
   saveBudget() {
-    Dao.upsert<Budget>(context.read<GlobalDO>().budget, TABLE.budget);
+    // BudgetDao.saveBudget(context.read<GlobalDO>().budget);
   }
 
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<GlobalDO>().type = 2;
+    });
   }
 
   TextEditingController controller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    
     if (widget.editType == 0) {
       context.read<GlobalDO>().budget = null;
     }
@@ -73,18 +73,8 @@ class _EditAssetPageState extends State<EditAssetPage> {
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
               child: ListView(
                 children: <Widget>[
-                  CustomChart(
-                    title: "收支类型",
-                    height: 70,
-                    child: const FinancialTypeView(),
-                  ),
-                  const Divider(
-                    color: Colors.grey,
-                    thickness: 0,
-                    height: 10,
-                  ),
                   CustomChartDynamic(
-                    title: "收支事项",
+                    title: "目标",
                     child: const FinancialReasonView(),
                   ),
                   const Divider(

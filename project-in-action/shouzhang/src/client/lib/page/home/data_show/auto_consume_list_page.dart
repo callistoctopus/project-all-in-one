@@ -15,7 +15,7 @@ import 'package:client/page/component/custom_chart.dart';
 import 'package:client/page/config/route.dart';
 import 'package:client/data/dao/dao.dart';
 import 'package:client/data/model/bill.dart';
-import 'package:client/page/data_model/global_do.dart';
+import 'package:client/data/listenable/global_do.dart';
 import 'package:client/units/common_const.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
