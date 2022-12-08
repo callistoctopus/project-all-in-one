@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-11-17 08:06:58
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-12-01 13:14:01
+ * @LastEditTime: 2022-12-08 22:29:48
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -43,50 +43,61 @@ class TodayAnalysis extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-      Expanded(
-          flex: 1,
-          child: FutureBuilder(
-              future: persent(),
-              builder: (context, value) {
-                if (value.hasData) {
-                  return CircularPercentIndicator(
-                    radius: 40.0,
-                    lineWidth: 11.0,
-                    animation: true,
-                    animationDuration: 1700,
-                    percent: value.data! > 1 ? 1 : value.data!,
-                    center: Text("${CommonUtils.formatNum(value.data as num, 2) * 100}%"),
-                    progressColor: value.data! <= 1 ? Colors.green : Colors.red,
-                    circularStrokeCap: CircularStrokeCap.round,
-                  );
-                }
-                return const Text("无数据");
-              })),
-      Expanded(
-          flex: 1,
-          child: Column(mainAxisAlignment: MainAxisAlignment.start, children: [
-            FutureBuilder(
-                future: todayConsume,
-                builder: (context, value) {
-                  if (value.hasData) {
-                    return Text("消费: ${value.data}",
-                        maxLines: 1, overflow: TextOverflow.ellipsis);
-                  }
-                  return const Text("无数据");
-                }),
-            FutureBuilder(
-                future: todayBudget,
-                builder: (context, value) {
-                  if (value.hasData) {
-                    return Text(
-                        "预算: ${CommonUtils.formatNum(value.data as num, 2)}",
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis);
-                  }
-                  return const Text("无数据");
-                }),
-          ])),
+    return Padding(
+        padding: const EdgeInsets.only(left: 10, top: 10, right: 10),
+        child: Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+          Expanded(
+              flex: 1,
+              child: FutureBuilder(
+                  future: persent(),
+                  builder: (context, value) {
+                    if (value.hasData) {
+                      return _CONPOMENT.circle(value.data!);
+                    }
+                    return const Text("无数据");
+                  })),
+          Expanded(
+              flex: 1,
+              child: FutureBuilder(
+                  future: persent(),
+                  builder: (context, value) {
+                    if (value.hasData) {
+                      return _CONPOMENT.circle(value.data!);
+                    }
+                    return const Text("无数据");
+                  })),
+          Expanded(
+              flex: 1,
+              child: FutureBuilder(
+                  future: persent(),
+                  builder: (context, value) {
+                    if (value.hasData) {
+                      return _CONPOMENT.circle(value.data!);
+                    }
+                    return const Text("无数据");
+                  })),
+        ]));
+  }
+}
+
+class _CONPOMENT {
+  static Widget circle(double value) {
+    return Column(children: [
+      CircularPercentIndicator(
+        radius: 50.0,
+        lineWidth: 11.0,
+        animation: true,
+        animationDuration: 1700,
+        percent: value > 1 ? 1 : value,
+        center: Text("¥${CommonUtils.formatNum(value, 2) * 100}"),
+        progressColor:
+            value <= 1 ? const Color(0xFF009999) : const Color(0xFFFF0000),
+        circularStrokeCap: CircularStrokeCap.round,
+      ),
+      const Padding(
+          padding: EdgeInsets.only(top: 10),
+          child: Text("本年结余",
+              style: TextStyle(color: Color(0xFFCCCCCC), fontSize: 11)))
     ]);
   }
 }

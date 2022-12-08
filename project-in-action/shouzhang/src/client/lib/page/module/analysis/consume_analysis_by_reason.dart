@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-11-17 08:06:58
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-12-02 02:21:33
+ * @LastEditTime: 2022-12-08 23:05:22
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -21,14 +21,14 @@ class PieChartSample2 extends StatefulWidget {
 }
 
 List<Color> colors = const [
-  Color(0xFF1abc9c),
-  Color(0xFF2ecc71),
-  Color(0xFF3498db),
-  Color(0xFF95a5a6),
-  Color(0xFFf1c40f),
-  Color(0xFFe67e22),
-  Color(0xFFe74c3c),
-  Color(0xFF9b59b6),
+  Color(0xFFFF99CC),
+  Color(0xFFCC99CC),
+  Color(0xFF9966CC),
+  Color(0xFFFFFF99),
+  Color(0xFFFFCCCC),
+  Color(0xFFFF33CC),
+  Color(0xFFCCCCFF),
+  Color(0xFFFF9933),
 ];
 
 List<String> types = const [

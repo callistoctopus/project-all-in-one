@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-11-17 08:06:58
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-26 15:12:54
+ * @LastEditTime: 2022-12-08 22:56:21
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -26,7 +26,7 @@ class WeekAnalysisState extends State<WeekAnalysis> {
         child: AspectRatio(
             aspectRatio: 2,
             child: FutureBuilder(
-              future: ConsumeAnalysisService().getLastWeekEveryDayCunsume(),
+              future: ConsumeAnalysisService().getCurrentMonthEveryDayCunsume(),
               builder: (context, snapData) {
                 if (snapData.hasData) {
                   return _BarChart(values: snapData.data!);
@@ -62,7 +62,7 @@ class _BarChart extends StatelessWidget {
         touchTooltipData: BarTouchTooltipData(
           tooltipBgColor: Colors.transparent,
           tooltipPadding: EdgeInsets.zero,
-          tooltipMargin: 4,
+          tooltipMargin: 2,
           getTooltipItem: (
             BarChartGroupData group,
             int groupIndex,
@@ -70,10 +70,11 @@ class _BarChart extends StatelessWidget {
             int rodIndex,
           ) {
             return BarTooltipItem(
-              rod.toY.round().toString(),
+              rod.toY.round().toString() == "0" ? "" :rod.toY.round().toString(),
               const TextStyle(
                 color: Colors.black87,
                 fontWeight: FontWeight.normal,
+                fontSize: 10
               ),
             );
           },
@@ -82,41 +83,34 @@ class _BarChart extends StatelessWidget {
 
   Widget getTitles(double value, TitleMeta meta) {
     const style = TextStyle(
-      color: Colors.black87,
+      color: Color(0xFFCCCCCC),
       fontWeight: FontWeight.normal,
-      fontSize: 14,
+      fontSize: 9,
     );
-    String text;
-    switch (value.toInt()) {
-      case 0:
-        text = '周一';
-        break;
-      case 1:
-        text = '周二';
-        break;
-      case 2:
-        text = '周三';
-        break;
-      case 3:
-        text = '周四';
-        break;
-      case 4:
-        text = '周五';
-        break;
-      case 5:
-        text = '周六';
-        break;
-      case 6:
-        text = '周末';
-        break;
-      default:
-        text = '';
-        break;
-    }
+    // String text;
+    // switch (value.toInt()) {
+    //   case 0:
+    //     text = '1';
+    //     break;
+    //   case 6:
+    //     text = '7';
+    //     break;
+    //   case 13:
+    //     text = '14';
+    //     break;
+    //   case 20:
+    //     text = '21';
+    //     break;
+    //   case 27:
+    //     text = '28';
+    //     break;
+    //   default:
+    //     return Container();
+    // }
     return SideTitleWidget(
       axisSide: meta.axisSide,
-      space: 8,
-      child: Text(text, style: style),
+      space: 4,
+      child: Text(value.toInt().toString(), style: style),
     );
   }
 
@@ -146,83 +140,95 @@ class _BarChart extends StatelessWidget {
 
   LinearGradient get _barsGradient => const LinearGradient(
         colors: [
-          Colors.lightBlueAccent,
-          Colors.greenAccent,
+          Color(0xFF0f59a4),
+          Color(0xFF0f59a4),
         ],
         begin: Alignment.bottomCenter,
         end: Alignment.topCenter,
       );
 
-  List<BarChartGroupData> get barGroups => [
-        BarChartGroupData(
-          x: 0,
+  List<BarChartGroupData> get barGroups => 
+  
+  List.generate(31, (index) => BarChartGroupData(
+          x: index,
           barRods: [
             BarChartRodData(
-              toY: values[0],
+              toY: values[index],
               gradient: _barsGradient,
             )
           ],
           showingTooltipIndicators: [0],
-        ),
-        BarChartGroupData(
-          x: 1,
-          barRods: [
-            BarChartRodData(
-              toY: values[1],
-              gradient: _barsGradient,
-            )
-          ],
-          showingTooltipIndicators: [0],
-        ),
-        BarChartGroupData(
-          x: 2,
-          barRods: [
-            BarChartRodData(
-              toY: values[2],
-              gradient: _barsGradient,
-            )
-          ],
-          showingTooltipIndicators: [0],
-        ),
-        BarChartGroupData(
-          x: 3,
-          barRods: [
-            BarChartRodData(
-              toY: values[3],
-              gradient: _barsGradient,
-            )
-          ],
-          showingTooltipIndicators: [0],
-        ),
-        BarChartGroupData(
-          x: 4,
-          barRods: [
-            BarChartRodData(
-              toY: values[4],
-              gradient: _barsGradient,
-            )
-          ],
-          showingTooltipIndicators: [0],
-        ),
-        BarChartGroupData(
-          x: 5,
-          barRods: [
-            BarChartRodData(
-              toY: values[5],
-              gradient: _barsGradient,
-            )
-          ],
-          showingTooltipIndicators: [0],
-        ),
-        BarChartGroupData(
-          x: 6,
-          barRods: [
-            BarChartRodData(
-              toY: values[6],
-              gradient: _barsGradient,
-            )
-          ],
-          showingTooltipIndicators: [0],
-        ),
-      ];
+        ));
+  // [
+  //       BarChartGroupData(
+  //         x: 0,
+  //         barRods: [
+  //           BarChartRodData(
+  //             toY: values[0],
+  //             gradient: _barsGradient,
+  //           )
+  //         ],
+  //         showingTooltipIndicators: [0],
+  //       ),
+  //       BarChartGroupData(
+  //         x: 1,
+  //         barRods: [
+  //           BarChartRodData(
+  //             toY: values[1],
+  //             gradient: _barsGradient,
+  //           )
+  //         ],
+  //         showingTooltipIndicators: [0],
+  //       ),
+  //       BarChartGroupData(
+  //         x: 2,
+  //         barRods: [
+  //           BarChartRodData(
+  //             toY: values[2],
+  //             gradient: _barsGradient,
+  //           )
+  //         ],
+  //         showingTooltipIndicators: [0],
+  //       ),
+  //       BarChartGroupData(
+  //         x: 3,
+  //         barRods: [
+  //           BarChartRodData(
+  //             toY: values[3],
+  //             gradient: _barsGradient,
+  //           )
+  //         ],
+  //         showingTooltipIndicators: [0],
+  //       ),
+  //       BarChartGroupData(
+  //         x: 4,
+  //         barRods: [
+  //           BarChartRodData(
+  //             toY: values[4],
+  //             gradient: _barsGradient,
+  //           )
+  //         ],
+  //         showingTooltipIndicators: [0],
+  //       ),
+  //       BarChartGroupData(
+  //         x: 5,
+  //         barRods: [
+  //           BarChartRodData(
+  //             toY: values[5],
+  //             gradient: _barsGradient,
+  //           )
+  //         ],
+  //         showingTooltipIndicators: [0],
+  //       ),
+  //       BarChartGroupData(
+  //         x: 6,
+  //         barRods: [
+  //           BarChartRodData(
+  //             toY: values[6],
+  //             gradient: _barsGradient,
+  //           )
+  //         ],
+  //         showingTooltipIndicators: [0],
+  //       ),
+  //     ];
 }

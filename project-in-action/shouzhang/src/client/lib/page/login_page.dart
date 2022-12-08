@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-26 15:06:57
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-12-02 03:36:19
+ * @LastEditTime: 2022-12-08 23:27:31
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -33,7 +33,7 @@ class _LoginPageState extends State<LoginPage> {
         child: Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        const Text("丫丫记账", style: TextStyle(fontSize: 55),),
+        const Text("丫丫记账", style: TextStyle(fontSize: 55,color: Color(0xFFa61b29)),),
         const SizedBox(height: 20,),
         _VIEW().user((text) {
           widget.user = text;
@@ -103,6 +103,8 @@ class _VIEW {
         cursorHeight: 25,
         decoration: const InputDecoration(
           prefixIcon: Icon(ICONS.USER),
+          fillColor: Color(0xFFe2e1e4),
+          filled: true,
           border: OutlineInputBorder(),
           hintText: '用户名',
         ),
@@ -127,6 +129,8 @@ class _VIEW {
         decoration: const InputDecoration(
           prefixIcon: Icon(ICONS.PASSWORD),
           border: OutlineInputBorder(),
+          fillColor: Color(0xFFe2e1e4),
+          filled: true,
           hintText: '密码',
         ),
         onChanged: (String text) {

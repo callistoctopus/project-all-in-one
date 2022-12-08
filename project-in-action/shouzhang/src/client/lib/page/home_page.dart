@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-29 01:37:32
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-12-02 03:00:34
+ * @LastEditTime: 2022-12-08 23:34:27
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -39,12 +39,11 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       body: Center(
           child:
               _widgetOptions.elementAt(context.read<GlobalDO>().homePageIndes)),
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Colors.white,
+        backgroundColor: const Color(0xFF1a94bc),
         type: BottomNavigationBarType.fixed,
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(

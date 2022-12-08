@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-11-21 03:13:24
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-28 00:58:52
+ * @LastEditTime: 2022-12-08 21:44:28
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -43,7 +43,7 @@ class _CustomChartState extends State<CustomChart> {
                   children: [
                     Text(
                       widget.title,
-                      style: const TextStyle(fontSize: 12),
+                      style: const TextStyle(fontSize: 12,color: Color(0xFFCCCCFF)),
                     ),
                     GestureDetector(
                         onTap: widget.callback ?? () {},

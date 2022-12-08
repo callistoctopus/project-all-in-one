@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-29 01:37:32
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-12-02 03:36:48
+ * @LastEditTime: 2022-12-08 23:06:25
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -38,73 +38,77 @@ class _ConsumePageState extends State<ConsumePage> {
 
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
-          body: Center(
-            child: ListView(
-              children: <Widget>[
-                CustomChart(title: "今日指标", height: 115, child: TodayAnalysis()),
-                const Divider(
-                  color: Colors.grey,
-                  thickness: 0,
-                  height: 1,
-                ),
-                CustomChart(
-                    title: "消费明细",
-                    link: "明细",
-                    callback: () => context.go(ROUTE.BILLS),
-                    height: 90,
-                    child: const BillListPage(
-                      shortMode: true,
-                    )),
-                const Divider(
-                  color: Colors.grey,
-                  thickness: 0,
-                  height: 1,
-                ),
-                CustomChart(title: "本周消费", child: const WeekAnalysis()),
-                const Divider(
-                  color: Colors.grey,
-                  thickness: 0,
-                  height: 1,
-                ),
-                CustomChart(
-                    title: "${CommonUtils.now().month}月度消费趋势",
-                    child: MonthAnalysis()),
-                const Divider(
-                  color: Colors.grey,
-                  thickness: 0,
-                  height: 1,
-                ),
-                CustomChart(
-                    title: "月度消费统计(用户)",
-                    child: const PieChartSample2()),
-                const Divider(
-                  color: Colors.grey,
-                  thickness: 0,
-                  height: 1,
-                ),
-                CustomChart(
-                    title: "月度消费统计(消费种类)",
-                    child: ChartApp()),
-                const Divider(
-                  color: Colors.grey,
-                  thickness: 0,
-                  height: 1,
-                ),
-              ],
+    return Scaffold(
+      body: Center(
+        child: ListView(
+          children: <Widget>[
+            CustomChart(title: "", height: 170, child: TodayAnalysis()),
+            // const Divider(
+            //   color: Colors.grey,
+            //   thickness: 0,
+            //   height: 1,
+            // ),
+            // CustomChart(
+            //     title: "消费明细",
+            //     link: "明细",
+            //     callback: () => context.go(ROUTE.BILLS),
+            //     height: 90,
+            //     child: const BillListPage(
+            //       shortMode: true,
+            //     )),
+            const Divider(
+              color: Color(0xFFC4CBCF),
+              thickness: 0,
+              height: 1,
+              indent: 10,
+              endIndent: 10,
             ),
-          ),
-          floatingActionButton: FloatingActionButton(
-            shape: const CircleBorder(),
-            backgroundColor: Colors.white,
-            child: Text(
-              ICONS.ADD,
-              style: const TextStyle(color: Colors.black),
+            CustomChart(title: "", height: 210, child: const WeekAnalysis()),
+            const Divider(
+              color: Color(0xFFC4CBCF),
+              thickness: 0,
+              height: 1,
+              indent: 10,
+              endIndent: 10,
             ),
-            onPressed: () {
-              context.go(ROUTE.ADD_BILL);
-            },
-          ),
-        );
+            // CustomChart(
+            //     title: "${CommonUtils.now().month}月度消费趋势",
+            //     child: MonthAnalysis()),
+            // const Divider(
+            //   color: Colors.grey,
+            //   thickness: 0,
+            //   height: 1,
+            // ),
+            CustomChart(title: "", child: const PieChartSample2()),
+            const Divider(
+              color: Color(0xFFC4CBCF),
+              thickness: 0,
+              height: 1,
+              indent: 10,
+              endIndent: 10,
+            ),
+            CustomChart(title: "", child: ChartApp()),
+            // const Divider(
+            //   color: Color(0xFFC4CBCF),
+            //   thickness: 0,
+            //   height: 1,
+            //   indent: 10,
+            //   endIndent: 10,
+            // ),
+          ],
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        shape: const CircleBorder(),
+        backgroundColor: Colors.white,
+        child: Text(
+          ICONS.ADD,
+          style: const TextStyle(color: Colors.black),
+        ),
+        onPressed: () {
+          context.go(ROUTE.ADD_BILL);
+        },
+      ),
+    );
   }
 }
