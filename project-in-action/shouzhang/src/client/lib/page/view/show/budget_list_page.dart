@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-29 01:37:32
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-12-10 20:49:38
+ * @LastEditTime: 2022-12-10 21:26:18
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -10,7 +10,6 @@
 import 'dart:ui';
 
 import 'package:client/data/dao/consume_dao.dart';
-import 'package:client/page/component/custom_year_picker.dart';
 import 'package:client/page/config/route.dart';
 import 'package:client/page/component/custom_chart.dart';
 import 'package:client/page/component/custom_snack_bar.dart';
@@ -52,41 +51,8 @@ class _BudgetSettingPageState extends State<BudgetSettingPage> {
           child: Padding(
               padding: const EdgeInsets.only(left: 0, right: 0, top: 5),
               child: ListView(children: [
-                const CupertinoPickerExample(),
                 CustomChart(
                     title: "", height: 180, child: const PieChartSample2()),
-                // const Divider(
-                //   color: Colors.grey,
-                //   thickness: 0,
-                //   height: 5,
-                // ),
-                // CustomChart(
-                //     title: "",
-                //     height: 60,
-                //     child: ListView.builder(
-                //         scrollDirection: Axis.horizontal,
-                //         itemBuilder: (context, index) {
-                //           return Padding(
-                //               padding: const EdgeInsets.only(
-                //                   top: 5.0, right: 5.0, bottom: 5),
-                //               child: ChoiceChip(
-                //                 backgroundColor: Colors.white,
-                //                 padding: const EdgeInsets.all(2),
-                //                 side:
-                //                     const BorderSide(width: 0, color: Colors.grey),
-                //                 label: Text((2022 + index).toString()),
-                //                 selected: year == (index + 2022),
-                //                 onSelected: (bool selected) {
-                //                   SettingDao.setBudgetYear(index + 2022);
-                //                   setState(() {});
-                //                 },
-                //               ));
-                //         })),
-                // const Divider(
-                //   color: Colors.grey,
-                //   thickness: 0,
-                //   height: 5,
-                // ),
                 const Divider(
                   color: Color(0xFFC4CBCF),
                   thickness: 0,
@@ -107,15 +73,6 @@ class _BudgetSettingPageState extends State<BudgetSettingPage> {
                           return _COMPONMENT.budgetView(fetchListBudget[index]);
                         })),
               ]))),
-      // floatingActionButton: FloatingActionButton(
-      //   shape: const CircleBorder(),
-      //   backgroundColor: Colors.white,
-      //   child: Text(
-      //     ICONS.BACK,
-      //     style: const TextStyle(color: Colors.black),
-      //   ),
-      //   onPressed: () => context.go(ROUTE.HOME),
-      // ),
     );
   }
 }

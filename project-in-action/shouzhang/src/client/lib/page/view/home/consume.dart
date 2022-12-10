@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-29 01:37:32
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-12-10 13:10:55
+ * @LastEditTime: 2022-12-10 21:10:05
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -39,6 +39,21 @@ class _ConsumePageState extends State<ConsumePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text(
+          "消费概览",
+          style: TextStyle(color: Color(0xFF000000)),
+        ),
+        actions: [
+          TextButton(
+            child: const Text(
+              "明细",
+              style: TextStyle(color: Color(0xFF000000)),
+            ),
+            onPressed: () => context.go(ROUTE.BILLS),
+          ),
+        ],
+      ),
       body: Center(
         child: ListView(
           children: <Widget>[

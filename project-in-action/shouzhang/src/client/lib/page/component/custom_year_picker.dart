@@ -1,3 +1,12 @@
+/*
+ * @Author: gui-qi
+ * @Date: 2022-12-10 20:41:09
+ * @LastEditors: gui-qi
+ * @LastEditTime: 2022-12-10 21:21:10
+ * @Description: 
+ * 
+ * Copyright (c) 2022, All Rights Reserved. 
+ */
 import 'package:flutter/cupertino.dart';
 
 const double _kItemExtent = 32.0;
@@ -9,20 +18,6 @@ const List<String> _fruitNames = <String>[
   '2024',
   '2025',
 ];
-
-void main() => runApp(const CupertinoPickerApp());
-
-class CupertinoPickerApp extends StatelessWidget {
-  const CupertinoPickerApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const CupertinoApp(
-      theme: CupertinoThemeData(brightness: Brightness.light),
-      home: CupertinoPickerExample(),
-    );
-  }
-}
 
 class CupertinoPickerExample extends StatefulWidget {
   const CupertinoPickerExample({super.key});
@@ -89,8 +84,8 @@ class _CupertinoPickerExampleState extends State<CupertinoPickerExample> {
           ),
           // This displays the selected fruit name.
           child: Text(
-            _fruitNames[_selectedFruit],
-            style: const TextStyle(fontSize: 17.0, color: Color(0xFF000000)),
+            "${_fruitNames[_selectedFruit]}年",
+            style: const TextStyle(fontSize: 17.0, color: Color(0xFFCCCCCC)),
           ),
         ),
       ),

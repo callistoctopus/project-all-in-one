@@ -2,13 +2,14 @@
  * @Author: gui-qi
  * @Date: 2022-11-17 08:06:58
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-12-09 22:46:38
+ * @LastEditTime: 2022-12-10 21:16:02
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
  */
 import 'package:client/data/dao/consume_dao.dart';
 import 'package:client/page/component/custom_indicator.dart';
+import 'package:client/page/component/custom_year_picker.dart';
 import 'package:client/units/common_utils.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
@@ -65,34 +66,39 @@ class PieChart2State extends State {
                   List<double> data = [5, 15, 10, 20, 30, 5, 5, 10];
                   if (snapshot.hasData) {
                     //data = snapshot.data!;
-                    return AspectRatio(
-                      aspectRatio: 1,
-                      child: PieChart(
-                        PieChartData(
-                          pieTouchData: PieTouchData(
-                            touchCallback:
-                                (FlTouchEvent event, pieTouchResponse) {
-                              setState(() {
-                                if (!event.isInterestedForInteractions ||
-                                    pieTouchResponse == null ||
-                                    pieTouchResponse.touchedSection == null) {
-                                  touchedIndex = -1;
-                                  return;
-                                }
-                                touchedIndex = pieTouchResponse
-                                    .touchedSection!.touchedSectionIndex;
-                              });
-                            },
+                    return Stack(
+                      alignment: Alignment.center,
+                      children: [
+                      AspectRatio(
+                        aspectRatio: 1,
+                        child: PieChart(
+                          PieChartData(
+                            pieTouchData: PieTouchData(
+                              touchCallback:
+                                  (FlTouchEvent event, pieTouchResponse) {
+                                setState(() {
+                                  if (!event.isInterestedForInteractions ||
+                                      pieTouchResponse == null ||
+                                      pieTouchResponse.touchedSection == null) {
+                                    touchedIndex = -1;
+                                    return;
+                                  }
+                                  touchedIndex = pieTouchResponse
+                                      .touchedSection!.touchedSectionIndex;
+                                });
+                              },
+                            ),
+                            borderData: FlBorderData(
+                              show: false,
+                            ),
+                            sectionsSpace: 0,
+                            centerSpaceRadius: 35,
+                            sections: showingSections(data),
                           ),
-                          borderData: FlBorderData(
-                            show: false,
-                          ),
-                          sectionsSpace: 0,
-                          centerSpaceRadius: 35,
-                          sections: showingSections(data),
                         ),
                       ),
-                    );
+                      const CupertinoPickerExample(),
+                    ]);
                   }
                   return const Text("无数据");
                 }),
