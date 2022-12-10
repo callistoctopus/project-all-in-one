@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-26 15:06:57
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-28 15:07:44
+ * @LastEditTime: 2022-12-10 20:08:28
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -63,55 +63,32 @@ class _EditBillPageState extends State<EditBillPage> {
       }
     };
 
-    return
-        PageWithFloatButton(
-            funcIcon: para,
-            child:
-        Scaffold(
-      body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-          child: ListView(
-            children: <Widget>[
-              CustomChart(
-                title: "收支类型",
-                height: 70,
-                link: "设置自动扣费",
-                callback: (){context.go(ROUTE.AUTOCOMSUMES);},
-                child: const FinancialTypeView(),
-              ),
-              const Divider(
-                color: Colors.grey,
-                thickness: 0,
-                height: 10,
-              ),
-              CustomChartDynamic(
-              // CustomChart(
-                title: "收支事项",
-                // height: 1000,
-                child: const FinancialReasonView(),
-              ),
-              const Divider(
-                color: Colors.grey,
-                thickness: 0,
-                height: 12,
-              ),
-              CustomChart(
-                title: "收支金额",
-                height: 70,
-                child: const FinancialAmountView(),
-              ),
-              const Divider(
-                color: Colors.grey,
-                thickness: 0,
-                height: 12,
-              ),
-              CustomChart(
-                title: "备注信息",
-                child: const FinancialNoteView(),
-              )
-            ],
-          )),
-      )
-    );
+    return PageWithFloatButton(
+        funcIcon: para,
+        child: Scaffold(
+          body: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 0),
+              child: ListView(
+                children: <Widget>[
+                  SizedBox(
+                      height: 90,
+                      child: Row(children: const [
+                        Flexible(flex: 1, child: FinancialTypeView()),
+                        Flexible(flex: 1, child: FinancialAmountView()),
+                      ])),
+                  const Divider(
+                    color: Color(0xFFC4CBCF),
+                    thickness: 0,
+                    height: 1,
+                    indent: 10,
+                    endIndent: 10,
+                  ),
+                  CustomChartDynamic(
+                    title: "",
+                    child: const FinancialReasonView(),
+                  ),
+                ],
+              )),
+        ));
   }
 }

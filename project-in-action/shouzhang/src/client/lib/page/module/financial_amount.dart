@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-11-23 05:21:03
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-24 09:49:53
+ * @LastEditTime: 2022-12-10 20:06:48
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -24,11 +24,11 @@ class _FinancialAmountState extends State<FinancialAmountView> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.only(top: 0),
-      height: 30,
+      padding: const EdgeInsets.only(top: 20, left: 20),
+      height: 90,
       child: TextField(
         autofocus: false,
-        style:const TextStyle(fontSize: 22),
+        style: const TextStyle(fontSize: 22),
         keyboardType: TextInputType.number,
         controller: TextEditingController.fromValue(TextEditingValue(
             text: context.read<GlobalDO>().amount == -1
@@ -39,8 +39,10 @@ class _FinancialAmountState extends State<FinancialAmountView> {
           contentPadding: EdgeInsets.all(2),
           fillColor: Colors.grey,
           prefixText: "￥",
-          border: InputBorder.none,
-          hintText: '金额',
+          border: OutlineInputBorder(
+              borderSide: BorderSide( color: Color(0xFFF2F2F2))),
+          hintText: '请输入金额',
+          hintStyle:TextStyle(color: Color(0xFFE0E0E0))
         ),
         onChanged: (String text) {
           context.read<GlobalDO>().amount = double.tryParse(text) ?? -1;

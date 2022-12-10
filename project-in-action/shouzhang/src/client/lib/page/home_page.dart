@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-29 01:37:32
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-12-08 23:34:27
+ * @LastEditTime: 2022-12-10 20:22:34
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -43,7 +43,7 @@ class _HomePageState extends State<HomePage> {
           child:
               _widgetOptions.elementAt(context.read<GlobalDO>().homePageIndes)),
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: const Color(0xFF1a94bc),
+        // backgroundColor: const Color(0xFFe2e7bf),
         type: BottomNavigationBarType.fixed,
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(

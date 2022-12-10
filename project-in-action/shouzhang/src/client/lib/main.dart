@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-26 08:18:13
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-12-01 05:52:23
+ * @LastEditTime: 2022-12-10 20:25:16
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -22,11 +22,13 @@ Future<void> main() async {
       ],
       child: MaterialApp.router(
         theme: ThemeData(
-          appBarTheme: const AppBarTheme(backgroundColor: Colors.white),
-            primaryColor: Colors.white,
-            scaffoldBackgroundColor: Colors.white,
-            // fontFamily: "YangRenDongZhuShiTi-Regular"
-            ),
+          appBarTheme: const AppBarTheme(backgroundColor: Color(0xFFFFFFFF)),
+          bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+              backgroundColor: Color(0xFFFFFFFF)),
+          primaryColor: const Color(0xFFFFFFFF),
+          scaffoldBackgroundColor: const Color(0xFFFFFFFF),
+          // fontFamily: "YangRenDongZhuShiTi-Regular"
+        ),
         routerConfig: RouteConfig.routeConfig(),
       )));
 }

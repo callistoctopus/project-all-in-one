@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-11-22 15:44:20
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-12-02 03:20:20
+ * @LastEditTime: 2022-12-10 20:05:13
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -33,6 +33,7 @@ class _FinancialTypeViewState extends State<FinancialTypeView> {
       },
       defaultSelect: context.read<GlobalDO>().type,
       onLongPress: (index) {},
+      // direction: Axis.vertical,
     );
   }
 }

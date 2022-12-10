@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-29 01:37:32
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-12-02 03:41:30
+ * @LastEditTime: 2022-12-10 09:31:05
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -13,6 +13,7 @@ import 'package:client/page/module/analysis/asset_analysis.dart';
 import 'package:client/page/component/custom_chart.dart';
 import 'package:client/data/db.dart';
 import 'package:client/data/service/http_service.dart';
+import 'package:client/page/module/analysis/consume_analysis_by_consumer.dart';
 import 'package:client/units/common_utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -62,6 +63,14 @@ class _AnalysisPageState extends State<AnalysisPage> {
                 },
                 height: 125,
                 child: Grade()),
+            const Divider(
+              color: Color(0xFFC4CBCF),
+              thickness: 0,
+              height: 1,
+              indent: 10,
+              endIndent: 10,
+            ),
+            CustomChart(title: "", child: ChartApp()),
             const Divider(
               color: Colors.grey,
               thickness: 0,

@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-11-17 08:06:58
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-12-08 23:05:22
+ * @LastEditTime: 2022-12-09 22:46:38
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -21,14 +21,14 @@ class PieChartSample2 extends StatefulWidget {
 }
 
 List<Color> colors = const [
-  Color(0xFFFF99CC),
-  Color(0xFFCC99CC),
-  Color(0xFF9966CC),
-  Color(0xFFFFFF99),
+  Color(0xFFCCCC33),
   Color(0xFFFFCCCC),
-  Color(0xFFFF33CC),
   Color(0xFFCCCCFF),
-  Color(0xFFFF9933),
+  Color(0xFFCC99CC),
+  Color(0xFF99CCFF),
+  Color(0xFFFFCCFF),
+  Color(0xFF99CCFF),
+  Color(0xFF99CCCC),
 ];
 
 List<String> types = const [
@@ -62,9 +62,9 @@ class PieChart2State extends State {
             child: FutureBuilder(
                 future: fdata,
                 builder: (context, snapshot) {
-                  List<double> data = [0, 0, 0, 0, 0, 0, 0, 100];
+                  List<double> data = [5, 15, 10, 20, 30, 5, 5, 10];
                   if (snapshot.hasData) {
-                    data = snapshot.data!;
+                    //data = snapshot.data!;
                     return AspectRatio(
                       aspectRatio: 1,
                       child: PieChart(
@@ -88,7 +88,7 @@ class PieChart2State extends State {
                             show: false,
                           ),
                           sectionsSpace: 0,
-                          centerSpaceRadius: 25,
+                          centerSpaceRadius: 35,
                           sections: showingSections(data),
                         ),
                       ),
@@ -120,8 +120,8 @@ class PieChart2State extends State {
   List<PieChartSectionData> showingSections(List<double> data) {
     return List.generate(data.length, (i) {
       final isTouched = i == touchedIndex;
-      final fontSize = isTouched ? 25.0 : 16.0;
-      final radius = isTouched ? 30.0 : 28.0;
+      final fontSize = isTouched ? 25.0 : 13.0;
+      final radius = isTouched ? 40.0 : 38.0;
       return PieChartSectionData(
         color: colors[i],
         value: data[i],
@@ -131,7 +131,7 @@ class PieChart2State extends State {
         titleStyle: TextStyle(
           fontSize: fontSize,
           fontWeight: FontWeight.bold,
-          color: Colors.black,
+          color: const Color(0xFF617172),
         ),
       );
     });

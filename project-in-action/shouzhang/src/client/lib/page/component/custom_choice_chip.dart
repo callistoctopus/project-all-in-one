@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-11-02 15:26:48
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-24 15:54:12
+ * @LastEditTime: 2022-12-10 19:16:53
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -18,6 +18,7 @@ class CustomChoiceChip extends StatefulWidget {
       this.backgroundColor = Colors.lightBlue,
       this.enableAdd = false,
       this.onAdd,
+      this.direction,
       required this.onLongPress});
 
   final List<String> dataList;
@@ -27,6 +28,7 @@ class CustomChoiceChip extends StatefulWidget {
   Color backgroundColor = Colors.lightBlue;
   bool enableAdd;
   int? defaultSelect = 0;
+  Axis? direction;
 
   @override
   State<CustomChoiceChip> createState() => _CustomChoiceChipState();
@@ -42,6 +44,7 @@ class _CustomChoiceChipState extends State<CustomChoiceChip>
     return Padding(
         padding: const EdgeInsets.only(left: 11, top: 8.0),
         child: Wrap(
+          direction: widget.direction ?? Axis.horizontal,
           children: List<Widget>.generate(
             widget.dataList.length,
             (int index) {

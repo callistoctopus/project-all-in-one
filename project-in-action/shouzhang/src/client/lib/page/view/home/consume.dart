@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-29 01:37:32
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-12-08 23:06:25
+ * @LastEditTime: 2022-12-10 13:10:55
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -42,20 +42,17 @@ class _ConsumePageState extends State<ConsumePage> {
       body: Center(
         child: ListView(
           children: <Widget>[
-            CustomChart(title: "", height: 170, child: TodayAnalysis()),
+            CustomChart(
+                title: "",
+                height: 170,
+                callback: () => context.go(ROUTE.BILLS),
+                child: TodayAnalysis()),
             // const Divider(
             //   color: Colors.grey,
             //   thickness: 0,
             //   height: 1,
             // ),
-            // CustomChart(
-            //     title: "消费明细",
-            //     link: "明细",
-            //     callback: () => context.go(ROUTE.BILLS),
-            //     height: 90,
-            //     child: const BillListPage(
-            //       shortMode: true,
-            //     )),
+
             const Divider(
               color: Color(0xFFC4CBCF),
               thickness: 0,
@@ -79,15 +76,8 @@ class _ConsumePageState extends State<ConsumePage> {
             //   thickness: 0,
             //   height: 1,
             // ),
-            CustomChart(title: "", child: const PieChartSample2()),
-            const Divider(
-              color: Color(0xFFC4CBCF),
-              thickness: 0,
-              height: 1,
-              indent: 10,
-              endIndent: 10,
-            ),
-            CustomChart(title: "", child: ChartApp()),
+            CustomChart(title: "", height: 190, child: const PieChartSample2()),
+
             // const Divider(
             //   color: Color(0xFFC4CBCF),
             //   thickness: 0,
@@ -95,6 +85,14 @@ class _ConsumePageState extends State<ConsumePage> {
             //   indent: 10,
             //   endIndent: 10,
             // ),
+            // CustomChart(
+            //     title: "消费明细",
+            //     link: "明细",
+            //     callback: () => context.go(ROUTE.BILLS),
+            //     height: 90,
+            //     child: const BillListPage(
+            //       shortMode: true,
+            //     )),
           ],
         ),
       ),

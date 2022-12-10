@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-11-09 12:54:29
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-12-08 23:16:35
+ * @LastEditTime: 2022-12-09 21:15:39
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -41,7 +41,7 @@ class RouteConfig {
               return const Scaffold(body: HomePage());
             }
             return Scaffold(
-              backgroundColor:const Color(0xFFe3b4b8),body: LoginPage());
+              backgroundColor:const Color(0xFFe2e7bf),body: LoginPage());
           },
         ),
         GoRoute(

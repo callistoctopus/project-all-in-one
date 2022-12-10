@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-29 01:37:32
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-30 14:05:36
+ * @LastEditTime: 2022-12-10 20:15:38
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -17,6 +17,7 @@ import 'package:client/data/listenable/global_do.dart';
 import 'package:client/units/common_const.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:iconsax/iconsax.dart';
 import 'package:provider/provider.dart';
 
 class BillListPage extends StatefulWidget {
@@ -40,12 +41,13 @@ class _BillListPageState extends State<BillListPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(leading: Icon(Iconsax.arrow_left),),
       backgroundColor: Colors.white,
       body: Padding(
           padding: EdgeInsets.only(
-              left: widget.shortMode ? 2 : 30,
-              right: widget.shortMode ? 2 : 20,
-              top: widget.shortMode ? 5 : 20),
+              left: widget.shortMode ? 2 : 10,
+              right: widget.shortMode ? 2 : 10,
+              top: widget.shortMode ? 5 : 10),
           child: FutureBuilder<List<Bill>>(
               future: futureListBill,
               builder: (context, snapshot) {
@@ -85,7 +87,7 @@ class _BillListPageState extends State<BillListPage> {
                         Divider(
                             height: widget.shortMode ? 5 : 17,
                             color:
-                                widget.shortMode ? Colors.white38 : Colors.grey,
+                                widget.shortMode ? const Color(0xFFF2F2F2) : const Color(0xFFF2F2F2),
                             thickness: 0),
                   );
                 } else if (snapshot.hasError) {
@@ -122,10 +124,10 @@ class BillRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var pre = "-";
-    TextStyle ts = const TextStyle(color: Color.fromARGB(155, 25, 105, 0));
+    TextStyle ts = const TextStyle(color: Color.fromARGB(155, 25, 105, 0),fontWeight: FontWeight.bold, fontSize: 13);
     if (bill.type == 1) {
       pre = '+';
-      ts = const TextStyle(color: Color.fromARGB(155, 255, 0, 0));
+      ts = const TextStyle(color: Color.fromARGB(155, 255, 0, 0),fontWeight: FontWeight.bold, fontSize: 13);
     }
 
     String amount = pre + bill.amount.toString();
@@ -146,7 +148,7 @@ class BillRow extends StatelessWidget {
                     overflow: TextOverflow.ellipsis,
                     bill.time.toString().substring(0, 10),
                     style:
-                        const TextStyle(color: Colors.black54, fontSize: 11))),
+                        const TextStyle(color: Colors.black54, fontSize: 13))),
             Expanded(
                 flex: 3,
                 child: Text(
@@ -154,15 +156,15 @@ class BillRow extends StatelessWidget {
                     overflow: TextOverflow.ellipsis,
                     bill.user,
                     style:
-                        const TextStyle(color: Colors.black54, fontSize: 11))),
+                        const TextStyle(color: Colors.black54, fontSize: 13))),
             Expanded(
-                flex: 2,
+                flex: 4,
                 child: Text(
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     bill.reason,
                     style:
-                        const TextStyle(color: Colors.black87, fontSize: 11))),
+                        const TextStyle(color: Colors.black87, fontSize: 13))),
             Expanded(
                 flex: 4,
                 child: Text(
