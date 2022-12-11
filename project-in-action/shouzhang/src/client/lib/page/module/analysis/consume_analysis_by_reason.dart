@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-11-17 08:06:58
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-12-10 21:16:02
+ * @LastEditTime: 2022-12-11 21:08:27
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -10,6 +10,7 @@
 import 'package:client/data/dao/consume_dao.dart';
 import 'package:client/page/component/custom_indicator.dart';
 import 'package:client/page/component/custom_year_picker.dart';
+import 'package:client/units/common_const.dart';
 import 'package:client/units/common_utils.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
@@ -30,17 +31,6 @@ List<Color> colors = const [
   Color(0xFFFFCCFF),
   Color(0xFF99CCFF),
   Color(0xFF99CCCC),
-];
-
-List<String> types = const [
-  "食品",
-  "衣着",
-  "居住",
-  "生活服务",
-  "交通通信",
-  "文教娱乐",
-  "医疗保健",
-  "其他",
 ];
 
 class PieChart2State extends State {
@@ -111,12 +101,12 @@ class PieChart2State extends State {
                     Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        children: _CONPOMENT.indicator(types, colors)),
+                        children: _CONPOMENT.indicator(consumeKind, colors)),
                     Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: _CONPOMENT.indicator(
-                            types.sublist(4, 8), colors.sublist(4, 8)))
+                            consumeKind.sublist(4, 8), colors.sublist(4, 8)))
                   ])),
         ],
       ),

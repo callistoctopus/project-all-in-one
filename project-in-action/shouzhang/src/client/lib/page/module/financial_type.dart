@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-11-22 15:44:20
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-12-10 20:05:13
+ * @LastEditTime: 2022-12-11 22:25:21
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -26,7 +26,7 @@ class _FinancialTypeViewState extends State<FinancialTypeView> {
   Widget build(BuildContext context) {
     return CustomChoiceChip(
       dataList: kinds,
-      backgroundColor: const Color(0xFFFF6666),
+      selectedColor: const Color(0xFFFF6666),
       onSelect: (i) {
         context.read<GlobalDO>().type = i;
         setState(() {});

@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-29 01:37:32
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-12-10 21:26:18
+ * @LastEditTime: 2022-12-11 19:20:17
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -62,7 +62,7 @@ class _BudgetSettingPageState extends State<BudgetSettingPage> {
                 ),
                 CustomChart(
                     title: "",
-                    link: "追加",
+                    link: "",
                     callback: () {
                       context.go(ROUTE.ADD_BUDGET);
                     },
@@ -73,6 +73,17 @@ class _BudgetSettingPageState extends State<BudgetSettingPage> {
                           return _COMPONMENT.budgetView(fetchListBudget[index]);
                         })),
               ]))),
+      floatingActionButton: FloatingActionButton(
+        shape: const CircleBorder(),
+        backgroundColor: Colors.white,
+        child: Text(
+          ICONS.ADD2,
+          style: const TextStyle(color: Colors.black),
+        ),
+        onPressed: () {
+          context.go(ROUTE.ADD_BUDGET);
+        },
+      ),
     );
   }
 }

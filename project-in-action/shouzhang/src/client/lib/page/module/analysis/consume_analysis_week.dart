@@ -2,12 +2,13 @@
  * @Author: gui-qi
  * @Date: 2022-11-17 08:06:58
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-12-08 22:56:21
+ * @LastEditTime: 2022-12-11 18:52:28
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
  */
 import 'package:client/data/service/consume_analysis_service.dart';
+import 'package:client/units/common_utils.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
@@ -70,12 +71,13 @@ class _BarChart extends StatelessWidget {
             int rodIndex,
           ) {
             return BarTooltipItem(
-              rod.toY.round().toString() == "0" ? "" :rod.toY.round().toString(),
+              rod.toY.round().toString() == "0"
+                  ? ""
+                  : rod.toY.round().toString(),
               const TextStyle(
-                color: Colors.black87,
-                fontWeight: FontWeight.normal,
-                fontSize: 10
-              ),
+                  color: Colors.black87,
+                  fontWeight: FontWeight.normal,
+                  fontSize: 10),
             );
           },
         ),
@@ -87,30 +89,17 @@ class _BarChart extends StatelessWidget {
       fontWeight: FontWeight.normal,
       fontSize: 9,
     );
-    // String text;
-    // switch (value.toInt()) {
-    //   case 0:
-    //     text = '1';
-    //     break;
-    //   case 6:
-    //     text = '7';
-    //     break;
-    //   case 13:
-    //     text = '14';
-    //     break;
-    //   case 20:
-    //     text = '21';
-    //     break;
-    //   case 27:
-    //     text = '28';
-    //     break;
-    //   default:
-    //     return Container();
-    // }
+
+    const style1 = TextStyle(
+      color: Color(0xFF000000),
+      fontWeight: FontWeight.bold,
+      fontSize: 10,
+    );
     return SideTitleWidget(
       axisSide: meta.axisSide,
       space: 4,
-      child: Text(value.toInt().toString(), style: style),
+      child: Text((value.toInt() + 1).toString(),
+          style: value.toInt() + 1 != CommonUtils.now().day ? style : style1),
     );
   }
 
@@ -147,18 +136,18 @@ class _BarChart extends StatelessWidget {
         end: Alignment.topCenter,
       );
 
-  List<BarChartGroupData> get barGroups => 
-  
-  List.generate(31, (index) => BarChartGroupData(
-          x: index,
-          barRods: [
-            BarChartRodData(
-              toY: values[index],
-              gradient: _barsGradient,
-            )
-          ],
-          showingTooltipIndicators: [0],
-        ));
+  List<BarChartGroupData> get barGroups => List.generate(
+      31,
+      (index) => BarChartGroupData(
+            x: index,
+            barRods: [
+              BarChartRodData(
+                toY: values[index],
+                gradient: _barsGradient,
+              )
+            ],
+            showingTooltipIndicators: [0],
+          ));
   // [
   //       BarChartGroupData(
   //         x: 0,

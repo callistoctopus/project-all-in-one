@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-11-17 08:06:58
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-12-08 22:29:48
+ * @LastEditTime: 2022-12-11 18:55:54
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -52,7 +52,7 @@ class TodayAnalysis extends StatelessWidget {
                   future: persent(),
                   builder: (context, value) {
                     if (value.hasData) {
-                      return _CONPOMENT.circle(value.data!);
+                      return _CONPOMENT.circle(value.data!, "本年结余");
                     }
                     return const Text("无数据");
                   })),
@@ -62,7 +62,7 @@ class TodayAnalysis extends StatelessWidget {
                   future: persent(),
                   builder: (context, value) {
                     if (value.hasData) {
-                      return _CONPOMENT.circle(value.data!);
+                      return _CONPOMENT.circle(value.data!, "本月结余");
                     }
                     return const Text("无数据");
                   })),
@@ -72,7 +72,7 @@ class TodayAnalysis extends StatelessWidget {
                   future: persent(),
                   builder: (context, value) {
                     if (value.hasData) {
-                      return _CONPOMENT.circle(value.data!);
+                      return _CONPOMENT.circle(value.data!, "本日结余");
                     }
                     return const Text("无数据");
                   })),
@@ -81,7 +81,7 @@ class TodayAnalysis extends StatelessWidget {
 }
 
 class _CONPOMENT {
-  static Widget circle(double value) {
+  static Widget circle(double value, String title) {
     return Column(children: [
       CircularPercentIndicator(
         radius: 50.0,
@@ -94,10 +94,10 @@ class _CONPOMENT {
             value <= 1 ? const Color(0xFF009999) : const Color(0xFFFF0000),
         circularStrokeCap: CircularStrokeCap.round,
       ),
-      const Padding(
-          padding: EdgeInsets.only(top: 10),
-          child: Text("本年结余",
-              style: TextStyle(color: Color(0xFFCCCCCC), fontSize: 11)))
+      Padding(
+          padding: const EdgeInsets.only(top: 10),
+          child: Text(title,
+              style: const TextStyle(color: Color(0xFFCCCCCC), fontSize: 11)))
     ]);
   }
 }

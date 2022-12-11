@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-11-22 15:08:02
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-12-02 03:22:33
+ * @LastEditTime: 2022-12-11 22:25:15
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -66,7 +66,7 @@ class _FinancialReasonViewState extends State<FinancialReasonView> {
                   snapshot.data!.map((e) => e.reason).toList();
               return CustomChoiceChip(
                 enableAdd: true,
-                backgroundColor: const Color(0xFF336699),
+                selectedColor: const Color(0xFF336699),
                 dataList: dataList,
                 onSelect: (i) {
                   context.read<GlobalDO>().reason = dataList[i];
@@ -164,11 +164,18 @@ class _FinancialReasonViewState extends State<FinancialReasonView> {
                                 controller.clear();
                               });
                             },
-                            child: const Text(
-                              "√",
-                              style:
-                                  TextStyle(fontSize: 28, color: Colors.black),
-                            )))),
+                            child: 
+                            ChoiceChip(label: showAddReason
+                                        ? Text("确认")
+                                        :Text(""), selected: true, selectedColor: Color(0xFFFFFFFF),side:BorderSide(color: showAddReason
+                                        ? Color(0xFF000000)
+                                        :Colors.white))
+                            // const Text(
+                            //   "√",
+                            //   style:
+                            //       TextStyle(fontSize: 28, color: Colors.black),
+                            // )
+                            ))),
                 Expanded(
                     flex: 1,
                     child: SizedBox(
@@ -184,9 +191,15 @@ class _FinancialReasonViewState extends State<FinancialReasonView> {
                                 controller.clear();
                               });
                             },
-                            child: const Text("X",
-                                style: TextStyle(
-                                    fontSize: 28, color: Colors.black)))))
+                            child:ChoiceChip(label: showAddReason
+                                        ? Text("取消")
+                                        :Text(""), selected: true, selectedColor: Color(0xFFFFFFFF),side:BorderSide(color: showAddReason
+                                        ? Color(0xFF000000)
+                                        :Colors.white))
+                            //  const Text("X",
+                            //     style: TextStyle(
+                            //         fontSize: 28, color: Colors.black))
+                                    )))
               ])))
     ]);
   }

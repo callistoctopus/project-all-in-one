@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-11-02 15:26:48
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-12-10 19:16:53
+ * @LastEditTime: 2022-12-11 22:36:18
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -15,7 +15,8 @@ class CustomChoiceChip extends StatefulWidget {
       required this.dataList,
       required this.onSelect,
       this.defaultSelect,
-      this.backgroundColor = Colors.lightBlue,
+      this.selectedColor = const Color(0xFF619ac3),
+      this.backgroundColor = const Color(0xFFFFFFFF),
       this.enableAdd = false,
       this.onAdd,
       this.direction,
@@ -25,7 +26,8 @@ class CustomChoiceChip extends StatefulWidget {
   final Function(int) onSelect;
   final Function(int) onLongPress;
   void Function()? onAdd;
-  Color backgroundColor = Colors.lightBlue;
+  Color selectedColor;
+  Color backgroundColor;
   bool enableAdd;
   int? defaultSelect = 0;
   Axis? direction;
@@ -57,12 +59,12 @@ class _CustomChoiceChipState extends State<CustomChoiceChip>
                         setState(() {});
                       },
                       child: ChoiceChip(
-                        backgroundColor: Colors.white,
+                        backgroundColor: widget.backgroundColor,
                         shadowColor: Colors.white,
-                        selectedShadowColor: widget.backgroundColor,
-                        selectedColor: widget.backgroundColor,
+                        selectedShadowColor: widget.selectedColor,
+                        selectedColor: widget.selectedColor,
                         surfaceTintColor: widget.defaultSelect == index
-                            ? widget.backgroundColor
+                            ? widget.selectedColor
                             : Colors.white,
                         side: index == widget.dataList.length - 1 &&
                                 widget.enableAdd
@@ -70,12 +72,12 @@ class _CustomChoiceChipState extends State<CustomChoiceChip>
                                 width: 0, color: Colors.blueAccent)
                             : widget.defaultSelect == index
                                 ? BorderSide(
-                                    width: 0, color: widget.backgroundColor)
+                                    width: 0, color: widget.selectedColor)
                                 : const BorderSide(
-                                    width: 0, color: Colors.grey),
+                                    width: 0, color: Color(0xFF8a988e)),
                         label: Text(
                           widget.dataList[index],
-                          style: const TextStyle(fontSize: 16),
+                          style: widget.defaultSelect == index ? const TextStyle(fontSize: 16,color: Color(0xFFFFFFFF)) : const TextStyle(fontSize: 16,color: Color(0xFF8a988e)),
                         ),
                         selected: widget.defaultSelect == index,
                         labelStyle: index == widget.dataList.length - 1 &&
