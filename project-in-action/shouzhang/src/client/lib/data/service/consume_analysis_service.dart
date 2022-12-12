@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-11-26 04:42:27
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-12-02 03:43:54
+ * @LastEditTime: 2022-12-12 22:07:49
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -23,6 +23,37 @@ class ConsumeAnalysisService {
             bill.time.year == (CommonUtils.now().year) &&
             bill.time.month == (CommonUtils.now().month) &&
             bill.time.day == (CommonUtils.now().day)) {
+          ret += bill.amount;
+        }
+      }
+    });
+
+    return ret;
+  }
+
+  Future<double> getCurrentMonthTotalCunsume() async {
+    double ret = 0.0;
+    Future<List<Bill>> billList = ConsumeDao.futureListBill();
+    await billList.then((value) {
+      for (Bill bill in value) {
+        if (bill.type == 0 &&
+            bill.time.year == (CommonUtils.now().year) &&
+            bill.time.month == (CommonUtils.now().month)) {
+          ret += bill.amount;
+        }
+      }
+    });
+
+    return ret;
+  }
+
+  Future<double> getCurrentYearTotalCunsume() async {
+    double ret = 0.0;
+    Future<List<Bill>> billList = ConsumeDao.futureListBill();
+    await billList.then((value) {
+      for (Bill bill in value) {
+        if (bill.type == 0 &&
+            bill.time.year == (CommonUtils.now().year)) {
           ret += bill.amount;
         }
       }

@@ -2,25 +2,25 @@
  * @Author: gui-qi
  * @Date: 2022-11-09 12:54:29
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-12-12 06:37:32
+ * @LastEditTime: 2022-12-12 20:48:43
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
  */
 import 'package:client/data/dao/setting_dao.dart';
 import 'package:client/develop/dev_sample_page.dart';
-import 'package:client/page/view/edit/edit_asset_page.dart';
-import 'package:client/page/view/edit/edit_auto_consume_page.dart';
-import 'package:client/page/view/edit/edit_budget_page.dart';
-import 'package:client/page/view/edit/edit_target_page.dart';
-import 'package:client/page/view/show/auto_consume_list_page.dart';
-import 'package:client/page/view/show/budget_list_page.dart';
-import 'package:client/page/view/show/target_list_page.dart';
-import 'package:client/page/view/edit/edit_account_page.dart';
-import 'package:client/page/view/edit/edit_bill_page.dart';
+import 'package:client/page/view/edit/view_edit_account_page.dart';
+import 'package:client/page/view/edit/view_edit_asset_page.dart';
+import 'package:client/page/view/edit/view_edit_auto_consume_page.dart';
+import 'package:client/page/view/edit/view_edit_bill_page.dart';
+import 'package:client/page/view/edit/view_edit_budget_page.dart';
+import 'package:client/page/view/edit/view_edit_target_page.dart';
 import 'package:client/page/page_login.dart';
-import 'package:client/page/view/show/bill_list_page.dart';
 import 'package:client/page/page_home.dart';
+import 'package:client/page/view/show/view_show_auto_consume_list.dart';
+import 'package:client/page/view/show/view_show_bill_list.dart';
+import 'package:client/page/view/show/view_show_budget_list.dart';
+import 'package:client/page/view/show/view_show_target_list.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 

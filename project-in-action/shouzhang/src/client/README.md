@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-29 03:31:37
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-12-01 10:01:07
+ * @LastEditTime: 2022-12-12 21:41:33
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -56,6 +56,7 @@ flutter pub add provider
 flutter pub add hive
 flutter pub add hive_flutter
 flutter pub add json_annotation
+
 flutter pub add fl_chart
 flutter pub add syncfusion_flutter_charts
 flutter pub add syncfusion_flutter_gauges

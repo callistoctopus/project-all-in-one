@@ -8,10 +8,10 @@
  * Copyright (c) 2022, All Rights Reserved. 
  */
 import 'package:client/data/listenable/global_do.dart';
-import 'package:client/page/view/home/view_analysis.dart';
-import 'package:client/page/view/home/view_asset.dart';
-import 'package:client/page/view/home/view_budget.dart';
-import 'package:client/page/view/home/view_consume.dart';
+import 'package:client/page/view/home/view_home_analysis.dart';
+import 'package:client/page/view/home/view_home_asset.dart';
+import 'package:client/page/view/home/view_home_budget.dart';
+import 'package:client/page/view/home/view_home_consume.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-11-14 14:25:28
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-30 14:40:47
+ * @LastEditTime: 2022-12-12 22:10:01
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -69,6 +69,42 @@ class BudgetDao {
         double todayBudget = 0.0;
         if (element.duration == 0) {
           todayBudget = element.budget / 356;
+        }
+        todayTotalBudget += todayBudget;
+      }
+    });
+
+    return todayTotalBudget;
+  }
+
+  static Future<double> getCurrentMonthBudget() async {
+    double todayTotalBudget = 0.0;
+    List<String?> userList = AccountUserDao.getSharedUser();
+    Hive.box<Budget>(TABLE.budget).values.forEach((element) {
+      if (userList.contains(element.user) &&
+          element.year == SettingDao.budgetYear().toString() &&
+          element.isDeleted == 0) {
+        double todayBudget = 0.0;
+        if (element.duration == 0) {
+          todayBudget = element.budget / 12;
+        }
+        todayTotalBudget += todayBudget;
+      }
+    });
+
+    return todayTotalBudget;
+  }
+
+  static Future<double> getCurrentYearBudget() async {
+    double todayTotalBudget = 0.0;
+    List<String?> userList = AccountUserDao.getSharedUser();
+    Hive.box<Budget>(TABLE.budget).values.forEach((element) {
+      if (userList.contains(element.user) &&
+          element.year == SettingDao.budgetYear().toString() &&
+          element.isDeleted == 0) {
+        double todayBudget = 0.0;
+        if (element.duration == 0) {
+          todayBudget = element.budget ;
         }
         todayTotalBudget += todayBudget;
       }
