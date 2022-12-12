@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-10-26 15:06:57
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-12-08 23:27:31
+ * @LastEditTime: 2022-12-12 06:36:33
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -15,18 +15,18 @@ import 'package:client/units/common_const.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-class LoginPage extends StatefulWidget {
-  LoginPage({super.key});
+class PageLogin extends StatefulWidget {
+  PageLogin({super.key});
 
+  @override
+  State<PageLogin> createState() => _PageLoginState();
+}
+
+class _PageLoginState extends State<PageLogin> {
   String user = "";
   String password = "";
   bool isLoginPage = true;
 
-  @override
-  State<LoginPage> createState() => _LoginPageState();
-}
-
-class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -36,23 +36,23 @@ class _LoginPageState extends State<LoginPage> {
         const Text("丫丫记账", style: TextStyle(fontSize: 55,color: Color(0xFFa61b29)),),
         const SizedBox(height: 20,),
         _VIEW().user((text) {
-          widget.user = text;
+          user = text;
         }),
         _VIEW().password((text) {
-          widget.password = text;
+          password = text;
         }),
-        if (!widget.isLoginPage)
+        if (!isLoginPage)
           _VIEW().repeat((text) {
-            widget.password = text;
+            password = text;
           }),
-        if (widget.isLoginPage)
+        if (isLoginPage)
           _VIEW().autoLogin(() {
             setState(() {});
           }),
-        if (widget.isLoginPage)
+        if (isLoginPage)
           _VIEW().login(() async {
             SettingDao.setOfflineMode(false);
-            await HttpService.login(widget.user, widget.password);
+            await HttpService.login(user, password);
             if (SettingDao.isLogined()) {
               HttpService.syncData();
               context.go(ROUTE.HOME);
@@ -62,28 +62,28 @@ class _LoginPageState extends State<LoginPage> {
               setState(() {});
             }
           }),
-        if (widget.isLoginPage)
+        if (isLoginPage)
           _VIEW().siginBtn(() {
-            widget.isLoginPage = false;
+            isLoginPage = false;
             setState(() {});
           }),
-        if (widget.isLoginPage && SettingDao.isOfflineMode())
+        if (isLoginPage && SettingDao.isOfflineMode())
           _VIEW().offline(() {
             context.go(ROUTE.HOME);
           }),
-        if (!widget.isLoginPage)
+        if (!isLoginPage)
           _VIEW().signin(() async {
             SettingDao.setOfflineMode(false);
-            await HttpService.sigin(widget.user, widget.password);
+            await HttpService.sigin(user, password);
             if (SettingDao.isLogined()) {
               context.go(ROUTE.HOME);
             } else {
               CustomSnackBar().show(context, "好像哪里出了问题");
             }
           }),
-        if (!widget.isLoginPage)
+        if (!isLoginPage)
           _VIEW().back(() {
-            widget.isLoginPage = true;
+            isLoginPage = true;
             setState(() {});
           }),
       ],

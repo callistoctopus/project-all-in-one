@@ -2,29 +2,29 @@
  * @Author: gui-qi
  * @Date: 2022-10-29 01:37:32
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-12-10 20:22:34
+ * @LastEditTime: 2022-12-12 06:41:46
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
  */
 import 'package:client/data/listenable/global_do.dart';
-import 'package:client/page/view/home/analysis.dart';
-import 'package:client/page/view/home/asset.dart';
-import 'package:client/page/view/home/budget.dart';
-import 'package:client/page/view/home/consume.dart';
+import 'package:client/page/view/home/view_analysis.dart';
+import 'package:client/page/view/home/view_asset.dart';
+import 'package:client/page/view/home/view_budget.dart';
+import 'package:client/page/view/home/view_consume.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+class PageHome extends StatefulWidget {
+  const PageHome({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<PageHome> createState() => _PageHomeState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _PageHomeState extends State<PageHome> {
   static final List<Widget> _widgetOptions = <Widget>[
-    const ConsumePage(),
+    const ViewConsume(),
     const BudgetPage(),
     const AssetsPage(),
     const AnalysisPage(),

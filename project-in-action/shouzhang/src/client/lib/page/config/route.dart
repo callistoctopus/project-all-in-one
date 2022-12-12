@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-11-09 12:54:29
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-12-09 21:15:39
+ * @LastEditTime: 2022-12-12 06:37:32
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -18,9 +18,9 @@ import 'package:client/page/view/show/budget_list_page.dart';
 import 'package:client/page/view/show/target_list_page.dart';
 import 'package:client/page/view/edit/edit_account_page.dart';
 import 'package:client/page/view/edit/edit_bill_page.dart';
-import 'package:client/page/home_page.dart';
+import 'package:client/page/page_login.dart';
 import 'package:client/page/view/show/bill_list_page.dart';
-import 'package:client/page/login_page.dart';
+import 'package:client/page/page_home.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -31,17 +31,17 @@ class RouteConfig {
         GoRoute(
           path: ROUTE.HOME,
           builder: (BuildContext context, GoRouterState state) {
-            return const Scaffold(body: HomePage());
+            return const Scaffold(body: PageHome());
           },
         ),
         GoRoute(
           path: ROUTE.LOGIN,
           builder: (BuildContext context, GoRouterState state) {
             if (SettingDao.isLogined() || SettingDao.isOfflineMode()) {
-              return const Scaffold(body: HomePage());
+              return const Scaffold(body: PageHome());
             }
             return Scaffold(
-              backgroundColor:const Color(0xFFe2e7bf),body: LoginPage());
+              backgroundColor:const Color(0xFFe2e7bf),body: PageLogin());
           },
         ),
         GoRoute(

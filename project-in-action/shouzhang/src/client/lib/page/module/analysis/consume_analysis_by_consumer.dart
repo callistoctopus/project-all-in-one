@@ -2,7 +2,7 @@
  * @Author: gui-qi
  * @Date: 2022-11-17 08:06:58
  * @LastEditors: gui-qi
- * @LastEditTime: 2022-11-28 14:59:02
+ * @LastEditTime: 2022-12-12 07:03:28
  * @Description: 
  * 
  * Copyright (c) 2022, All Rights Reserved. 
@@ -11,7 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 class ChartApp extends StatefulWidget {
-  ChartApp({Key? key}) : super(key: key);
+  const ChartApp({Key? key}) : super(key: key);
 
   @override
   _MyHomePageState createState() => _MyHomePageState();
@@ -36,12 +36,17 @@ class _MyHomePageState extends State<ChartApp> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: SfCartesianChart(
+          plotAreaBorderColor:Colors.red,
+          plotAreaBorderWidth:0,
             primaryXAxis: CategoryAxis(),
             primaryYAxis: NumericAxis(minimum: 0, maximum: 40, interval: 10),
             tooltipBehavior: _tooltip,
             series: <ChartSeries<_ChartData, String>>[
               BarSeries<_ChartData, String>(
+                // trackBorderWidth:0,
+                borderWidth:0,
                   dataSource: data,
+                  width: 0.2,
                   xValueMapper: (_ChartData data, _) => data.x,
                   yValueMapper: (_ChartData data, _) => data.y,
                   dataLabelMapper:(_ChartData data, _) => data.y.toString(),
