@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+  <environments default="development">
+    <environment id="development">
+      <transactionManager type="JDBC"/>
+      <dataSource type="POOLED">
+        <property name="driver" value="com.mysql.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql://139.224.11.164:3306/zhangben"/>
+        <property name="username" value="user"/>
+        <property name="password" value="pass"/>
+      </dataSource>
+    </environment>
+  </environments>
+  <mappers>
+    <!-- <package name="com.callistoctopus.springbootweb.dao.xml"/> -->
+    <mapper resource="com/callistoctopus/springbootweb/dao/xml/UserMapper.xml"/>
+    <mapper resource="com/callistoctopus/springbootweb/dao/xml/BillMapper.xml"/>
+    <mapper resource="com/callistoctopus/springbootweb/dao/xml/BudgetMapper.xml"/>
+    <mapper resource="com/callistoctopus/springbootweb/dao/xml/FinancialReasonMapper.xml"/>
+    <mapper resource="com/callistoctopus/springbootweb/dao/xml/AccountMapper.xml"/>
+    <mapper resource="com/callistoctopus/springbootweb/dao/xml/AccountUserMapper.xml"/>
+  </mappers>
+</configuration>

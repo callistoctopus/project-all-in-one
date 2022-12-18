@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.callistoctopus.springbootweb.dao.mapper.BudgetMapper">
+
+  <select id="check" resultType="int">
+    select
+      count(*) 
+    from
+      budget b  
+    where
+      b.id = #{id}
+  </select>
+
+  <select id="select" resultType="com.callistoctopus.springbootweb.dao.model.Budget">
+    select
+      b.id,
+      b.user,
+      b.year,
+      b.reason,
+      b.type,
+      0 as duration,
+      b.budget,
+      b.note,
+      b.is_deleted as isDeleted,
+      b.update_time as updateTime
+    from
+      budget b 
+    inner join
+        (
+          select
+            au2.id,
+            au2.user,
+            au2.account,
+            au2.state,
+            au2.is_deleted as isDeleted,
+            au2.update_time as updateTime
+          from
+            account_user au
+          left join account_user au2
+            on
+            au.account = au2.account
+          where
+            au.user = #{arg0}) c 
+              on
+          b.user = c.user
+    where
+      b.update_time > #{arg1}
+	    <![CDATA[ and b.update_time < #{arg2}]]>
+    group by
+        b.id
+  </select>
+
+  <insert id="insert" parameterType="com.callistoctopus.springbootweb.dao.model.Budget">
+  insert into budget (id,user,year,reason,type,budget,note,is_deleted,update_time)
+  values (#{id},#{user},#{year},#{reason},#{type},#{budget},#{note},#{isDeleted},#{updateTime})
+  </insert>
+
+  <update id="update" parameterType="com.callistoctopus.springbootweb.dao.model.Budget">
+  update budget set user=#{user},year=#{year},reason=#{reason},type=#{type},budget=#{budget},note=#{note},is_deleted=#{isDeleted},update_time=#{updateTime} where id = #{id}
+  </update>
+
+</mapper>

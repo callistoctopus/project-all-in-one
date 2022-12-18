@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.callistoctopus.springbootweb.dao.mapper.FinancialReasonMapper">
+
+  <select id="check" resultType="int">
+    select
+      count(*) 
+    from
+      financial_reason f  
+    where
+      f.id = #{id}
+  </select>
+
+  <select id="select" resultType="com.callistoctopus.springbootweb.dao.model.FinancialReason">
+    select
+      f.id,
+      f.user,
+      f.reason,
+      f.type,
+      f.note,
+      0 as category,
+      f.is_deleted as isDeleted,
+      f.update_time as updateTime
+    from
+      financial_reason f 
+    inner join
+        (
+          select
+            au2.id,
+            au2.user,
+            au2.account,
+            au2.state,
+            au2.is_deleted as isDeleted,
+            au2.update_time as updateTime
+          from
+            account_user au
+          left join account_user au2
+            on
+            au.account = au2.account
+          where
+            au.user = #{arg0}) c 
+              on
+          f.user = c.user
+    where
+      f.update_time > #{arg1}
+	    <![CDATA[ and f.update_time < #{arg2}]]>
+    group by
+      f.id
+  </select>
+
+  <insert id="insert" parameterType="com.callistoctopus.springbootweb.dao.model.FinancialReason">
+  insert into financial_reason (id,user,reason,type,note,is_deleted,update_time)
+  values (#{id},#{user},#{reason},#{type},#{note},#{isDeleted},#{updateTime})
+  </insert>
+
+  <update id="update" parameterType="com.callistoctopus.springbootweb.dao.model.FinancialReason">
+  update financial_reason set user=#{user},reason=#{reason},type=#{type},note=#{note},is_deleted=#{isDeleted},update_time=#{updateTime} where id = #{id}
+  </update>
+
+</mapper>
